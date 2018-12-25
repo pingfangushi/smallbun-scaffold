@@ -1,0 +1,100 @@
+<!--
+  ~ /*
+  ~  * Copyright(c)[2018] [smallbun] www.smallbun.org
+  ~  *
+  ~  * Licensed under the Apache License, Version 2.0 (the "License");
+  ~  * you may not use this file except in compliance with the License.
+  ~  * You may obtain a copy of the License at
+  ~  *
+  ~  *     http://www.apache.org/licenses/LICENSE-2.0
+  ~  *
+  ~  * Unless required by applicable law or agreed to in writing, software
+  ~  * distributed under the License is distributed on an "AS IS" BASIS,
+  ~  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  * See the License for the specific language governing permissions and
+  ~  * limitations under the License.
+  ~  */
+  -->
+
+<!--suppress ALL-->
+<!--主标题-->
+<header class="main-header">
+    <a href="" class="logo">
+        <span class="logo-mini">Bun</span>
+        <span class="logo-lg" style="font-size: 18px" th:text="${title}"></span>
+    </a>
+    <nav class="navbar navbar-static-top">
+        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+            <span class="sr-only">切换导航</span>
+        </a>
+        <div class="navbar-custom-menu">
+            <ul class="dropdown nav navbar-nav">
+                <li style="padding-top: 10px;padding-right: -10px">
+                    <div id="tp-weather-widget"></div>
+                </li>
+                <li class="dropdown messages-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="label label-success">4</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header">你有4条提醒</li>
+                        <li>
+                            <ul class="menu">
+                                <li>
+                                    <a href="#">
+                                        <div class="pull-left">
+                                            <img src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.8/img/user8-128x128.jpg"
+                                                 class="img-circle"
+                                                 alt="User Image">
+                                        </div>
+                                        <h4>
+                                            新用户注册
+                                            <small><i class="fa fa-clock-o"></i> 现在</small>
+                                        </h4>
+                                        <p>新用户注册!</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="footer"><a href="#">查看所有提醒</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle user-menu" data-toggle="dropdown">
+                        <span sec:authentication="name"></span>
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#" onclick="profile()" data-index="0"><i
+                                    class="fa fa-user"></i>&nbsp;&nbsp;<span>个人资料</span></a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="" data-index="1"><i
+                                    class="ace-icon fa fa-lock"></i>&nbsp;&nbsp;<span>更换密码</span></a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#" download="企客CRM软件用户操作手册.pdf"><i class="ace-icon fa fa-check-circle"></i>&nbsp;&nbsp;<span>看谁在线</span></a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="" download=""><i
+                                    class="fa fa-question-circle"></i>&nbsp;&nbsp;<span>帮助手册</span></a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a th:href="@{/logout}" data-index="2"><i
+                                    class="ace-icon fa fa-power-off"></i>&nbsp;&nbsp;<span>安全退出</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>

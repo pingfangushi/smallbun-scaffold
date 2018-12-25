@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      auto-commit: true
+      connection-test-query: SELECT 1
+      connection-timeout: 30000
+      idle-timeout: 30000
+      max-lifetime: 1800000
+      maximum-pool-size: 15
+      minimum-idle: 5
+      pool-name: DatebookHikariCP
+    password: zqg@199866
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://cdb-2ipogt4w.cd.tencentcdb.com:10008/jeedance?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false
+    username: root
+
+

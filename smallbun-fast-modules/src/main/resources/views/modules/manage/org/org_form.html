@@ -1,0 +1,275 @@
+<!--
+  ~ /*
+  ~  * Copyright(c)[2018] [smallbun] www.smallbun.org
+  ~  *
+  ~  * Licensed under the Apache License, Version 2.0 (the "License");
+  ~  * you may not use this file except in compliance with the License.
+  ~  * You may obtain a copy of the License at
+  ~  *
+  ~  *     http://www.apache.org/licenses/LICENSE-2.0
+  ~  *
+  ~  * Unless required by applicable law or agreed to in writing, software
+  ~  * distributed under the License is distributed on an "AS IS" BASIS,
+  ~  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  * See the License for the specific language governing permissions and
+  ~  * limitations under the License.
+  ~  */
+  -->
+
+<!DOCTYPE HTML>
+
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org"
+      xmlns:smallbun="http://www.smallbun.org">
+
+<head>
+    <head>
+        <div th:include="fragments/include  :: header('添加部门和机构')"></div>
+    </head>
+</head>
+<body class="list-body">
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>机构添加</h5>
+                </div>
+                <div class="ibox-content">
+                    <!-- 0:隐藏tip, 1隐藏box,不设置显示全部 -->
+                    <form id="inputForm" class="form-horizontal" th:action="@{/}" method="post"
+                          novalidate="novalidate">
+                        <input id="id" name="id" type="hidden" value="">
+                        <h4 class="page-header h4">基本信息</h4>
+                        <div class="row">
+                            <div class="col-sm-6">
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">上级机构</label>
+                                    <div class="col-sm-8">
+                                        <smallbun:tree-select
+                                                id="organizationId" name="organization.id"
+                                                labelId="organizationName"
+                                                disabled="false"
+                                                labelName="parent.name"
+                                                title="机构选择"
+                                                url="tree?selectNodes=&chkboxType=ps&multiSelect=false&url=dept/list">
+                                        </smallbun:tree-select>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">是否可用</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control select2" style="margin: 0px;">
+                                            <option selected="selected">是</option>
+                                            <option>否</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label"><font color="red">*</font>机构名称</label>
+                                    <div class="col-sm-8">
+                                        <input id="name" name="name" class="form-control required" type="text" value=""
+                                               maxlength="50" aria-required="true">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">机构编码</label>
+                                    <div class="col-sm-8">
+                                        <input id="code" name="code" class="form-control" type="text" value=""
+                                               maxlength="50">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label"><font color="red">*</font>机构类型</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control select2">
+                                            <option>公司</option>
+                                            <option>部门</option>
+                                            <option>小组</option>
+                                            <option>其他</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 ">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">机构级别</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control select2">
+                                            <option>一级</option>
+                                            <option>二级</option>
+                                            <option>三级</option>
+                                            <option>四级</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="page-header h4">负责人信息</h4>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">负责人</label>
+                                    <div class="col-sm-8">
+                                        <smallbun:tree-select
+                                                id="user" name="user.id"
+                                                labelId="3333"
+                                                disabled="false"
+                                                labelName="parent.name"
+                                                title="机构选择"
+                                                url="tree?selectNodes=&chkboxType=ps&multiSelect=false&url=dept/list">
+                                        </smallbun:tree-select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">副负责人</label>
+                                    <div class="col-sm-8">
+                                        <smallbun:tree-select
+                                                id="userId" name="user.id"
+                                                labelId="2222"
+                                                disabled="false"
+                                                labelName="parent.name"
+                                                title="机构选择"
+                                                url="tree?selectNodes=&chkboxType=ps&multiSelect=false&url=dept/list">
+                                        </smallbun:tree-select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">电话</label>
+                                    <div class="col-sm-8">
+                                        <input id="phone" name="phone" class="form-control" type="text" value=""
+                                               maxlength="50">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">传真</label>
+                                    <div class="col-sm-8">
+                                        <input id="zipCode" name="zipCode" class="form-control" type="text" value=""
+                                               maxlength="50">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">邮箱</label>
+                                    <div class="col-sm-8">
+                                        <input id="phone" name="phone" class="form-control" type="text" value=""
+                                               maxlength="50">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="page-header h4">地址信息</h4>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">地址</label>
+                                    <div class="col-sm-8">
+                                        <input id="address" name="address" class="form-control" type="text" value=""
+                                               maxlength="50">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">地图标注</label>
+                                    <div class="col-sm-8">
+                                        <smallbun:tree-select
+                                                id="map" name="map"
+                                                labelId="111"
+                                                disabled="false"
+                                                labelName="parent.name"
+                                                title="机构选择"
+                                                url="tree?selectNodes=&chkboxType=ps&multiSelect=false&url=dept/list">
+                                        </smallbun:tree-select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label"><font color="red">*</font>归属区域</label>
+                                    <div class="col-sm-8">
+                                        <smallbun:tree-select
+                                                id="organizationId" name="organization.id"
+                                                labelId="666"
+                                                disabled="false"
+                                                labelName="parent.name"
+                                                title="机构选择"
+                                                url="tree?selectNodes=&chkboxType=ps&multiSelect=false&url=dept/list">
+                                        </smallbun:tree-select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">邮政编码</label>
+                                    <div class="col-sm-8">
+                                        <input id="code" name="code" class="form-control" type="text" value=""
+                                               maxlength="50">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="page-header h4 ">其他信息</h4>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">备注</label>
+                                    <div class="col-sm-10">
+                                        <textarea id="remarks" name="remarks" maxlength="50" class="form-control"
+                                                  rows="4"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button id="btnSubmit" class="btn btn-primary" type="submit">保存</button>&nbsp;
+                                        <button id="btnCancel" class="btn btn-white" type="button"
+                                                onclick="parent.closeCurrentTab()">返回
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+<div th:include="fragments/include :: include-js"></div>
+<script th:src="@{/static/modules/manage/js/sys/org/org_form.js}"></script>
+</html>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.smallbun.fast.manage.role.dao.SysRoleOrgMapper">
+
+    <resultMap type="org.smallbun.fast.manage.role.entity.SysRoleOrgEntity" id="RoleOrgMap">
+        <!--查询菜单-->
+        <association property="org" column="org_id" fetchType="eager"
+                     select="org.smallbun.fast.manage.org.dao.SysOrgMapper.selectById"/><!--查询菜单-->
+        <association property="role" column="role_id" fetchType="eager"
+                     select="org.smallbun.fast.manage.role.dao.SysRoleMapper.selectById"/>
+    </resultMap>
+    <!--根据角色ID获取记录-->
+    <select id="findByRoleId" resultMap="RoleOrgMap">
+        select * from sys_role_org where role_id=#{role.id}
+    </select>
+</mapper>

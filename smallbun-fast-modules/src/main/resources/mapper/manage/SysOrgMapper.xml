@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.smallbun.fast.manage.org.dao.SysOrgMapper">
+    <resultMap id="OrgResultMap" type="org.smallbun.fast.manage.org.entity.SysOrgEntity">
+        <id column="id" property="id"/>
+        <id column="parent_id" property="parentId"/>
+        <id column="org_name" property="orgName"/>
+        <id column="org_status" property="orgStatus"/>
+    </resultMap>
+    <select id="findByRoleId" resultMap="OrgResultMap">
+        select *
+        from sys_org a
+               inner join sys_role_org b on b.org_id = a.id
+               inner join sys_role c on c.id = b.role_id
+        where c.id=#{id} and a.is_deleted=0 and c.is_deleted=0
+    </select>
+</mapper>

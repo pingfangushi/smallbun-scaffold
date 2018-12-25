@@ -1,0 +1,66 @@
+<!--
+  ~
+  ~ Copyright(c)[2018] [smallbun] www.smallbun.org
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+
+<!DOCTYPE HTML>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="fragments/include  :: header('部门管理')"></div>
+    <!--放到header.html会和主页tab样式冲突-->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap-table/1.12.2/dist/bootstrap-table.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/jquery-treegrid/0.3.0/css/jquery.treegrid.css}">
+</head>
+
+<body class="list-body">
+<section class="content">
+    <div class="ibox">
+        <!--盒子标题-->
+        <div class="ibox-title dashboard-header gray-bg">
+            <h5>部门管理</h5>
+            <div class="pull-right">
+                <div class="pull-left">
+                    <!--/*/  <th:block sec:authorize="hasAuthority('manage:menu:add')">/*/-->
+                    <button type="button" class="btn btn-sm  ibtn-info"
+                            onclick="$.operate.add()">
+                        <i class="fa fa-plus"></i>&nbsp;添加
+                    </button>
+                    <!--/*/     </th:block>/*/-->
+                    <!--/*/    <th:block sec:authorize="hasAuthority('manage:menu:edit')">/*/-->
+                    <button type="button" class="btn btn-sm bg-orange"
+                            onclick="edit('修改','modules/sys/menu/edit.html','800px','500px')">
+                        <i class="fa fa-file-text-o"></i>&nbsp;修改
+                    </button>
+                    <!--/*/     </th:block>/*/-->
+                    <!--/*/      <th:block sec:authorize="hasAuthority('manage:menu:del')">/*/-->
+                    <button type="button" class="btn btn-sm  bg-maroon"
+                            onclick="del('删除','#')"><i
+                            class="fa fa-trash-o"></i>&nbsp;删除
+                    </button>
+                    <!--/*/     </th:block>/*/-->
+                </div>
+            </div>
+        </div>
+        <!--盒子内容-->
+        <div class="ibox-content-tree-table">
+            <table id="table" class="table table-bordered"></table>
+        </div>
+    </div>
+</section>
+</body>
+<div th:include="fragments/include :: include-js"></div>
+<script th:src="@{/static/modules/manage/js/sys/org/org_list.js}"></script>
+</html>

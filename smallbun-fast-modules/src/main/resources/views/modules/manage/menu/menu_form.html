@@ -1,0 +1,258 @@
+<!--
+  ~ /*
+  ~  * Copyright(c)[2018] [smallbun] www.smallbun.org
+  ~  *
+  ~  * Licensed under the Apache License, Version 2.0 (the "License");
+  ~  * you may not use this file except in compliance with the License.
+  ~  * You may obtain a copy of the License at
+  ~  *
+  ~  *     http://www.apache.org/licenses/LICENSE-2.0
+  ~  *
+  ~  * Unless required by applicable law or agreed to in writing, software
+  ~  * distributed under the License is distributed on an "AS IS" BASIS,
+  ~  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  * See the License for the specific language governing permissions and
+  ~  * limitations under the License.
+  ~  */
+  -->
+
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org"
+>
+    <head>
+        <head>
+            <div th:include="fragments/include  :: header('添加')"></div>
+            <!--放到header.html会和主页tab样式冲突-->
+            <link rel="stylesheet"
+                  href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.12.1/dist/bootstrap-table.min.css"/>
+            <link rel="stylesheet"
+                  href="https://cdn.jsdelivr.net/npm/jquery-treegrid@0.3.0/css/jquery.treegrid.min.css">
+        </head>
+    </head>
+    <body>
+        <section class="content">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>菜单添加</h5>
+                </div>
+                <div class="ibox-content">
+                    <!-- 0:隐藏tip, 1隐藏box,不设置显示全部 -->
+                    <form id="inputForm" class="form-horizontal" action="/jf/sys/menu/save" method="post"
+                          novalidate="novalidate">
+                        <input id="id" name="id" type="hidden" value="">
+                        <h4 class="page-header">基本信息</h4>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">上级菜单</label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group">
+                                            <input id="menuId" name="parent.id" class="form-control required"
+                                                   type="hidden" value="1" aria-required="true">
+                                            <input type="text" id="menuName" name="parent.name" readonly="readonly"
+                                                   value="功能菜单" data-msg-required="" class="form-control required"
+                                                   style="" aria-required="true">
+                                            <span class="input-group-addon " id="menuButton">
+                                                <i class="fa fa-search"></i>
+                                            </span>
+                                        </div>
+                                        <label id="menuName-error" class="error" for="menuName"
+                                               style="display:none"></label>
+                                        <script type="text/javascript">
+                                            $("#menuButton, #menuName").click(function () {
+                                                // 是否限制选择，如果限制，设置为disabled
+                                                if ($("#menuButton").hasClass("disabled")) {
+                                                    return true;
+                                                }
+                                                // 正常打开
+                                                top.layer.open({
+                                                    type: 2,
+                                                    area: ['300px', '420px'],
+                                                    title: "选择菜单",
+                                                    ajaxData: {selectIds: $("#menuId").val()},
+                                                    content: "/jf/tag/treeselect?url=" + encodeURIComponent("/sys/menu/treeData") + "&module=&checked=&extId=&isAll=",
+                                                    btn: ['确定', '关闭']
+                                                    , yes: function (index, layero) { //或者使用btn1
+                                                        var tree = layero.find("iframe")[0].contentWindow.tree;//h.find("iframe").contents();
+                                                        var ids = [], names = [], nodes = [];
+                                                        if ("" == "true") {
+                                                            nodes = tree.getCheckedNodes(true);
+                                                        } else {
+                                                            nodes = tree.getSelectedNodes();
+                                                        }
+                                                        for (var i = 0; i < nodes.length; i++) {//
+                                                            ids.push(nodes[i].id);
+                                                            names.push(nodes[i].name);//
+                                                            break; // 如果为非复选框选择，则返回第一个选择
+                                                        }
+                                                        $("#menuId").val(ids.join(",").replace(/u_/ig, ""));
+                                                        $("#menuName").val(names.join(","));
+                                                        $("#menuName").focus();
+                                                        top.layer.close(index);
+                                                    },
+                                                    cancel: function (index) { //或者使用btn2
+                                                        //按钮【按钮二】的回调
+                                                    }
+                                                });
+
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label"><font color="red">*</font>菜单名称
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input id="name" name="name" class="required form-control " type="text" value=""
+                                               maxlength="50" aria-required="true">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">菜单链接</label>
+                                    <div class="col-sm-8">
+                                        <input id="href" name="href" class="form-control " type="text" value=""
+                                               maxlength="2000">
+                                        <span class="help-inline">点击菜单跳转的页面</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">菜单目标</label>
+                                    <div class="col-sm-8">
+                                        <input id="target" name="target" class="form-control " type="text" value=""
+                                               maxlength="10">
+                                        <span class="help-inline">链接打开的目标窗口，默认：mainFrame</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">菜单图标</label>
+                                    <div class="col-sm-8">
+
+
+                                        <i id="iconIcon" class="icon- hide"></i>&nbsp;<span id="iconIconLabel">无</span>&nbsp;
+                                        <input id="icon" name="icon" type="hidden" value="">
+                                        <a id="iconButton" href="javascript:" class="btn btn-info">选择</a>&nbsp;&nbsp;
+                                        <input id="iconclear" class="btn btn-default" type="button" value="清除"
+                                               onclick="clear()">
+                                        <script type="text/javascript">
+                                            $("#iconButton").click(function () {
+
+                                                top.layer.open({
+                                                    type: 2,
+                                                    title: "选择图标",
+                                                    area: ['700px', $(top.document).height() - 180 + "px"],
+                                                    content: '/jf/tag/iconselect?value="+$("#icon").val()',
+                                                    btn: ['确定', '关闭'],
+                                                    yes: function (index, layero) { //或者使用btn1
+                                                        var icon = layero.find("iframe")[0].contentWindow.$("#icon").val();
+                                                        $("#iconIcon").attr("class", "fa " + icon);
+                                                        $("#iconIconLabel").text(icon);
+                                                        $("#icon").val(icon);
+                                                        top.layer.close(index);
+                                                    }, cancel: function (index) { //或者使用btn2
+
+                                                    }
+                                                });
+                                            });
+                                            $("#iconclear").click(function () {
+                                                $("#iconIcon").attr("class", "icon- hide");
+                                                $("#iconIconLabel").text("无");
+                                                $("#icon").val("");
+
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">排序</label>
+                                    <div class="col-sm-8">
+                                        <input id="sort" name="sort" class="required digits form-control" type="text"
+                                               value="560" maxlength="11" aria-required="true">
+                                        <span class="help-inline">排列顺序，升序。</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">可见</label>
+                                    <div class="col-sm-8" style="margin-top: 5px;">
+                                        <span>
+                                            <div class="iradio_minimal-blue checked" style="position: relative;">
+                                                <input id="isShow1" name="isShow" class="required i-checks "
+                                                       type="radio" value="1" checked="checked" aria-required="true"
+                                                       style="position: absolute; opacity: 0;">
+                                                <ins class="iCheck-helper"
+                                                     style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                                            </div>
+                                            <label for="isShow1">显示</label>
+                                        </span>
+                                        <span>
+                                            <div class="iradio_minimal-blue" style="position: relative;">
+                                                <input id="isShow2" name="isShow" class="required i-checks "
+                                                       type="radio" value="0" aria-required="true"
+                                                       style="position: absolute; opacity: 0;">
+                                                <ins class="iCheck-helper"
+                                                     style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                                            </div>
+                                            <label for="isShow2" class="">隐藏</label>
+                                        </span>
+                                        <span class="help-inline">该菜单或操作是否显示到系统菜单中</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">权限标识</label>
+                                    <div class="col-sm-8">
+                                        <input id="permission" name="permission" class="form-control " type="text"
+                                               value="" maxlength="100">
+                                        <span class="help-inline">
+                                            控制器中定义的权限标识，如：@RequiresPermissions("权限标识")，多个请用英文“,”隔开
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="page-header">其他信息</h4>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">备注</label>
+                                    <div class="col-sm-10">
+                                        <textarea id="remarks" name="remarks" maxlength="200" class="form-control "
+                                                  rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-actions">
+                            <input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存">&nbsp;
+                            <input id="btnCancel" class="btn btn-white" type="button" value="返 回"
+                                   onclick="history.go(-1)">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </body>
+    <div th:include="fragments/include :: include-js"></div>
+    <script>
+
+    </script>
+</html>

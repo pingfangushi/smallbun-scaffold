@@ -1,0 +1,200 @@
+<!--
+  ~
+  ~ Copyright(c)[2018] [smallbun] www.smallbun.org
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+
+<!DOCTYPE HTML>
+<!--suppress ALL-->
+<html lang="zh-cn"
+      xmlns:th="http://www.thymeleaf.org" xmlns:smallbun="http://www.smallbun.org">
+
+<head>
+    <div th:include="fragments/include  :: header('添加字典值')"></div>
+</head>
+<body class="list-body">
+<section class="i-content">
+    <div class="i-ibox">
+        <div class="ibox-content">
+            <form id="form" class="form-horizontal" th:action="@{/role/saveOrUpdate}" th:object="${role}" method="post">
+                <!--隐藏域id-->
+                <input id="id" name="id" type="hidden" th:field="*{id}">
+                <input id="menusJson" type="hidden" th:field="*{menusJson}">
+                <input id="orgsJson" type="hidden" th:field="*{orgsJson}">
+                <input id="data-scope" type="hidden" th:value="*{dataScope}">
+                <h4 class="page-header h4">基本信息</h4>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"><span style="color: red; ">*</span>角色名称：</label>
+                            <div class="col-sm-8">
+                                <div class="input-group" style="width: 100%">
+                                    <input id="roleName" name="roleName" class="form-control" placeholder="请输入角色名称"
+                                           type="text" th:field="*{roleName}" autocomplete="off"
+                                           maxlength="50" onautocomplete="off" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"><span style="color: red; ">*</span>角色编码：</label>
+                            <div class="col-sm-8">
+                                <div class="input-group" style="width: 100%">
+                                    <input id="enName" name="enName" class="form-control" placeholder="请输入角色编码"
+                                           type="text" th:field="*{enName}" autocomplete="off"
+                                           maxlength="30" onautocomplete="off" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"><span style="color: red; ">*</span>角色类型：</label>
+                            <div class="col-sm-8">
+                                <div class="input-group" style="width: 100%;">
+                                    <select name="roleType" id="roleType" class="form-control select2 required"
+                                            th:with="type=${@smallbun.dict('ROLE_TYPE')}">
+                                        <option value="">请选择角色类型</option>
+                                        <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                                                th:value="${dict.dictValue}" th:field="*{roleType}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"><span style="color: red; ">*</span>是否可用：</label>
+                            <div class="col-sm-8">
+                                <div class="input-group" style="width: 100%;">
+                                    <select name="roleStatus" id="roleStatus" class="form-control select2 required"
+                                            th:with="type=${@smallbun.dict('WHETHER_USEABLE')}" th:field="*{useable}">
+                                        <option value="">请选择是否可用</option>
+                                        <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                                                th:value="${dict.dictValue}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"><span style="color: red; ">*</span>系统数据：</label>
+                            <div class="col-sm-8">
+                                <div class="input-group" style="width: 100%;">
+                                    <label class="label-radio" th:each="dict : ${@smallbun.dict('SYS_DATA')}">
+                                        <input type="radio" class="minimal" th:id="${dict.dictValue}" name="sysData"
+                                               th:value="${dict.dictValue}" required th:field="*{sysData}">
+                                        <label th:for="${dict.dictValue}" th:text="${dict.dictLabel}"></label>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h4 class="page-header h4">权限设置</h4>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">菜单权限：</label>
+                            <div class="col-sm-8">
+                                <div class="box box-solid" style="background:#FAFAFA">
+                                    <div class="box-header" style="padding-top: 5px;padding-bottom: 5px;">
+                                        <div class="box-title">
+                                            <label style="font-size: 14px;font-weight: 400;">
+                                                <input type="checkbox" id="menuCheckAllNodes"
+                                                       class="minimal">主导航菜单
+                                            </label>
+                                        </div>
+                                        <div class="box-tools pull-right" style="top:8px;"><a
+                                                class="btn btn-box-tool" id="expand_default"
+                                                value="menuTree_default" onclick="expandTree('menuTree')">展开</a>/<a
+                                                class="btn btn-box-tool" id="collapse_default"
+                                                value="menuTree_default" onclick="closeTree('menuTree')">折叠</a></div>
+                                    </div>
+                                    <div class="box-body">
+                                        <ul class="ztree" id="menuTree"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"><span style="color: red; ">*</span>数据权限：</label>
+                            <div class="col-sm-8">
+                                <div class="input-group" style="width: 100%;">
+                                    <select name="dataScope" id="dataScope" class="form-control select2 required"
+                                            th:with="type=${@smallbun.dict('DATA_SCOPE')}" th:field="*{dataScope}">
+                                        <option value="">请选择数据权限</option>
+                                        <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                                                th:value="${dict.dictValue}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="org-tree-div" style="display:none">
+                            <label class="col-sm-4 control-label"></label>
+                            <div class="col-sm-8">
+                                <div class="box box-solid" style="background:#FAFAFA">
+                                    <div class="box-header" style="padding-top: 5px;padding-bottom: 5px;">
+                                        <div class="box-title">
+                                            <label style="font-size: 14px;font-weight: 400;">
+                                                <input type="checkbox" id="orgCheckAllNodes"
+                                                       class="minimal">主导航菜单
+                                            </label>
+                                        </div>
+                                        <div class="box-tools pull-right" style="top:8px;"><a
+                                                class="btn btn-box-tool" id="expand_default"
+                                                value="menuTree_default" onclick="expandTree('orgTree')">展开</a>/<a
+                                                class="btn btn-box-tool" id="collapse_default"
+                                                value="menuTree_default" onclick="closeTree('orgTree')">折叠</a></div>
+                                    </div>
+                                    <div class="box-body">
+                                        <ul class="ztree" id="orgTree"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h4 class="page-header h4">其他信息</h4>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">备注信息：</label>
+                            <div class="col-sm-10">
+                                <textarea id="remarks" name="remarks" maxlength="200" class="form-control "
+                                          rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+<div th:include="fragments/include :: include-js"></div>
+<script th:src="@{/static/modules/manage/js/sys/role/role_form.js}"></script>
+</html>

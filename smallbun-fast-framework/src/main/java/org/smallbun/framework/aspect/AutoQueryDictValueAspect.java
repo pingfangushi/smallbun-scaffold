@@ -1,0 +1,92 @@
+package org.smallbun.framework.aspect;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.smallbun.framework.annotation.AutoQueryDictValue;
+import org.smallbun.framework.base.IAutoQueryDictValue;
+import org.smallbun.framework.result.PageableResult;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
+
+import java.util.List;
+
+/**
+ * 自动注入字典值
+ * @author SanLi
+ * Created by 2689170096@qq.com on 2018/12/16 0:11
+ */
+@Slf4j
+@Order(value = 1)
+@Aspect
+@Component
+public class AutoQueryDictValueAspect {
+	@Autowired
+	public AutoQueryDictValueAspect(IAutoQueryDictValue iAutoQueryDictValue) {
+		this.iAutoQueryDictValue = iAutoQueryDictValue;
+	}
+
+	/**
+	 * 切面方法返回结果实体 | 集合内对象是否存在@ColumnDesc注解配置
+	 * 如果存在，根据对应的配置查询出描述值
+	 *
+	 * @param proceedingJoinPoint 切面方法实例
+	 * @param autoQueryDictValue 切面注解实例
+	 * @return
+	 * @throws Throwable
+	 */
+	@Around("@annotation(autoQueryDictValue)")
+	public Object autoQueryColumnDesc(ProceedingJoinPoint proceedingJoinPoint, AutoQueryDictValue autoQueryDictValue)
+			throws Throwable {
+		Long start = System.currentTimeMillis();
+		log.info("开始处理字典值自动设置切面逻辑");
+		/**
+		 * 执行方法，获取返回值
+		 */
+		Object result = proceedingJoinPoint.proceed();
+		if (ObjectUtils.isEmpty(result)) {
+			return result;
+		}
+		/**
+		 * 返回值为List集合时
+		 */
+		else if (result instanceof List) {
+			List<Object> list = (List<Object>) result;
+			iAutoQueryDictValue.autoQuery(list);
+		}
+		/**
+		 * 如果返回值类型为Page
+		 */
+		else if (result instanceof Page) {
+			log.info("{}", ((Page) result).getRecords());
+			iAutoQueryDictValue.autoQuery(((Page) result).getRecords());
+
+		}
+		/**
+		 * 如果返回值类型为PageableResult
+		 */
+		else if (result instanceof PageableResult) {
+			Object page = ((PageableResult) result).getPage();
+			//如果page方法中范围值为mybatis plus 分页page对象
+			if (page instanceof Page) {
+				iAutoQueryDictValue.autoQuery(((Page) page).getRecords());
+			}
+		}
+		/**
+		 * 返回值为单值时
+		 */
+		else {
+			iAutoQueryDictValue.autoQuery(result);
+		}
+		long end = System.currentTimeMillis();
+		log.info("字典值自动设置逻辑处理完成,用时{}", end - start + "ms");
+		return result;
+	}
+
+	private final IAutoQueryDictValue iAutoQueryDictValue;
+
+}

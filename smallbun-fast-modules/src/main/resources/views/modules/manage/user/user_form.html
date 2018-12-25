@@ -1,0 +1,235 @@
+<!--
+  ~
+  ~ Copyright(c)[2018] [smallbun] www.smallbun.org
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+
+<!DOCTYPE HTML>
+
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org"
+      xmlns:smallbun="http://www.smallbun.org">
+
+<head>
+    <head>
+        <div th:include="fragments/include  :: header('添加用户')"></div>
+    </head>
+</head>
+<body class="list-body">
+<section class="i-content">
+    <div class="i-ibox">
+        <div class="ibox-content">
+            <form id="inputForm" class="form-horizontal" th:action="@{/}" method="post"
+                  novalidate="novalidate">
+                <input id="id" name="id" type="hidden" value="">
+                <h4 class="page-header h4">基本信息</h4>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"><span style="color: red; ">*</span>归属公司</label>
+                            <div class="col-sm-8">
+                                <smallbun:tree-select
+                                        id="21212" name="organization.id"
+                                        labelId="organizationName"
+                                        disabled="false"
+                                        labelName="parent.name"
+                                        title="机构选择"
+                                        url="tree?selectNodes=&chkboxType=ps&multiSelect=false&url=dept/list">
+                                </smallbun:tree-select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"><span style="color: red; ">*</span>归属部门</label>
+                            <div class="col-sm-8">
+                                <smallbun:tree-select
+                                        id="organizationId" name="organization.id"
+                                        labelId="32323"
+                                        disabled="false"
+                                        labelName="parent.name"
+                                        title="机构选择"
+                                        url="tree?selectNodes=&chkboxType=ps&multiSelect=false&url=dept/list">
+                                </smallbun:tree-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"><span style="color: red; ">*</span>工号</label>
+                            <div class="col-sm-8">
+                                <input id="no" name="no" class="form-control required valid" type="text"
+                                       value="" maxlength="50" aria-required="true" aria-invalid="false">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"><span style="color: red; ">*</span>姓名</label>
+                            <div class="col-sm-8">
+                                <input id="name" name="name" class="form-control required" type="text" value=""
+                                       maxlength="30" aria-required="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">邮箱</label>
+                            <div class="col-sm-8">
+                                <input id="email" name="email" class="form-control email" type="text" value=""
+                                       maxlength="50">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">电话</label>
+                            <div class="col-sm-8">
+                                <input id="phone" name="phone" class="form-control" type="text" value=""
+                                       maxlength="50">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h4 class="page-header h4">账号信息</h4>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"><span style="color: red; ">*</span>登录名</label>
+                            <div class="col-sm-8">
+                                <input id="oldLoginName" name="oldLoginName" type="hidden" value="">
+                                <input id="loginName" name="loginName" class="form-control required error"
+                                       type="text" value="" maxlength="30" aria-required="true"
+                                       aria-invalid="true">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"><span style="color: red; ">*</span>手机号</label>
+                            <div class="col-sm-8">
+                                <input id="mobile" name="mobile" minlength="11" class="form-control digits"
+                                       type="text" value="" maxlength="11">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"><span style="color: red; ">*</span>密码</label>
+                            <div class="col-sm-8">
+                                <input id="newPassword" name="newPassword" type="password" value=""
+                                       maxlength="50" minlength="3" class="form-control required"
+                                       aria-required="true">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"><span style="color: red; ">*</span>确认密码</label>
+                            <div class="col-sm-8">
+                                <input id="confirmNewPassword" name="confirmNewPassword" type="password"
+                                       class="form-control required" value="" maxlength="50" minlength="3"
+                                       equalto="#newPassword" aria-required="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">用户类型</label>
+                            <div class="col-sm-8">
+                                <select id="userType" name="userType"
+                                        class="form-control select2" tabindex="-1"
+                                        aria-hidden="true">
+                                    <option value="1">系统管理</option>
+                                    <option value="2">部门经理</option>
+                                    <option value="3" selected="selected">普通用户</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">用户状态</label>
+                            <div class="col-sm-8">
+                                <select id="loginFlag" name="loginFlag"
+                                        class="form-control select2" tabindex="-1"
+                                        aria-hidden="true">
+                                    <option value="1" selected="selected">激活</option>
+                                    <option value="0">冻结</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h4 class="page-header h4">角色权限</h4>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">用户角色</label>
+                            <div class="col-sm-10">
+                                <div class="form-control" style="border: 0px;">
+                                    <label>
+                                        <input type="checkbox" class="minimal">
+                                        超级管理员
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="minimal">
+                                        普通用户
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h4 class="page-header h4">其他信息</h4>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">备注</label>
+                            <div class="col-sm-8">
+                                        <textarea id="remarks" name="remarks" maxlength="200" class="form-control "
+                                                  rows="2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+<div th:include="fragments/include :: include-js"></div>
+<script th:src="@{/static/modules/manage/js/sys/org/org_form.js}"></script>
+<script type="text/javascript">
+    $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2();
+    });
+    //iCheck for checkbox and radio inputs
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+        checkboxClass: 'icheckbox_minimal-blue',
+        radioClass: 'iradio_minimal-blue'
+    });
+</script>
+</html>

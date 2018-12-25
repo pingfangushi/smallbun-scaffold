@@ -1,0 +1,94 @@
+<!--
+  ~ /*
+  ~  * Copyright(c)[2018] [smallbun] www.smallbun.org
+  ~  *
+  ~  * Licensed under the Apache License, Version 2.0 (the "License");
+  ~  * you may not use this file except in compliance with the License.
+  ~  * You may obtain a copy of the License at
+  ~  *
+  ~  *     http://www.apache.org/licenses/LICENSE-2.0
+  ~  *
+  ~  * Unless required by applicable law or agreed to in writing, software
+  ~  * distributed under the License is distributed on an "AS IS" BASIS,
+  ~  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  * See the License for the specific language governing permissions and
+  ~  * limitations under the License.
+  ~  */
+  -->
+
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <head>
+        <div th:include="fragments/include  :: header('树结构')"></div>
+    </head>
+</head>
+<body class="list-body">
+<ul id="tree" class="ztree"></ul>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/gh/zTree/zTree_v3@3.5.33/css/metroStyle/metroStyle.css" rel="stylesheet"/>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ztree@3.5.24/js/jquery.ztree.all.min.js"></script>
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    basePath = /*[[@{/}]]*/ '';
+    /*]]>*/
+    var setting = {
+        view: {
+            selectedMulti: false
+        },
+        check: {
+            enable: [[${multiSelect}]],
+            chkboxType: {"Y": [[${chkboxType}]], "N": [[${chkboxType}]]}
+
+        },
+        data: {
+            simpleData: {
+                enable: true,
+                idKey: "id",
+                pIdKey: "parentId",
+                rootparentId: -1
+            },
+            key: {
+                url: "xUrl"
+            }
+        },
+        edit: {
+            enable: false
+        },
+        callback: {
+            onClick: function (event, treeId, treeNode) {
+                tree.expandNode(treeNode);
+                $("#deptId").val(treeNode.id);
+                $("#parentId").val(treeNode.parentId);
+            }
+        }
+    };
+    var tree;
+    /**
+     * 加载树
+     */
+    loadTree = function () {
+        $.post(basePath + [[${url}]], function (data) {
+            tree = $.fn.zTree.init($("#tree"), setting, data.result);
+            // 展开第一级节点
+            var nodes = tree.getNodesByParam("level", 0);
+            for (var i = 0; i < nodes.length; i++) {
+                tree.expandNode(nodes[i], true, false, false);
+            }
+            // 展开第二级节点
+            nodes = tree.getNodesByParam("level", 1);
+            for (var i = 0; i < nodes.length; i++) {
+                tree.expandNode(nodes[i], true, false, false);
+            }
+        }, null, null, "正在加载，请稍后...");
+    };
+    /**
+     * 初始化
+     */
+    $(document).ready(function () {
+        loadTree();
+    });
+</script>
+</html>

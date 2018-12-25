@@ -1,0 +1,317 @@
+<!--
+  ~ /*
+  ~  * Copyright(c)[2018] [smallbun] www.smallbun.org
+  ~  *
+  ~  * Licensed under the Apache License, Version 2.0 (the "License");
+  ~  * you may not use this file except in compliance with the License.
+  ~  * You may obtain a copy of the License at
+  ~  *
+  ~  *     http://www.apache.org/licenses/LICENSE-2.0
+  ~  *
+  ~  * Unless required by applicable law or agreed to in writing, software
+  ~  * distributed under the License is distributed on an "AS IS" BASIS,
+  ~  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  * See the License for the specific language governing permissions and
+  ~  * limitations under the License.
+  ~  */
+  -->
+
+<!--suppress ALL-->
+<!--设置-->
+<aside class="control-sidebar control-sidebar-dark">
+    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+        <!--皮肤布局-->
+        <li class="active"><a href="#control-sidebar-stats-tab" data-toggle="tab"><i class="fa fa-wrench"></i></a>
+        </li>
+        <!--Home-->
+        <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+        <!--设置-->
+        <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+    </ul>
+    <!--内容-->
+    <div class="tab-content">
+        <!-- 皮肤布局 -->
+        <div class="tab-pane active" id="control-sidebar-stats-tab">
+            <h4 class="control-sidebar-heading">
+                布局选项
+            </h4>
+            <div class="form-group">
+                <label class="control-sidebar-subheading">
+                    <input type="checkbox" data-layout="layout-boxed" class="pull-right"/>
+                    盒装布局
+                </label>
+            </div>
+            <!--布局-->
+            <div class="form-group">
+                <label class="control-sidebar-subheading">
+                    <input type="checkbox" data-sidebarskin="toggle" class="pull-right"/>
+                    切换右侧边黑色和浅色皮肤
+                </label>
+            </div>
+            <!--皮肤-->
+            <div class="form-group">
+                <h2 class="control-sidebar-heading">皮肤设置</h2>
+                <ul class="list-unstyled clearfix">
+                    <li style="float:left; width: 33.33333%; padding: 5px;">
+                        <a href="javascript:void(0)" data-skin="skin-blue"
+                           style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
+                           class="clearfix full-opacity-hover">
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 7px; background: #6284f3"></span><span
+                                    class="bg-light-blue"
+                                    style="display:block; width: 80%; float: left; height: 7px;"></span></div>
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 20px; background: #19222d"></span><span
+                                    style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+                            </div>
+                        </a>
+                        <p class="text-center no-margin">蓝色</p>
+                    </li>
+                    <li style="float:left; width: 33.33333%; padding: 5px;">
+                        <a href="javascript:void(0)" data-skin="skin-purple"
+                           style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
+                           class="clearfix full-opacity-hover">
+                            <div><span style="display:block; width: 20%; float: left; height: 7px;"
+                                       class="bg-purple-active"></span><span class="bg-purple"
+                                                                             style="display:block; width: 80%; float: left; height: 7px;"></span>
+                            </div>
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 20px; background: #19222d"></span><span
+                                    style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+                            </div>
+                        </a>
+                        <p class="text-center no-margin">紫色</p>
+                    </li>
+                    <li style="float:left; width: 33.33333%; padding: 5px;">
+                        <a href="javascript:void(0)" data-skin="skin-green"
+                           style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
+                           class="clearfix full-opacity-hover">
+                            <div><span style="display:block; width: 20%; float: left; height: 7px;"
+                                       class="bg-green-active"></span><span class="bg-green"
+                                                                            style="display:block; width: 80%; float: left; height: 7px;"></span>
+                            </div>
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 20px; background: #19222d"></span><span
+                                    style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+                            </div>
+                        </a>
+                        <p class="text-center no-margin">绿色</p>
+                    </li>
+                    <li style="float:left; width: 33.33333%; padding: 5px;">
+                        <a href="javascript:void(0)" data-skin="skin-red"
+                           style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
+                           class="clearfix full-opacity-hover">
+                            <div><span style="display:block; width: 20%; float: left; height: 7px;"
+                                       class="bg-red-active"></span><span class="bg-red"
+                                                                          style="display:block; width: 80%; float: left; height: 7px;"></span>
+                            </div>
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 20px; background: #19222d"></span><span
+                                    style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+                            </div>
+                        </a>
+                        <p class="text-center no-margin">红色</p>
+                    </li>
+                    <li style="float:left; width: 33.33333%; padding: 5px;">
+                        <a href="javascript:void(0)" data-skin="skin-yellow"
+                           style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
+                           class="clearfix full-opacity-hover">
+                            <div><span style="display:block; width: 20%; float: left; height: 7px;"
+                                       class="bg-yellow-active"></span><span class="bg-yellow"
+                                                                             style="display:block; width: 80%; float: left; height: 7px;"></span>
+                            </div>
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 20px; background: #19222d"></span><span
+                                    style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+                            </div>
+                        </a>
+                        <p class="text-center no-margin">黄色</p>
+                    </li>
+                </ul>
+                <p></p>
+                <ul class="list-unstyled clearfix">
+                    <li style="float:left; width: 33.33333%; padding: 5px;">
+                        <a href="javascript:void(0)" data-skin="skin-blue-light"
+                           style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
+                           class="clearfix full-opacity-hover">
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 7px; background: #6284f3"></span><span
+                                    class="bg-light-blue"
+                                    style="display:block; width: 80%; float: left; height: 7px;"></span></div>
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc"></span><span
+                                    style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+                            </div>
+                        </a>
+                        <p class="text-center no-margin" style="font-size: 12px">蓝色右侧</p>
+                    </li>
+                    <li style="float:left; width: 33.33333%; padding: 5px;">
+                        <a href="javascript:void(0)" data-skin="skin-purple-light"
+                           style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
+                           class="clearfix full-opacity-hover">
+                            <div><span style="display:block; width: 20%; float: left; height: 7px;"
+                                       class="bg-purple-active"></span><span class="bg-purple"
+                                                                             style="display:block; width: 80%; float: left; height: 7px;"></span>
+                            </div>
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc"></span><span
+                                    style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+                            </div>
+                        </a>
+                        <p class="text-center no-margin" style="font-size: 12px">紫色右侧</p>
+                    </li>
+                    <li style="float:left; width: 33.33333%; padding: 5px;">
+                        <a href="javascript:void(0)" data-skin="skin-green-light"
+                           style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
+                           class="clearfix full-opacity-hover">
+                            <div><span style="display:block; width: 20%; float: left; height: 7px;"
+                                       class="bg-green-active"></span><span class="bg-green"
+                                                                            style="display:block; width: 80%; float: left; height: 7px;"></span>
+                            </div>
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc"></span><span
+                                    style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+                            </div>
+                        </a>
+                        <p class="text-center no-margin" style="font-size: 12px">绿色右侧</p>
+                    </li>
+                    <li style="float:left; width: 33.33333%; padding: 5px;">
+                        <a href="javascript:void(0)" data-skin="skin-red-light"
+                           style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
+                           class="clearfix full-opacity-hover">
+                            <div><span style="display:block; width: 20%; float: left; height: 7px;"
+                                       class="bg-red-active"></span><span class="bg-red"
+                                                                          style="display:block; width: 80%; float: left; height: 7px;"></span>
+                            </div>
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc"></span><span
+                                    style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+                            </div>
+                        </a>
+                        <p class="text-center no-margin" style="font-size: 12px">红色右侧</p>
+                    </li>
+                    <li style="float:left; width: 33.33333%; padding: 5px">
+                        <a href="javascript:void(0)" data-skin="skin-yellow-light"
+                           style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
+                           class="clearfix full-opacity-hover">
+                            <div><span style="display:block; width: 20%; float: left; height: 7px;"
+                                       class="bg-yellow-active"></span><span class="bg-yellow"
+                                                                             style="display:block; width: 80%; float: left; height: 7px;"></span>
+                            </div>
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc"></span><span
+                                    style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+                            </div>
+                        </a>
+                        <p class="text-center no-margin" style="font-size: 12px">黄色右侧</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- Home-->
+        <div class="tab-pane" id="control-sidebar-home-tab">
+            <h3 class="control-sidebar-heading">近期活动</h3>
+            <ul class="control-sidebar-menu">
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+
+                        <div class="menu-info">
+                            <h4 class="control-sidebar-subheading">兰登的生日</h4>
+
+                            <p>4月24日将是23日</p>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+            <!-- /.control-sidebar-menu -->
+
+            <h3 class="control-sidebar-heading">任务进度</h3>
+            <ul class="control-sidebar-menu">
+                <li>
+                    <a href="javascript:void(0)">
+                        <h4 class="control-sidebar-subheading">
+                            自定义模板设计
+                            <span class="label label-danger pull-right">70%</span>
+                        </h4>
+
+                        <div class="progress progress-xxs">
+                            <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+            <!-- /.control-sidebar-menu -->
+
+        </div>
+        <!-- 设置 -->
+        <div class="tab-pane" id="control-sidebar-settings-tab">
+            <form method="post">
+                <h3 class="control-sidebar-heading">常规设置</h3>
+
+                <div class="form-group">
+                    <label class="control-sidebar-subheading">
+                        报告面板用法
+                        <input type="checkbox" class="pull-right" checked>
+                    </label>
+
+                    <p>
+                        有关此常规设置选项的一些信息
+                    </p>
+                </div>
+                <!-- /.form-group -->
+
+                <div class="form-group">
+                    <label class="control-sidebar-subheading">
+                        允许邮件重定向
+                        <input type="checkbox" class="pull-right" checked>
+                    </label>
+
+                    <p>
+                        其他选项可供选择
+                    </p>
+                </div>
+                <!-- /.form-group -->
+
+                <div class="form-group">
+                    <label class="control-sidebar-subheading">
+                        在帖子中公开作者姓名
+                        <input type="checkbox" class="pull-right" checked>
+                    </label>
+
+                    <p>
+                        允许用户在博文中显示他的名字
+                    </p>
+                </div>
+                <!-- /.form-group -->
+
+                <h3 class="control-sidebar-heading">聊天设置</h3>
+
+                <div class="form-group">
+                    <label class="control-sidebar-subheading">
+                        在线显示我
+                        <input type="checkbox" class="pull-right" checked>
+                    </label>
+                </div>
+                <!-- /.form-group -->
+
+                <div class="form-group">
+                    <label class="control-sidebar-subheading">
+                        关闭通知
+                        <input type="checkbox" class="pull-right">
+                    </label>
+                </div>
+                <!-- /.form-group -->
+
+                <div class="form-group">
+                    <label class="control-sidebar-subheading">
+                        删除聊天记录
+                        <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+                    </label>
+                </div>
+                <!-- /.form-group -->
+            </form>
+        </div>
+    </div>
+</aside>
+<div class="control-sidebar-bg"></div>

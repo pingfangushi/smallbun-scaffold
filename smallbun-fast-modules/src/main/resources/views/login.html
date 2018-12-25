@@ -1,0 +1,119 @@
+<!--
+  ~ /*
+  ~  * Copyright(c)[2018] [smallbun] www.smallbun.org
+  ~  *
+  ~  * Licensed under the Apache License, Version 2.0 (the "License");
+  ~  * you may not use this file except in compliance with the License.
+  ~  * You may obtain a copy of the License at
+  ~  *
+  ~  *     http://www.apache.org/licenses/LICENSE-2.0
+  ~  *
+  ~  * Unless required by applicable law or agreed to in writing, software
+  ~  * distributed under the License is distributed on an "AS IS" BASIS,
+  ~  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  * See the License for the specific language governing permissions and
+  ~  * limitations under the License.
+  ~  */
+  -->
+
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>登录</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 告诉浏览器响应屏幕宽度 -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{/static/common/css/AdminLTE.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/source-sans-pro/2.0.10/source-sans-pro.css}"/>
+    <script>
+        if (top.location != location) {
+            top.location.href = location.href;
+        }
+    </script>
+    <!--[if IE 8]>
+    <script th:src="@{/static/fast/js/browser-not-supported-ie8.js}"></script>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script th:src="@{/webjars/html5shiv/3.7.3/html5shiv.min.js}"></script>
+    <script th:src="@{/webjars/respond/1.4.2/dest/respond.min.js}"></script>
+    <![endif]-->
+    <link rel="stylesheet" th:href="@{/static/modules/manage/css/login.css}">
+</head>
+<body class="hold-transition login-page" style="overflow: hidden;">
+<div>
+    <div class="login-box">
+        <div class="login-logo" th:text="${title}"></div>
+        <div class="login-box-body">
+            <!--错误消息-->
+            <p class="login-box-msg" style="color: red" id="msg"></p>
+            <!--表单-->
+            <form th:action="@{/login}" method="post" id="form" data-toggle="validator">
+                <!--用户名-->
+                <div class="form-group username">
+                    <label for="username">用户名:</label>
+                    <div class="form-group has-feedback username">
+                        <input type="text" class="form-control" id="username" name="username"
+                               placeholder="请输入用户名">
+                        <span class="fa fa-user form-control-feedback"></span>
+                    </div>
+                </div>
+                <!--密码-->
+                <div class="form-group password">
+                    <label for="password">密码:</label>
+                    <div class="form-group has-feedback password">
+                        <input type="password" class="form-control" id="password" name="password" autocomplete="off"
+                               placeholder="请输入密码">
+                        <span class="fa fa-key form-control-feedback"></span>
+                    </div>
+                </div>
+                <!--验证码-->
+                <div class="form-group captcha">
+                    <label for="KAPTCHA_SESSION_KEY">验证码:</label>
+                    <div class="row">
+                        <div class="col-xs-7">
+                            <div class="form-group has-feedback captcha">
+                                <input type="text" class="form-control" id="KAPTCHA_SESSION_KEY"
+                                       name="KAPTCHA_SESSION_KEY" disableautocomplete placeholder="请输入验证码"
+                                       autocomplete="off">
+                                <span class="fa fa-shield form-control-feedback"></span>
+                            </div>
+                        </div>
+                        <img class="col-xs-5" id="captcha" height="34px" onclick="reloadCode()"
+                             th:src="@{/captcha}"/>
+                    </div>
+                </div>
+                <!--登录按钮-->
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">登录
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--脚注-->
+<div class="footer" id="footer">
+    <div class="container">
+        <p align="center" style="font-size: 15px" class="center-block">
+            版权所有 &copy; <a href="https://www.jeedance.com" th:text="${poweredBy}"></a> 2018&nbsp;&nbsp;&nbsp;&nbsp;
+        </p>
+    </div>
+</div>
+<script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+<script th:src="@{/webjars/bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js}"></script>
+<script th:src="@{/static/common/plugins/jsencrypt/jsencrypt.min.js}"></script>
+<script th:src="@{/static/modules/manage/js/login.js}"></script>
+<script th:src="@{/static/common/js/console.min.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    basePath = /*[[@{/}]]*/ '';
+    /*]]>*/
+</script>
+</body>
+</html>

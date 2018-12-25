@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.smallbun.fast.manage.role.dao.SysRoleMapper">
+
+    <resultMap type="org.smallbun.fast.manage.role.entity.SysRoleEntity" id="roleMap">
+        <id column="id" property="id"/>
+        <result column="role_name" property="roleName"/>
+        <result column="enName" property="enName"/>
+        <result column="data_scope" property="dataScope"/>
+        <!--查询菜单-->
+        <collection property="menuList" column="id" fetchType="eager"
+                    select="org.smallbun.fast.manage.menu.dao.SysMenuMapper.findByRoleId"/>
+        <!--查询用户-->
+        <collection property="userList" column="id" fetchType="eager"
+                    select="org.smallbun.fast.manage.user.dao.SysUserMapper.findByRoleId"/>
+        <!--查询明细设置-->
+    </resultMap>
+    <!--获取全部数据-->
+    <select id="findAll" resultMap="roleMap" >
+            select * from sys_role where is_deleted=#{isDeleted}
+    </select>
+    <!--根据用户ID查询用户具有的角色-->
+    <select id="findByUserId" resultMap="roleMap" >
+      select *
+      from  sys_role sr
+             inner join sys_user_role sur on sr.id = sur.role_id
+             inner join sys_user su on su.id = sur.user_id
+      where su.id=#{userId}
+        and su.is_deleted = 0
+        and sr.is_deleted = 0
+    </select>
+</mapper>

@@ -1,0 +1,1 @@
+package org.smallbun.fast.common;

@@ -1,0 +1,125 @@
+<!--
+  ~ /*
+  ~  * Copyright(c)[2018] [smallbun] www.smallbun.org
+  ~  *
+  ~  * Licensed under the Apache License, Version 2.0 (the "License");
+  ~  * you may not use this file except in compliance with the License.
+  ~  * You may obtain a copy of the License at
+  ~  *
+  ~  *     http://www.apache.org/licenses/LICENSE-2.0
+  ~  *
+  ~  * Unless required by applicable law or agreed to in writing, software
+  ~  * distributed under the License is distributed on an "AS IS" BASIS,
+  ~  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  * See the License for the specific language governing permissions and
+  ~  * limitations under the License.
+  ~  */
+  -->
+
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="fragments/include :: header('关于我')"></div>
+    <div th:include="fragments/include :: icon"></div>
+</head>
+<body class="list-body">
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="timeline">
+                <li class="time-label">
+                    <span class="bg-yellow">2018年10月</span>
+                </li>
+                <li>
+                    <i class="fa fa-user bg-aqua"></i>
+                    <div class="timeline-item">
+                        <span class="time"><i class="fa fa-clock-o"></i></span>
+
+                        <h3 class="timeline-header"><a href="javascript:void(0)">个性化</a></h3>
+
+                        <div class="timeline-body">
+                            2018年10月12日，浏览器控制台console输出个性化内容。
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <i class="fa fa-user bg-aqua"></i>
+                    <div class="timeline-item">
+                        <span class="time"><i class="fa fa-clock-o"></i></span>
+
+                        <h3 class="timeline-header"><a href="javascript:void(0)">统一异常处理</a></h3>
+
+                        <div class="timeline-body">
+                            2018年10月11日，完成统一异常处理,针对浏览器访问错误展示,及REST请求错误返回。
+                        </div>
+                    </div>
+                </li>
+
+                <li class="time-label">
+                    <span class="bg-fuchsia">2018年9月</span>
+                </li>
+                <li>
+                    <i class="fa fa-user bg-aqua"></i>
+                    <div class="timeline-item">
+                        <span class="time"><i class="fa fa-clock-o"></i></span>
+
+                        <h3 class="timeline-header"><a href="javascript:void(0)">UI初版</a></h3>
+
+                        <div class="timeline-body">
+                            2018年9月30日，完成UI初版,基于AdminLte前端模板。
+                        </div>
+                    </div>
+                </li>
+                <li class="time-label">
+                    <span class="bg-red">2018年4月</span>
+                </li>
+                <li>
+                    <i class="fa fa-user bg-aqua"></i>
+                    <div class="timeline-item">
+                        <span class="time"><i class="fa fa-clock-o"></i></span>
+
+                        <h3 class="timeline-header"><a href="javascript:void(0)">搭建项目结构</a></h3>
+
+                        <div class="timeline-body">
+                            2018年4月20，完成jeedance快速开发平台基本架构搭建。
+                        </div>
+                    </div>
+                </li>
+                <li class="time-label">
+                    <span class="bg-green">2018年3月</span>
+                </li>
+                <li>
+                    <i class="fa fa-user bg-aqua"></i>
+                    <div class="timeline-item">
+                        <span class="time"><i class="fa fa-clock-o"></i></span>
+
+                        <h3 class="timeline-header"><a href="javascript:void(0)">平台规划</a></h3>
+
+                        <div class="timeline-body">
+                            2018年3月21日，着手进行jeedance快速开发平台的规划、技术选型。
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+<div th:include="fragments/include :: include-js"></div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

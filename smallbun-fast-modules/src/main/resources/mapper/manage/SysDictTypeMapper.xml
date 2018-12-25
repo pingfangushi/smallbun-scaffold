@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.smallbun.fast.manage.dict.dao.SysDictTypeMapper">
+
+    <resultMap id="resultMap" type="org.smallbun.fast.manage.dict.entity.SysDictTypeEntity">
+        <id column="id" property="id"/>
+        <result column="type_code" property="typeCode"/>
+        <result column="type_name" property="typeName"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+        <result column="remarks" property="remarks"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <!-- 实现延迟加载创建者信息  -->
+        <association property="creator" javaType="org.smallbun.fast.manage.user.entity.SysUserEntity"
+                     select="org.smallbun.fast.manage.user.dao.SysUserMapper.selectById"
+                     column="creator"/>
+        <!-- 实现延迟加载更新者信息  -->
+        <association property="creator" javaType="org.smallbun.fast.manage.user.entity.SysUserEntity"
+                     select="org.smallbun.fast.manage.user.dao.SysUserMapper.selectById"
+                     column="editor"/>
+    </resultMap>
+</mapper>

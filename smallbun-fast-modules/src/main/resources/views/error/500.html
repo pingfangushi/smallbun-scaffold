@@ -1,0 +1,58 @@
+<!--
+  ~ /*
+  ~  * Copyright(c)[2018] [smallbun] www.smallbun.org
+  ~  *
+  ~  * Licensed under the Apache License, Version 2.0 (the "License");
+  ~  * you may not use this file except in compliance with the License.
+  ~  * You may obtain a copy of the License at
+  ~  *
+  ~  *     http://www.apache.org/licenses/LICENSE-2.0
+  ~  *
+  ~  * Unless required by applicable law or agreed to in writing, software
+  ~  * distributed under the License is distributed on an "AS IS" BASIS,
+  ~  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  * See the License for the specific language governing permissions and
+  ~  * limitations under the License.
+  ~  */
+  -->
+
+<!DOCTYPE HTML>
+<!--suppress ALL-->
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head>
+        <div th:include="fragments/include  :: header('系统错误')"></div>
+        <style>
+            .error-page > .headline {
+                float: none;
+                text-align: center;
+            }
+        </style>
+    </head>
+</head>
+
+<body class="list-body">
+<section class="content">
+    <div class="error-page">
+        <h2 class="headline text-red">500</h2>
+        <div id="navbar">
+            <h4 th:text="错误信息" class="text-red"></h4>
+            <p th:text="${message}"></p>
+            <h4 th:text="请求地址" class="text-aqua"></h4>
+            <p th:text="${url}"></p>
+            <h4 class="text-green">Debug</h4>
+            <a th:href="@{'https://www.google.com/webhp?hl=zh-CN#safe=strict&hl=zh-CN&q='+${exception}}"
+               class="btn ibtn-white btn-sm" target="_blank" id="Google">Google</a>
+            <a th:href="@{'https://www.baidu.com/s?wd='+${exception}}" class="btn  ibtn-info btn-sm" target="_blank"
+               id="Baidu">Baidu</a>
+            <a th:href="@{'http://stackoverflow.com/search?q='+${exception}}"
+               class="btn ibtn-primary btn-sm" target="_blank" id="StackOverFlow">StackOverFlow</a>
+            <h4 class="text-purple">异常堆栈跟踪日志</h4>
+            <div th:each="line:${stackTrace}">
+                <div th:text="${line}"></div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
