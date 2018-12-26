@@ -355,7 +355,7 @@
                     width = 1000;
                 }
                 if ($.common.isEmpty(height)) {
-                    height = ($(window).height() - 50);
+                    height = ($(window).height() - 45);
                 }
                 layer.open({
                     type: 2,

@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import org.smallbun.fast.common.entity.DataEntity;
+import org.smallbun.fast.common.entity.TreeDataEntity;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -18,21 +18,7 @@ import java.util.List;
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
 @TableName(value = "sys_org")
-public class SysOrgEntity extends DataEntity<Long> {
-
-	/**
-	 * 父级编号
-	 */
-	private Long parentId;
-	/**
-	 * 所有父级编号
-	 */
-	private String parentIds;
-	/**
-	 * 子部门
-	 */
-	@TableField(exist = false)
-	private List<SysOrgEntity> childDeptList;
+public class SysOrgEntity extends TreeDataEntity<Long> {
 	/**
 	 * 名称
 	 */
@@ -48,7 +34,7 @@ public class SysOrgEntity extends DataEntity<Long> {
 	/**
 	 * 机构类型
 	 */
-	private String type;
+	private String orgType;
 	/**
 	 * 机构等级
 	 */
@@ -86,11 +72,13 @@ public class SysOrgEntity extends DataEntity<Long> {
 	 */
 	private String email;
 	/**
-	 * 状态 :0 启用 1 未启用
+	 * 是否可用
 	 */
-	private String orgStatus;
+	private String useable;
+
 	/**
-	 * 排序
+	 * 子部门
 	 */
-	private Integer sort;
+	@TableField(exist = false)
+	private List<SysOrgEntity> childDeptList;
 }

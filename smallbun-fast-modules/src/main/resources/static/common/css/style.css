@@ -65,6 +65,10 @@ body .wrapper .main-header .navbar .dropdown-menu li.active > a:hover {
     padding-right: 8px;
 }
 
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: #ffffff;
+}
+
 .content {
     min-height: 250px;
     margin-right: auto;
