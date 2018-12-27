@@ -3,11 +3,7 @@ package org.smallbun.framework.base;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.io.Serializable;
 
 /**
  *
@@ -15,6 +11,8 @@ import java.io.Serializable;
  * Created by 2689170096@qq.com on 2018/11/14 21:02
  */
 public class BaseServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M, T> implements BaseService<T> {
+
+
 	/**
 	 * 数据权限进行过滤分页
 	 * @author SanLi

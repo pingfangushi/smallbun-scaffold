@@ -14,7 +14,6 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -36,6 +35,7 @@ public class SysDictValueServiceImpl extends BaseServiceImpl<SysDictValueMapper,
 	 * @return SysDictValueEntity
 	 */
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public IPage<SysDictValueEntity> page(Page<SysDictValueEntity> page, SysDictValueVO vo) {
 		return baseMapper.page(page, vo);
 	}
@@ -46,29 +46,28 @@ public class SysDictValueServiceImpl extends BaseServiceImpl<SysDictValueMapper,
 	 * @return
 	 */
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public AjaxResult unique(SysDictValueEntity dictValue) {
+		boolean flag = false;
 		//构建查询条件
 		LambdaQueryWrapper<SysDictValueEntity> queryWrapper;
-		//如果存在ID，为修改，否则为新增
-		if (!StringUtils.isEmpty(dictValue.getId())) {
-			queryWrapper = new QueryWrapper<>(dictValue).lambda()
-					.eq(false, SysDictValueEntity::getDictValue, dictValue.getDictType())
-					.eq(false, SysDictValueEntity::getId, dictValue.getId())
-					.eq(false, SysDictValueEntity::getDictValue, dictValue.getDictValue());
+		queryWrapper = new QueryWrapper<SysDictValueEntity>().lambda()
+				.eq(false, SysDictValueEntity::getDictValue, dictValue.getDictType())
+				.eq(false, SysDictValueEntity::getDictValue, dictValue.getDictValue());
+		//查询
+		SysDictValueEntity dictValueEntity = baseMapper.selectOne(queryWrapper);
+		//如果不为空，判断ID是否和传递过来的一致，如果一致为修改，放行
+		if (!StringUtils.isEmpty(dictValueEntity)) {
+			if (dictValue.getId().equals(dictValueEntity.getId())) {
+				flag = true;
+			}
 		} else {
-			queryWrapper = new QueryWrapper<>(dictValue).lambda()
-					.eq(false, SysDictValueEntity::getDictValue, dictValue.getDictType())
-					.eq(false, SysDictValueEntity::getDictValue, dictValue.getDictValue());
+			flag = true;
 		}
-		return !StringUtils.isEmpty(dictValue.getId()) ?
-				CollectionUtils.isEmpty(baseMapper.selectList(queryWrapper)) ?
-						AjaxResult.builder().result(false).build() :
-						AjaxResult.builder().result(true).build() :
-				//为空
-				CollectionUtils.isEmpty(baseMapper.selectList(queryWrapper)) ?
-						AjaxResult.builder().result(true).build() :
-						AjaxResult.builder().result(false).build();
+		return AjaxResult.builder().result(flag).build();
+
 	}
+
 
 	/**
 	 * 根据type code 查询字典值
