@@ -108,10 +108,10 @@ public class SysDictValueController extends BaseController {
 	@SystemLog(value = "")
 	@PostMapping(value = "/page")
 	public PageableResult page(Page<SysDictValueEntity> page, SysDictValueVO vo) {
-		return PageableResult.builder()
-				.page(pageVOFilling(sysDictValueService.page(page, new QueryWrapper<>(vo)),
-						SysDictValueVO.class)).build();
+		return PageableResult.builder().page(pageVOFilling(sysDictValueService.page(page, vo), SysDictValueVO.class))
+				.build();
 	}
+
 	/**
 	 * 查询全部
 	 * @return AjaxResult
@@ -123,6 +123,7 @@ public class SysDictValueController extends BaseController {
 				.result(mappingList(sysDictValueService.list(new QueryWrapper<>(vo)), new ArrayList<SysDictTypeVO>(),
 						SysDictValueVO.class)).build();
 	}
+
 	/**
 	 * 唯一
 	 * @param vo vo
