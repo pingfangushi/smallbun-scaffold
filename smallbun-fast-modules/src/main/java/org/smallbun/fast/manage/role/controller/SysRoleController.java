@@ -100,7 +100,9 @@ public class SysRoleController extends BaseController {
 	@AutoQueryDictValue
 	@PostMapping(value = "/page")
 	public PageableResult page(Page<SysRoleEntity> page, SysRoleVO vo) {
-		return PageableResult.builder().page(sysRoleService.page(page, new QueryWrapper<>(vo))).build();
+		return PageableResult.builder()
+				.page(pageVOFilling(sysRoleService.page(page, new QueryWrapper<>(vo)),  SysRoleVO.class))
+				.build();
 	}
 
 	/**
@@ -112,8 +114,8 @@ public class SysRoleController extends BaseController {
 	@PostMapping(value = "/list")
 	public AjaxResult list() {
 		return AjaxResult.builder()
-				.result(mappingList(sysRoleService.list(new QueryWrapper<>()), new ArrayList<SysRoleVO>(),
-						SysRoleVO.class)).build();
+				.result(mappingList(sysRoleService.list(new QueryWrapper<>()), new ArrayList<>(), SysRoleVO.class))
+				.build();
 	}
 
 	/**

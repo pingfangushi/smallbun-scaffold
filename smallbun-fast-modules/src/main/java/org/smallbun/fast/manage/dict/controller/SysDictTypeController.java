@@ -10,6 +10,7 @@ import org.smallbun.framework.annotation.SystemLog;
 import org.smallbun.framework.base.BaseController;
 import org.smallbun.framework.result.AjaxResult;
 import org.smallbun.framework.result.PageableResult;
+import org.smallbun.framework.toolkit.AutoMapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -18,7 +19,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
+
+import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 
 /**
  * 系统字典类型 前端控制器
@@ -34,8 +38,10 @@ public class SysDictTypeController extends BaseController {
 	}
 
 	@ModelAttribute
-	protected SysDictTypeEntity model(String id) {
-		return StringUtils.isEmpty(id) ? new SysDictTypeEntity() : sysDictTypeService.getById(id);
+	protected SysDictTypeVO model(String id) {
+		return StringUtils.isEmpty(id) ?
+				new SysDictTypeVO() :
+				AutoMapperUtil.mapping(sysDictTypeService.getById(id), new SysDictTypeVO());
 
 	}
 
@@ -55,20 +61,20 @@ public class SysDictTypeController extends BaseController {
 	 */
 	@SystemLog(value = "")
 	@GetMapping(value = "/form")
-	public ModelAndView form(SysDictTypeEntity dictType, Model model) {
-		model.addAttribute("dictType", dictType);
+	public ModelAndView form(SysDictTypeVO vo, Model model) {
+		model.addAttribute("dictType", vo);
 		return new ModelAndView("modules/manage/dict/dict_type_form.html");
 	}
 
 	/**
 	 * 保存或更新
-	 * @param dictTypeEntity 类型实体对象
+	 * @param vo Vo
 	 * @return AjaxResult
 	 */
 	@SystemLog(value = "")
 	@RequestMapping(value = "/saveOrUpdate")
-	public AjaxResult saveOrUpdate(@Validated SysDictTypeEntity dictTypeEntity) {
-		return AjaxResult.builder().result(sysDictTypeService.saveOrUpdate(dictTypeEntity)).build();
+	public AjaxResult saveOrUpdate(@Validated SysDictTypeVO vo) {
+		return AjaxResult.builder().result(sysDictTypeService.saveOrUpdate(vo)).build();
 	}
 
 	/**
@@ -99,8 +105,10 @@ public class SysDictTypeController extends BaseController {
 	 */
 	@SystemLog(value = "")
 	@PostMapping(value = "/page")
-	public PageableResult page(Page<SysDictTypeEntity> page, SysDictTypeEntity vo) {
-		return PageableResult.builder().page(sysDictTypeService.page(page, new QueryWrapper<>(vo))).build();
+	public PageableResult page(Page<SysDictTypeEntity> page, SysDictTypeVO vo) {
+		return PageableResult.builder()
+				.page(pageVOFilling(sysDictTypeService.page(page, new QueryWrapper<>(vo)), SysDictTypeVO.class))
+				.build();
 	}
 
 	/**
@@ -109,8 +117,10 @@ public class SysDictTypeController extends BaseController {
 	 */
 	@SystemLog(value = "")
 	@PostMapping(value = "/list")
-	public AjaxResult list() {
-		return AjaxResult.builder().result(sysDictTypeService.list(new QueryWrapper<>())).build();
+	public AjaxResult list(SysDictTypeVO vo) {
+		return AjaxResult.builder()
+				.result(mappingList(sysDictTypeService.list(new QueryWrapper<>(vo)), new ArrayList<SysDictTypeVO>(),
+						SysDictTypeVO.class)).build();
 	}
 
 	/**

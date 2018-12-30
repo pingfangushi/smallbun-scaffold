@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.smallbun.fast.manage.dict.entity.SysDictValueEntity;
 import org.smallbun.fast.manage.dict.service.SysDictValueService;
+import org.smallbun.fast.manage.dict.vo.SysDictTypeVO;
 import org.smallbun.fast.manage.dict.vo.SysDictValueVO;
 import org.smallbun.framework.annotation.SystemLog;
 import org.smallbun.framework.base.BaseController;
@@ -17,9 +18,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mapping;
+import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 
 /**
  * 系统字典数据 前端控制器
@@ -99,25 +102,27 @@ public class SysDictValueController extends BaseController {
 	}
 
 	/**
-	 * 查询全部
-	 * @return AjaxResult
-	 */
-	@SystemLog(value = "")
-	@PostMapping(value = "/list")
-	public AjaxResult list(QueryWrapper<SysDictValueEntity> wrapper, SysDictValueVO vo) {
-		return AjaxResult.builder().result(sysDictValueService.list(wrapper)).build();
-	}
-
-	/**
 	 * 分页查询
 	 * @return PageableResult
 	 */
 	@SystemLog(value = "")
 	@PostMapping(value = "/page")
 	public PageableResult page(Page<SysDictValueEntity> page, SysDictValueVO vo) {
-		return PageableResult.builder().page(sysDictValueService.page(page, vo)).build();
+		return PageableResult.builder()
+				.page(pageVOFilling(sysDictValueService.page(page, new QueryWrapper<>(vo)),
+						SysDictValueVO.class)).build();
 	}
-
+	/**
+	 * 查询全部
+	 * @return AjaxResult
+	 */
+	@SystemLog(value = "")
+	@PostMapping(value = "/list")
+	public AjaxResult list(SysDictValueVO vo) {
+		return AjaxResult.builder()
+				.result(mappingList(sysDictValueService.list(new QueryWrapper<>(vo)), new ArrayList<SysDictTypeVO>(),
+						SysDictValueVO.class)).build();
+	}
 	/**
 	 * 唯一
 	 * @param vo vo

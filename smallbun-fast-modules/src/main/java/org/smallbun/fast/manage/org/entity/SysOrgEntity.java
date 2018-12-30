@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.smallbun.fast.common.entity.TreeDataEntity;
+import org.smallbun.framework.annotation.DictValue;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -39,6 +40,7 @@ public class SysOrgEntity extends TreeDataEntity<Long> {
 	 * 机构等级
 	 */
 	private String grade;
+
 	/**
 	 * 经度
 	 */

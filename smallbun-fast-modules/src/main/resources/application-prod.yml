@@ -12,7 +12,7 @@ spring:
       pool-name: DatebookHikariCP
     password: zqg@199866
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://172.27.88.23:3306/jeedance?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false
+    url: jdbc:mysql://cdb-2ipogt4w.cd.tencentcdb.com:10008/jeedance?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false
     username: root
 
 

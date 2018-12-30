@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.smallbun.fast.manage.dict.service.SysDictValueService;
 import org.smallbun.framework.annotation.DictValue;
 import org.smallbun.framework.base.IAutoQueryDictValue;
+import org.smallbun.framework.toolkit.ReflectionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -49,7 +50,7 @@ public class AutoQueryDictValue implements IAutoQueryDictValue {
 		Map<String, String> map = Maps.newConcurrentMap();
 		Map<String, String> fieldMap = Maps.newConcurrentMap();
 		//获取所有的字段，将需要设置字典的属性为key，将获取值的属性为value放入map
-		for (Field field : object.getClass().getDeclaredFields()) {
+		for (Field field : ReflectionUtil.getFieldAll(object)) {
 			//设置对象的访问权限，保证对private的属性的访问
 			field.setAccessible(true);
 			DictValue dictValue = field.getAnnotation(DictValue.class);
@@ -58,7 +59,7 @@ public class AutoQueryDictValue implements IAutoQueryDictValue {
 			}
 		}
 		//移除不存在field名称的数据
-		for (Field field : object.getClass().getDeclaredFields()) {
+		for (Field field : ReflectionUtil.getFieldAll(object)) {
 			for (Map.Entry<String, String> entry : map.entrySet()) {
 				if (field.getName().equals(entry.getValue())) {
 					fieldMap.put(entry.getKey(), entry.getValue());
@@ -68,12 +69,12 @@ public class AutoQueryDictValue implements IAutoQueryDictValue {
 		//设置字段值
 		for (Map.Entry<String, String> entry : fieldMap.entrySet()) {
 			//获取列描述获取时对应的value字段名称
-			Field declaredField = object.getClass().getDeclaredField(entry.getValue());
+			Field declaredField = ReflectionUtil.getFieldAll(object, entry.getValue());
 			//设置对象的访问权限，保证对private的属性的访问
 			declaredField.setAccessible(true);
 			Object fieldValue = declaredField.get(object);
 			//获取需要设置字典值的字段
-			Field field = object.getClass().getDeclaredField(entry.getKey());
+			Field field = ReflectionUtil.getFieldAll(object, entry.getKey());
 			DictValue dictValue = field.getAnnotation(DictValue.class);
 			if (!ObjectUtils.isEmpty(dictValue)) {
 				//获取并设置值

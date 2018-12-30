@@ -1,5 +1,6 @@
 package org.smallbun.framework.aspect;
 
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -7,12 +8,14 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.smallbun.framework.annotation.AutoQueryDictValue;
 import org.smallbun.framework.base.IAutoQueryDictValue;
+import org.smallbun.framework.result.AjaxResult;
 import org.smallbun.framework.result.PageableResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,7 +46,8 @@ public class AutoQueryDictValueAspect {
 	public Object autoQueryColumnDesc(ProceedingJoinPoint proceedingJoinPoint, AutoQueryDictValue autoQueryDictValue)
 			throws Throwable {
 		Long start = System.currentTimeMillis();
-		log.info("开始处理字典值自动设置切面逻辑");
+		StringBuilder stringBuilderStart = new StringBuilder().append("开始处理字典值自动设置切面逻辑").append(StringPool.NEWLINE);
+		log.info("{}", stringBuilderStart);
 		/**
 		 * 执行方法，获取返回值
 		 */
@@ -67,6 +71,15 @@ public class AutoQueryDictValueAspect {
 
 		}
 		/**
+		 * 如果返回值类型为AjaxResult
+		 */
+		else if (result instanceof AjaxResult) {
+			log.info("{}", ((AjaxResult) result).getResult());
+			ArrayList<Object> objects = (ArrayList<Object>) ((AjaxResult) result).getResult();
+			iAutoQueryDictValue.autoQuery(objects);
+
+		}
+		/**
 		 * 如果返回值类型为PageableResult
 		 */
 		else if (result instanceof PageableResult) {
@@ -83,7 +96,9 @@ public class AutoQueryDictValueAspect {
 			iAutoQueryDictValue.autoQuery(result);
 		}
 		long end = System.currentTimeMillis();
-		log.info("字典值自动设置逻辑处理完成,用时{}", end - start + "ms");
+		StringBuilder stringBuilderEnd = new StringBuilder().append(" Time：").append(end - start).append("ms")
+				.append("字典值自动设置逻辑处理完成").append(StringPool.NEWLINE);
+		log.info("{}", stringBuilderEnd);
 		return result;
 	}
 

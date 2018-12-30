@@ -18,8 +18,12 @@
 
 package org.smallbun.framework.base;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.google.common.collect.Lists;
 import org.apache.commons.text.StringEscapeUtils;
 import org.smallbun.framework.security.UserUtil;
+import org.smallbun.framework.toolkit.AutoMapperUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
@@ -69,7 +73,7 @@ public abstract class BaseController {
 	 * @param model {{@link Model}}
 	 */
 	@ModelAttribute
-	protected void model( Model model) {
+	protected void model(Model model) {
 		model.addAttribute("title", name);
 		model.addAttribute("version", version);
 		model.addAttribute("poweredBy", poweredBy);
@@ -150,6 +154,28 @@ public abstract class BaseController {
 				writer.close();
 			}
 		}
+	}
+
+	/**
+	 * 页面VO转换
+	 * @param src 来源
+	 * @param targetClass 目标类
+	 * @param <S>
+	 * @param <T>
+	 * @return
+	 */
+	public static <S, T> IPage<T> pageVOFilling(IPage<S> src, Class<?> targetClass) {
+		Page<T> page = new Page<>();
+		page.setTotal(src.getTotal());
+		page.setSize(src.getSize());
+		page.setAsc(src.ascs());
+		page.setCurrent(src.getCurrent());
+		page.setDesc(src.descs());
+		page.setOptimizeCountSql(src.optimizeCountSql());
+		page.setPages(src.getPages());
+		//设置结果集
+		page.setRecords(AutoMapperUtil.mappingList(src.getRecords(), Lists.newArrayList(), targetClass));
+		return page;
 	}
 
 

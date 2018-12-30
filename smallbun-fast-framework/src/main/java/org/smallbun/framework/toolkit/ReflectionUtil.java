@@ -18,10 +18,14 @@
 
 package org.smallbun.framework.toolkit;
 
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 反射的 Utils 函数集合 提供访问私有变量, 获取泛型类型 Class, 提取集合中元素属性等 Utils 函数
@@ -76,4 +80,36 @@ public class ReflectionUtil {
 		return (Class<T>) getSuperClassGenricType(clazz, 0);
 	}
 
+	/**
+	 * 获取所有字段
+	 * @param object
+	 * @return
+	 */
+	public static List<Field> getFieldAll(Object object) {
+		List<Field> fieldList = Lists.newArrayList();
+		Class aClass = object.getClass();
+		//当父类为null的时候说明到达了最上层的父类(Object类).
+		while (aClass != null) {
+			fieldList.addAll(Arrays.asList(aClass.getDeclaredFields()));
+			//得到父类,然后赋给自己
+			aClass = aClass.getSuperclass();
+		}
+		return fieldList;
+	}
+
+	/**
+	 * 根据字段名称获取字段
+	 * @param object
+	 * @param field
+	 * @return
+	 */
+	public static Field getFieldAll(Object object, String field) throws NoSuchFieldException {
+		for (Field field1 : getFieldAll(object)) {
+			if (field1.getName().equals(field)) {
+				return field1;
+			}
+
+		}
+		throw new NoSuchFieldException();
+	}
 }

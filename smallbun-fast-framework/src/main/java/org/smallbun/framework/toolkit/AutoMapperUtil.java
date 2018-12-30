@@ -3,6 +3,11 @@ package org.smallbun.framework.toolkit;
 import java.lang.reflect.Method;
 import java.util.List;
 
+/**
+ * 自动
+ * @author SanLi
+ * Created by 2689170096@qq.com on 2018/12/30 13:59
+ */
 public class AutoMapperUtil {
 	public static <TSource, TDestination> TDestination mapping(TSource source, TDestination destination) {
 		Method[] srcMethods = source.getClass().getMethods();

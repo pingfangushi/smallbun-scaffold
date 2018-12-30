@@ -3,7 +3,6 @@ package org.smallbun.framework.base;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.smallbun.framework.result.AjaxResult;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,8 +10,8 @@ import org.springframework.util.StringUtils;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.List;
+
+import static org.smallbun.framework.toolkit.ReflectionUtil.getFieldAll;
 
 /**
  *
@@ -40,16 +39,8 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M, 
 		}
 		//如果有记录
 		else {
-			List<Field> fieldList = Lists.newArrayList();
-			Class aClass = one.getClass();
-			//当父类为null的时候说明到达了最上层的父类(Object类).
-			while (aClass != null) {
-				fieldList.addAll(Arrays.asList(aClass.getDeclaredFields()));
-				//得到父类,然后赋给自己
-				aClass = aClass.getSuperclass();
-			}
 			//循环字段
-			for (Field f : fieldList) {
+			for (Field f : getFieldAll(one)) {
 				//获取ID字段的值，和当前ID字段值进行对比，如果ID相同，可以通过，如果不同，flag任为false
 				if (ID.equals(f.getName())) {
 					try {
