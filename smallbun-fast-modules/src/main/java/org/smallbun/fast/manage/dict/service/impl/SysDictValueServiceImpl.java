@@ -50,8 +50,8 @@ public class SysDictValueServiceImpl extends BaseServiceImpl<SysDictValueMapper,
 		//构建查询条件
 		LambdaQueryWrapper<SysDictValueEntity> queryWrapper;
 		queryWrapper = new QueryWrapper<SysDictValueEntity>().lambda()
-				.eq(false, SysDictValueEntity::getDictValue, dictValue.getDictType())
-				.eq(false, SysDictValueEntity::getDictValue, dictValue.getDictValue());
+				.eq(true, SysDictValueEntity::getDictValue, dictValue.getDictType())
+				.eq(true, SysDictValueEntity::getDictValue, dictValue.getDictValue());
 		return uniqueResult(dictValue.getId(), queryWrapper);
 
 	}
