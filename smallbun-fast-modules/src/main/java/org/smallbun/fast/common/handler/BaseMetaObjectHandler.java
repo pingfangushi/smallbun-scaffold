@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
 import org.smallbun.fast.manage.user.util.UserUtil;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -45,27 +46,27 @@ public class BaseMetaObjectHandler implements MetaObjectHandler {
 	public void insertFill(MetaObject metaObject) {
 		// 创建用户
 		Object creator = getFieldValByName(CREATOR, metaObject);
-		if (creator == null) {
+		if (StringUtils.isEmpty(creator)) {
 			setFieldValByName(CREATOR, Objects.requireNonNull(UserUtil.getLoginUser()).getSysUser(), metaObject);
 		}
 		// 修改用户
 		Object editor = getFieldValByName(EDITOR, metaObject);
-		if (editor == null) {
+		if (StringUtils.isEmpty(editor)) {
 			setFieldValByName(EDITOR, Objects.requireNonNull(UserUtil.getLoginUser()).getSysUser(), metaObject);
 		}
 		// 创建时间
 		Object gmtCreate = getFieldValByName(GMT_CREATE, metaObject);
-		if (gmtCreate == null) {
+		if (StringUtils.isEmpty(gmtCreate)) {
 			setFieldValByName(GMT_CREATE, LocalDateTime.now(), metaObject);
 		}
 		// 修改时间
 		Object gmtModified = getFieldValByName(GMT_MODIFIED, metaObject);
-		if (gmtModified == null) {
+		if (StringUtils.isEmpty(gmtModified)) {
 			setFieldValByName(GMT_MODIFIED, LocalDateTime.now(), metaObject);
 		}
 		// 删除标记
 		Object isDeleted = getFieldValByName(IS_DELETED, metaObject);
-		if (isDeleted == null) {
+		if (StringUtils.isEmpty(isDeleted)) {
 			setFieldValByName(IS_DELETED, new GlobalConfig.DbConfig().getLogicNotDeleteValue(), metaObject);
 		}
 	}
@@ -78,13 +79,13 @@ public class BaseMetaObjectHandler implements MetaObjectHandler {
 	public void updateFill(MetaObject metaObject) {
 		// 更新用户
 		Object updateBy = getFieldValByName(EDITOR, metaObject);
-		if (updateBy == null) {
+		if (StringUtils.isEmpty(updateBy)) {
 			setFieldValByName(EDITOR, Objects.requireNonNull(UserUtil.getLoginUser()).getSysUser(), metaObject);
 		}
 
 		// 更新时间
 		Object updateDate = getFieldValByName(GMT_MODIFIED, metaObject);
-		if (updateDate == null) {
+		if (StringUtils.isEmpty(updateDate)) {
 			setFieldValByName(GMT_MODIFIED, new Date(), metaObject);
 		}
 	}

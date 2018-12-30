@@ -14,7 +14,6 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -48,23 +47,12 @@ public class SysDictValueServiceImpl extends BaseServiceImpl<SysDictValueMapper,
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public AjaxResult unique(SysDictValueEntity dictValue) {
-		boolean flag = false;
 		//构建查询条件
 		LambdaQueryWrapper<SysDictValueEntity> queryWrapper;
 		queryWrapper = new QueryWrapper<SysDictValueEntity>().lambda()
 				.eq(false, SysDictValueEntity::getDictValue, dictValue.getDictType())
 				.eq(false, SysDictValueEntity::getDictValue, dictValue.getDictValue());
-		//查询
-		SysDictValueEntity dictValueEntity = baseMapper.selectOne(queryWrapper);
-		//如果不为空，判断ID是否和传递过来的一致，如果一致为修改，放行
-		if (!StringUtils.isEmpty(dictValueEntity)) {
-			if (dictValue.getId().equals(dictValueEntity.getId())) {
-				flag = true;
-			}
-		} else {
-			flag = true;
-		}
-		return AjaxResult.builder().result(flag).build();
+		return uniqueResult(dictValue.getId(), queryWrapper);
 
 	}
 
