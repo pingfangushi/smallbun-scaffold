@@ -47,7 +47,7 @@
         <!--验证码-->
         <kaptcha.version>0.0.9</kaptcha.version>
         <!--mybatis plus-->
-        <mybatisplus.version>3.0.6</mybatisplus.version>
+        <mybatisplus.version>3.0.7</mybatisplus.version>
         <!--swagger 文档-->
         <swagger.version>2.9.2</swagger.version>
         <!--easy excel-->
@@ -457,7 +457,7 @@
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>bootstrap-table</artifactId>
-            <version>1.12.2</version>
+            <version>1.13.0</version>
         </dependency>
         <!--tablednd-->
         <dependency>
@@ -488,6 +488,12 @@
                     <groupId>org.webjars</groupId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <!--require js-->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>requirejs</artifactId>
+            <version>2.3.6</version>
         </dependency>
     </dependencies>
     <dependencyManagement>
