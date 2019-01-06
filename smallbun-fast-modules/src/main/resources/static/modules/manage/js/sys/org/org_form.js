@@ -26,9 +26,10 @@ function doSubmit() {
 }
 
 $(function () {
-    $('#parent').combotreegrid({
+    let comboTreeGrid = $('#parent');
+    comboTreeGrid.combotreegrid({
         width: '100%',
-        panelWidth: 410,//宽度自适应
+        panelWidth: 410,
         editable: false,
         idField: 'id',
         treeField: 'orgName',
@@ -39,7 +40,14 @@ $(function () {
         ]],
         loader: loader,
         onChange: function (newValue, oldValue) {
-            $('#parentId').val(newValue);
+            //如果选择的是同级节点
+            if ($('#id').val() === newValue) {
+                $.modal.alert("不能选择同级节点", modal_status.FAIL);
+                comboTreeGrid.combotreegrid('clear', "none");
+                comboTreeGrid.combotreegrid('setValue', oldValue);
+            } else {
+                comboTreeGrid.val(newValue);
+            }
         }
     });
 });
