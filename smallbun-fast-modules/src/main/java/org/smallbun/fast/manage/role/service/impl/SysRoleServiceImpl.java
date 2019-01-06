@@ -80,7 +80,10 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRoleEn
     @Override
     public AjaxResult unique(SysRoleEntity role) {
         //构建查询条件
-        LambdaQueryWrapper<SysRoleEntity> queryWrapper = new QueryWrapper<>(role).lambda().eq(false, SysRoleEntity::getRoleName, role.getRoleName());
+        LambdaQueryWrapper<SysRoleEntity> queryWrapper =
+                new QueryWrapper<SysRoleEntity>().lambda()
+                        .eq(true, SysRoleEntity::getRoleName, role.getRoleName())
+                        .eq(true, SysRoleEntity::getEnName, role.getEnName());
         return uniqueResult(role.getId(), queryWrapper);
     }
 
