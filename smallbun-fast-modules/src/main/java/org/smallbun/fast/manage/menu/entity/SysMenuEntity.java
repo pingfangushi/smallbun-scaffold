@@ -18,15 +18,11 @@
 
 package org.smallbun.fast.manage.menu.entity;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.smallbun.fast.common.entity.TreeDataEntity;
-
-import java.util.List;
 
 /**
  * 系统菜单实体类
@@ -38,40 +34,34 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName(value = "sys_menu")
-public class SysMenuEntity extends TreeDataEntity<Long> {
-	/**
-	 * 菜单名称
-	 */
-	private String menuName;
-	/**
-	 * 图标
-	 */
-	private String icon;
-	/**
-	 * 地址
-	 */
-	private String url;
-	/**
-	 * 类型 1. 菜单,2 按钮
-	 */
-	private Integer type;
-	/**
-	 * 方法允许配置标识
-	 */
-	private String permission;
-	/**
-	 * 排序
-	 */
-	private Integer sort;
-	/**
-	 * 菜单状态 0正常 ，1锁定
-	 */
-	private String menuStatus;
-	/**
-	 * 子菜单
-	 */
-	@JSONField(serialize = false)
-	@TableField(exist = false)
-	private List<SysMenuEntity> children;
+public class SysMenuEntity extends TreeDataEntity<SysMenuEntity,Long> {
+    /**
+     * 菜单名称
+     */
+    private String menuName;
+    /**
+     * 图标
+     */
+    private String icon;
+    /**
+     * 地址
+     */
+    private String url;
+    /**
+     * 类型 1. 菜单,2 按钮
+     */
+    private Integer type;
+    /**
+     * 方法允许配置标识
+     */
+    private String permission;
+    /**
+     * 排序
+     */
+    private Integer sort;
+    /**
+     * 菜单状态 0正常 ，1锁定
+     */
+    private String menuStatus;
 
 }

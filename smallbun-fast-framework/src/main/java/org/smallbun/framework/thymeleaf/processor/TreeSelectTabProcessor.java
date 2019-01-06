@@ -84,6 +84,7 @@ public class TreeSelectTabProcessor extends AbstractElementTagProcessor {
 		//对Null进行处理
 		ReflectUtil.emptyProcessing(treeSelect);
 		//封装为HTML
+		model.add(modelFactory.createText("<script th:src=\"/webjars/jquery/3.3.1/jquery.min.js\"></script>"));
 		model.add(modelFactory.createText(
 				"<div class=\"input-group\">\n" + "<input id=" + treeSelect.getId() + " name=" + treeSelect.getName()
 						+ " class=\"form-control\" type=\"hidden\" value=\"\">\n" + "<input type=\"text\" id="
@@ -98,7 +99,7 @@ public class TreeSelectTabProcessor extends AbstractElementTagProcessor {
 						+ "        if (" + treeSelect.getDisabled() + ") {\n" + "            return " + treeSelect
 						.getDisabled() + ";\n" + "        }\n" + "        // 正常打开\n" + "        top.layer.open({\n"
 						+ "            type: 2,\n" + "            area: ['280px', '420px'],\n" + "            title: \""
-						+ treeSelect.getTitle() + "\",\n" + "            content: basePath + \"" + treeSelect.getUrl()
+						+ treeSelect.getTitle() + "\",\n" + "            content: contextPath + \"" + treeSelect.getUrl()
 						+ "\",\n" + "            btn: ['确定', '关闭'],\n" + "            yes: function (index, layer) {\n"
 						+ "                var tree = layer.find(\"iframe\")[0].contentWindow.tree;//h.find(\"iframe\").contents();\n"
 						+ "                var ids = [], names = [], nodes = [];\n"
@@ -107,7 +108,7 @@ public class TreeSelectTabProcessor extends AbstractElementTagProcessor {
 						+ "                    nodes = tree.getSelectedNodes();\n" + "                }\n"
 						+ "                for (var i = 0; i < nodes.length; i++) {//\n"
 						+ "                    ids.push(nodes[i].id);\n"
-						+ "                    names.push(nodes[i].name);//\n"
+						+ "                    names.push(nodes[i].orgName);//\n"
 						+ "                    break; // 如果为非复选框选择，则返回第一个选择\n" + "                }\n"
 						+ "                $(\"#" + treeSelect.getId() + "\").val(ids.join(\",\"));\n"
 						+ "                $(\"#" + treeSelect.getLabelId() + "\").val(names.join(\",\"));\n"

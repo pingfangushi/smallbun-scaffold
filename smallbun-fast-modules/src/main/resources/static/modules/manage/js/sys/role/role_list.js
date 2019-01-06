@@ -17,12 +17,12 @@
  */
 $(function () {
     var options = {
-        url: basePath + 'role/page',
-        createUrl: basePath + "role/form",
-        updateUrl: basePath + "role/form/{id}",
-        removeUrl: basePath + "role/removeById",
-        batRemoveUrl: basePath + "role/removeByIds",
-        exportUrl: basePath + "role/export",
+        url: contextPath + 'role/page',
+        createUrl: contextPath + "role/form",
+        updateUrl: contextPath + "role/form/{id}",
+        removeUrl: contextPath + "role/removeById",
+        batRemoveUrl: contextPath + "role/removeByIds",
+        exportUrl: contextPath + "role/export",
         sortName: "gmtCreate",
         sortOrder: "desc",
         modalName: "角色",

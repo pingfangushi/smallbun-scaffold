@@ -24,3 +24,41 @@ function doSubmit() {
         $.operate.save($('.form-horizontal').attr('action'), $('.form-horizontal').serializeArray());
     }
 }
+
+$(function () {
+    $('#parent').combotreegrid({
+        width: '100%',
+        panelWidth: 410,//宽度自适应
+        editable: false,
+        idField: 'id',
+        treeField: 'orgName',
+        columns: [[
+            {field: 'orgName', title: '名称', width: 200},
+            {field: 'orgTypeName', title: '类型', width: 100},
+            {field: 'gradeName', title: '级别', width: 100},
+        ]],
+        loader: loader,
+        onChange: function (newValue, oldValue) {
+            $('#parentId').val(newValue);
+        }
+    });
+});
+
+/**
+ * 加载数据
+ * @param param
+ * @param success
+ * @param error
+ * @returns {boolean}
+ */
+function loader(param, success, error) {
+    $.ajax({
+        type: 'POST', url: contextPath + 'org/tree', dataType: "json", success: function (data) {
+            success(buildData(data))
+        }
+    });
+}
+
+function buildData(data) {
+    return data.result;
+}

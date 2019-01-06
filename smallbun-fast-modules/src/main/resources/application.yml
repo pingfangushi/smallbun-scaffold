@@ -54,10 +54,8 @@ mybatis-plus:
       id-type: ID_WORKER
       #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
       field-strategy: not_empty
-      #驼峰下划线转换
-      column-underline: true
       #数据库大写下划线转换
-      #capital-mode: true
+      capital-mode: true
       #逻辑删除配置
       logic-delete-value: 1
       logic-not-delete-value: 0
@@ -65,6 +63,7 @@ mybatis-plus:
     refresh: true
     banner: false
   configuration:
+    #驼峰下划线转换#驼峰下划线转换
     map-underscore-to-camel-case: true
     cache-enabled: true #开启二级缓存
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

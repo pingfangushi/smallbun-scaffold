@@ -18,12 +18,12 @@
 $(function () {
 
     var options = {
-        url: basePath + 'dict/type/page',
-        createUrl: basePath + "dict/type/form",
-        updateUrl: basePath + "dict/type/form/{id}",
-        removeUrl: basePath + "dict/type/removeById",
-        batRemoveUrl: basePath + "dict/type/removeByIds",
-        exportUrl: basePath + "/export",
+        url: contextPath + 'dict/type/page',
+        createUrl: contextPath + "dict/type/form",
+        updateUrl: contextPath + "dict/type/form/{id}",
+        removeUrl: contextPath + "dict/type/removeById",
+        batRemoveUrl: contextPath + "dict/type/removeByIds",
+        exportUrl: contextPath + "/export",
         sortName: "gmtCreate",
         sortOrder: "desc",
         modalName: "字典",

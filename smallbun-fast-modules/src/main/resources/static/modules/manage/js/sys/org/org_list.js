@@ -17,10 +17,10 @@
  */
 
 
-var prefix = basePath + "org";
+var prefix = contextPath + "org";
 
 $(function () {
-
+    //@formatter:off
     var options = {
         modalName: '部门',
         url: prefix + "/list", /*列表URL*/
@@ -41,8 +41,7 @@ $(function () {
             {field: 'principal', title: '负责人', sortable: false, width: 'auto', align: 'center'},
             {field: 'telephone', title: '电话', sortable: false, width: 'auto', align: 'center'},
             {field: 'useable', title: '是否可用', sortable: false, width: 'auto', align: 'center', formatter: 'useableFormatter'},
-            {title: '操作', width: 220,
-                formatter: function (value, row, index) {
+            {title: '操作', width: 220, formatter: function (value, row, index) {
                     var actions = [];
                     actions.push('<a class="btn bg-orange btn-xs" href="#" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i> 编辑</a> ');
                     actions.push('<a class="btn bg-maroon btn-xs " href="#" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i> 删除</a> ');
@@ -53,6 +52,7 @@ $(function () {
         ]
     };
     $.treeTable.init(options);
+    //@formatter:off
 });
 
 /**

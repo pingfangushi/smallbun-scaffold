@@ -24,7 +24,7 @@ $(".form-horizontal").validate({
             required: true,
             remote: {
                 async: false, //同步方法，如果用异步的话，flag永远为false
-                url: basePath + "dict/type/unique",
+                url: contextPath + "dict/type/unique",
                 type: "post",
                 dataType: 'JSON',
                 data: {

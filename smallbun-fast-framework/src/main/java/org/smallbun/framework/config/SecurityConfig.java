@@ -49,7 +49,6 @@ import static org.smallbun.framework.security.SecurityConstant.LOGOUT;
  * Created by 2689170096@qq.com on 2018/4/29
  */
 @EnableWebSecurity
-@ConfigurationProperties
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 

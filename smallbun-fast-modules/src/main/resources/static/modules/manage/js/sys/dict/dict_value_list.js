@@ -18,11 +18,11 @@
 $(function () {
 
     var options = {
-        url: basePath + 'dict/value/page',
-        createUrl: basePath + "dict/value/form?dictType=" + $('#dictType').val(),
-        updateUrl: basePath + "dict/value/form/{id}",
-        removeUrl: basePath + "dict/value/remove",
-        exportUrl: basePath + "dict/value/export",
+        url: contextPath + 'dict/value/page',
+        createUrl: contextPath + "dict/value/form?dictType=" + $('#dictType').val(),
+        updateUrl: contextPath + "dict/value/form/{id}",
+        removeUrl: contextPath + "dict/value/remove",
+        exportUrl: contextPath + "dict/value/export",
         sortName: "createTime",
         sortOrder: "desc",
         modalName: "字典",
@@ -79,7 +79,7 @@ $(function () {
  */
 function viewDictType(value, row, index) {
     var actions = [];
-    actions.push('<a  href="#" onclick="$.operate.view(\'' + row.sysDictType.id + '\',basePath +\'dict/type/form\')">' + value + '</a> ');
+    actions.push('<a  href="#" onclick="$.operate.view(\'' + row.sysDictType.id + '\',contextPath +\'dict/type/form\')">' + value + '</a> ');
     return actions.join('');
 }
 

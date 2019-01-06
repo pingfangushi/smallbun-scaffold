@@ -15,9 +15,8 @@
  *  * limitations under the License.
  *
  */
-var prefix = basePath + "menu";
+var prefix = contextPath + "menu";
 $(function () {
-
     var options = {
         modalName: '菜单',
         createUrl: prefix + "/dict_type_form.html", /*添加URL*/
@@ -29,6 +28,7 @@ $(function () {
         parentIdField: 'parentId',
         rootParentId: '0',
         treeShowField: 'menuName',
+        initialState: 'collapsed',
         columns: [
             {field: 'ck', checkbox: true},
             {field: 'menuName', title: '名称', sortable: false, width: '200px', align: 'left'},

@@ -56,7 +56,7 @@ public abstract class BaseEntity<T> implements Serializable {
 	 * 是否删除
 	 */
 	@TableLogic
-	@TableField(value = "is_deleted", fill = FieldFill.INSERT)
+	@TableField(value = "is_deleted", fill = FieldFill.INSERT_UPDATE)
 	@JSONField(serialize = false)
 	private String isDeleted = new GlobalConfig.DbConfig().getLogicNotDeleteValue();
 	/**

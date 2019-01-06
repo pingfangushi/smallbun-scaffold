@@ -1,30 +1,10 @@
-<!--
-  ~ /*
-  ~  * Copyright(c)[2018] [smallbun] www.smallbun.org
-  ~  *
-  ~  * Licensed under the Apache License, Version 2.0 (the "License");
-  ~  * you may not use this file except in compliance with the License.
-  ~  * You may obtain a copy of the License at
-  ~  *
-  ~  *     http://www.apache.org/licenses/LICENSE-2.0
-  ~  *
-  ~  * Unless required by applicable law or agreed to in writing, software
-  ~  * distributed under the License is distributed on an "AS IS" BASIS,
-  ~  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~  * See the License for the specific language governing permissions and
-  ~  * limitations under the License.
-  ~  */
-  -->
-
 <!DOCTYPE HTML>
 <!--suppress ALL-->
 <html lang="zh-cn"
       xmlns:th="http://www.thymeleaf.org" xmlns:smallbun="http://www.smallbun.org">
-
 <head>
-    <head>
-        <div th:include="fragments/include  :: header('添加字典值')"></div>
-    </head>
+    <div th:include="fragments/include  :: header('添加字典值')"></div>
+    <div th:include="fragments/include  :: jquery-easyui-css"></div>
 </head>
 <body class="list-body">
 <section class="i-content">
@@ -125,5 +105,7 @@
 </section>
 </body>
 <div th:include="fragments/include :: include-js"></div>
+<div th:include="fragments/include :: jquery-validate-js"></div>
+<div th:include="fragments/include :: jquery-easyui-js"></div>
 <script th:src="@{/static/modules/manage/js/sys/dict/dict_value_form.js}"></script>
 </html>

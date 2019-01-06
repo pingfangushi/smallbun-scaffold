@@ -17,10 +17,8 @@
 <!DOCTYPE HTML>
 <html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <head>
-        <div th:include="fragments/include  :: header('用户管理')"></div>
-        <link rel="stylesheet" th:href="@{/webjars/bootstrap-table/1.12.2/dist/bootstrap-table.min.css}"/>
-    </head>
+    <div th:include="fragments/include  :: header('字典类型')"></div>
+    <div th:include="fragments/include :: bootstrap-table-css"></div>
 </head>
 <body class="list-body">
 <section class="content">
@@ -32,7 +30,7 @@
                     <h5>字典列表</h5>
                     <div class="pull-right">
                         <button class="btn btn-sm ibtn-primary query-a" title="查询" data-toggle="tooltip"
-                           data-placement="left">
+                                data-placement="left">
                             <i class="fa fa-filter"></i> 查询
                         </button>
                         <!--/*/<th:block sec:authorize="hasAuthority('manage:user:add')">/*/-->
@@ -97,5 +95,6 @@
 </section>
 </body>
 <div th:include="fragments/include :: include-js"></div>
+<div th:include="fragments/include :: bootstrap-table-js"></div>
 <script th:src="@{/static/modules/manage/js/sys/dict/dict_type_list.js}"></script>
 </html>

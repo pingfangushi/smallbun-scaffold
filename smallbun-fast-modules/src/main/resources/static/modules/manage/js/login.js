@@ -30,7 +30,7 @@ function reloadCode() {
     //清空输入框
     $("#KAPTCHA_SESSION_KEY").val(null);
     //刷新校验码
-    $("#captcha").attr("src", basePath + "captcha?" + Math.random());
+    $("#captcha").attr("src", contextPath + "captcha?" + Math.random());
 }
 
 /*自定义表单验证，验证成功后在进行密码加密提交*/
@@ -68,7 +68,7 @@ $(document).ready(function () {
         //获取公钥
         var encrypt = new JSEncrypt();
         $.ajax({
-            url: basePath + "key",
+            url: contextPath + "key",
             type: "post",
             async: false,
             dataType: 'json',
@@ -78,7 +78,7 @@ $(document).ready(function () {
         });
         //登录
         $.ajax({
-            url: basePath + "login",
+            url: contextPath + "login",
             type: "post",
             async: false,
             dataType: 'json',

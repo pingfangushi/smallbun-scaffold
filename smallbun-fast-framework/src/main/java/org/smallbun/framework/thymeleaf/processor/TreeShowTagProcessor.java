@@ -92,7 +92,7 @@ public class TreeShowTagProcessor extends AbstractElementTagProcessor {
 		model.add(modelFactory
 				.createText("<div id=" + treeShow.getId() + " class=\"ztree\" style=\"padding:0px;\"></div>\n"));
 		model.add(modelFactory.createText(
-				"<script type=\"text/javascript\">\n" + "    /*<![CDATA[*/\n" + "    basePath = \"\\/\";\n"
+				"<script type=\"text/javascript\">\n" + "    /*<![CDATA[*/\n" + "    contextPath = \"\\/\";\n"
 						+ "    /*]]>*/\n" + "var tree;\n    var setting = {\n" + "        view: {\n"
 						+ "            selectedMulti: false\n" + "        },\n" + "        check: {\n"
 						+ "            enable: " + treeShow.getMultiSelect() + ",\n"
@@ -110,7 +110,7 @@ public class TreeShowTagProcessor extends AbstractElementTagProcessor {
 						+ treeShow.getHidePId() + "\").val(treeNode." + treeShow.getPIdKey() + ");\n"
 						+ "                //刷新表\n $.table.refresh()" + "            }\n" + "        }\n" + "    };\n"
 						+ "    /**\n" + "     * 加载树\n" + "     */\n" + "    loadTree = function () {\n"
-						+ "        $.post(basePath+\"" + treeShow.getUrl() + "\", function (data) {\n"
+						+ "        $.post(contextPath+\"" + treeShow.getUrl() + "\", function (data) {\n"
 						+ "            tree = $.fn.zTree.init($(\"#" + treeShow.getId()
 						+ "\"), setting, data.result);\n" + "            // 展开第一级节点\n"
 						+ "            var nodes = tree.getNodesByParam(\"level\", 0);\n"

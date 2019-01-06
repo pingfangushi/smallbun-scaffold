@@ -1,8 +1,8 @@
 package org.smallbun.fast.manage.org.dao;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.smallbun.fast.manage.org.entity.SysOrgEntity;
+import org.smallbun.framework.base.BaseMapper;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;

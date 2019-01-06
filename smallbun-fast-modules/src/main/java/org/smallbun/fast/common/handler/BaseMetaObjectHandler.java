@@ -18,6 +18,14 @@ import java.util.Objects;
  */
 public class BaseMetaObjectHandler implements MetaObjectHandler {
 	/**
+	 * 父id
+	 */
+	private static final String PARENT_ID = "parentId";
+	/**
+	 * 父ids
+	 */
+	private static final String PARENT_ID_S = "parentIds";
+	/**
 	 * 删除标记
 	 */
 	private static final String IS_DELETED = "isDeleted";
@@ -69,6 +77,16 @@ public class BaseMetaObjectHandler implements MetaObjectHandler {
 		if (StringUtils.isEmpty(isDeleted)) {
 			setFieldValByName(IS_DELETED, new GlobalConfig.DbConfig().getLogicNotDeleteValue(), metaObject);
 		}
+		// 父id
+		Object parentId = getFieldValByName(PARENT_ID, metaObject);
+		if (StringUtils.isEmpty(parentId)) {
+			setFieldValByName(PARENT_ID, 0, metaObject);
+		}
+		// 父id
+		Object parentIds = getFieldValByName(PARENT_ID_S, metaObject);
+		if (StringUtils.isEmpty(parentIds)) {
+			setFieldValByName(PARENT_ID, "0", metaObject);
+		}
 	}
 
 	/**
@@ -87,6 +105,16 @@ public class BaseMetaObjectHandler implements MetaObjectHandler {
 		Object updateDate = getFieldValByName(GMT_MODIFIED, metaObject);
 		if (StringUtils.isEmpty(updateDate)) {
 			setFieldValByName(GMT_MODIFIED, new Date(), metaObject);
+		}
+		// 父id
+		Object parentId = getFieldValByName(PARENT_ID, metaObject);
+		if (StringUtils.isEmpty(parentId)) {
+			setFieldValByName(PARENT_ID, 0, metaObject);
+		}
+		// 父id
+		Object parentIds = getFieldValByName(PARENT_ID_S, metaObject);
+		if (StringUtils.isEmpty(parentIds)) {
+			setFieldValByName(PARENT_ID, "0", metaObject);
 		}
 	}
 }

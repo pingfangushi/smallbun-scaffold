@@ -43,7 +43,7 @@ $(".form-horizontal").validate({
             required: true,
             remote: {
                 async: false, //同步方法，如果用异步的话，flag永远为false
-                url: basePath + "role/unique",
+                url: contextPath + "role/unique",
                 type: "post",
                 dataType: 'JSON',
                 data: {
@@ -64,7 +64,7 @@ $(".form-horizontal").validate({
             required: true,
             remote: {
                 async: false, //同步方法，如果用异步的话，flag永远为false
-                url: basePath + "role/unique",
+                url: contextPath + "role/unique",
                 type: "post",
                 dataType: 'JSON',
                 data: {
@@ -213,7 +213,7 @@ function loadMenuTree() {
             }
         }
     };
-    $.post(basePath + "menu/list", function (data) {
+    $.post(contextPath + "menu/list", function (data) {
         var menuTree = $.fn.zTree.init($("#menuTree"), menuSetting, data.result);
         //不展开
         menuTree.expandAll(false);
@@ -264,7 +264,7 @@ function loadOrgTree() {
             }
         }
     };
-    $.post(basePath + "org/list", function (data) {
+    $.post(contextPath + "org/list", function (data) {
         var orgTree = $.fn.zTree.init($("#orgTree"), orgSetting, data.result);
         //不展开
         orgTree.expandAll(false);

@@ -18,11 +18,11 @@
 $(function () {
 
     var options = {
-        url: basePath + 'user/page',
+        url: contextPath + 'user/page',
         createUrl: "user/form",
         updateUrl: "user/form/{id}",
-        removeUrl: basePath + "/remove",
-        exportUrl: basePath + "/export",
+        removeUrl: contextPath + "/remove",
+        exportUrl: contextPath + "/export",
         sortName: "createTime",
         sortOrder: "desc",
         modalName: "用户",

@@ -32,7 +32,7 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ztree@3.5.24/js/jquery.ztree.all.min.js"></script>
 <script type="text/javascript" th:inline="javascript">
     /*<![CDATA[*/
-    basePath = /*[[@{/}]]*/ '';
+    contextPath = /*[[@{/}]]*/ '';
     /*]]>*/
     var setting = {
         view: {
@@ -51,7 +51,8 @@
                 rootparentId: -1
             },
             key: {
-                url: "xUrl"
+                url: "xUrl",
+                name: "orgName"
             }
         },
         edit: {
@@ -60,8 +61,8 @@
         callback: {
             onClick: function (event, treeId, treeNode) {
                 tree.expandNode(treeNode);
-                $("#deptId").val(treeNode.id);
-                $("#parentId").val(treeNode.parentId);
+                $("#organizationId").val(treeNode.id);
+                $("#organizationName").val(treeNode.parentId);
             }
         }
     };
@@ -70,7 +71,7 @@
      * 加载树
      */
     loadTree = function () {
-        $.post(basePath + [[${url}]], function (data) {
+        $.post(contextPath + [[${url}]], function (data) {
             tree = $.fn.zTree.init($("#tree"), setting, data.result);
             // 展开第一级节点
             var nodes = tree.getNodesByParam("level", 0);

@@ -1,49 +1,24 @@
-<!--
-  ~ /*
-  ~  * Copyright(c)[2018] [smallbun] www.smallbun.org
-  ~  *
-  ~  * Licensed under the Apache License, Version 2.0 (the "License");
-  ~  * you may not use this file except in compliance with the License.
-  ~  * You may obtain a copy of the License at
-  ~  *
-  ~  *     http://www.apache.org/licenses/LICENSE-2.0
-  ~  *
-  ~  * Unless required by applicable law or agreed to in writing, software
-  ~  * distributed under the License is distributed on an "AS IS" BASIS,
-  ~  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~  * See the License for the specific language governing permissions and
-  ~  * limitations under the License.
-  ~  */
-  -->
-
 <html xmlns:th="http://www.thymeleaf.org">
 <!--suppress ALL-->
 <head>
+    <!----------------------------------------------------------------------------------->
     <div th:fragment="header(title)">
-        <title th:text="${title}"></title>
         <meta charset="utf-8">
+        <title th:text="${title}"></title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <!-- 让360浏览器默认选择webkit内核 -->
         <meta name="renderer" content="webkit"/>
         <!-- 告诉浏览器响应屏幕宽度 -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
-        <link rel="stylesheet" th:href="@{/static/common/plugins/jquery-easyui/themes/smallbun/easyui.css}"/>
-        <link rel="stylesheet" th:href="@{/webjars/bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css}"/>
-        <link rel="stylesheet" th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}"/>
-        <link rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css}"/>
-        <link rel="stylesheet" th:href="@{/webjars/select2/4.0.5/css/select2.min.css}"/>
-        <link rel="stylesheet" th:href="@{/webjars/bootstrap-daterangepicker/3.0.3/css/bootstrap-daterangepicker.css}"/>
-        <link rel="stylesheet" th:href="@{/webjars/ionicons/2.0.1/css/ionicons.min.css}">
-        <link rel="stylesheet" th:href="@{/webjars/toastr/2.1.2/build/toastr.min.css}"/>
-        <!--ztree-->
-        <link rel="stylesheet" th:href="@{/webjars/zTree/3.5.37/css/metroStyle/metroStyle.css}" type="text/css">
-        <link rel="stylesheet" th:href="@{/webjars/iCheck/1.0.2/skins/all.css}"/>
         <link rel="stylesheet" th:href="@{/static/common/css/skins/_all-skins.min.css}"/>
+        <link rel="stylesheet" th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}"/>
+        <link rel="stylesheet" th:href="@{/webjars/ionicons/2.0.1/css/ionicons.min.css}">
+        <link rel="stylesheet" th:href="@{/webjars/select2/4.0.5/css/select2.min.css}"/>
+        <link rel="stylesheet" th:href="@{/webjars/iCheck/1.0.2/skins/all.css}"/>
         <link rel="stylesheet" th:href="@{/static/common/css/AdminLTE.min.css}"/>
-        <link rel="stylesheet" th:href="@{/static/common/css/common.min.css}"/>
-        <link rel="stylesheet" th:href="@{/static/common/css/style.css}"/>
-        <link href='https://fonts.font.im/css?family=Lato' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" th:href="@{/static/common/css/content-tabs.min.css}"/>
+        <link rel="stylesheet" th:href="@{/static/common/css/smallbun.min.css}"/>
         <!--[if IE 8]>
         <script th:src="@{/static/fast/js/browser-not-supported-ie8.js}"></script>
         <![endif]-->
@@ -53,70 +28,39 @@
         <![endif]-->
         <script type="text/javascript" th:inline="javascript">
             /*<![CDATA[*/
-            basePath = /*[[@{/}]]*/ '';
-            viewPath = /*[[@{/}]]*/ '';
+            contextPath = /*[[@{/}]]*/ '';
             /*]]>*/
         </script>
     </div>
+    <!--bootstrap-table-css-->
+    <div th:fragment="bootstrap-table-css">
+        <link rel="stylesheet" th:href="@{/webjars/bootstrap-table/1.13.1/dist/bootstrap-table.min.css}"/>
+        <link rel="stylesheet" th:href="@{/webjars/jquery-treegrid/0.3.0/css/jquery.treegrid.css}">
+    </div>
+    <!--jquery.easyui-css-->
+    <div th:fragment="jquery-easyui-css">
+        <link rel="stylesheet" th:href="@{/static/common/plugins/jquery-easyui/themes/smallbun/easyui.css}"/>
+    </div>
+    <div th:fragment="ztree-css">
+        <link rel="stylesheet" th:href="@{/webjars/zTree/3.5.37/css/metroStyle/metroStyle.css}" type="text/css">
+    </div>
+
+
+    <!----------------------------------------------------------------------------------->
     <div th:fragment="include-js">
         <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
-        <script th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
         <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
-        <!-- 使用Bootstrap工具提示解决jQuery UI工具提示中的冲突 -->
-        <script>
-            $.widget.bridge('uibutton', $.ui.button);
-        </script>
-        <!--ztree-->
-        <script type="text/javascript" th:src="@{/webjars/zTree/3.5.37/js/jquery.ztree.all.min.js}"></script>
-        <script th:src="@{/webjars/bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js}"></script>
-        <script th:src="@{/webjars/bootstrap-daterangepicker/3.0.3/js/bootstrap-daterangepicker.js}"></script>
-        <script th:src="@{/static/common/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js}"></script>
-        <script th:src="@{/static/common/plugins/pace/pace.min.js}"></script>
-        <script th:src="@{/webjars/raphaeljs/2.1.4/raphael-min.js}"></script>
-        <script th:src="@{/webjars/jquery.sparkline/2.1.2/jquery.sparkline.min.js}"></script>
-        <script th:src="@{/webjars/jquery-knob/1.2.11/jquery.knob.js}"></script>
         <script th:src="@{/webjars/jquery-blockui/2.70/jquery.blockUI.js}"></script>
-        <script th:src="@{/webjars/bootstrapvalidator/0.5.3/js/language/zh_CN.js}"></script>
-        <script th:src="@{/webjars/momentjs/2.22.2/min/moment.min.js}"></script>
-        <script th:src="@{/webjars/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js}"></script>
-        <script th:src="@{/webjars/fastclick/1.0.6/fastclick.js}"></script>
-        <script th:src="@{/webjars/select2/4.0.5/js/select2.min.js}"></script>
-        <!--layer-->
         <script th:src="@{/webjars/layer/dist/layer.js}"></script>
-        <script th:src="@{/static/common/plugins/jsencrypt/jsencrypt.min.js}"></script>
-        <script th:src="@{/webjars/iCheck/1.0.2/icheck.min.js}"></script>
         <script th:src="@{/webjars/jquery-resize-plugin/1.1/jquery.ba-resize.min.js}"></script>
-        <!--easyui-->
-        <script th:src="@{/static/common/plugins/jquery-easyui/jquery.easyui.min.js}"></script>
-        <script th:src="@{/static/common/plugins/jquery-easyui/locale/easyui-lang-zh_CN.js}"></script>
-        <!--表格-->
-        <script th:src="@{/webjars/bootstrap-table/1.12.2/dist/bootstrap-table.min.js}"></script>
-        <script th:src="@{/webjars/bootstrap-table/1.12.2/dist/locale/bootstrap-table-zh-CN.min.js}"></script>
-        <script th:src="@{/webjars/bootstrap-table/1.12.2/dist/extensions/mobile/bootstrap-table-mobile.min.js}"></script>
-        <!--引用自定义tree grid ,修改tree grid parent id不能为字符串，增加rootParentId，指定根节点pid值。
-         现在还没有发布版本，发布新版本后，这个就可以删除掉了
-         https://github.com/wenzhixin/bootstrap-table/blob/08743dfce64278bd4dc52e88f192528497e7370e/src/extensions/treegrid/bootstrap-table-treegrid.js
-        -->
-        <script th:src="@{/static/common/js/bootstrap-table-treegrid.js}"></script>
-        <script th:src="@{/webjars/jquery-treegrid/0.3.0/js/jquery.treegrid.min.js}"></script>
-        <!--验证-->
-        <script th:src="@{/webjars/jquery-validation/1.17.0-1/jquery.validate.min.js}"></script>
-        <script th:src="@{/webjars/jquery-validation/1.17.0-1/localization/messages_zh.min.js}"></script>
-        <script th:src="@{/static/common/js/jquery.validate.extend.js}"></script>
-        <script th:src="@{/static/common/js/combogrid.js}"></script>
-        <!--下拉搜索提示-->
-        <script th:src="@{/static/common/plugins/bootstrap-suggest/bootstrap-suggest.min.js}"></script>
+        <script th:src="@{/webjars/iCheck/1.0.2/icheck.min.js}"></script>
+        <script th:src="@{/webjars/select2/4.0.5/js/select2.min.js}"></script>
         <script th:src="@{/static/common/js/adminlte.min.js}"></script>
-        <script th:src="@{/static/common/js/crudtools-bootstrap-table.js}"></script>
+        <script th:src="@{/static/common/js/content-tabs.min.js}"></script>
         <script th:src="@{/static/common/js/common.js}"></script>
         <script th:src="@{/static/common/js/skin.min.js}"></script>
-        <script th:src="@{/static/common/js/wsize.js}"></script>
-        <script type="text/javascript">
-            $('.select2').select2({
-                width: "100%"
-            }).on('change', function () {
-                $(this).valid();
-            });
+        <script th:src="@{/static/common/js/wsize.min.js}"></script>
+        <script>
             $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
                 checkboxClass: 'icheckbox_minimal-blue',
                 radioClass: 'iradio_minimal-blue'
@@ -124,30 +68,35 @@
                 //进行验证
                 $(event.target).valid();
             });
+            $('.select2').select2({
+                width: "100%"
+            }).on('change', function () {
+                $(this).valid();
+            });
         </script>
     </div>
-
-
-    <!--表格-->
-    <div th:fragment="bootstrap-table">
-
+    <!--jquery-validate-->
+    <div th:fragment="jquery-validate-js">
+        <script th:src="@{/webjars/jquery-validation/1.17.0-1/jquery.validate.min.js}"></script>
+        <script th:src="@{/webjars/jquery-validation/1.17.0-1/localization/messages_zh.min.js}"></script>
+        <script th:src="@{/static/common/js/jquery.validate.extend.js}"></script>
     </div>
-    <!--prismjs-->
-    <div th:fragment="prismjs">
-        <link rel="stylesheet" th:href="@{/webjars/prism/themes/prism.css}"/>
-        <link rel="stylesheet" th:href="@{/webjars/prism/prism.js}"/>
+    <!--bootstrap-table-js-->
+    <div th:fragment="bootstrap-table-js">
+        <script th:src="@{/webjars/bootstrap-table/1.13.1/dist/bootstrap-table.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap-table/1.13.1/dist/locale/bootstrap-table-zh-CN.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap-table/1.13.1/dist/extensions/mobile/bootstrap-table-mobile.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap-table/1.13.1/dist/extensions/treegrid/bootstrap-table-treegrid.js}"></script>
+        <script th:src="@{/webjars/jquery-treegrid/0.3.0/js/jquery.treegrid.min.js}"></script>
     </div>
-    <!--验证-->
-    <div th:fragment="validator">
-        <link rel="stylesheet"
-              href="https://cdn.jsdelivr.net/npm/bootstrapvalidator@0.5.4/dist/css/bootstrapValidator.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrapvalidator@0.5.4/dist/js/bootstrapValidator.min.js"></script>
-        <script src="https://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/js/language/zh_CN.js"></script>
+    <!--jquery.easyui-js-->
+    <div th:fragment="jquery-easyui-js">
+        <script th:src="@{/static/common/plugins/jquery-easyui/jquery.easyui.min.js}"></script>
+        <script th:src="@{/static/common/plugins/jquery-easyui/locale/easyui-lang-zh_CN.js}"></script>
     </div>
-    <!--图标-->
-    <div th:fragment="icon">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ionicons@2.0.1/css/ionicons.min.css">
+    <!--ztree-js-->
+    <div th:fragment="ztree-js">
+        <script type="text/javascript" th:src="@{/webjars/zTree/3.5.37/js/jquery.ztree.all.min.js}"></script>
     </div>
 </head>
 <body>

@@ -82,7 +82,7 @@
     $.jgrid.defaults.styleUI = 'Bootstrap';
     $(document).ready(function () {
         $("#jqGrid").jqGrid({
-            url: basePath + 'database/tables',
+            url: contextPath + 'database/tables',
             datatype: "json",
             colNames: ['表名', '表描述'],
             colModel: [

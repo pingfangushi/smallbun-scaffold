@@ -24,18 +24,18 @@ $(function () {
     var valueId = '#dictType';               //下拉框id值
     var idField = 'id';                      //ID字段
     var textField = 'typeName';              //显示的字段
-    var url = basePath + 'dict/type/page';   //URL
+    var url = contextPath + 'dict/type/page';   //URL
     var pageSize = 10;                       //每页显示
     var pageList = [10, 20];                 //可设置显示列表
     var delay = 500;                         //延时查询
     var editable = true;                     //是否可编辑
     var method = 'POST';                     //请求方式
     var columns = [[{field: 'id', title: 'id', hidden: true},
-        {field: 'typeName', title: '类型名称', width: $.combogrid.fixWidth(0.2)},
-        {field: 'typeCode', title: '类型编码', width: $.combogrid.fixWidth(0.2)},
-        {field: 'gmtModified', title: '修改时间', width: $.combogrid.fixWidth(0.2)}
+        {field: 'typeName', title: '类型名称', width: $.comboGrid.fixWidth(0.2)},
+        {field: 'typeCode', title: '类型编码', width: $.comboGrid.fixWidth(0.2)},
+        {field: 'gmtModified', title: '修改时间', width: $.comboGrid.fixWidth(0.2)}
     ]];
-    $.combogrid.init({
+    $.comboGrid.init({
         comboGridId: comboGridId,
         valueId: valueId,
         idField: idField,
@@ -77,7 +77,7 @@ jQuery.validator.addMethod("dictValue", function (value, element) {
     //如果选择了字典类型，进行验证字典类型和字典值是否重复
     if ($.common.isNotEmpty(dictType)) {
         $.ajax({
-            url: basePath + "dict/value/unique",
+            url: contextPath + "dict/value/unique",
             async: false, //同步方法，如果用异步的话，flag永远为false
             type: "POST",
             dataType: 'JSON',

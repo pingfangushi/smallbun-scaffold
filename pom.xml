@@ -269,6 +269,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!--animate-->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>animate.css</artifactId>
+            <version>3.5.2</version>
+        </dependency>
         <!--source-sans-pro-->
         <dependency>
             <groupId>org.webjars.npm</groupId>
@@ -457,7 +463,7 @@
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>bootstrap-table</artifactId>
-            <version>1.13.0</version>
+            <version>1.13.1</version>
         </dependency>
         <!--tablednd-->
         <dependency>

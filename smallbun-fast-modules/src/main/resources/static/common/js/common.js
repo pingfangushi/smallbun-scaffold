@@ -1,1101 +1,591 @@
-/*
- * Copyright [2018] [左庆港]
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+/**
+ * 通用方法封装处理
+ * @author SanLi
+ * Created by 2689170096@qq.com on 2018/9/7
  */
-
-var App = function () {
-
-
-    var basePath = './';
-
-    var imgPath = 'common/img/';
-
-    var pluginsPath = 'common/plugins/';
-
-    var cssPath = 'common/css/';
-    /**
-     * 初始化内容页layout组件高度
-     * @returns {number}
-     */
-    var handleIframeLayoutHeight = function () {
-        var height = App.getViewPort().height - $('.main-footer').outerHeight() - $('.main-header').outerHeight() - $(".content-tabs").outerHeight();
-        return height;
-    };
-    /**
-     * 初始化iframe内容页高度
-     */
-    var handleIframeLayoutContent = function () {
-        var height = App.getViewPort().height - $('.main-footer').outerHeight() - $('.main-header').outerHeight() - $(".content-tabs").outerHeight();
-        $(".content-iframe").css({
-            height: height
-        });
-        $(".tab_iframe").css({
-            height: height
-        });
-        $(".tab_iframe").css({
-            width: "100%"
-        });
-    };
-    /**
-     * 处理全屏
-     */
-    var handleFullScreen = function () {
-        var docElm = document.documentElement;
-
-        //W3C
-        if (docElm.requestFullscreen) {
-            docElm.requestFullscreen();
-        }
-        //FireFox
-        else if (docElm.mozRequestFullScreen) {
-            docElm.mozRequestFullScreen();
-        }
-        //Chrome等
-        else if (docElm.webkitRequestFullScreen) {
-            docElm.webkitRequestFullScreen();
-        }
-        //IE11
-        else if (elem.msRequestFullscreen) {
-            elem.msRequestFullscreen();
-        }
-
-    };
-    /**
-     * 退出全屏
-     */
-    var exitFullscreen = function () {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        }
-        else if (document.mozCancelFullScreen) {
-            document.mozCancelFullScreen();
-        }
-        else if (document.webkitCancelFullScreen) {
-            document.webkitCancelFullScreen();
-        }
-        else if (document.msExitFullscreen) {
-            document.msExitFullscreen();
-        }
-    };
-    /**
-     * 使用jQuery iCheck插件处理自定义复选框和收音机
-     */
-    var handleiCheck = function () {
-        if (!$().iCheck) {
-            return;
-        }
-
-        $(".icheck").each(function () {
-            var checkboxClass = $(this).attr('data-checkbox') ? $(this).attr('data-checkbox') : 'icheckbox_minimal-grey';
-            var radioClass = $(this).attr('data-radio') ? $(this).attr('data-radio') : 'iradio_minimal-grey';
-
-            if (checkboxClass.indexOf('_line') > -1 || radioClass.indexOf('_line') > -1) {
-                $(this).iCheck({
-                    checkboxClass: checkboxClass,
-                    radioClass: radioClass,
-                    insert: '<div class="icheck_line-icon"></div>' + $(this).attr("data-label")
+(function ($) {
+    var $table = $('.table');
+    $.extend({
+        // 表格封装处理
+        table: {
+            _option: {},
+            _params: {},
+            // 初始化表格
+            init: function (options) {
+                $.table._option = options;
+                $.table._params = $.common.isEmpty(options.queryParams) ? $.table.queryParams : options.queryParams;
+                var _sortOrder = $.common.isEmpty(options.sortOrder) ? "asc" : options.sortOrder;
+                var _sortName = $.common.isEmpty(options.sortName) ? "" : options.sortName;
+                $table.bootstrapTable({
+                    width: 'auto',
+                    height: 'auto',
+                    url: options.url,                                   // 请求后台的URL（*）
+                    contentType: "application/x-www-form-urlencoded",   // 编码类型
+                    method: 'post',                                     // 请求方式（*）
+                    cache: false,                                       // 是否使用缓存
+                    sortable: true,                                     // 是否启用排序
+                    sortStable: true,                                   // 设置为 true 将获得稳定的排序
+                    sortName: _sortName,                                // 排序列名称
+                    sortOrder: _sortOrder,                              // 排序方式  asc 或者 desc
+                    pagination: $.common.visible(options.pagination),   // 是否显示分页（*）
+                    clickToSelect: true,                                //是否启用点击选中行
+                    pageNumber: 1,                                      // 初始化加载第一页，默认第一页
+                    pageSize: 20,                                       // 每页的记录行数（*）
+                    pageList: [20, 30, 40],                             // 可供选择的每页的行数（*）
+                    iconSize: 'sm',                                // 图标大小：undefined默认的按钮尺寸 xs超小按钮sm小按钮lg大按钮
+                    sidePagination: "server",                           // 启用服务端分页
+                    paginationLoop: false,                              //不启用分页条无限循环的功能。
+                    cardView: true,                                     //手机端适应
+                    toolbar: "#toolbar",
+                    search: $.common.visible(options.search),           // 是否显示搜索框功能
+                    showRefresh: $.common.visible(options.showRefresh), // 是否显示刷新按钮
+                    showColumns: $.common.visible(options.showColumns), // 是否显示隐藏某列下拉框
+                    showToggle: $.common.visible(options.showToggle),   // 是否显示详细视图和列表视图的切换按钮
+                    showExport: $.common.visible(options.showExport),   // 是否支持导出文件
+                    queryParams: $.table._params,                       // 传递参数（*）
+                    columns: options.columns,                           // 显示列信息（*）
+                    responseHandler: $.table.responseHandler            // 回调函数
                 });
-            } else {
-                $(this).iCheck({
-                    checkboxClass: checkboxClass,
-                    radioClass: radioClass
-                });
-            }
-        });
-    };
-
-    /**
-     * 处理引导程序开关
-     */
-    var handleBootstrapSwitch = function () {
-        if (!$().bootstrapSwitch) {
-            return;
-        }
-        $('.make-switch').bootstrapSwitch();
-    };
-
-    /**
-     * 处理Bootstrap确认
-     */
-    var handleBootstrapConfirmation = function () {
-        if (!$().confirmation) {
-            return;
-        }
-        $('[data-toggle=confirmation]').confirmation({
-            container: 'body',
-            btnOkClass: 'btn btn-sm btn-success',
-            btnCancelClass: 'btn btn-sm btn-danger'
-        });
-    };
-
-    /**
-     * 处理Bootstrap手风琴
-     */
-    var handleAccordions = function () {
-        $('body').on('shown.bs.collapse', '.accordion.scrollable', function (e) {
-            App.scrollTo($(e.target));
-        });
-    };
-
-    /**
-     * 处理Bootstrap选项卡
-     */
-    var handleTabs = function () {
-        /**
-         * 如果URL中提供了选项卡ID，请激活选项卡
-         */
-        if (location.hash) {
-            var tabId = encodeURI(location.hash.substr(1));
-            $('a[href="#' + tabId + '"]').parents('.tab-pane:hidden').each(function () {
-                var tabId = $(this).attr("id");
-                $('a[href="#' + tabId + '"]').click();
-            });
-            $('a[href="#' + tabId + '"]').click();
-        }
-
-        if ($().tabdrop) {
-            $('.tabbable-tabdrop .nav-pills, .tabbable-tabdrop .nav-tabs').tabdrop({
-                text: '<i class="fa fa-ellipsis-v"></i>&nbsp;<i class="fa fa-angle-down"></i>'
-            });
-        }
-    };
-
-    /**
-     * 处理Bootstrap模块
-     */
-    var handleModals = function () {
-        /**
-         * 修复可堆叠模式问题：当2个或更多的模态打开时，关闭一个模态将删除.modal-open类
-         */
-        $('body').on('hide.bs.modal', function () {
-            if ($('.modal:visible').size() > 1 && $('html').hasClass('modal-open') === false) {
-                $('html').addClass('modal-open');
-            } else if ($('.modal:visible').size() <= 1) {
-                $('html').removeClass('modal-open');
-            }
-        });
-
-        /**
-         * 修复页面滚动条问题
-         */
-        $('body').on('show.bs.modal', '.modal', function () {
-            if ($(this).hasClass("modal-scroll")) {
-                $('body').addClass("modal-open-noscroll");
-            }
-        });
-
-        /**
-         * 修复页面滚动条问题
-         */
-        $('body').on('hide.bs.modal', '.modal', function () {
-            $('body').removeClass("modal-open-noscroll");
-        });
-
-        /**
-         * 删除ajax内容并删除模式关闭的缓存
-         */
-        $('body').on('hidden.bs.modal', '.modal:not(.modal-cached)', function () {
-            $(this).removeData('bs.modal');
-        });
-    };
-
-    /**
-     *处理Bootstrap工具提示
-     */
-    var handleTooltips = function () {
-        // global tooltips
-        $('.tooltips').tooltip();
-
-        // portlet tooltips
-        $('.portlet > .portlet-title .fullscreen').tooltip({
-            container: 'body',
-            title: 'Fullscreen'
-        });
-        $('.portlet > .portlet-title > .tools > .reload').tooltip({
-            container: 'body',
-            title: 'Reload'
-        });
-        $('.portlet > .portlet-title > .tools > .remove').tooltip({
-            container: 'body',
-            title: 'Remove'
-        });
-        $('.portlet > .portlet-title > .tools > .config').tooltip({
-            container: 'body',
-            title: 'Settings'
-        });
-        $('.portlet > .portlet-title > .tools > .collapse, .portlet > .portlet-title > .tools > .expand').tooltip({
-            container: 'body',
-            title: 'Collapse/Expand'
-        });
-    };
-
-    /**
-     * 处理Bootstrap下拉菜单
-     */
-    var handleDropdowns = function () {
-        /**
-         * 点击时按住下拉菜单
-         */
-        $('body').on('click', '.dropdown-menu.hold-on-click', function (e) {
-            e.stopPropagation();
-        });
-    };
-
-    var handleAlerts = function () {
-        $('body').on('click', '[data-close="alert"]', function (e) {
-            $(this).parent('.alert').hide();
-            $(this).closest('.note').hide();
-            e.preventDefault();
-        });
-
-        $('body').on('click', '[data-close="note"]', function (e) {
-            $(this).closest('.note').hide();
-            e.preventDefault();
-        });
-
-        $('body').on('click', '[data-remove="note"]', function (e) {
-            $(this).closest('.note').remove();
-            e.preventDefault();
-        });
-    };
-
-    /**
-     * 处理Hower下拉菜单
-     */
-    var handleDropdownHover = function () {
-        $('[data-hover="dropdown"]').not('.hover-initialized').each(function () {
-            $(this).dropdownHover();
-            $(this).addClass('hover-initialized');
-        });
-    };
-
-    /**
-     * 修复IE8和IE9的输入占位符问题
-     */
-    var handleFixInputPlaceholderForIE = function () {
-        var isIe8 = !!navigator.userAgent.match(/MSIE 8.0/);
-        var isIe9 = !!navigator.userAgent.match(/MSIE 9.0/);
-        var isIe10 = !!navigator.userAgent.match(/MSIE 10.0/);
-        //修复ie7＆ie8的html5占位符属性
-        if (isIe8 || isIe9) { // ie8 & ie9
-            // 这是HTML5的占位符修复输入，带有占位符 - 不修复类的输入将被跳过（例如：我们需要密码字段）
-            $('input[placeholder]:not(.placeholder-no-fix), textarea[placeholder]:not(.placeholder-no-fix)').each(function () {
-                var input = $(this);
-
-                if (input.val() === '' && input.attr("placeholder") !== '') {
-                    input.addClass("placeholder").val(input.attr('placeholder'));
+            },
+            // 查询条件
+            queryParams: function (params) {
+                return {
+                    // 传递参数查询参数
+                    size: params.limit, //每页显示条数
+                    current: params.offset / params.limit + 1, //当前页数
+                    searchValue: params.search,
+                    orderByColumn: params.sort,
+                    isAsc: params.order
+                };
+            },
+            // 请求获取数据后处理回调函数
+            responseHandler: function (res) {
+                //如果请求成功
+                if (res.status === '200') {
+                    return {rows: res.page.records, total: res.page.total};
                 }
-
-                input.focus(function () {
-                    if (input.val() == input.attr('placeholder')) {
-                        input.val('');
+                //否则
+                else {
+                    $.modal.alert(res.status + ":" + res.msg, modal_status.FAIL);
+                    return {rows: [], total: 0};
+                }
+            },
+            // 搜索
+            search: function (formId) {
+                var currentId = $.common.isEmpty(formId) ? $('form').attr('id') : formId;
+                var search = {};
+                $.each($("#" + currentId).serializeArray(), function (i, field) {
+                    search[field.name] = field.value;
+                });
+                $table.bootstrapTable('refresh', {query: search});
+            },
+            // 导出
+            exportExcel: function (formId) {
+                var currentId = $.common.isEmpty(formId) ? $('form').attr('id') : formId;
+                var index = $.modal.loading("正在导出数据，请稍后...");
+                $.post($.table._option.exportUrl, $("#" + currentId).serializeArray(), function (result) {
+                    if (result.status === web_status.SUCCESS) {
+                        window.location.href = contextPath + "fast/download?fileName=" + result.msg + "&delete=" + true;
+                    } else {
+                        $.modal.alertError(result.msg);
+                    }
+                    $.modal.closeLoading(index);
+                });
+            },
+            // 导入
+            importExcel: function (formId) {
+                var currentId = $.common.isEmpty(formId) ? $('form').attr('id') : formId;
+                var index = $.modal.loading("正在导出数据，请稍后...");
+                $.post($.table._option.exportUrl, $("#" + currentId).serializeArray(), function (result) {
+                    if (result.status === web_status.SUCCESS) {
+                        window.location.href = contextPath + "fast/download?fileName=" + result.msg + "&delete=" + true;
+                    } else {
+                        $.modal.alertError(result.msg);
+                    }
+                    $.modal.closeLoading(index);
+                });
+            },
+            // 刷新
+            refresh: function () {
+                $table.bootstrapTable('refresh', {
+                    url: $.table._option.url,
+                    silent: true
+                });
+            },
+            // 查询选中列值
+            selectColumns: function (column) {
+                return $.map($table.bootstrapTable('getSelections'), function (row) {
+                    return row[column];
+                });
+            },
+            // 查询选中首列值
+            selectFirstColumns: function () {
+                return $.map($table.bootstrapTable('getSelections'), function (row) {
+                    return row[$.table._option.columns[1].field];
+                });
+            },
+            // 回显数据字典
+            selectDictLabel: function (_datas, _value) {
+                var actions = [];
+                $.each(_datas, function (index, dict) {
+                    if (dict.dictValue === _value) {
+                        actions.push("<span class='badge badge-" + dict.listClass + "'>" + dict.dictLabel + "</span>");
+                        return false;
                     }
                 });
-
-                input.blur(function () {
-                    if (input.val() === '' || input.val() == input.attr('placeholder')) {
-                        input.val(input.attr('placeholder'));
-                    }
-                });
-            });
-        }
-    };
-
-    /**
-     * 最后的popep popover
-     */
-    var lastPopedPopover;
-
-    var handlePopovers = function () {
-        $('.popovers').popover();
-
-        /**
-         * 关闭上次显示的弹出窗口
-         */
-
-        $(document).on('click.bs.popover.data-api', function (e) {
-            if (lastPopedPopover) {
-                lastPopedPopover.popover('hide');
+                return actions.join('');
+            },
+            //查看
+            view: function (value, row, index) {
+                var actions = [];
+                actions.push('<a  href="#" onclick="$.operate.view(\'' + row.id + '\',\'\')">' + value + '</a> ');
+                return actions.join('');
             }
-        });
-    };
-    /**
-     * 使用jQuery SlimScroll插件处理可滚动内容
-     */
-    var handleScrollers = function () {
-        App.initSlimScroll('.scroller');
-    };
-
-    var handleInitFullScreen = function () {
-        var fullScreenClickCount = 0;
-        $(".fullscreen").bind("click", function () {
-            if (fullScreenClickCount % 2 === 0) {
-                handleFullScreen();
-            } else {
-                exitFullscreen();
-            }
-            fullScreenClickCount++;
-        });
-    };
-    return {
-        init: function () {
-            //IMPORTANT!!!:不要修改核心处理程序的调用顺序。
-            //UI组件处理程序
-            handleiCheck(); // 处理自定义iCheck收音机和复选框
-            handleBootstrapSwitch(); // 处理自举开关插件
-            handleScrollers(); // 处理苗条的滚动内容
-            handleAlerts(); //处理可关闭的警报
-            handleDropdowns(); // 处理下拉菜单
-            handleTabs(); // 处理标签
-            handleTooltips(); // 处理引导工具提示
-            handlePopovers(); // 处理bootstrap弹出
-            handleAccordions(); //处理手风琴
-            handleModals(); // 处理模态
-            handleBootstrapConfirmation(); // 处理引导确认
-            handleFixInputPlaceholderForIE(); //IE8和IE9输入占位符问题修复
-            handleInitFullScreen();//处理Init全屏
-
         },
-
-        initSlimScroll: function (el) {
-            $(el).each(function () {
-                if ($(this).attr("data-initialized")) {
-                    return; // exit
-                }
-
-                var height;
-
-                if ($(this).attr("data-height")) {
-                    height = $(this).attr("data-height");
+        // 表格树封装处理
+        treeTable: {
+            _option: {},
+            _treeTable: {},
+            // 初始化表格
+            init: function (options) {
+                $.table._option = options;
+                $.treeTable._treeTable = $table.bootstrapTable({
+                    url: options.url,
+                    method: 'post',                                     // 请求方式（*）
+                    singleSelect: true,
+                    striped: true,
+                    clickToSelect: true,//是否启用点击选中行
+                    toolbarAlign: 'left',//工具栏对齐方式
+                    buttonsAlign: 'left',//按钮对齐方式
+                    width: 'auto',
+                    height: '760',
+                    sidePagination: 'server',
+                    toolbar: "#toolbar",
+                    idField: options.idField,
+                    rootParentId: options.rootParentId,
+                    parentIdField: options.parentIdField,
+                    columns: options.columns,
+                    treeShowField: options.treeShowField,
+                    responseHandler: $.treeTable.responseHandler,           // 回调函数
+                    onLoadSuccess: function (res) {
+                        $table.treegrid({
+                            initialState: options.initialState, /*不展开*/
+                            treeColumn: 1,
+                            expanderExpandedClass: 'treegrid-expander glyphicon glyphicon-chevron-down',
+                            expanderCollapsedClass: 'treegrid-expander glyphicon glyphicon-chevron-right',
+                            onChange: function () {
+                                $table.bootstrapTable('resetWidth');
+                            }
+                        });
+                    }
+                });
+            },
+            // 条件查询
+            search: function (formId) {
+                var currentId = $.common.isEmpty(formId) ? $('form').attr('id') : formId;
+                var params = {};
+                $.each($("#" + currentId).serializeArray(), function (i, field) {
+                    params[field.name] = field.value;
+                });
+                $.treeTable._treeTable.bootstrapTable('refresh', params);
+            },
+            // 请求获取数据后处理回调函数
+            responseHandler: function (res) {
+                //如果不是200代表请求失败或者异常
+                if (res.status === '900001') {
+                    $.modal.alert(res.status + ":" + res.msg, modal_status.FAIL);
+                    return [];
                 } else {
-                    height = $(this).css('height');
+                    return res.result;
                 }
-
-                $(this).slimScroll({
-                    allowPageScroll: true,//当元素滚动结束时允许页面滚动
-                    size: '7px',
-                    color: ($(this).attr("data-handle-color") ? $(this).attr("data-handle-color") : '#bbb'),
-                    wrapperClass: ($(this).attr("data-wrapper-class") ? $(this).attr("data-wrapper-class") : 'slimScrollDiv'),
-                    railColor: ($(this).attr("data-rail-color") ? $(this).attr("data-rail-color") : '#eaeaea'),
-                    position: isRTL ? 'left' : 'right',
-                    height: height,
-                    alwaysVisible: ($(this).attr("data-always-visible") == "1" ? true : false),
-                    railVisible: ($(this).attr("data-rail-visible") == "1" ? true : false),
-                    disableFadeOut: true
-                });
-
-                $(this).attr("data-initialized", "1");
-            });
-        },
-
-        destroySlimScroll: function (el) {
-            $(el).each(function () {
-                if ($(this).attr("data-initialized") === "1") { // 在更新高度之前销毁现有的实例
-                    $(this).removeAttr("data-initialized");
-                    $(this).removeAttr("style");
-
-                    var attrList = {};
-
-                    /**
-                     * 存储自定义属性，以便稍后我们将重新分配。
-                     */
-                    if ($(this).attr("data-handle-color")) {
-                        attrList["data-handle-color"] = $(this).attr("data-handle-color");
-                    }
-                    if ($(this).attr("data-wrapper-class")) {
-                        attrList["data-wrapper-class"] = $(this).attr("data-wrapper-class");
-                    }
-                    if ($(this).attr("data-rail-color")) {
-                        attrList["data-rail-color"] = $(this).attr("data-rail-color");
-                    }
-                    if ($(this).attr("data-always-visible")) {
-                        attrList["data-always-visible"] = $(this).attr("data-always-visible");
-                    }
-                    if ($(this).attr("data-rail-visible")) {
-                        attrList["data-rail-visible"] = $(this).attr("data-rail-visible");
-                    }
-
-                    $(this).slimScroll({
-                        wrapperClass: ($(this).attr("data-wrapper-class") ? $(this).attr("data-wrapper-class") : 'slimScrollDiv'),
-                        destroy: true
-                    });
-
-                    var the = $(this);
-
-                    // 重新分配自定义属性
-                    $.each(attrList, function (key, value) {
-                        the.attr(key, value);
-                    });
-
-                }
-            });
-        },
-        /**
-         * 获得Iframe布局高度
-         * @returns {number}
-         */
-        getIframeLayoutHeight: function () {
-            return handleIframeLayoutHeight();
-        },
-        /**
-         * 处理sidebar ajax方式加载
-         */
-        requestFullScreen: function () {
-            return handleFullScreen();
-        },
-        /**
-         * 处理iframe内容
-         */
-        handleIframeContent: function () {
-            return handleIframeLayoutContent();
-        },
-        /**
-         * 处理sidebar ajax方式加载
-         */
-        handleSidebarAjaxContent: function () {
-            jQuery('.sidebar-menu').on('click', ' li > a.ajaxify', function (e) {
-                e.preventDefault();
-                var url = $(this).attr("href");
-                var pageContentBody = $('#tab-page-content');
-
-                App.startPageLoading({message: '加载中...'});
-                $.get(url, {}, function (res) {
-                    pageContentBody.html(res);
-                    App.stopPageLoading();
-                });
-            });
-        },
-        fixIframeContent: function () {
-            setInterval(function () {
-                handleIframeLayoutContent();
-            }, 200);
-            return;
-        },
-        blockUI: function (options) {
-
-            options = $.extend(true, {}, options);
-            var html = '';
-            if (options.animate) {
-                html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '') + '">' + '<div class="block-spinner-bar"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>' + '</div>';
-            } else if (options.iconOnly) {
-                html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '') + '"><img src="' + this.getGlobalImgPath() + 'loading/loading-spinner-blue.gif" align=""></div>';
-            } else if (options.textOnly) {
-                html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '') + '"><span>&nbsp;&nbsp;' + (options.message ? options.message : 'LOADING...') + '</span></div>';
-            } else {
-                html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '') + '"><img src="' + this.getGlobalImgPath() + 'loading/loading-spinner-blue.gif" align=""><span>&nbsp;&nbsp;' + (options.message ? options.message : 'LOADING...') + '</span></div>';
+            },
+            // 刷新
+            refresh: function () {
+                $.treeTable._treeTable.bootstrapTable('refresh');
             }
-
-            if (options.target) { // element blocking
-                var el = $(options.target);
-                if (el.height() <= ($(window).height())) {
-                    options.cenrerY = true;
+        },
+        // 表单封装处理
+        form: {
+            // 表单重置
+            reset: function (formId) {
+                var currentId = $.common.isEmpty(formId) ? $('form').attr('id') : formId;
+                $("#" + currentId)[0].reset();
+            },
+            // 获取选中复选框项
+            selectCheckeds: function (name) {
+                var checkeds = "";
+                $('input:checkbox[name="' + name + '"]:checked').each(function (i) {
+                    if ('0' === i) {
+                        checkeds = $(this).val();
+                    } else {
+                        checkeds += ("," + $(this).val());
+                    }
+                });
+                return checkeds;
+            },
+            // 获取选中下拉框项
+            selectSelects: function (name) {
+                var selects = "";
+                $('#' + name + ' option:selected').each(function (i) {
+                    if ('0' === i) {
+                        selects = $(this).val();
+                    } else {
+                        selects += ("," + $(this).val());
+                    }
+                });
+                return selects;
+            }
+        },
+        // 弹出层封装处理
+        modal: {
+            // 显示图标
+            icon: function (type) {
+                var icon = "";
+                if (type === modal_status.WARNING) {
+                    icon = 0;
+                } else if (type === modal_status.SUCCESS) {
+                    icon = 1;
+                } else if (type === modal_status.FAIL) {
+                    icon = 2;
+                } else {
+                    icon = 3;
                 }
-                el.block({
-                    message: html,
-                    baseZ: options.zIndex ? options.zIndex : 1000,
-                    centerY: options.cenrerY !== undefined ? options.cenrerY : false,
-                    css: {
-                        top: '10%',
-                        border: '0',
-                        padding: '0',
-                        backgroundColor: 'none'
+                return icon;
+            },
+            // 消息提示
+            msg: function (content, type) {
+                if (type !== undefined) {
+                    layer.msg(content, {icon: $.modal.icon(type), time: 1000, shift: 5});
+                } else {
+                    layer.msg(content);
+                }
+            },
+            // 错误消息
+            msgError: function (content) {
+                $.modal.msg(content, modal_status.FAIL);
+            },
+            // 成功消息
+            msgSuccess: function (content) {
+                $.modal.msg(content, modal_status.SUCCESS);
+            },
+            // 警告消息
+            msgWarning: function (content) {
+                $.modal.msg(content, modal_status.WARNING);
+            },
+            // 弹出提示
+            alert: function (content, type) {
+                layer.alert(content, {
+                    icon: $.modal.icon(type),
+                    title: "系统提示",
+                    btn: ['确认'],
+                    btnclass: ['btn btn-primary'],
+                });
+            },
+            // 消息提示并刷新父窗体
+            msgReload: function (msg, type) {
+                layer.msg(msg, {
+                        icon: $.modal.icon(type),
+                        time: 500,
+                        shade: [0.1, '#8F8F8F']
                     },
-                    overlayCSS: {
-                        backgroundColor: options.overlayColor ? options.overlayColor : '#555',
-                        opacity: options.boxed ? 0.05 : 0.1,
-                        cursor: 'wait'
-                    }
+                    function () {
+                        $.modal.reload();
+                    });
+            },
+            // 错误提示
+            alertError: function (content) {
+                $.modal.alert(content, modal_status.FAIL);
+            },
+            // 成功提示
+            alertSuccess: function (content) {
+                $.modal.alert(content, modal_status.SUCCESS);
+            },
+            // 警告提示
+            alertWarning: function (content) {
+                $.modal.alert(content, modal_status.WARNING);
+            },
+            // 关闭窗体
+            close: function () {
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.layer.close(index);
+            },
+            // 确认窗体
+            confirm: function (content, callBack) {
+                layer.confirm(content, {
+                    icon: 3,
+                    title: "系统提示",
+                    btn: ['确认', '取消'],
+                    btnclass: ['btn btn-primary', 'btn btn-danger'],
+                }, function (index) {
+                    layer.close(index);
+                    callBack(true);
                 });
-            } else { // 页面阻塞
-                $.blockUI({
-                    message: html,
-                    baseZ: options.zIndex ? options.zIndex : 1000,
-                    css: {
-                        border: '0',
-                        padding: '0',
-                        backgroundColor: 'none'
+            },
+            // 弹出层指定宽度
+            open: function (title, url, width, height) {
+                //如果是移动端，就使用自适应大小弹窗
+                if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
+                    width = 'auto';
+                    height = 'auto';
+                }
+                if ($.common.isEmpty(title)) {
+                    title = false;
+                }
+                if ($.common.isEmpty(url)) {
+                    url = "404.html";
+                }
+                if ($.common.isEmpty(width)) {
+                    width = 1000;
+                }
+                if ($.common.isEmpty(height)) {
+                    height = ($(window).height() - 45);
+                }
+                layer.open({
+                    type: 2,
+                    area: [width + 'px', height + 'px'],
+                    fix: false,
+                    //不固定
+                    maxmin: true,
+                    shade: 0.3,
+                    title: title,
+                    content: url,
+                    btn: ['确定', '关闭'],
+                    yes: function (index, layero) {
+                        var body = top.layer.getChildFrame('body', index);
+                        var iframeWin = layero.find('iframe')[0]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                        //文档地址
+                        //调用提交方法
+                        iframeWin.contentWindow.doSubmit();
                     },
-                    overlayCSS: {
-                        backgroundColor: options.overlayColor ? options.overlayColor : '#555',
-                        opacity: options.boxed ? 0.05 : 0.1,
-                        cursor: 'wait'
+                    cancel: function (index) {
+
                     }
                 });
-            }
-        },
+            },
+            // 弹出层指定宽度
+            view: function (title, url, width, height) {
+                //如果是移动端，就使用自适应大小弹窗
+                if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
+                    width = 'auto';
+                    height = 'auto';
+                }
+                if ($.common.isEmpty(title)) {
+                    title = false;
+                }
+                if ($.common.isEmpty(url)) {
+                    url = "404.html";
+                }
+                if ($.common.isEmpty(width)) {
+                    width = 1000;
+                }
+                if ($.common.isEmpty(height)) {
+                    height = ($(window).height() - 50);
+                }
+                layer.open({
+                    type: 2,
+                    area: [width + 'px', height + 'px'],
+                    fix: false,
+                    //不固定
+                    maxmin: true,
+                    shade: 0.3,
+                    title: title,
+                    content: url,
+                    btn: ['关闭'],
+                    cancel: function (index) {
 
-        /**
-         * wrApper函数解除元素（完成加载）
-         * @param target
-         * @param title
-         */
-        unblockUI: function (target, title) {
-
-            if (target) {
-                $(target).unblock({
-                    onUnblock: function () {
-                        $(target).css('position', '');
-                        $(target).css('zoom', '');
                     }
                 });
-            } else {
-                $.unblockUI();
+            },
+            // 弹出层全屏
+            openFull: function (title, url, width, height) {
+                //如果是移动端，就使用自适应大小弹窗
+                if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
+                    width = 'auto';
+                    height = 'auto';
+                }
+                if ($.common.isEmpty(title)) {
+                    title = false;
+                }
+                if ($.common.isEmpty(url)) {
+                    url = "404.html";
+                }
+                if ($.common.isEmpty(width)) {
+                    width = 800;
+                }
+                if ($.common.isEmpty(height)) {
+                    height = ($(window).height() - 50);
+                }
+                var index = layer.open({
+                    type: 2,
+                    area: [width + 'px', height + 'px'],
+                    fix: false,
+                    //不固定
+                    maxmin: true,
+                    shade: 0.3,
+                    title: title,
+                    content: url
+                });
+                layer.full(index);
+            },
+            // 打开遮罩层
+            loading: function (message) {
+                return layer.msg(message, {
+                    icon: 16,
+                    shade: 0.01,
+                    time: 0 //不自动关闭
+                });
+                /* $.blockUI({message: '<div class="loaderbox"><div class="loading-activity"></div> ' + message + '</div>'});*/
+            },
+            // 关闭遮罩层
+            closeLoading: function (index) {
+                setTimeout(function () {
+                    layer.close(index);
+                }, 50);
+            },
+            // 重新加载
+            reload: function () {
+                parent.location.reload();
             }
         },
-
-        startPageLoading: function (options) {
-            if (options && options.animate) {
-                $('.page-spinner-bar').remove();
-                $('body').append('<div class="page-spinner-bar"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>');
-            } else {
-                $('.page-loading').remove();
-                $('body').append('<div class="page-loading"><img src="' + this.getGlobalImgPath() + 'loading-spinner-blue.gif"/>&nbsp;&nbsp;<span>' + (options && options.message ? options.message : 'Loading...') + '</span></div>');
-            }
-        },
-
-        stopPageLoading: function () {
-            $('.page-loading, .page-spinner-bar').remove();
-        },
-        getViewPort: function () {
-            var e = window,
-                a = 'inner';
-            if (!('innerWidth' in window)) {
-                a = 'client';
-                e = document.documentElement || document.body;
-            }
-
-            return {
-                width: e[a + 'Width'],
-                height: e[a + 'Height']
-            };
-        },
-
-        getbasePath: function () {
-            return basePath;
-        },
-
-        setbasePath: function (path) {
-            basePath = path;
-        },
-
-        setGlobalImgPath: function (path) {
-            imgPath = path;
-        },
-
-        getGlobalImgPath: function () {
-            return basePath + imgPath;
-        },
-
-        setGlobalPluginsPath: function (path) {
-            pluginsPath = path;
-        },
-
-        getGlobalPluginsPath: function () {
-            return basePath + pluginsPath;
-        },
-
-        getGlobalCssPath: function () {
-            return basePath + cssPath;
-        }
-    };
-}();
-
-jQuery(document).ready(function () {
-    App.init();
-});
-/**
- * 修复IE11 bug
- */
-(function () {
-    function CustomEvent(event, params) {
-        params = params || {bubbles: false, cancelable: false, detail: undefined};
-        var evt = document.createEvent('CustomEvent');
-        evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
-        return evt;
-    }
-
-    CustomEvent.prototype = window.Event.prototype;
-    window.CustomEvent = CustomEvent;
-})();
-
-/**
- * 添加tabs
- * @param options
- */
-var addTabs = function (options) {
-    var url = window.location.pathname + "/../";
-    //var url = window.location.protocol + '//' + window.location.host + "/";
-    options.url = url + options.url;
-    var id = "tab_" + options.id;
-    var title = "", content = "";
-    /**
-     * 如果TAB不存在，创建一个新的TAB
-     */
-    if (!window.top.$("#" + id)[0]) {
-        /**
-         * 创建新TAB的title
-         * @type {string}
-         */
-        title = '<a href="javascript:void(0);" id="tab_' + id + '"  data-id="' + id + '"  class="menu_tab" title=' + options.title + '>' + options.title;
-        /**
-         * 是否允许关闭
-         */
-        if (options.close) {
-            title += ' <i class="fa fa-remove page_tab_close" style="cursor: pointer;" data-id="' + id + '" onclick="closeTab(this)"></i>';
-        }
-        title += '</a>';
-        var loadIframe = "";
-        /**
-         * 是否指定TAB内容
-         */
-        if (options.content) {
-            content = '<div role="tabpanel" class="tab-pane" id="' + id + '">' + options.content + '</div>';
-        }
-        /**
-         *没有内容，使用iframe打开链接
-         */
-        else {
-            App.blockUI({
-                target: '#tab-content',
-                boxed: true,
-                message: '加载中......',
-                animate: false
-            });
-            content = '<div role="tabpanel" class="tab-pane" id="' + id + '" style="background: #F2F2F2;">';
-            loadIframe = '<iframe onload="javascript:App.unblockUI(\'#tab-content\',\'' + options.title + '\');" src="' + options.url +
-                '" width="100%" height="100%" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="yes"  allowtransparency="yes" id="iframe_' + id + '" class="  tab_iframe"></iframe>';
-            content += loadIframe;
-            content += '</div>';
-        }
-        /**
-         * 加入tabs
-         */
-        window.top.$(".page-tabs-content").append(title);
-        window.top.$("#tab-content").append(content);
-    }
-    window.top.$(".page-tabs-content > a.active").removeClass("active");
-    window.top.$("#tab-content > .active").removeClass("active");
-
-    /**
-     * 激活tabs
-     */
-    window.top.$("#tab_" + id).addClass('active');
-    scrollToTab(window.top.$('.menu_tab.active'));
-    window.top.$("#" + id).addClass("active");
-
-};
-/**
- * 添加tab
- * @param options
- */
-var addTab = function (options) {
-    var id = "tab_" + options.id;
-    var title = "", content = "";
-    /**
-     * 如果TAB不存在，创建一个新的TAB
-     */
-    if (!window.top.$("#" + id)[0]) {
-        /**
-         * 创建新TAB的title
-         * @type {string}
-         */
-        title = '<a href="javascript:void(0);" id="tab_' + id + '"  data-id="' + id + '"  class="menu_tab" title=' + options.title + '>' + options.title;
-        /**
-         * 是否允许关闭
-         */
-        if (options.close) {
-            title += ' <i class="fa fa-remove page_tab_close" style="cursor: pointer;" data-id="' + id + '" onclick="closeTab(this)"></i>';
-        }
-        title += '</a>';
-        var loadIframe = "";
-        /**
-         * 是否指定TAB内容
-         */
-        if (options.content) {
-            content = '<div role="tabpanel" class="tab-pane" id="' + id + '">' + options.content + '</div>';
-        }
-        /**
-         *没有内容，使用iframe打开链接
-         */
-        else {
-            App.blockUI({
-                target: '#tab-content',
-                boxed: true,
-                message: '加载中......',
-                animate: false
-            });
-            content = '<div role="tabpanel" class="tab-pane" id="' + id + '" style="background: #F2F2F2;">';
-            loadIframe = '<iframe onload="javascript:App.unblockUI(\'#tab-content\',\'' + options.title + '\');" src="' + options.url +
-                '" width="100%" height="100%" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="yes"  allowtransparency="yes" id="iframe_' + id + '" class="  tab_iframe"></iframe>';
-            content += loadIframe;
-            content += '</div>';
-        }
-        /**
-         * 加入tabs
-         */
-        window.top.$(".page-tabs-content").append(title);
-        window.top.$("#tab-content").append(content);
-    }
-    window.top.$(".page-tabs-content > a.active").removeClass("active");
-    window.top.$("#tab-content > .active").removeClass("active");
-
-    /**
-     * 激活tabs
-     */
-    window.top.$("#tab_" + id).addClass('active');
-    scrollToTab(window.top.$('.menu_tab.active'));
-    window.top.$("#" + id).addClass("active");
-
-};
-/**
- * 关闭tabs
- * @param item
- */
-var closeTab = function (item) {
-    var id = $(item).attr("data-id");
-    /**
-     * 如果关闭的是当前激活的TAB，激活他的前一个TAB
-     */
-    if ($(".page-tabs-content > a.active").attr('id') === "tab_" + id) {
-        var prev = $("#tab_" + id).prev();
-        var prevIframe = $("#" + id).prev();
-        /**
-         * 某种bug，需要延迟执行
-         */
-        setTimeout(function () {
-            prev.addClass('active');
-            prevIframe.addClass('active');
-        }, 300);
-    }
-
-    /**
-     * 关闭TAB
-     */
-    $("#tab_" + id).remove();
-    $("#" + id).remove();
-
-};
-/**
- * 关闭当前标签
- */
-var closeCurrentTab = function () {
-    var currentTab = $('.page-tabs-content').find('.active').find('.fa-remove').parents('a');
-    if (currentTab) {
-        closeTab(currentTab);
-    }
-};
-/**
- * 刷新标签
- */
-var refreshTab = function () {
-    var currentId = $('.page-tabs-content').find('.active').attr('data-id');
-    var target = $('#iframe_' + currentId);
-    var url = target.attr('src');
-
-    target.attr('src', url);
-};
-var closeOtherTabs = function (isAll) {
-    if (isAll) {
-        $('.page-tabs-content').children("[data-id]").find('.fa-remove').parents('a').each(function () {
-            $('#' + $(this).data('id')).remove();
-            $(this).remove();
-        });
-        /**
-         * 选中那些删不掉的第一个菜单
-         * @type {jQuery}
-         */
-        var firstChild = $(".page-tabs-content").children();
-        if (firstChild) {
-            $('#' + firstChild.data('id')).addClass('active');
-            firstChild.addClass('active');
-        }
-    }
-    else {
-        $('.page-tabs-content').children("[data-id]").find('.fa-remove').parents('a').not(".active").each(function () {
-            $('#' + $(this).data('id')).remove();
-            $(this).remove();
-        });
-
-    }
-};
-/**
- * 计算宽度
- * @param element
- * @returns {number}
- */
-var calSumWidth = function (element) {
-    var width = 0;
-    $(element).each(function () {
-        width += $(this).outerWidth(true);
-    });
-    return width;
-};
-/**
- * 滚动条滚动到右边
- * @returns {boolean}
- */
-var scrollTabRight = function () {
-    var marginLeftVal = Math.abs(parseInt($(".page-tabs-content").css("margin-left")));
-    var tabOuterWidth = calSumWidth($(".content-tabs").children().not(".menuTabs"));
-    var visibleWidth = $(".content-tabs").outerWidth(true) - tabOuterWidth;
-    var scrollVal = 0;
-    if ($(".page-tabs-content").width() < visibleWidth) {
-        return false;
-    } else {
-        var tabElement = $(".menu_tab:first");
-        var offsetVal = 0;
-        while ((offsetVal + $(tabElement).outerWidth(true)) <= marginLeftVal) {
-            offsetVal += $(tabElement).outerWidth(true);
-            tabElement = $(tabElement).next();
-        }
-        offsetVal = 0;
-        while ((offsetVal + $(tabElement).outerWidth(true)) < (visibleWidth) && tabElement.length > 0) {
-            offsetVal += $(tabElement).outerWidth(true);
-            tabElement = $(tabElement).next();
-        }
-        scrollVal = calSumWidth($(tabElement).prevAll());
-        if (scrollVal > 0) {
-            $('.page-tabs-content').animate({
-                marginLeft: 0 - scrollVal + 'px'
-            }, "fast");
-        }
-    }
-};
-/**
- * 滚动条滚动
- * @param element
- */
-var scrollToTab = function (element) {
-    var marginLeftVal = calSumWidth($(element).prevAll()), marginRightVal = calSumWidth($(element).nextAll());
-    var tabOuterWidth = calSumWidth($(".content-tabs").children().not(".menuTabs"));
-    var visibleWidth = $(".content-tabs").outerWidth(true) - tabOuterWidth;
-    var scrollVal = 0;
-    if ($(".page-tabs-content").outerWidth() < visibleWidth) {
-        scrollVal = 0;
-    } else if (marginRightVal <= (visibleWidth - $(element).outerWidth(true) - $(element).next().outerWidth(true))) {
-        if ((visibleWidth - $(element).next().outerWidth(true)) > marginRightVal) {
-            scrollVal = marginLeftVal;
-            var tabElement = element;
-            while ((scrollVal - $(tabElement).outerWidth()) > ($(".page-tabs-content").outerWidth() - visibleWidth)) {
-                scrollVal -= $(tabElement).prev().outerWidth();
-                tabElement = $(tabElement).prev();
-            }
-        }
-    } else if (marginLeftVal > (visibleWidth - $(element).outerWidth(true) - $(element).prev().outerWidth(true))) {
-        scrollVal = marginLeftVal - $(element).prev().outerWidth(true);
-    }
-    $('.page-tabs-content').animate({
-        marginLeft: 0 - scrollVal + 'px'
-    }, "fast");
-};
-/**
- * 滚动条滚动到左边
- * @returns {boolean}
- */
-var scrollTabLeft = function () {
-    var marginLeftVal = Math.abs(parseInt($(".page-tabs-content").css("margin-left")));
-    var tabOuterWidth = calSumWidth($(".content-tabs").children().not(".menuTabs"));
-    var visibleWidth = $(".content-tabs").outerWidth(true) - tabOuterWidth;
-    var scrollVal = 0;
-    if ($(".page-tabs-content").width() < visibleWidth) {
-        return false;
-    } else {
-        var tabElement = $(".menu_tab:first");
-        var offsetVal = 0;
-        while ((offsetVal + $(tabElement).outerWidth(true)) <= marginLeftVal) {
-            offsetVal += $(tabElement).outerWidth(true);
-            tabElement = $(tabElement).next();
-        }
-        offsetVal = 0;
-        if (calSumWidth($(tabElement).prevAll()) > visibleWidth) {
-            while ((offsetVal + $(tabElement).outerWidth(true)) < (visibleWidth) && tabElement.length > 0) {
-                offsetVal += $(tabElement).outerWidth(true);
-                tabElement = $(tabElement).prev();
-            }
-            scrollVal = calSumWidth($(tabElement).prevAll());
-        }
-    }
-    $('.page-tabs-content').animate({
-        marginLeft: 0 - scrollVal + 'px'
-    }, "fast");
-};
-/**
- * 激活Tab
- */
-var activeTab = function () {
-    var id = $(this).attr("data-id");
-    $(".menu_tab").removeClass("active");
-    $("#tab-content > .active").removeClass("active");
-    //激活TAB
-    $("#tab_" + id).addClass('active');
-    $("#" + id).addClass("active");
-    //主要是针对激活tab后，滚动条消失问题，触发一下滚动条事件
-    $("#iframe_" + id).animate({
-        height: App.getIframeLayoutHeight() + 1
-    }, 500);
-    $("#iframe_" + id).animate({
-        height: App.getIframeLayoutHeight() - 1
-    }, 500);
-    scrollToTab(this);
-
-};
-
-$(function () {
-    $(".menuTabs").on("click", ".menu_tab", activeTab);
-});
-/**
- * 禁用右键
- * @type {Function}
- */
-//document.oncontextmenu = new Function("return false");
-/**
- *
- * @type {document.onkeypress}
- */
-//document.onkeydown = document.onkeyup = document.onkeypress = function (event) {
-//    var e = event || window.event || arguments.callee.caller.arguments[0];
-//    //如果是F12
-//    if (e && e.keyCode === 123) {
-//        e.returnValue = false;
-//        return (false);
-//    }
-//};
-
-/**
- * AJAX 异常统一处理
- */
-$(function () {
-    $(document).ajaxError(
-        //所有Ajax请求异常的统一处理函数，处理
-        function (event, xhr, options, exc) {
-            if (xhr.status === 'undefined') {
-                return;
-            }
-            switch (xhr.status) {
-                case 403:
-                    // 未授权异常
-                    $.modal.alert("您没有访问权限！", modal_status.FAIL);
-                    break;
-                case 404:
-                    $.modal.alert("您访问的资源不存在！", modal_status.FAIL);
-                    break;
-                case 500:
-                    $.modal.alert("服务器开小差了~~,请您稍后重试！", modal_status.FAIL);
-                    break;
-            }
-        }
-    );
-});
-/**
- * 左侧侧边栏
- */
-$(function () {
-
-    $.fn.sidebarMenu = function (options) {
-
-        init($(this), options.data, 0);
-
-        /**
-         * 初始化
-         * @param target
-         * @param data
-         * @param level
-         */
-        function init(target, data, level) {
-            $.each(data, function (i, item) {
-                //如果标签是isHeader
-                var header = $('<li class="header"></li>');
-                if (item.isHeader != null && item.isHeader === true) {
-                    header.append(item.name);
-                    target.append(header);
+        // 操作封装处理
+        operate: {
+            // 提交数据
+            submit: function (url, type, dataType, data) {
+                var index = $.modal.loading("正在处理中，请稍后...");
+                var config = {
+                    url: url,
+                    type: type,
+                    dataType: dataType,
+                    data: data,
+                    success: function (result) {
+                        $.operate.ajaxSuccess(result, index);
+                    }
+                };
+                $.ajax(config)
+            },
+            // post请求传输
+            post: function (url, data) {
+                $.operate.submit(url, "post", "json", data);
+            },
+            // 删除信息
+            remove: function (id) {
+                $.modal.confirm("确定删除该条" + $.table._option.modalName + "信息吗？", function () {
+                    var url = $.table._option.removeUrl;
+                    var data = {"id": id};
+                    $.operate.submit(url, "post", "json", data);
+                });
+            },
+            // 批量删除信息
+            batRemove: function () {
+                var rows = $.common.isEmpty($.table._option.id) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.id);
+                if (rows.length === 0) {
+                    $.modal.alertWarning("请至少选择一条记录");
                     return;
                 }
-                //如果不是header
-                var li = $('<li class="treeview" data-level="' + level + '"></li>');
-
-                var a;
-                if (level > 0) {
-                    //一级二级三级菜单所具有的的位置
-                    if (level == 1) {
-                        a = $('<a style="padding-left:' + (level * 20) + 'px"></a>');
+                $.modal.confirm("确认要删除选中的" + rows.length + "条数据吗?", function () {
+                    var url = $.table._option.batRemoveUrl;
+                    var data = {"ids": rows.join()};
+                    $.operate.submit(url, "post", "json", data);
+                });
+            },
+            // 添加信息
+            add: function (id) {
+                var url = $.common.isEmpty(id) ? $.table._option.createUrl : $.table._option.createUrl.replace("{id}", id);
+                $.modal.open("添加" + $.table._option.modalName, url);
+            },
+            // 修改信息
+            edit: function (id) {
+                var url = "/404.html";
+                if ($.common.isNotEmpty(id)) {
+                    url = $.table._option.updateUrl.replace("{id}", "?id=" + id);
+                } else {
+                    id = $.common.isEmpty($.table._option.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.uniqueId);
+                    if (id.length === 0) {
+                        $.modal.alertWarning("请至少选择一条记录");
+                        return;
+                    } else if (id.length > 1) {
+                        $.modal.alertWarning("只能选择一条数据");
+                        return;
+                    } else {
+                        url = $.table._option.updateUrl.replace("{id}", "?id=" + id);
                     }
-                    if (level == 2) {
-                        a = $('<a style="padding-left:' + (level * 5) + 'px"></a>');
-                    }
-                    if (level == 3) {
-                        a = $('<a style="padding-left:' + (level) + 'px"></a>');
+                }
+                $.modal.open("修改" + $.table._option.modalName, url);
+            },
+            view: function (id, url) {
+                if ($.common.isNotEmpty(id)) {
+                    if ($.common.isEmpty(url)) {
+                        url = $.table._option.updateUrl.replace("{id}", "?id=" + id);
+                    } else {
+                        url = url + "?id=" + id;
                     }
                 } else {
-                    a = $('<a></a>');
-                }
-                var icon = $('<i></i>');
-                //图标
-                icon.addClass(item.icon);
-                //是否打开
-                var isOpen = item.isOpen;
-
-                var text = $('<span class="title"></span>');
-                //菜单名称
-                text.addClass('menu-text').text(item.name);
-                a.append(icon);
-                a.append(text);
-                a.addClass("nav-link");
-                if (isOpen === true) {
-                    li.addClass("active");
-                }
-                //如果有子菜单
-                if (item.children && item.children.length > 0) {
-                    var pullSpan = $('<span class="pull-right-container"></span>');
-                    var pullIcon = $('<i class="fa fa-angle-left pull-right"></i>');
-                    pullSpan.append(pullIcon);
-                    a.append(pullSpan);
-                    li.append(a);
-
-                    var menus = $('<ul></ul>');
-                    menus.addClass('treeview-menu');
-                    if (isOpen === true) {
-                        menus.css("display", "block");
-                        menus.addClass("menu-open");
+                    id = $.common.isEmpty($.table._option.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.uniqueId);
+                    if (id.length === 0) {
+                        $.modal.alertWarning("请至少选择一条记录");
+                        return;
+                    } else if (id.length > 1) {
+                        $.modal.alertWarning("只能选择一条数据");
+                        return;
                     } else {
-                        menus.css("display", "none");
+                        if ($.common.isEmpty(url)) {
+                            url = $.table._option.updateUrl.replace("{id}", "?id=" + id);
+                        } else {
+                            url = url + "?id=" + id;
+                        }
                     }
-                    //调用初始化方法
-                    init(menus, item.children, level + 1);
-                    li.append(menus);
                 }
-                else {
-                    var href = 'addTabs({id:\'' + item.id + '\',title: \'' + item.name + '\',close: true,url: \'' + item.url + '\'});';
-                    a.attr('onclick', href);
-                    a.addClass("nav-link");
-                    var badge = $("<span></span>");
-                    if (item.tip != null && item.tip > 0) {
-                        badge.addClass("label").addClass("label-success").text(item.tip);
+                $.modal.view("查看" + $.table._option.modalName, url);
+            },
+            // 添加信息 全屏
+            addFull: function (id) {
+                var url = $.common.isEmpty(id) ? $.table._option.createUrl : $.table._option.createUrl.replace("{id}", id);
+                $.modal.openFull("添加" + $.table._option.modalName, url);
+            },
+            // 修改信息 全屏
+            editFull: function (id) {
+                var url = $.table._option.updateUrl.replace("{id}", id);
+                $.modal.openFull("修改" + $.table._option.modalName, url);
+            },
+            // 保存信息
+            save: function (url, data) {
+                var index = $.modal.loading("正在处理中，请稍后...");
+                var config = {
+                    url: url,
+                    type: "post",
+                    dataType: "json",
+                    data: data,
+                    success: function (result) {
+                        $.operate.saveSuccess(result, index);
                     }
-                    a.append(badge);
-                    li.append(a);
+                };
+                $.ajax(config)
+            },
+            // 保存结果弹出msg刷新table表格
+            ajaxSuccess: function (result, index) {
+                if (result.status === web_status.SUCCESS) {
+                    $.modal.msgSuccess(result.msg);
+                    $.table.refresh();
+                } else {
+                    $.modal.alertError(result.msg);
                 }
-                target.append(li);
-            });
-        }
-    };
-});
-
-$(function ($) {
-    $.extend({
-        /**
-         * 通用方法封装处理
-         */
+                $.modal.closeLoading(index);
+            },
+            // 保存结果提示msg
+            saveSuccess: function (result, index) {
+                if (result.status === web_status.SUCCESS) {
+                    $.modal.msgReload("保存成功,正在刷新数据请稍后……", modal_status.SUCCESS);
+                } else {
+                    $.modal.alertError(result.msg);
+                }
+                $.modal.closeLoading(index);
+            },
+            //添加tab页
+            addTab: function (id, title, url) {
+                addTab({id: id, title: title, close: true, url: url})
+            }
+        },
+        //通用方法封装处理
         common: {
             //解析参数
             parseParam: function (param, key) {
@@ -1133,6 +623,221 @@ $(function ($) {
             random: function (min, max) {
                 return Math.floor((Math.random() * max) + min);
             }
+        },
+        //easyUI组合网格
+        comboGrid: {
+            init: function (options) {
+                $(options.comboGridId).combogrid({
+                    panelHeight: $.comboGrid.fixHeight(0.4),
+                    idField: options.idField,               //ID字段
+                    textField: options.textField,           //显示的字段
+                    url: options.url,
+                    delay: $.common.isEmpty(options.delay) ? 500 : options.delay,                         //500ms延时查询
+                    pageSize: $.common.isEmpty(options.pageSize) ? 10 : options.pageSize,                 //每页显示的记录条数，默认为10
+                    pageList: $.common.isEmpty(options.pageList) ? 10 : [10, 15, 20, 25, 30],     //可以设置每页记录条数的列表
+                    fitColumns: true,
+                    striped: true,
+                    editable: $.common.isEmpty(options.editable) ? false : true,
+                    pagination: true,           //是否分页
+                    rownumbers: false,          //序号
+                    collapsible: false,         //是否可折叠的
+                    fit: true,                  //自动大小
+                    method: options.method,             //请求方法
+                    columns: options.columns,         //展示列
+                    keyHandler: {
+                        up: function () {
+                        },
+                        down: function () {
+                        },
+                        enter: function () {
+                        },
+                        /**
+                         * 【动态搜索】处理
+                         * @param keyword
+                         */
+                        query: function (keyword) {
+                            //调用查询方法
+                            query(keyword);
+                            $(options.comboGridId).combogrid("setValue", keyword);
+                            //将查询条件存入隐藏域
+                            $('#easyui-combogrid-id').val(keyword);
+                            //清空隐藏域值
+                            $(options.valueId).val('');
+
+                        }
+                    },
+                    loader: loader,
+                    /**
+                     * 选中处理
+                     */
+                    onSelect: function () {
+                        var selData = $(options.comboGridId).combogrid('grid').datagrid('getSelected');
+                        //设置
+                        $('#easyui-combogrid-id').val(selData['' + options.idField + '']);
+                        //设置ID值
+                        $(options.valueId).val(selData.id);
+                        //移除验证
+                        $(options.valueId + '-error').remove();
+                        //移除样式
+                        $('.input-group.panel-noscroll.has-error').removeClass('has-error');
+                    }
+                });
+
+                //取得分页组件对象
+                var pager = $(options.comboGridId).combogrid('grid').datagrid('getPager');
+
+                if (pager) {
+                    $(pager).pagination({
+                        pageSize: options.pageSize,                 //每页显示的记录条数，默认为10
+                        pageList: options.pageList,                 //可以设置每页记录条数的列表
+                        beforePageText: '第',                //页数文本框前显示的汉字
+                        afterPageText: '页    共 {pages} 页',
+                        displayMsg: '共 {total} 条记录',//当前显示 {from} - {to} 条记录   共 {total} 条记录
+                        //选择页的处理
+                        onSelectPage: function (pageNumber, pageSize) { //按分页的设置取数据
+                            getData(pageNumber, pageSize);
+                            //设置表格的pageSize属性，表格变化时按分页组件设置的pageSize显示数据
+                            $(options.comboGridId).combogrid("grid").datagrid('options').pageSize = pageSize;
+                            //将隐藏域中存放的查询条件显示在combogrid的文本框中
+                            $(options.comboGridId).combogrid("setValue", $('#easyui-combogrid-id').val());
+                        },
+                        onChangePageSize: function () {
+                        },
+                        /**
+                         * 改变页显示条数的处理 (处理后还是走onSelectPage事件，所以设置也写到onSelectPage事件中了)
+                         * @param pageNumber
+                         * @param pageSize
+                         */
+                        onRefresh: function (pageNumber, pageSize) { //点击刷新的处理
+                            getData(pageNumber, pageSize); //按分页的设置取数据
+                            $(options.comboGridId).combogrid("setValue", $('#easyui-combogrid-id').val());//将隐藏域中存放的查询条件显示在combogrid的文本框中
+                        }
+                    });
+                }
+
+                /**
+                 * 获取数据
+                 * @param current
+                 * @param size
+                 */
+                var getData = function (current, size) {
+                    $.ajax({
+                        type: options.method,
+                        url: options.url,
+                        data: {
+                            "current": current,
+                            "size": size
+                        },
+                        success: function (data) {
+                            $(options.comboGridId).combogrid("grid").datagrid("loadData", buildData(data));
+                        }
+                    });
+                };
+
+                /**
+                 * 查询方法
+                 * @param data
+                 */
+                var query = function (data) {
+                    var json = {};
+                    json["" + options.textField + ""] = data;
+                    $.ajax({
+                        type: options.method,
+                        url: options.url,
+                        data: json,
+                        dataType: "json",
+                        success: function (data) {
+                            $(options.comboGridId).combogrid("grid").datagrid("loadData", buildData(data));
+                        }
+                    });
+                };
+
+                /**
+                 * 加载
+                 * @param param
+                 * @param success
+                 * @param error
+                 * @returns {boolean}
+                 */
+                function loader(param, success, error) {
+                    var that = $(this);
+                    var opts = that.datagrid("options");
+                    if (!opts.url) {
+                        return false
+                    }
+                    var cache = that.data().datagrid.cache;
+                    var data = {"current": opts.pageNumber, "size": opts.pageSize};
+                    if (!cache) {
+                        $.ajax({
+                            type: opts.method, url: opts.url, data: data, dataType: "json", success: function (data) {
+                                that.data().datagrid["cache"] = data;
+                                success(buildData(data))
+                            }
+                        })
+                    } else {
+                        success(buildData(cache))
+                    }
+
+                    function buildData(data) {
+                        var temp = $.extend({}, data);
+                        var tempRows = [];
+                        var start = (param.page - 1) * parseInt(param.rows);
+                        var end = start + parseInt(param.rows);
+                        var rows = data.page.records;
+                        for (var i = start; i < end; i++) {
+                            if (rows[i]) {
+                                tempRows.push(rows[i])
+                            } else {
+                                break
+                            }
+                        }
+                        temp.rows = tempRows;
+                        temp.total = data.page.total;
+                        return temp
+                    }
+                };
+
+                /**
+                 * 绑定参数
+                 * @param data
+                 */
+                var buildData = function (data) {
+                    var temp = $.extend({});
+                    temp.rows = data.page.records;
+                    temp.total = data.page.total;
+                    return temp
+                }
+
+            },
+            /**
+             * 调整高度
+             * @param percent
+             * @returns {number}
+             */
+            fixHeight: function (percent) {
+                return (document.body.clientHeight) * percent
+            },
+            /**
+             * 调整宽度
+             * @param percent
+             * @returns {number}
+             */
+            fixWidth: function (percent) {
+                return (document.body.clientWidth - 5) * percent
+            }
         }
     });
-});
+})(jQuery);
+
+/** 消息状态码 */
+web_status = {
+    SUCCESS: '200',
+    FAIL: '500'
+};
+
+/** 弹窗状态码 */
+modal_status = {
+    SUCCESS: "success",
+    FAIL: "error",
+    WARNING: "warning"
+};
