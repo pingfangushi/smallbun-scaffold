@@ -26,47 +26,36 @@ function doSubmit() {
 }
 
 $(function () {
-    let comboTreeGrid = $('#parent');
-    comboTreeGrid.combotreegrid({
-        width: '100%',
-        panelWidth: 410,
-        editable: false,
-        idField: 'id',
-        treeField: 'orgName',
-        columns: [[
-            {field: 'orgName', title: '名称', width: 200},
-            {field: 'orgTypeName', title: '类型', width: 100},
-            {field: 'gradeName', title: '级别', width: 100},
-        ]],
-        loader: loader,
-        onChange: function (newValue, oldValue) {
-            //如果选择的是同级节点
-            if ($('#id').val() === newValue) {
-                $.modal.alert("不能选择同级节点", modal_status.FAIL);
-                comboTreeGrid.combotreegrid('clear', "none");
-                comboTreeGrid.combotreegrid('setValue', oldValue);
-            } else {
-                comboTreeGrid.val(newValue);
-            }
+    /**
+     * comboTreeGrid 属性
+     */
+    var comboTreeGridId = '#parent';
+    var idField = 'id';
+    var treeField = 'orgName';
+    var url = contextPath + 'org/list';
+    var editable = false;
+    var method = 'POST';
+    var contrastField = '#id';
+    var panelWidth = 410;
+    var width = '100%';
+    var columns = [[
+        {field: 'orgName', title: '名称', width: 200},
+        {field: 'orgTypeName', title: '类型', width: 100},
+        {field: 'gradeName', title: '级别', width: 100},
+    ]];
+    $.comboTreeGrid.init(
+        {
+            comboTreeGridId: comboTreeGridId,
+            panelWidth: panelWidth,
+            width: width,
+            idField: idField,
+            treeField: treeField,
+            url: url,
+            editable: editable,
+            method: method,
+            columns: columns,
+            contrastField: contrastField
         }
-    });
+    );
 });
 
-/**
- * 加载数据
- * @param param
- * @param success
- * @param error
- * @returns {boolean}
- */
-function loader(param, success, error) {
-    $.ajax({
-        type: 'POST', url: contextPath + 'org/tree', dataType: "json", success: function (data) {
-            success(buildData(data))
-        }
-    });
-}
-
-function buildData(data) {
-    return data.result;
-}

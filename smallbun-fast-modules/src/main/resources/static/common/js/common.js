@@ -6,7 +6,9 @@
 (function ($) {
     var $table = $('.table');
     $.extend({
-        // 表格封装处理
+        /**
+         * 表格封装处理
+         */
         table: {
             _option: {},
             _params: {},
@@ -142,7 +144,9 @@
                 return actions.join('');
             }
         },
-        // 表格树封装处理
+        /**
+         * 表格树封装处理
+         */
         treeTable: {
             _option: {},
             _treeTable: {},
@@ -204,7 +208,9 @@
                 $.treeTable._treeTable.bootstrapTable('refresh');
             }
         },
-        // 表单封装处理
+        /**
+         * 表单封装处理
+         */
         form: {
             // 表单重置
             reset: function (formId) {
@@ -236,7 +242,9 @@
                 return selects;
             }
         },
-        // 弹出层封装处理
+        /**
+         * 弹出层封装处理
+         */
         modal: {
             // 显示图标
             icon: function (type) {
@@ -447,7 +455,9 @@
                 parent.location.reload();
             }
         },
-        // 操作封装处理
+        /**
+         * 操作封装处理
+         */
         operate: {
             // 提交数据
             submit: function (url, type, dataType, data) {
@@ -585,7 +595,9 @@
                 addTab({id: id, title: title, close: true, url: url})
             }
         },
-        //通用方法封装处理
+        /**
+         * 通用方法封装处理
+         */
         common: {
             //解析参数
             parseParam: function (param, key) {
@@ -624,7 +636,9 @@
                 return Math.floor((Math.random() * max) + min);
             }
         },
-        //easyUI组合网格
+        /**
+         * easyUI组合网格
+         */
         comboGrid: {
             init: function (options) {
                 $(options.comboGridId).combogrid({
@@ -825,7 +839,60 @@
             fixWidth: function (percent) {
                 return (document.body.clientWidth - 5) * percent
             }
+        },
+        /**
+         *comboTreeGrid 封装
+         */
+        comboTreeGrid: {
+            init: function (options) {
+                var comboTreeGrid = $(options.comboTreeGridId);
+                comboTreeGrid.combotreegrid({
+                    width: $.common.isEmpty(options.width) ? '100%' : options.width,
+                    panelWidth: $.common.isEmpty(options.panelWidth) ? '400' : options.panelWidth,
+                    editable: $.common.isEmpty(options.editable) ? false : options.editable,
+                    idField: $.common.isEmpty(options.idField) ? '#id' : options.idField,               //ID字段
+                    treeField: options.treeField,           //显示的字段
+                    columns: options.columns,               //展示列
+                    loader: loader,
+                    onChange: function (newValue, oldValue) {
+                        //如果选择的是同级节点
+                        var contrastField = $.common.isEmpty($(options.contrastField).val()) ? '#id' : $(options.contrastField).val();
+                        if (contrastField === newValue) {
+                            $.modal.alert("不能选择同级节点,请重新选择！", modal_status.FAIL);
+                            comboTreeGrid.combotreegrid('clear', "none");
+                            comboTreeGrid.combotreegrid('setValue', oldValue);
+                        } else {
+                            comboTreeGrid.val(newValue);
+                        }
+                    }
+                });
+
+                /**
+                 * 加载数据
+                 * @param param
+                 * @param success
+                 * @param error
+                 * @returns {boolean}
+                 */
+                function loader(param, success, error) {
+                    $.ajax({
+                        type: options.method, url: options.url, dataType: "json", success: function (data) {
+                            success(buildData(data))
+                        }
+                    });
+                }
+
+                /**
+                 * buildDatabuildData
+                 * @param data
+                 * @returns {*}
+                 */
+                function buildData(data) {
+                    return data.result;
+                }
+            }
         }
+
     });
 })(jQuery);
 
