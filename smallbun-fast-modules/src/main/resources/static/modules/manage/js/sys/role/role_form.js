@@ -162,24 +162,28 @@ $("#dataScope").on('select2:select', function (e) {
         $('#org-tree-div').slideUp("slow");
     }
 });
+
 /**
- * 如果初始化完成
- */
-if ($('#dataScope').hasClass("select2-hidden-accessible")) {
-    /*已初始化完成*/
-    if ($("#dataScope").select2("val") === '9') {
-        $('#org-tree-div').slideDown("slow");
-        //加载orgTree
-        loadOrgTree();
-    } else {
-        $('#org-tree-div').slideUp("slow");
-    }
-}
-/**
- * 初始化Tree
+ * 初始化
  */
 $(function () {
+    /**
+     * 加载菜单树
+     */
     loadMenuTree();
+    /**
+     * 如果初始化完成
+     */
+    if ($('#dataScope').hasClass("select2-hidden-accessible")) {
+        /*已初始化完成*/
+        if ($("#dataScope").select2("val") === '9') {
+            $('#org-tree-div').slideDown("slow");
+            //加载orgTree
+            loadOrgTree();
+        } else {
+            $('#org-tree-div').slideUp("slow");
+        }
+    }
 });
 
 function loadMenuTree() {
