@@ -560,6 +560,7 @@
                     <nosuffix>true</nosuffix>
                     <!-- 源目录，即需压缩的根目录 -->
                     <sourceDirectory>src/main/static</sourceDirectory>
+                    <!-- 输出目录，即压缩后的目录-->
                     <outputDirectory>target/classes</outputDirectory>
                     <force>true</force>
                     <!-- 压缩js和css文件 -->
