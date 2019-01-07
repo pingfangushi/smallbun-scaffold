@@ -15,6 +15,7 @@
         <link rel="stylesheet" th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}"/>
         <link rel="stylesheet" th:href="@{/webjars/ionicons/2.0.1/css/ionicons.min.css}">
         <link rel="stylesheet" th:href="@{/webjars/select2/4.0.5/css/select2.min.css}"/>
+        <link rel="stylesheet" th:href="@{/webjars/pace/1.0.2/themes/blue/pace-theme-flash.css}"/>
         <link rel="stylesheet" th:href="@{/webjars/iCheck/1.0.2/skins/all.css}"/>
         <link rel="stylesheet" th:href="@{/static/common/css/AdminLTE.min.css}"/>
         <link rel="stylesheet" th:href="@{/static/common/css/content-tabs.min.css}"/>
@@ -55,24 +56,35 @@
         <script th:src="@{/webjars/jquery-resize-plugin/1.1/jquery.ba-resize.min.js}"></script>
         <script th:src="@{/webjars/iCheck/1.0.2/icheck.min.js}"></script>
         <script th:src="@{/webjars/select2/4.0.5/js/select2.min.js}"></script>
+        <script th:src="@{/webjars/pace/1.0.2/pace.min.js}"></script>
         <script th:src="@{/static/common/js/adminlte.min.js}"></script>
         <script th:src="@{/static/common/js/content-tabs.min.js}"></script>
         <script th:src="@{/static/common/js/common.js}"></script>
         <script th:src="@{/static/common/js/skin.min.js}"></script>
         <script th:src="@{/static/common/js/wsize.min.js}"></script>
         <script>
-            $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-                checkboxClass: 'icheckbox_minimal-blue',
-                radioClass: 'iradio_minimal-blue'
-            }).on('ifChanged', function (event) {
-                //进行验证
-                $(event.target).valid();
-            });
-            $('.select2').select2({
-                width: "100%"
-            }).on('change', function () {
-                $(this).valid();
-            });
+            $(function () {
+                //iCheck
+                $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                    checkboxClass: 'icheckbox_minimal-blue',
+                    radioClass: 'iradio_minimal-blue'
+                }).on('ifChanged', function (event) {
+                    //进行验证
+                    $(event.target).valid();
+                });
+                //select2
+                $('.select2').select2({
+                    width: "100%"
+                }).on('change', function () {
+                    $(this).valid();
+                });
+                //pace
+                window.paceOptions = {
+                    ajax: {
+                        trackMethods : ['GET', 'POST']
+                    }
+                }
+            })
         </script>
     </div>
     <!--jquery-validate-->
