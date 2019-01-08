@@ -34,7 +34,7 @@
                     pageNumber: 1,                                      // 初始化加载第一页，默认第一页
                     pageSize: 20,                                       // 每页的记录行数（*）
                     pageList: [20, 30, 40],                             // 可供选择的每页的行数（*）
-                    iconSize: 'sm',                                // 图标大小：undefined默认的按钮尺寸 xs超小按钮sm小按钮lg大按钮
+                    iconSize: 'sm',                                     // 图标大小：undefined默认的按钮尺寸 xs超小按钮sm小按钮lg大按钮
                     sidePagination: "server",                           // 启用服务端分页
                     paginationLoop: false,                              //不启用分页条无限循环的功能。
                     cardView: true,                                     //手机端适应
@@ -158,22 +158,25 @@
                     method: 'post',                                     // 请求方式（*）
                     singleSelect: true,
                     striped: true,
-                    clickToSelect: true,//是否启用点击选中行
-                    toolbarAlign: 'left',//工具栏对齐方式
-                    buttonsAlign: 'left',//按钮对齐方式
+                    clickToSelect: true,                                //是否启用点击选中行
+                    toolbarAlign: 'left',                              //工具栏对齐方式
+                    buttonsAlign: 'right',                               //按钮对齐方式
                     width: 'auto',
                     height: '760',
                     sidePagination: 'server',
                     toolbar: "#toolbar",
+                    showRefresh: $.common.visible(options.showRefresh), // 是否显示刷新按钮
+                    showColumns: $.common.visible(options.showColumns), // 是否显示隐藏某列下拉框
+                    showToggle: $.common.visible(options.showToggle),   // 是否显示详细视图和列表视图的切换按钮
                     idField: options.idField,
                     rootParentId: options.rootParentId,
                     parentIdField: options.parentIdField,
                     columns: options.columns,
                     treeShowField: options.treeShowField,
-                    responseHandler: $.treeTable.responseHandler,           // 回调函数
+                    responseHandler: $.treeTable.responseHandler,       // 回调函数
                     onLoadSuccess: function (res) {
                         $table.treegrid({
-                            initialState: options.initialState, /*不展开*/
+                            initialState: options.initialState,         //不展开
                             treeColumn: 1,
                             expanderExpandedClass: 'treegrid-expander glyphicon glyphicon-chevron-down',
                             expanderCollapsedClass: 'treegrid-expander glyphicon glyphicon-chevron-right',
