@@ -13,7 +13,7 @@ spring:
   profiles:
     active: prod
   session:
-    store-type: redis #session 存储类型
+    store-type: NONE #session 存储类型
   redis: #redis
     host: 47.92.112.34
     password: chenbaipay

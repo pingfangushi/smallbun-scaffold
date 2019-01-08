@@ -166,8 +166,8 @@ public class SysUserController {
 	 * @return {@link List<LoginUserDetails>}
 	 */
 	@RequestMapping(value = "/onlineUser")
-	public List<LoginUserDetails> onlineUser() {
-		return sysUserService.getUsersFromSessionRegistry();
+	public AjaxResult onlineUser() {
+		return AjaxResult.builder().result(sysUserService.getUsersFromSessionRegistry()).build();
 	}
 
 

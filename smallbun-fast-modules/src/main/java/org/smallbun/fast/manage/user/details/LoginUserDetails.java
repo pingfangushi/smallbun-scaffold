@@ -49,10 +49,12 @@ public class LoginUserDetails implements UserDetails {
 	/**
 	 * 密码
 	 */
+	@JSONField(serialize = false)
 	private String password;
 	/**
 	 * 当前用户拥有的系统菜单
 	 */
+	@JSONField(serialize = false)
 	private List<SysMenuEntity> menus;
 	/**
 	 * 状态

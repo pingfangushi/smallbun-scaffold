@@ -19,12 +19,12 @@
 package org.smallbun.fast.manage.user.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.common.collect.Lists;
 import org.smallbun.fast.manage.user.dao.SysUserMapper;
 import org.smallbun.fast.manage.user.details.LoginUserDetails;
 import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.fast.manage.user.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.stereotype.Service;
 
@@ -56,11 +56,15 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 	 */
 	@Override
 	public List<LoginUserDetails> getUsersFromSessionRegistry() {
-		List<String> users = sessionRegistry.getAllPrincipals().stream()
-				.filter(u -> !sessionRegistry.getAllSessions(u, false).isEmpty()).map(Object::toString)
-				.collect(Collectors.toList());
-		System.out.println(users);
-		return null;
+		List<LoginUserDetails> list = Lists.newArrayList();
+		List<Object> users = sessionRegistry.getAllPrincipals().stream()
+				.filter(u -> !sessionRegistry.getAllSessions(u, false).isEmpty()).collect(Collectors.toList());
+		for (Object o : users) {
+			if (o instanceof LoginUserDetails) {
+				list.add((LoginUserDetails) o);
+			}
+		}
+		return list;
 	}
 
 	@Autowired
