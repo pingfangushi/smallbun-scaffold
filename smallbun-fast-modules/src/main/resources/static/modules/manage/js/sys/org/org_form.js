@@ -32,7 +32,7 @@ $(function () {
     var comboTreeGridId = '#parent';
     var idField = 'id';
     var treeField = 'orgName';
-    var url = contextPath + 'org/list';
+    var url = contextPath + 'org/tree';
     var editable = false;
     var method = 'POST';
     var contrastField = '#id';
