@@ -20,10 +20,16 @@ package org.smallbun.fast.manage.user.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.smallbun.fast.manage.user.dao.SysUserMapper;
+import org.smallbun.fast.manage.user.details.LoginUserDetails;
 import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.fast.manage.user.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author SanLi [隔壁object港哥][https://www.leshalv.net]
@@ -32,6 +38,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity> implements SysUserService {
+
 
 	/**
 	 * 根据用户名查询用户
@@ -43,5 +50,20 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 		return baseMapper.findByUsername(username);
 	}
 
+	/**
+	 * 从会话注册表中获取用户
+	 * @return {@link List < LoginUserDetails >}
+	 */
+	@Override
+	public List<LoginUserDetails> getUsersFromSessionRegistry() {
+		List<String> users = sessionRegistry.getAllPrincipals().stream()
+				.filter(u -> !sessionRegistry.getAllSessions(u, false).isEmpty()).map(Object::toString)
+				.collect(Collectors.toList());
+		System.out.println(users);
+		return null;
+	}
+
+	@Autowired
+	private SessionRegistry sessionRegistry;
 
 }

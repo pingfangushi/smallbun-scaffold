@@ -98,7 +98,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				//Spring Security的默认启用防止固化session攻击
 				.sessionFixation().migrateSession()
 				//用户并发
-				.maximumSessions(1).sessionRegistry(sessionRegistry());
+				.maximumSessions(1).sessionRegistry(sessionRegistry()).expiredUrl(LOGIN);
 	}
 
 
@@ -115,6 +115,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	}
 
+	@Bean
+	public SessionRegistry sessionRegistry() {
+		return new SessionRegistryImpl();
+	}
 	/**
 	 * 注入登录成功处理器
 	 */
@@ -136,9 +140,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	private final UserDetailsService userDetailsService;
 
-	@Bean
-	public SessionRegistry sessionRegistry() {
-		return new SessionRegistryImpl();
-	}
 
 }
