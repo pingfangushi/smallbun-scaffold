@@ -59,3 +59,25 @@ $(function () {
     );
 });
 
+/**
+ * 验证
+ */
+$(".form-horizontal").validate({
+    rules: {
+        telephone: {
+            isTel: true
+        },
+        zipCode: {
+            isZipCode: true
+        },
+        fax: {
+            fax: true
+        },
+        principal: {
+            realName: true
+        }
+    }
+});
+
+
+

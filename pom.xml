@@ -574,7 +574,6 @@
                         <exclude>**/*.min.css</exclude>
                     </excludes>
                 </configuration>
-
             </plugin>
         </plugins>
     </build>

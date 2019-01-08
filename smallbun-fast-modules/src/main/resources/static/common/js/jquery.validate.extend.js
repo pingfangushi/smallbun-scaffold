@@ -145,7 +145,10 @@ $(function () {
         //var idCard = /^(\d{6})()?(\d{4})(\d{2})(\d{2})(\d{3})(\w)$/;
         return this.optional(element) || isIdCardNo(value);
     }, "请输入正确的身份证号码。");
-
+    //传真
+    jQuery.validator.addMethod("fax", function(value, element){
+        return this.optional(element) || /^[+]{0,1}(\d){1,3}[ ]?([-]?((\d)|[ ]){1,12})+$/.test(value);
+    }, "请输入正确的传真格式");
     // IP地址验证
     jQuery.validator.addMethod("ip", function (value, element) {
         return this.optional(element) || /^(([1-9]|([1-9]\d)|(1\d\d)|(2([0-4]\d|5[0-5])))\.)(([1-9]|([1-9]\d)|(1\d\d)|(2([0-4]\d|5[0-5])))\.){2}([1-9]|([1-9]\d)|(1\d\d)|(2([0-4]\d|5[0-5])))$/.test(value);
@@ -181,7 +184,10 @@ $(function () {
         var reg = RegExp(/[(\ )(\`)(\~)(\!)(\@)(\#)(\$)(\%)(\^)(\&)(\*)(\()(\))(\+)(\=)(\|)(\{)(\})(\')(\:)(\;)(\')(',)(\[)(\])(\.)(\<)(\>)(\/)(\?)(\~)(\！)(\@)(\#)(\￥)(\%)(\…)(\&)(\*)(\（)(\）)(\—)(\+)(\|)(\{)(\})(\【)(\】)(\‘)(\；)(\：)(\”)(\“)(\’)(\。)(\，)(\、)(\？)]+/);
         return this.optional(element) || !reg.test(value);
     }, "含有中英文特殊字符");
-
+    //真实姓名验证
+    jQuery.validator.addMethod("realName", function(value, element) {
+        return this.optional(element) || /^[\u4e00-\u9fa5]{2,30}$/.test(value);
+    }, "姓名只能为2-30个汉字");
 
     //身份证号码的验证规则
     function isIdCardNo(num) {

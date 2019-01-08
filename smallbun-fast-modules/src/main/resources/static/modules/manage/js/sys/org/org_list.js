@@ -24,9 +24,9 @@ $(function () {
     var options = {
         modalName: '部门',
         url: prefix + "/list", /*列表URL*/
-        createUrl: prefix + "/form", /*添加URL*/
-        updateUrl: prefix + "/form/{id}", /*修改URL*/
-        removeUrl: prefix + "/remove", /*删除URL*/
+        createUrl: prefix + "/form{id}", /*添加URL*/
+        updateUrl: prefix + "/form{id}", /*修改URL*/
+        removeUrl: prefix + "/removeById", /*删除URL*/
         exportUrl: prefix + "/export", /*导出URL*/
         idField: 'id',
         parentIdField: 'parentId',
@@ -45,7 +45,7 @@ $(function () {
                     var actions = [];
                     actions.push('<a class="btn bg-orange btn-xs" href="#" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i> 编辑</a> ');
                     actions.push('<a class="btn bg-maroon btn-xs " href="#" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i> 删除</a> ');
-                    actions.push('<a class="btn ibtn-white btn-xs " href="#" onclick="$.operate.add(\'' + row.id + '\')"><i class="fa fa-bars"></i> 添加下级</a> ');
+                    actions.push('<a class="btn ibtn-white btn-xs " href="#" onclick="add(\'' + row.id + '\')"><i class="fa fa-bars"></i> 添加下级</a> ');
                     return actions.join('');
                 }
             }
@@ -69,4 +69,11 @@ function useableFormatter(value, row, index) {
     if (value === '1') {
         return '<span class="label label-danger">不可用</span>';
     }
+}
+/**
+ * 添加方法
+ * @param id
+ */
+function add(id) {
+    $.modal.open("添加" + $.table._option.modalName, $.table._option.createUrl.replace("{id}" ,"?parentId=" + id));
 }

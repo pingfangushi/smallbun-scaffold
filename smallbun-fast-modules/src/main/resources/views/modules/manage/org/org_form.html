@@ -26,7 +26,8 @@
                                     <input id="parentId" name="parentId" class="hidden" th:field="*{parentId}">
                                 </th:block>
                                 <th:block th:if="*{parentId==0}">
-                                    <input id="parentId" name="parentId" class="form-control" placeholder="根节点不可选择" disabled>
+                                    <input id="parentId" name="parentId" class="form-control" placeholder="根节点不可选择"
+                                           disabled>
                                     <input id="parentId" name="parentId" class="hidden" th:field="*{parentId}">
                                 </th:block>
                             </div>
@@ -128,7 +129,7 @@
                                 <div class="input-group" style="width: 100%">
                                     <input id="telephone" name="telephone" class="form-control" autocomplete="off"
                                            type="text"
-                                           placeholder="请输入联系电话" th:field="*{telephone}">
+                                           placeholder="请输入联系电话" maxlength="11" th:field="*{telephone}">
                                 </div>
                             </div>
                         </div>
@@ -141,7 +142,7 @@
                             <div class="col-sm-8">
                                 <div class="input-group" style="width: 100%">
                                     <input class="form-control" id="email" name="email" autocomplete="off"
-                                           th:field="*{email}" type="text"
+                                           th:field="*{email}" type="text" email="true"
                                            placeholder="请输入邮箱">
                                 </div>
                             </div>
@@ -153,7 +154,7 @@
                             <div class="col-sm-8">
                                 <div class="input-group" style="width: 100%">
                                     <input id="zipCode" name="zipCode" placeholder="请输入邮政编码" autocomplete="off"
-                                           class="form-control" type="text" th:field="*{zipCode}">
+                                           class="form-control" type="text"  th:field="*{zipCode}">
                                 </div>
                             </div>
                         </div>
