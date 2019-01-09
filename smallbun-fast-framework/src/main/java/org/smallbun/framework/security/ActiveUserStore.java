@@ -1,8 +1,8 @@
 package org.smallbun.framework.security;
 
+import com.google.common.collect.Lists;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,11 +13,8 @@ import java.util.List;
 @Component
 public class ActiveUserStore {
 
-	public List<LoggedUser> users;
+	public List<LoggedUser> users = Lists.newArrayList();
 
-	public ActiveUserStore() {
-		users = new ArrayList<>();
-	}
 
 	public List<LoggedUser> getUsers() {
 		return users;

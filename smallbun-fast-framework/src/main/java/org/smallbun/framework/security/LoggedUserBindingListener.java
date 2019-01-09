@@ -2,11 +2,11 @@ package org.smallbun.framework.security;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionBindingListener;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,12 +22,12 @@ public class LoggedUserBindingListener implements HttpSessionBindingListener {
 	/**
 	 * 用户活动存储
 	 */
+	@Autowired
 	private ActiveUserStore activeUserStore;
 	private LoggedUser loggedUser;
 
-	public LoggedUserBindingListener(LoggedUser loggedUser, ActiveUserStore activeUserStore) {
+	public LoggedUserBindingListener(LoggedUser loggedUser) {
 		this.loggedUser = loggedUser;
-		this.activeUserStore = activeUserStore;
 	}
 
 	public LoggedUserBindingListener() {
@@ -36,9 +36,9 @@ public class LoggedUserBindingListener implements HttpSessionBindingListener {
 	@Override
 	public void valueBound(HttpSessionBindingEvent event) {
 		List<LoggedUser> users = activeUserStore.getUsers();
-		Object user = event.getValue();
+		LoggedUser user = (LoggedUser) event.getValue();
 		if (!users.contains(user)) {
-			//users.add(user);
+			users.add(user);
 		}
 	}
 

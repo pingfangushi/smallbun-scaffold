@@ -52,12 +52,6 @@ public class SecurityHandler {
 	 */
 	private Logger logger = LoggerFactory.getLogger(SecurityHandler.class);
 
-
-	@Autowired
-	public SecurityHandler(ActiveUserStore activeUserStore) {
-		this.activeUserStore = activeUserStore;
-	}
-
 	/**
 	 * 登陆成功
 	 *
@@ -80,7 +74,7 @@ public class SecurityHandler {
 			if (!StringUtils.isEmpty(session)) {
 				LoggedUser loggedUser = LoggedUser.builder().sessionId(session.getId()).logInTime(new Date())
 						.logInIp(request.getRemoteAddr()).build();
-				session.setAttribute(USER, new LoggedUserBindingListener(loggedUser, activeUserStore));
+				session.setAttribute(USER, new LoggedUserBindingListener(loggedUser));
 			}
 
 			logger.info("----------------------------------------------------------");
@@ -135,7 +129,4 @@ public class SecurityHandler {
 			response.sendRedirect(LOGIN);
 		};
 	}
-
-	private final ActiveUserStore activeUserStore;
-
 }
