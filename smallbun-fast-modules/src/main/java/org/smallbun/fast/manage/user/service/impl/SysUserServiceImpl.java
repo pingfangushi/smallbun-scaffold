@@ -24,7 +24,9 @@ import org.smallbun.fast.manage.user.dao.SysUserMapper;
 import org.smallbun.fast.manage.user.details.LoginUserDetails;
 import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.fast.manage.user.service.SysUserService;
+import org.smallbun.fast.manage.user.vo.UserDetailsVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.stereotype.Service;
 
@@ -55,15 +57,20 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 	 * @return {@link List < LoginUserDetails >}
 	 */
 	@Override
-	public List<LoginUserDetails> getUsersFromSessionRegistry() {
-		List<LoginUserDetails> list = Lists.newArrayList();
-		List<Object> users = sessionRegistry.getAllPrincipals().stream()
-				.filter(u -> !sessionRegistry.getAllSessions(u, false).isEmpty()).collect(Collectors.toList());
-		for (Object o : users) {
-			if (o instanceof LoginUserDetails) {
-				list.add((LoginUserDetails) o);
+	public List<UserDetailsVO> getUsersFromSessionRegistry() {
+		List<UserDetailsVO> list=Lists.newArrayList();
+		for (Object principal : sessionRegistry.getAllPrincipals()) {
+			if (principal instanceof LoginUserDetails) {
+				List<SessionInformation> allSessions = sessionRegistry.getAllSessions(principal, false);
+				for (SessionInformation information : allSessions) {
+					//会话ID
+					information.getSessionId();
+					//最后操作时间
+					information.getLastRequest();
+				}
 			}
 		}
+
 		return list;
 	}
 

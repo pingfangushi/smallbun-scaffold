@@ -163,7 +163,7 @@ public class SysUserController {
 
 	/**
 	 * 在线用户
-	 * @return {@link List<LoginUserDetails>}
+	 * @return {@link AjaxResult}
 	 */
 	@RequestMapping(value = "/onlineUser")
 	public AjaxResult onlineUser() {
