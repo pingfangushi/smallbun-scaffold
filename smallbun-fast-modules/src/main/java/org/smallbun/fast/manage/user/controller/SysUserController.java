@@ -170,6 +170,12 @@ public class SysUserController {
 		return AjaxResult.builder().result(sysUserService.getUsersFromSessionRegistry()).build();
 	}
 
+	public AjaxResult expireUserSessions(String id){
+		sysUserService.expireUserSessions(id);
+		return AjaxResult.builder().build();
+	}
+
+
 
 	/**
 	 * 注入SysUserService
