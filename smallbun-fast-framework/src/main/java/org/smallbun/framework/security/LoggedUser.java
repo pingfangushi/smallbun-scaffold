@@ -1,48 +1,32 @@
 package org.smallbun.framework.security;
 
-import org.springframework.stereotype.Component;
+import lombok.Builder;
+import lombok.Data;
 
-import javax.servlet.http.HttpSessionBindingEvent;
-import javax.servlet.http.HttpSessionBindingListener;
-import java.util.List;
-
-@Component
-public class LoggedUser implements HttpSessionBindingListener {
-
-	private String username;
-	private ActiveUserStore activeUserStore;
-
-	public LoggedUser(String username, ActiveUserStore activeUserStore) {
-		this.username = username;
-		this.activeUserStore = activeUserStore;
-	}
-
-	public LoggedUser() {
-	}
-
-	@Override
-	public void valueBound(HttpSessionBindingEvent event) {
-		List<String> users = activeUserStore.getUsers();
-		LoggedUser user = (LoggedUser) event.getValue();
-		if (!users.contains(user.getUsername())) {
-			users.add(user.getUsername());
-		}
-	}
-
-	@Override
-	public void valueUnbound(HttpSessionBindingEvent event) {
-		List<String> users = activeUserStore.getUsers();
-		LoggedUser user = (LoggedUser) event.getValue();
-		if (users.contains(user.getUsername())) {
-			users.remove(user.getUsername());
-		}
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
+import java.io.Serializable;
+import java.util.Date;
+/**
+ *
+ * @author SanLi
+ * Created by 2689170096@qq.com on 2019/1/9 22:59
+ */
+@Data
+@Builder
+public class LoggedUser implements Serializable {
+	/**
+	 * sessionId
+	 */
+	private String sessionId;
+	/**
+	 * 登录IP
+	 */
+	private String logInIp;
+	/**
+	 * 登录地址
+	 */
+	private String logInAddress;
+	/**
+	 * 登录时间
+	 */
+	private Date logInTime;
 }

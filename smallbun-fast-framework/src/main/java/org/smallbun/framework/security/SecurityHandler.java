@@ -24,7 +24,6 @@ import org.smallbun.framework.constant.SystemConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -34,6 +33,7 @@ import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
+import java.util.Date;
 
 import static org.smallbun.framework.security.SecurityConstant.LOGIN;
 
@@ -45,13 +45,18 @@ import static org.smallbun.framework.security.SecurityConstant.LOGIN;
  */
 @Configuration
 public class SecurityHandler {
+
+	private static final String USER = "USER";
 	/**
 	 * 日志
 	 */
 	private Logger logger = LoggerFactory.getLogger(SecurityHandler.class);
 
+
 	@Autowired
-	ActiveUserStore activeUserStore;
+	public SecurityHandler(ActiveUserStore activeUserStore) {
+		this.activeUserStore = activeUserStore;
+	}
 
 	/**
 	 * 登陆成功
@@ -73,14 +78,11 @@ public class SecurityHandler {
 			out.close();
 			HttpSession session = request.getSession(true);
 			if (!StringUtils.isEmpty(session)) {
-				String username;
-				if (authentication.getPrincipal() instanceof User) {
-					username = ((User) authentication.getPrincipal()).getUsername();
-				} else {
-					username = authentication.getName();
-				}
-				new LoggedUser(username, activeUserStore);
+				LoggedUser loggedUser = LoggedUser.builder().sessionId(session.getId()).logInTime(new Date())
+						.logInIp(request.getRemoteAddr()).build();
+				session.setAttribute(USER, new LoggedUserBindingListener(loggedUser, activeUserStore));
 			}
+
 			logger.info("----------------------------------------------------------");
 		};
 	}
@@ -133,4 +135,7 @@ public class SecurityHandler {
 			response.sendRedirect(LOGIN);
 		};
 	}
+
+	private final ActiveUserStore activeUserStore;
+
 }
