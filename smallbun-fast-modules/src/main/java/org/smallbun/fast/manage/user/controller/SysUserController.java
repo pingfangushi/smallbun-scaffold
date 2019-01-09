@@ -20,13 +20,13 @@ package org.smallbun.fast.manage.user.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.smallbun.fast.manage.user.details.LoginUserDetails;
 import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.fast.manage.user.service.SysUserService;
 import org.smallbun.fast.manage.user.util.UserUtil;
 import org.smallbun.framework.annotation.SystemLog;
 import org.smallbun.framework.result.AjaxResult;
 import org.smallbun.framework.result.PageableResult;
+import org.smallbun.framework.security.ActiveUserStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -57,6 +58,14 @@ public class SysUserController {
 	@ModelAttribute
 	protected SysUserEntity model(String id) {
 		return StringUtils.isEmpty(id) ? new SysUserEntity() : sysUserService.getById(id);
+	}
+
+	@Autowired
+	private ActiveUserStore activeUserStore;
+
+	@RequestMapping(value = "/loggedUsers", method = RequestMethod.GET)
+	public AjaxResult getLoggedUsers() {
+		return AjaxResult.builder().result(activeUserStore.getUsers()).build();
 	}
 
 
@@ -170,11 +179,26 @@ public class SysUserController {
 		return AjaxResult.builder().result(sysUserService.getUsersFromSessionRegistry()).build();
 	}
 
-	public AjaxResult expireUserSessions(String id){
+	/**
+	 * 下线所有用户，除当前用户除外
+	 * @param id {@link Serializable} 排除用户ID
+	 * @return {@link AjaxResult}
+	 */
+	@PostMapping(value = "/expireUserSessions")
+	public AjaxResult expireUserSessions(Serializable id) {
 		sysUserService.expireUserSessions(id);
 		return AjaxResult.builder().build();
 	}
 
+	/**
+	 * 下线指定用户，根据sessionId
+	 * @param sessionId sessionId
+	 * @return {@link AjaxResult}
+	 */
+	public AjaxResult expireUserSession(String sessionId) {
+		sysUserService.expireUserSession(sessionId);
+		return AjaxResult.builder().build();
+	}
 
 
 	/**

@@ -26,15 +26,11 @@ import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.fast.manage.user.service.SysUserService;
 import org.smallbun.fast.manage.user.vo.UserDetailsVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpSession;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -67,25 +63,20 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 			if (principal instanceof LoginUserDetails) {
 				List<SessionInformation> allSessions = sessionRegistry.getAllSessions(principal, false);
 				for (SessionInformation information : allSessions) {
-					//会话ID
-					information.getSessionId();
-					System.out.println("====" + information.getSessionId());
-					//最后操作时间
-					information.getLastRequest();
+					//userDetails
+					LoginUserDetails details = (LoginUserDetails) information.getPrincipal();
+					list.add(UserDetailsVO.builder()
+							//会话ID
+							.sessionId(information.getSessionId())
+							//最后操作时间
+							.lastAccessTime(information.getLastRequest())
+							//用户名
+							.username(details.getUsername())
+							//归属部门
+							.orgName(details.getSysUser().getOrg().getOrgName()).build());
 				}
 			}
 		}
-		//获取httpServletRequest对象
-		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-		HttpSession session = attr.getRequest().getSession(true);
-		//获取SecurityContextImpl
-		SecurityContextImpl securityContextImpl = (SecurityContextImpl) session.getAttribute("SPRING_SECURITY_CONTEXT");
-		//获取WebAuthenticationDetails
-		WebAuthenticationDetails details = (WebAuthenticationDetails) securityContextImpl.getAuthentication()
-				.getDetails();
-		//根据sessionID 获取Session的基本信息，如最后一次访问时间，是否过期等
-		SessionInformation sessionInformation = sessionRegistry.getSessionInformation(details.getSessionId());
-		System.out.println("----" + details.getSessionId());
 		return list;
 	}
 
@@ -94,17 +85,26 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 	 * @param id
 	 */
 	@Override
-	public void expireUserSessions(String id) {
+	public void expireUserSessions(Serializable id) {
 		for (Object principal : sessionRegistry.getAllPrincipals()) {
 			if (principal instanceof LoginUserDetails) {
 				LoginUserDetails userDetails = (LoginUserDetails) principal;
-				if (userDetails.getSysUser().getId().equals(id)) {
+				if (String.valueOf(userDetails.getSysUser().getId()).equals(String.valueOf(id))) {
 					for (SessionInformation information : sessionRegistry.getAllSessions(userDetails, true)) {
 						information.expireNow();
 					}
 				}
 			}
 		}
+	}
+
+	/**
+	 * 下线指定用户
+	 * @param sessionId {@link String}
+	 */
+	@Override
+	public void expireUserSession(String sessionId) {
+		sessionRegistry.getSessionInformation(sessionId).expireNow();
 	}
 
 	@Autowired

@@ -64,6 +64,18 @@ public class LoginUserDetails implements UserDetails {
 	 * 用户实体类
 	 */
 	private SysUserEntity sysUser;
+	/**
+	 * 登录IP
+	 */
+	private String logInIp;
+	/**
+	 * 登录地址
+	 */
+	private String logInAddress;
+	/**
+	 * 登录时间
+	 */
+	private String logInTime;
 
 	/**
 	 * 返回授予用户的权限。, 无法返回<fast> null </ fast>

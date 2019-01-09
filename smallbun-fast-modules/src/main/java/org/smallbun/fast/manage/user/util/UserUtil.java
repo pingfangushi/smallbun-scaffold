@@ -21,6 +21,10 @@ package org.smallbun.fast.manage.user.util;
 import org.smallbun.fast.manage.user.details.LoginUserDetails;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * User 工具类
@@ -32,7 +36,7 @@ public class UserUtil {
 	/**
 	 * 获取当前登录用户
 	 *
-	 * @return
+	 * @return {@link LoginUserDetails}
 	 */
 	public static LoginUserDetails getLoginUser() {
 		//获取当前用户信息
@@ -41,5 +45,16 @@ public class UserUtil {
 			return ((LoginUserDetails) principal);
 		}
 		return null;
+	}
+
+	/**
+	 * 得到当前用户Session会话
+	 * @return {@link HttpSession}
+	 */
+	public static HttpSession getSession() {
+		//获取原始会话
+		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+		// true == allow create
+		return attr.getRequest().getSession(true);
 	}
 }

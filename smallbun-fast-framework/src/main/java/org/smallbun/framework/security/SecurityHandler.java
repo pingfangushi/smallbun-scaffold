@@ -21,14 +21,18 @@ package org.smallbun.framework.security;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.smallbun.framework.constant.SystemConstant;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.util.StringUtils;
 
+import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
 
 import static org.smallbun.framework.security.SecurityConstant.LOGIN;
@@ -45,6 +49,9 @@ public class SecurityHandler {
 	 * 日志
 	 */
 	private Logger logger = LoggerFactory.getLogger(SecurityHandler.class);
+
+	@Autowired
+	ActiveUserStore activeUserStore;
 
 	/**
 	 * 登陆成功
@@ -64,6 +71,16 @@ public class SecurityHandler {
 			out.write("{\"status\":\"ok\",\"msg\":\"登录成功\"}");
 			out.flush();
 			out.close();
+			HttpSession session = request.getSession(true);
+			if (!StringUtils.isEmpty(session)) {
+				String username;
+				if (authentication.getPrincipal() instanceof User) {
+					username = ((User) authentication.getPrincipal()).getUsername();
+				} else {
+					username = authentication.getName();
+				}
+				new LoggedUser(username, activeUserStore);
+			}
 			logger.info("----------------------------------------------------------");
 		};
 	}

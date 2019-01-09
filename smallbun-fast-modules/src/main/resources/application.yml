@@ -8,6 +8,11 @@ server:
   port: 8080
   tomcat:
     uri-encoding: UTF-8
+  servlet:
+    session:
+      cookie:
+        http-only: true #如果为true，那么浏览器脚本将无法访问cookie
+        secure: false #如果为true，那么cookie将仅通过HTTPS连接发送
 #
 spring:
   profiles:
