@@ -2,7 +2,6 @@ package org.smallbun.framework.security;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpSessionBindingEvent;
@@ -22,11 +21,12 @@ public class LoggedUserBindingListener implements HttpSessionBindingListener {
 	/**
 	 * 用户活动存储
 	 */
-	@Autowired
 	private ActiveUserStore activeUserStore;
+
 	private LoggedUser loggedUser;
 
-	public LoggedUserBindingListener(LoggedUser loggedUser) {
+	public LoggedUserBindingListener(LoggedUser loggedUser, ActiveUserStore activeUserStore) {
+		this.activeUserStore = activeUserStore;
 		this.loggedUser = loggedUser;
 	}
 
@@ -36,16 +36,16 @@ public class LoggedUserBindingListener implements HttpSessionBindingListener {
 	@Override
 	public void valueBound(HttpSessionBindingEvent event) {
 		List<LoggedUser> users = activeUserStore.getUsers();
-		LoggedUser user = (LoggedUser) event.getValue();
-		if (!users.contains(user)) {
-			users.add(user);
+		LoggedUserBindingListener value = (LoggedUserBindingListener) event.getValue();
+		if (!users.contains(value.getLoggedUser())) {
+			users.add(value.getLoggedUser());
 		}
 	}
 
 	@Override
 	public void valueUnbound(HttpSessionBindingEvent event) {
 		List<LoggedUser> users = activeUserStore.getUsers();
-		LoggedUser user = (LoggedUser) event.getValue();
-		users.remove(user);
+		LoggedUserBindingListener user = (LoggedUserBindingListener) event.getValue();
+		users.remove(user.getLoggedUser());
 	}
 }

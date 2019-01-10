@@ -118,6 +118,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public SessionRegistry sessionRegistry() {
 		return new SessionRegistryImpl();
 	}
+
+
 	/**
 	 * 注入登录成功处理器
 	 */

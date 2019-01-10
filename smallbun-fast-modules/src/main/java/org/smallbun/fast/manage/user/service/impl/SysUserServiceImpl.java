@@ -25,6 +25,8 @@ import org.smallbun.fast.manage.user.details.LoginUserDetails;
 import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.fast.manage.user.service.SysUserService;
 import org.smallbun.fast.manage.user.vo.UserDetailsVO;
+import org.smallbun.framework.security.ActiveUserStore;
+import org.smallbun.framework.security.LoggedUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
@@ -32,6 +34,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author SanLi [隔壁object港哥][https://www.leshalv.net]
@@ -63,6 +66,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 			if (principal instanceof LoginUserDetails) {
 				List<SessionInformation> allSessions = sessionRegistry.getAllSessions(principal, false);
 				for (SessionInformation information : allSessions) {
+					Optional<LoggedUser> any = activeUserStore.getUsers().stream()
+							.filter(u -> u.getSessionId().equals(information.getSessionId())).findAny();
+
 					//userDetails
 					LoginUserDetails details = (LoginUserDetails) information.getPrincipal();
 					list.add(UserDetailsVO.builder()
@@ -109,5 +115,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 
 	@Autowired
 	private SessionRegistry sessionRegistry;
+	@Autowired
+	private ActiveUserStore activeUserStore;
 
 }

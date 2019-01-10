@@ -60,15 +60,6 @@ public class SysUserController {
 		return StringUtils.isEmpty(id) ? new SysUserEntity() : sysUserService.getById(id);
 	}
 
-	@Autowired
-	private ActiveUserStore activeUserStore;
-
-	@RequestMapping(value = "/loggedUsers", method = RequestMethod.GET)
-	public AjaxResult getLoggedUsers() {
-		return AjaxResult.builder().result(activeUserStore.getUsers()).build();
-	}
-
-
 	/**
 	 * 列表页面
 	 *
@@ -195,6 +186,7 @@ public class SysUserController {
 	 * @param sessionId sessionId
 	 * @return {@link AjaxResult}
 	 */
+	@PostMapping(value = "/expireUserSession")
 	public AjaxResult expireUserSession(String sessionId) {
 		sysUserService.expireUserSession(sessionId);
 		return AjaxResult.builder().build();

@@ -21,7 +21,8 @@ package org.smallbun.framework.security;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.smallbun.framework.constant.SystemConstant;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.smallbun.framework.toolkit.IpUtil;
+import org.smallbun.framework.toolkit.UserAgentUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,6 +37,7 @@ import java.io.PrintWriter;
 import java.util.Date;
 
 import static org.smallbun.framework.security.SecurityConstant.LOGIN;
+import static org.smallbun.framework.toolkit.AddressUtil.getRealAddressByIP;
 
 /**
  * Spring Security处理器
@@ -47,10 +49,17 @@ import static org.smallbun.framework.security.SecurityConstant.LOGIN;
 public class SecurityHandler {
 
 	private static final String USER = "USER";
+
+	@Bean
+	public ActiveUserStore activeUserStore() {
+		return new ActiveUserStore();
+	}
+
 	/**
 	 * 日志
 	 */
 	private Logger logger = LoggerFactory.getLogger(SecurityHandler.class);
+
 
 	/**
 	 * 登陆成功
@@ -70,11 +79,22 @@ public class SecurityHandler {
 			out.write("{\"status\":\"ok\",\"msg\":\"登录成功\"}");
 			out.flush();
 			out.close();
-			HttpSession session = request.getSession(true);
+			HttpSession session = request.getSession();
 			if (!StringUtils.isEmpty(session)) {
-				LoggedUser loggedUser = LoggedUser.builder().sessionId(session.getId()).logInTime(new Date())
+				LoggedUser loggedUser = LoggedUser.builder()
+						//sessionId
+						.sessionId(session.getId())
+						//登录时间
+						.logInTime(new Date())
+						//登录地点
+						.logInAddress(getRealAddressByIP(IpUtil.getIpAddr(request)))
+						//浏览器
+						.browser(UserAgentUtils.getUserAgent(request).getBrowser().getName())
+						//操作系统
+						.os(UserAgentUtils.getUserAgent(request).getOperatingSystem().getName())
+						//登录IP
 						.logInIp(request.getRemoteAddr()).build();
-				session.setAttribute(USER, new LoggedUserBindingListener(loggedUser));
+				session.setAttribute(USER, new LoggedUserBindingListener(loggedUser, activeUserStore()));
 			}
 
 			logger.info("----------------------------------------------------------");

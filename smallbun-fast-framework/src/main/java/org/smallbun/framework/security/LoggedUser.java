@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+
 /**
  *
  * @author SanLi
@@ -29,4 +30,12 @@ public class LoggedUser implements Serializable {
 	 * 登录时间
 	 */
 	private Date logInTime;
+	/**
+	 * 浏览器
+	 */
+	private String browser;
+	/**
+	 * 操作系统
+	 */
+	private String os;
 }
