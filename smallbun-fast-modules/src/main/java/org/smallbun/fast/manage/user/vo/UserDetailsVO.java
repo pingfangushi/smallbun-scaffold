@@ -21,35 +21,35 @@ public class UserDetailsVO implements Serializable {
 	 */
 	private String username;
 	/**
-	 * session ID
-	 */
-	private String sessionId;
-	/**
 	 * 归属部门
 	 */
 	private String orgName;
 	/**
-	 * 登录主机
+	 * 登录时间
 	 */
-	private String host;
-	/**
-	 * 登录地点
+	private Date logInTime;
+	/***
+	 * 最后访问时间
 	 */
-	private String location;
+	private Date lastAccessTime;
 	/**
-	 * 使用浏览器
+	 * sessionId
+	 */
+	private String sessionId;
+	/**
+	 * 登录IP
+	 */
+	private String logInIp;
+	/**
+	 * 登录地址
+	 */
+	private String logInAddress;
+	/**
+	 * 浏览器
 	 */
 	private String browser;
 	/**
 	 * 操作系统
 	 */
-	private String operatingSystem;
-	/**
-	 * 登录时间
-	 */
-	private String logInTime;
-	/***
-	 * 最后访问时间
-	 */
-	private Date lastAccessTime;
+	private String os;
 }

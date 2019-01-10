@@ -32,6 +32,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.util.StringUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
 import java.util.Date;
@@ -79,32 +80,17 @@ public class SecurityHandler {
 			out.write("{\"status\":\"ok\",\"msg\":\"登录成功\"}");
 			out.flush();
 			out.close();
-			HttpSession session = request.getSession();
-			if (!StringUtils.isEmpty(session)) {
-				LoggedUser loggedUser = LoggedUser.builder()
-						//sessionId
-						.sessionId(session.getId())
-						//登录时间
-						.logInTime(new Date())
-						//登录地点
-						.logInAddress(getRealAddressByIP(IpUtil.getIpAddr(request)))
-						//浏览器
-						.browser(UserAgentUtils.getUserAgent(request).getBrowser().getName())
-						//操作系统
-						.os(UserAgentUtils.getUserAgent(request).getOperatingSystem().getName())
-						//登录IP
-						.logInIp(request.getRemoteAddr()).build();
-				session.setAttribute(USER, new LoggedUserBindingListener(loggedUser, activeUserStore()));
-			}
-
+			//添加登录信息
+			putLogInInfo(request);
 			logger.info("----------------------------------------------------------");
 		};
 	}
 
+
 	/**
 	 * 登陆失败
 	 *
-	 * @return
+	 * @return {@link AuthenticationFailureHandler}
 	 */
 	@Bean
 	public AuthenticationFailureHandler loginFailureHandler() {
@@ -123,7 +109,7 @@ public class SecurityHandler {
 	/**
 	 * 未登录,返回登录页面
 	 *
-	 * @return
+	 * @return {@link AuthenticationEntryPoint}
 	 */
 	@Bean
 	public AuthenticationEntryPoint authenticationEntryPoint() {
@@ -138,15 +124,48 @@ public class SecurityHandler {
 	/**
 	 * 退出处理
 	 *
-	 * @return
+	 * @return {@link LogoutSuccessHandler}
 	 */
 	@Bean
 	public LogoutSuccessHandler logoutSussHandler() {
 		return (request, response, authentication) -> {
 			logger.info("----------------------------------------------------------");
 			logger.info("用户退出");
+			delLogInInfo(request);
 			logger.info("----------------------------------------------------------");
 			response.sendRedirect(LOGIN);
 		};
+	}
+
+	/**
+	 * 添加登录信息
+	 * @param request {@link HttpServletRequest}
+	 */
+	private void putLogInInfo(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (!StringUtils.isEmpty(session)) {
+			LoggedUser loggedUser = LoggedUser.builder()
+					//sessionId
+					.sessionId(session.getId())
+					//登录时间
+					.logInTime(new Date())
+					//登录地点
+					.logInAddress(getRealAddressByIP(IpUtil.getIpAddr(request)))
+					//浏览器
+					.browser(UserAgentUtils.getUserAgent(request).getBrowser().getName())
+					//操作系统
+					.os(UserAgentUtils.getUserAgent(request).getOperatingSystem().getName())
+					//登录IP
+					.logInIp(request.getRemoteAddr()).build();
+			session.setAttribute(USER, new LoggedUserBindingListener(loggedUser, activeUserStore()));
+		}
+	}
+
+	/**
+	 * 移除信息
+	 * @param request {@link HttpServletRequest}
+	 */
+	private void delLogInInfo(HttpServletRequest request) {
+		request.getSession().removeAttribute(USER);
 	}
 }

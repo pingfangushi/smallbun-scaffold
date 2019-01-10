@@ -96,8 +96,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.invalidSessionUrl(LOGIN)
 				//Spring Security的默认启用防止固化session攻击
 				.sessionFixation().migrateSession()
-				//用户并发
-				.maximumSessions(1).sessionRegistry(sessionRegistry()).expiredUrl(LOGIN);
+				//用户并发 -1为不限制
+				.maximumSessions(-1).sessionRegistry(sessionRegistry()).expiredUrl(LOGIN);
 	}
 
 

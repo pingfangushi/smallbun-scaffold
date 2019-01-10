@@ -26,7 +26,6 @@ import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.fast.manage.user.service.SysUserService;
 import org.smallbun.fast.manage.user.vo.UserDetailsVO;
 import org.smallbun.framework.security.ActiveUserStore;
-import org.smallbun.framework.security.LoggedUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
@@ -34,7 +33,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author SanLi [隔壁object港哥][https://www.leshalv.net]
@@ -62,27 +60,33 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 	@Override
 	public List<UserDetailsVO> getUsersFromSessionRegistry() {
 		List<UserDetailsVO> list = Lists.newArrayList();
-		for (Object principal : sessionRegistry.getAllPrincipals()) {
-			if (principal instanceof LoginUserDetails) {
-				List<SessionInformation> allSessions = sessionRegistry.getAllSessions(principal, false);
-				for (SessionInformation information : allSessions) {
-					Optional<LoggedUser> any = activeUserStore.getUsers().stream()
-							.filter(u -> u.getSessionId().equals(information.getSessionId())).findAny();
-
-					//userDetails
-					LoginUserDetails details = (LoginUserDetails) information.getPrincipal();
-					list.add(UserDetailsVO.builder()
-							//会话ID
-							.sessionId(information.getSessionId())
-							//最后操作时间
-							.lastAccessTime(information.getLastRequest())
-							//用户名
-							.username(details.getUsername())
-							//归属部门
-							.orgName(details.getSysUser().getOrg().getOrgName()).build());
-				}
-			}
-		}
+		sessionRegistry.getAllPrincipals().forEach(g -> sessionRegistry.getAllSessions(g, false).forEach(s -> {
+			//获取登录用户
+			activeUserStore.getUsers().stream().filter(u -> u.getSessionId().equals(s.getSessionId())).findAny()
+					.ifPresent(t -> {
+						//userDetails
+						LoginUserDetails details = (LoginUserDetails) s.getPrincipal();
+						list.add(UserDetailsVO.builder()
+								//会话ID
+								.sessionId(t.getSessionId())
+								//最后操作时间
+								.lastAccessTime(s.getLastRequest())
+								//用户名
+								.username(details.getUsername())
+								//OS操作系统
+								.os(t.getOs())
+								//登录IP
+								.logInIp(t.getLogInIp())
+								//登录时间
+								.logInTime(t.getLogInTime())
+								//浏览器
+								.browser(t.getBrowser())
+								//登录地址
+								.logInAddress(t.getLogInAddress())
+								//归属部门
+								.orgName(details.getSysUser().getOrg().getOrgName()).build());
+					});
+		}));
 		return list;
 	}
 
