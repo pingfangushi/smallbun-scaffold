@@ -19,12 +19,10 @@
 package org.smallbun.fast.manage.user.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.fast.manage.user.service.SysUserService;
 import org.smallbun.fast.manage.user.util.UserUtil;
-import org.smallbun.fast.manage.user.vo.UserDetailsVO;
 import org.smallbun.framework.annotation.SystemLog;
 import org.smallbun.framework.result.AjaxResult;
 import org.smallbun.framework.result.PageableResult;
@@ -176,8 +174,8 @@ public class SysUserController {
 	 * @return {@link AjaxResult}
 	 */
 	@RequestMapping(value = "/online")
-	public PageableResult online(IPage<UserDetailsVO> page) {
-		return PageableResult.builder().page(sysUserService.getUsersFromSessionRegistry(page)).build();
+	public PageableResult online() {
+		return PageableResult.builder().page(sysUserService.getUsersFromSessionRegistry()).build();
 	}
 
 	/**

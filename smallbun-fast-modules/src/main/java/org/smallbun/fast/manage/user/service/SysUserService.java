@@ -42,10 +42,9 @@ public interface SysUserService extends IService<SysUserEntity> {
 
 	/**
 	 * 从会话注册表中获取用户
-	 * @param page
 	 * @return {@link List<UserDetailsVO>}
 	 */
-	IPage<UserDetailsVO> getUsersFromSessionRegistry(IPage<UserDetailsVO> page);
+	IPage<UserDetailsVO> getUsersFromSessionRegistry();
 
 	/**
 	 * 下线所有用户
