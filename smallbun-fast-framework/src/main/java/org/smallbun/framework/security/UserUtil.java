@@ -20,6 +20,11 @@ package org.smallbun.framework.security;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpSession;
+import java.util.Objects;
 
 /**
  * User 工具类
@@ -40,5 +45,14 @@ public class UserUtil {
 			return (UserDetails) principal;
 		}
 		return null;
+	}
+
+	/**
+	 * 获取当前session
+	 * @return {@link HttpSession}
+	 */
+	public static HttpSession getSession() {
+		return ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes()))
+				.getRequest().getSession();
 	}
 }

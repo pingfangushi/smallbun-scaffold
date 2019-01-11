@@ -31,9 +31,10 @@ import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.stereotype.Service;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.smallbun.fast.manage.user.util.UserUtil.getSession;
 
 /**
  * @author SanLi [隔壁object港哥][https://www.leshalv.net]
@@ -93,16 +94,16 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 
 	/**
 	 * 下线所有用户，除下达任务的人除外
-	 * @param id 用户ID
 	 */
 	@Override
-	public void expireUserSessions(Serializable id) {
-		sessionRegistry.getAllPrincipals().stream().map(u -> (LoginUserDetails) u).collect(Collectors.toList())
-				.forEach(u -> {
-					if (String.valueOf(u.getSysUser().getId()).equals(id)) {
-						sessionRegistry.getAllSessions(u, true).forEach(SessionInformation::expireNow);
-					}
-				});
+	public void expireUserSessions() {
+		for (LoginUserDetails details : sessionRegistry.getAllPrincipals().stream().map(u -> (LoginUserDetails) u)
+				.collect(Collectors.toList())) {
+			//排除不是当前用户sessionId的用户
+			sessionRegistry.getAllSessions(details, true).stream().filter(sessionInformation -> !sessionInformation
+					.equals(sessionRegistry.getSessionInformation(getSession().getId())))
+					.forEach(SessionInformation::expireNow);
+		}
 	}
 
 	/**

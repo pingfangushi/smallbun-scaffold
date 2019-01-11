@@ -22,7 +22,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.fast.manage.user.vo.UserDetailsVO;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -47,9 +46,8 @@ public interface SysUserService extends IService<SysUserEntity> {
 
 	/**
 	 * 下线所有用户
-	 * @param id {@link String}
 	 */
-	void expireUserSessions(Serializable id);
+	void expireUserSessions();
 
 
 	/**

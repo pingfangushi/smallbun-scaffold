@@ -180,12 +180,11 @@ public class SysUserController {
 
 	/**
 	 * 下线所有用户，除当前用户除外
-	 * @param id {@link Serializable} 排除用户ID
 	 * @return {@link AjaxResult}
 	 */
 	@PostMapping(value = "/expireUserSessions")
-	public AjaxResult expireUserSessions(Serializable id) {
-		sysUserService.expireUserSessions(id);
+	public AjaxResult expireUserSessions() {
+		sysUserService.expireUserSessions();
 		return AjaxResult.builder().build();
 	}
 

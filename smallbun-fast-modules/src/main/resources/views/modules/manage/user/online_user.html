@@ -18,6 +18,12 @@
                 <!--盒子内容-->
                 <div class="ibox-content-table">
                     <!--表格-->
+                    <div id="toolbar" class="pull-left">
+                        <button type="button" class="btn btn-sm bg-maroon"
+                                onclick="expireUserSessions()">
+                            <i class="fa  fa-sign-out"></i> 强退所有用户
+                        </button>
+                    </div>
                     <table id="table" class="table table-bordered table-striped"
                            data-mobile-responsive="true"></table>
                 </div>
