@@ -60,8 +60,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 	 * @return {@link List < LoginUserDetails >}
 	 */
 	@Override
-	public IPage<UserDetailsVO> getUsersFromSessionRegistry() {
-		Page<UserDetailsVO> page = new Page<>();
+	public IPage<UserDetailsVO> getUsersFromSessionRegistry(IPage<UserDetailsVO> page) {
 		List<UserDetailsVO> list = Lists.newArrayList();
 		sessionRegistry.getAllPrincipals().forEach(g -> sessionRegistry.getAllSessions(g, false).forEach(s -> {
 			//获取登录用户
