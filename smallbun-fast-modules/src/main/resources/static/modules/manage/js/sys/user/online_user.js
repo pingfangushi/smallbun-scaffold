@@ -10,6 +10,7 @@ $(function () {
         showToggle: true,
         columns: [{checkbox: true},
             {field: 'sessionId', visible: false},
+            {field: 'sessionId', visible: false},
             {field: 'username', title: '用户名'},
             {field: 'orgName', title: '归属部门'},
             {field: 'logInIp', title: '主机'},
@@ -22,10 +23,21 @@ $(function () {
                 title: '操作', width: 50,
                 formatter: function (value, row, index) {
                     var actions = [];
-                    actions.push('<a class="btn bg-maroon btn-xs " href="#" onclick="$.operate.remove(\'' + row.sessionId + '\')"><i class="fa fa-remove"></i> 强退</a>');
+                    actions.push('<a class="btn bg-maroon btn-xs " href="#" onclick="expireUserSession(\'' + row.sessionId + '\')"><i class="fa fa-remove"></i> 强退</a>');
                     return actions.join('');
                 }
             }]
     };
     $.table.init(options);
 });
+
+/**
+ * 下线用户会话
+ * @param sessionId
+ */
+function expireUserSession(sessionId) {
+    $.modal.confirm("确定强退该用户吗？", function () {
+        var data = {"sessionId": sessionId};
+        $.operate.submit(contextPath + 'user/expireUserSession', "post", "json", data);
+    });
+}

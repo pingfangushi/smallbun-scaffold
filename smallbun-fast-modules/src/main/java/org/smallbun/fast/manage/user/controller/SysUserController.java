@@ -174,8 +174,8 @@ public class SysUserController {
 	 * @return {@link AjaxResult}
 	 */
 	@RequestMapping(value = "/online")
-	public PageableResult online() {
-		return PageableResult.builder().page(sysUserService.getUsersFromSessionRegistry()).build();
+	public AjaxResult online() {
+		return AjaxResult.builder().result(sysUserService.getUsersFromSessionRegistry()).build();
 	}
 
 	/**

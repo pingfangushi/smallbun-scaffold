@@ -18,8 +18,6 @@
 
 package org.smallbun.fast.manage.user.service.impl;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import org.smallbun.fast.manage.user.dao.SysUserMapper;
@@ -35,6 +33,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author SanLi [隔壁object港哥][https://www.leshalv.net]
@@ -60,8 +59,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 	 * @return {@link List < LoginUserDetails >}
 	 */
 	@Override
-	public IPage<UserDetailsVO> getUsersFromSessionRegistry() {
-		Page<UserDetailsVO> page = new Page<>();
+	public List<UserDetailsVO> getUsersFromSessionRegistry() {
 		List<UserDetailsVO> list = Lists.newArrayList();
 		sessionRegistry.getAllPrincipals().forEach(g -> sessionRegistry.getAllSessions(g, false).forEach(s -> {
 			//获取登录用户
@@ -90,26 +88,21 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 								.orgName(details.getSysUser().getOrg().getOrgName()).build());
 					});
 		}));
-		page.setRecords(list);
-		return page;
+		return list;
 	}
 
 	/**
 	 * 下线所有用户，除下达任务的人除外
-	 * @param id
+	 * @param id 用户ID
 	 */
 	@Override
 	public void expireUserSessions(Serializable id) {
-		for (Object principal : sessionRegistry.getAllPrincipals()) {
-			if (principal instanceof LoginUserDetails) {
-				LoginUserDetails userDetails = (LoginUserDetails) principal;
-				if (String.valueOf(userDetails.getSysUser().getId()).equals(String.valueOf(id))) {
-					for (SessionInformation information : sessionRegistry.getAllSessions(userDetails, true)) {
-						information.expireNow();
+		sessionRegistry.getAllPrincipals().stream().map(u -> (LoginUserDetails) u).collect(Collectors.toList())
+				.forEach(u -> {
+					if (String.valueOf(u.getSysUser().getId()).equals(id)) {
+						sessionRegistry.getAllSessions(u, true).forEach(SessionInformation::expireNow);
 					}
-				}
-			}
-		}
+				});
 	}
 
 	/**

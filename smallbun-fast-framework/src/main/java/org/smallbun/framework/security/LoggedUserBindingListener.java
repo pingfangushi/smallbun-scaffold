@@ -31,10 +31,12 @@ public class LoggedUserBindingListener implements HttpSessionBindingListener {
 	}
 
 	public LoggedUserBindingListener() {
+
 	}
 
 	@Override
 	public void valueBound(HttpSessionBindingEvent event) {
+
 		List<LoggedUser> users = activeUserStore.getUsers();
 		LoggedUserBindingListener value = (LoggedUserBindingListener) event.getValue();
 		if (!users.contains(value.getLoggedUser())) {

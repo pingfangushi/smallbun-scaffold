@@ -64,7 +64,12 @@
             responseHandler: function (res) {
                 //如果请求成功
                 if (res.status === '200') {
-                    return {rows: res.page.records, total: res.page.total};
+                    //如果是本地分页,后台应使用AjaxResult返回数据
+                    if ($.common.isNotEmpty($.table._option.sidePagination) && $.table._option.sidePagination === 'client') {
+                        return {rows: res.result};
+                    } else {
+                        return {rows: res.page.records, total: res.page.total};
+                    }
                 }
                 //否则
                 else {
