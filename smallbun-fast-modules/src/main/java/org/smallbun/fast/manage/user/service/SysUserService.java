@@ -18,6 +18,7 @@
 
 package org.smallbun.fast.manage.user.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.fast.manage.user.vo.UserDetailsVO;
@@ -43,7 +44,7 @@ public interface SysUserService extends IService<SysUserEntity> {
 	 * 从会话注册表中获取用户
 	 * @return {@link List<UserDetailsVO>}
 	 */
-	List<UserDetailsVO> getUsersFromSessionRegistry();
+	IPage<UserDetailsVO> getUsersFromSessionRegistry();
 
 	/**
 	 * 下线所有用户

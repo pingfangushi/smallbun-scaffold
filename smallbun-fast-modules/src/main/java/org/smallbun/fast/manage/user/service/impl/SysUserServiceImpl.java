@@ -18,6 +18,8 @@
 
 package org.smallbun.fast.manage.user.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import org.smallbun.fast.manage.user.dao.SysUserMapper;
@@ -58,7 +60,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 	 * @return {@link List < LoginUserDetails >}
 	 */
 	@Override
-	public List<UserDetailsVO> getUsersFromSessionRegistry() {
+	public IPage<UserDetailsVO> getUsersFromSessionRegistry() {
+		Page<UserDetailsVO> page = new Page<>();
 		List<UserDetailsVO> list = Lists.newArrayList();
 		sessionRegistry.getAllPrincipals().forEach(g -> sessionRegistry.getAllSessions(g, false).forEach(s -> {
 			//获取登录用户
@@ -87,7 +90,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 								.orgName(details.getSysUser().getOrg().getOrgName()).build());
 					});
 		}));
-		return list;
+		page.setRecords(list);
+		return page;
 	}
 
 	/**

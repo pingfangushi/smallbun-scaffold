@@ -26,7 +26,6 @@ import org.smallbun.fast.manage.user.util.UserUtil;
 import org.smallbun.framework.annotation.SystemLog;
 import org.smallbun.framework.result.AjaxResult;
 import org.smallbun.framework.result.PageableResult;
-import org.smallbun.framework.security.ActiveUserStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -165,9 +164,18 @@ public class SysUserController {
 	 * 在线用户
 	 * @return {@link AjaxResult}
 	 */
-	@RequestMapping(value = "/onlineUser")
-	public AjaxResult onlineUser() {
-		return AjaxResult.builder().result(sysUserService.getUsersFromSessionRegistry()).build();
+	@RequestMapping(value = "/online/view")
+	public ModelAndView onlineView() {
+		return new ModelAndView("modules/manage/user/online_user.html");
+	}
+
+	/**
+	 * 在线用户
+	 * @return {@link AjaxResult}
+	 */
+	@RequestMapping(value = "/online")
+	public PageableResult online() {
+		return PageableResult.builder().page(sysUserService.getUsersFromSessionRegistry()).build();
 	}
 
 	/**

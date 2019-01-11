@@ -35,7 +35,7 @@
                     pageSize: 20,                                       // 每页的记录行数（*）
                     pageList: [20, 30, 40],                             // 可供选择的每页的行数（*）
                     iconSize: 'sm',                                     // 图标大小：undefined默认的按钮尺寸 xs超小按钮sm小按钮lg大按钮
-                    sidePagination: "server",                           // 启用服务端分页
+                    sidePagination: $.common.isNotEmpty(options.sidePagination) ? options.pagination : "server",                           // 启用服务端分页
                     paginationLoop: false,                              //不启用分页条无限循环的功能。
                     cardView: true,                                     //手机端适应
                     toolbar: "#toolbar",
