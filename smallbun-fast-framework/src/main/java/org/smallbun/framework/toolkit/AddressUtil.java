@@ -28,12 +28,4 @@ public class AddressUtil {
 		}
 		return ip;
 	}
-
-	public static void main(String[] args) {
-		String result = getRealAddressByIP("39.91.102.26");
-		System.out.println(result);
-
-	}
-
-
 }

@@ -17,8 +17,10 @@
  */
 package org.smallbun.framework.toolkit;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -27,16 +29,25 @@ import org.springframework.web.client.RestTemplate;
  * @author SanLi
  * Created  by 2689170096@qq.com  on 2018/1/15
  */
+@Slf4j
 public class HttpUtil {
 
 	public static String client(String url, HttpMethod method, MultiValueMap<String, String> params) {
 		RestTemplate client = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
-		//  请勿轻易改变此提交方式，大部分的情况下，提交方式都是表单提交
-		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-		HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(params, headers);
-		//  执行HTTP请求
-		ResponseEntity<String> response = client.exchange(url, method, requestEntity, String.class);
-		return response.getBody();
+		try {
+			ResponseEntity<String> response;
+			//  请勿轻易改变此提交方式，大部分的情况下，提交方式都是表单提交
+			headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+			HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(params, headers);
+			//  执行HTTP请求
+			response = client.exchange(url, method, requestEntity, String.class);
+			return response.getBody();
+		} catch (RestClientException e) {
+			log.error("{}", e.getLocalizedMessage());
+			//调用另一个接口
+		}
+		return null;
+
 	}
 }
