@@ -26,11 +26,11 @@ import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.fast.manage.user.service.SysUserService;
 import org.smallbun.fast.manage.user.vo.UserDetailsVO;
 import org.smallbun.framework.security.ActiveUserStore;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -115,9 +115,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 		sessionRegistry.getSessionInformation(sessionId).expireNow();
 	}
 
-	@Autowired
+	@Resource
 	private SessionRegistry sessionRegistry;
-	@Autowired
+	@Resource
 	private ActiveUserStore activeUserStore;
 
 }
