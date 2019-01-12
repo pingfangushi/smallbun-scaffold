@@ -1,6 +1,12 @@
 package org.smallbun.framework.toolkit;
 
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpMethod;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+
+import static org.smallbun.framework.toolkit.HttpUtil.client;
+import static org.smallbun.framework.toolkit.IpUtil.internalIp;
 
 /**
  *
@@ -11,9 +17,23 @@ import lombok.extern.log4j.Log4j2;
 public class AddressUtil {
 
 
-	public static final String IP_URL = "http://ip.taobao.com/service/getIpInfo.php";
+	private static final String IP_URL = "http://ip.taobao.com/service/getIpInfo.php";
 
 	public static String getRealAddressByIP(String ip) {
-		return "山东.济南";
+		//如果不是内部IP
+		if (!internalIp(ip)) {
+			MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+			params.add("ip", ip);
+			return client(IP_URL, HttpMethod.POST, params);
+		}
+		return ip;
 	}
+
+	public static void main(String[] args) {
+		String result = getRealAddressByIP("39.91.102.26");
+		System.out.println(result);
+
+	}
+
+
 }
