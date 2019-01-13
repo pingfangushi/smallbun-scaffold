@@ -1,7 +1,7 @@
 $(function () {
 
     var options = {
-        url: contextPath + 'user/online',
+        url: contextPath + 'monitor/online/user/list',
         sidePagination: 'client',
         search: false,
         showExport: false,
@@ -9,11 +9,11 @@ $(function () {
         showColumns: true,
         showToggle: true,
         columns: [{checkbox: true},
-            {field: 'sessionId', title: 'sessionId', visible: false},
-            {field: 'username', title: '用户名'},
-            {field: 'orgName', title: '归属部门'},
+            {field: 'sessionId', title: '会话', visible: false},
+            {field: 'username', title: '用户'},
+            {field: 'orgName', title: '部门'},
             {field: 'logInIp', title: '主机'},
-            {field: 'logInAddress', title: '登录地点'},
+            {field: 'logInAddress', title: '登录地'},
             {field: 'browser', title: '浏览器'},
             {field: 'os', title: '操作系统'},
             {field: 'logInTime', title: '登录时间'},
@@ -37,7 +37,7 @@ $(function () {
 function expireUserSession(sessionId) {
     $.modal.confirm("确定强退该用户吗？", function () {
         var data = {"sessionId": sessionId};
-        $.operate.submit(contextPath + 'user/expireUserSession', "post", "json", data);
+        $.operate.submit(contextPath + 'online/user/expireUserSession', "post", "json", data);
     });
 }
 
@@ -46,6 +46,6 @@ function expireUserSession(sessionId) {
  */
 function expireUserSessions() {
     $.modal.confirm("确定强退所有用户吗？", function () {
-        $.operate.submit(contextPath + 'user/expireUserSessions', "post", "json");
+        $.operate.submit(contextPath + 'online/user/expireUserSessions', "post", "json");
     });
 }

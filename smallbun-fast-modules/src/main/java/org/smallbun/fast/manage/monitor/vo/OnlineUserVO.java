@@ -1,4 +1,4 @@
-package org.smallbun.fast.manage.user.vo;
+package org.smallbun.fast.manage.monitor.vo;
 
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +15,7 @@ import java.util.Date;
  */
 @Data
 @Builder
-public class UserDetailsVO implements Serializable {
+public class OnlineUserVO implements Serializable {
 	/**
 	 * 用户名
 	 */

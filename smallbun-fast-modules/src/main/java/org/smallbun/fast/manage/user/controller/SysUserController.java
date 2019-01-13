@@ -34,7 +34,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -159,46 +158,6 @@ public class SysUserController {
 	public AjaxResult list() {
 		return AjaxResult.builder().result(sysUserService.list(new QueryWrapper<>())).build();
 	}
-
-	/**
-	 * 在线用户
-	 * @return {@link AjaxResult}
-	 */
-	@RequestMapping(value = "/online/view")
-	public ModelAndView onlineView() {
-		return new ModelAndView("modules/manage/user/online_user.html");
-	}
-
-	/**
-	 * 在线用户
-	 * @return {@link AjaxResult}
-	 */
-	@RequestMapping(value = "/online")
-	public AjaxResult online() {
-		return AjaxResult.builder().result(sysUserService.getUsersFromSessionRegistry()).build();
-	}
-
-	/**
-	 * 下线所有用户，除当前用户除外
-	 * @return {@link AjaxResult}
-	 */
-	@PostMapping(value = "/expireUserSessions")
-	public AjaxResult expireUserSessions() {
-		sysUserService.expireUserSessions();
-		return AjaxResult.builder().build();
-	}
-
-	/**
-	 * 下线指定用户，根据sessionId
-	 * @param sessionId sessionId
-	 * @return {@link AjaxResult}
-	 */
-	@PostMapping(value = "/expireUserSession")
-	public AjaxResult expireUserSession(String sessionId) {
-		sysUserService.expireUserSession(sessionId);
-		return AjaxResult.builder().build();
-	}
-
 
 	/**
 	 * 注入SysUserService
