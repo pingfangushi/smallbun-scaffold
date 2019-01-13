@@ -84,7 +84,10 @@ $(".form-horizontal").validate({
     },
     messages: {
         roleName: {
-            required: "请输入角色编码",
+            required: "请输入角色名称",
+            remote: "角色名称已存在"
+        },
+        enName: {
             remote: "角色编码已存在"
         }
     }
