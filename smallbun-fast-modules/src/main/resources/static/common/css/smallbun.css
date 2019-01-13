@@ -161,7 +161,8 @@ body .wrapper .main-header .navbar .dropdown-menu li.active > a:hover {
 
 .list-body {
     /* background-color: #fff;*/
-    background-color: #F2F2F3;
+    /*background-color: #F2F2F3;*/
+    background-color: #ecf0f5;;
     /*background-color: #f0f2f5;*/
     height: 100%;
 }

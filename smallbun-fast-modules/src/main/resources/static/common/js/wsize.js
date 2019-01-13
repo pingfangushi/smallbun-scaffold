@@ -57,17 +57,3 @@ $(".ibox-content-tree-table").resize(function (e) {
     //-1 为bootstrap-table 上边框高度
     $('.table').bootstrapTable('resetView', {height: $('.ibox-content-tree-table').height() - 1});
 });
-if (window.IPCallBack) {
-    IPCallBack({
-        "ip": "39.91.110.142",
-        "pro": "山东省",
-        "proCode": "370000",
-        "city": "济南市",
-        "cityCode": "370100",
-        "region": "",
-        "regionCode": "0",
-        "addr": "山东省济南市 联通",
-        "regionNames": "",
-        "err": ""
-    });
-}

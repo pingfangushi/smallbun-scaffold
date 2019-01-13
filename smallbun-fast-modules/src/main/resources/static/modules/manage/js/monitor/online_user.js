@@ -37,7 +37,7 @@ $(function () {
 function expireUserSession(sessionId) {
     $.modal.confirm("确定强退该用户吗？", function () {
         var data = {"sessionId": sessionId};
-        $.operate.submit(contextPath + 'online/user/expireUserSession', "post", "json", data);
+        $.operate.submit(contextPath + 'monitor/online/user/expireUserSession', "post", "json", data);
     });
 }
 
@@ -46,6 +46,6 @@ function expireUserSession(sessionId) {
  */
 function expireUserSessions() {
     $.modal.confirm("确定强退所有用户吗？", function () {
-        $.operate.submit(contextPath + 'online/user/expireUserSessions', "post", "json");
+        $.operate.submit(contextPath + 'monitor/online/user/expireUserSessions', "post", "json");
     });
 }

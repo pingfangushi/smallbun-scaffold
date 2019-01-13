@@ -21,7 +21,14 @@ public class MonitorController extends BaseController {
 	public MonitorController(MonitorService monitorService) {
 		this.monitorService = monitorService;
 	}
-
+	/**
+	 * 在线用户数量
+	 * @return {@link AjaxResult}
+	 */
+	@RequestMapping(value = "/online/user/count")
+	public AjaxResult onlineUserCount() {
+		return AjaxResult.builder().result(monitorService.onlineUserCount()).build();
+	}
 	/**
 	 * 在线用户
 	 * @return {@link AjaxResult}

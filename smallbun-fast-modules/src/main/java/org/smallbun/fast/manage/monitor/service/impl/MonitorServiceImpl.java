@@ -90,6 +90,16 @@ public class MonitorServiceImpl implements MonitorService {
 	}
 
 	/**
+	 * 在线用户数量
+	 * @return {@link Long}
+	 */
+	@Override
+	public Long onlineUserCount() {
+		return (long) sessionRegistry.getAllPrincipals().stream()
+				.filter(u -> !sessionRegistry.getAllSessions(u, false).isEmpty()).collect(Collectors.toList()).size();
+	}
+
+	/**
 	 * 注入sessionRegistry
 	 */
 	private final SessionRegistry sessionRegistry;

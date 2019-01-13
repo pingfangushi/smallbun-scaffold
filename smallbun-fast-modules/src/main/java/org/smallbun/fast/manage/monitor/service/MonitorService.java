@@ -28,4 +28,10 @@ public interface MonitorService {
 	 * @param sessionId {@link String}
 	 */
 	void expireUserSession(String sessionId);
+
+	/**
+	 * 在线用户数量
+	 * @return {@link Long}
+	 */
+	Long onlineUserCount();
 }
