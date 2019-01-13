@@ -38,7 +38,7 @@ $(function () {
             {field: 'roleTypeName', title: '角色类型', sortable: true},
             {field: 'dataScopeName', title: '数据范围', sortable: true},
             {field: 'useable', title: '是否可用', sortable: true, formatter: useableFormatter,width: 50},
-            {field: 'gmtModified', title: '更新时间', width: 150},
+            {field: 'gmtModified', title: '更新时间'},
             {
                 title: '操作', width: 205, formatter: function (value, row, index) {
                     var actions = [];

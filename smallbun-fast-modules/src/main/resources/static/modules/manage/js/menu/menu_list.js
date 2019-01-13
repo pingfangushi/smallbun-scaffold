@@ -29,6 +29,7 @@ $(function () {
         rootParentId: '0',
         treeShowField: 'menuName',
         initialState: 'collapsed',
+        showToggle: 'false',
         columns: [
             {field: 'ck', checkbox: true},
             {field: 'menuName', title: '名称', sortable: false, width: '200px', align: 'left'},

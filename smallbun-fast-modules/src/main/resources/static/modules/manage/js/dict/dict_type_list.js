@@ -36,7 +36,7 @@ $(function () {
             {field: 'id', visible: false},
             {field: 'typeName', title: '字典名称', formatter: $.table.view},
             {field: 'typeCode', title: '字典类型', sortable: true},
-            {field: 'gmtModified', title: '更新时间', width: 150},
+            {field: 'gmtModified', title: '更新时间'},
             {
                 title: '操作', width: 250,
                 formatter: function (value, row, index) {

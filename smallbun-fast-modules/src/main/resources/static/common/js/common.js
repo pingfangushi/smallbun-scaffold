@@ -214,6 +214,26 @@
             // 刷新
             refresh: function () {
                 $.treeTable._treeTable.bootstrapTable('refresh');
+            },
+            //展开
+            expandAll: function () {
+                $table.treegrid('expandAll');
+                $table.addClass('treegrid-expanded');
+            },
+            //折叠
+            collapseAll: function () {
+                $table.treegrid('collapseAll');
+                $table.addClass('treegrid-collapsed');
+            },
+            //展开或者折叠
+            expandOrCollapse: function () {
+                $table.addClass('treegrid-collapsed');
+                if ($table.treegrid('isExpanded')) {
+                    $.treeTable.collapseAll();
+                }
+                if ($table.treegrid('isCollapsed')) {
+                    $.treeTable.expandAll();
+                }
             }
         },
         /**
@@ -903,7 +923,6 @@
 
     });
 })(jQuery);
-
 /** 消息状态码 */
 web_status = {
     SUCCESS: '200',

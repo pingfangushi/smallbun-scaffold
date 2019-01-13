@@ -28,9 +28,9 @@
                     <h5>菜单管理</h5>
                     <div class="pull-right">
                         <div class="pull-left">
-                            <button type="button" class="btn btn-sm ibtn-primary"
-                                    onclick="$.operate.add()">
-                                <i class="fa fa-exchange"></i>&nbsp;展开
+                            <button type="button" id="expandAllBtn" class="btn btn-sm ibtn-primary"
+                                    onclick="$.treeTable.expandOrCollapse()">
+                                <i class="fa fa-exchange"></i>&nbsp;展开/折叠
                             </button>
                             <!--/*/  <th:block sec:authorize="hasAuthority('manage:menu:add')">/*/-->
                             <button type="button" class="btn btn-sm  ibtn-info"
