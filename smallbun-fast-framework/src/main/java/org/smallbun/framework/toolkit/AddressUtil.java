@@ -26,6 +26,6 @@ public class AddressUtil {
 			params.add("ip", ip);
 			return client(IP_URL, HttpMethod.POST, params);
 		}
-		return ip;
+		return "本地";
 	}
 }

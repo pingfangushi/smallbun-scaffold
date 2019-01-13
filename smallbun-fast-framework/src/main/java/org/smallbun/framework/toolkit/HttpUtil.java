@@ -44,10 +44,9 @@ public class HttpUtil {
 			response = client.exchange(url, method, requestEntity, String.class);
 			return response.getBody();
 		} catch (RestClientException e) {
-			log.error("{}", e.getLocalizedMessage());
-			//调用另一个接口
+			log.error("HTTP请求异常:{}", e.getLocalizedMessage());
 		}
-		return null;
+		return "-";
 
 	}
 }
