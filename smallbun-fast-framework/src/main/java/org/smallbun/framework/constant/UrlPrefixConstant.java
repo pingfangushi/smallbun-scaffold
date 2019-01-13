@@ -34,6 +34,10 @@ public interface UrlPrefixConstant {
 	 * API_V2 版本
 	 */
 	String API_V2 = "/v2";
+	/**
+	 * 唯一路径后缀
+	 */
+	String UNIQUE = "unique";
 
 
 }

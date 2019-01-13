@@ -7,6 +7,7 @@ import org.smallbun.fast.manage.dict.entity.SysDictValueEntity;
 import org.smallbun.fast.manage.dict.vo.SysDictValueVO;
 import org.smallbun.framework.result.AjaxResult;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -28,7 +29,7 @@ public interface SysDictValueService extends IService<SysDictValueEntity> {
 	 * @param vo
 	 * @return
 	 */
-	AjaxResult unique(SysDictValueEntity vo);
+	Boolean unique(SysDictValueEntity vo);
 
 	/**
 	 * 根据type code 查询字典值
@@ -44,4 +45,11 @@ public interface SysDictValueService extends IService<SysDictValueEntity> {
 	 * @return {@link SysDictValueEntity}
 	 */
 	String findLabelByTypeCodeAndValue(String typeCode, String dictValue);
+
+	/**
+	 * model
+	 * @param request
+	 * @return
+	 */
+	SysDictValueVO model(HttpServletRequest request);
 }

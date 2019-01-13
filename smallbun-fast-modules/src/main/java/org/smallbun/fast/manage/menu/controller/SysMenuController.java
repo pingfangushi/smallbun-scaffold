@@ -37,6 +37,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +60,8 @@ public class SysMenuController extends BaseController {
 	}
 
 	@ModelAttribute
-	public SysMenuVO model(String id) {
-		return StringUtils.isEmpty(id) ? new SysMenuVO() : mapping(menuService.getById(id), new SysMenuVO());
+	public SysMenuVO model(HttpServletRequest request) {
+		return menuService.model(request);
 	}
 
 	/**

@@ -15,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +35,8 @@ public class SysRoleController extends BaseController {
 	}
 
 	@ModelAttribute
-	protected SysRoleVO model(String id) {
-		return sysRoleService.getById(id);
+	protected SysRoleVO model(HttpServletRequest request) {
+		return sysRoleService.model(request);
 	}
 
 	/**
@@ -101,8 +102,7 @@ public class SysRoleController extends BaseController {
 	@PostMapping(value = "/page")
 	public PageableResult page(Page<SysRoleEntity> page, SysRoleVO vo) {
 		return PageableResult.builder()
-				.page(pageVOFilling(sysRoleService.page(page, new QueryWrapper<>(vo)),  SysRoleVO.class))
-				.build();
+				.page(pageVOFilling(sysRoleService.page(page, new QueryWrapper<>(vo)), SysRoleVO.class)).build();
 	}
 
 	/**
@@ -125,7 +125,7 @@ public class SysRoleController extends BaseController {
 	 */
 	@PostMapping(value = "/unique")
 	public AjaxResult unique(SysRoleVO vo) {
-		return sysRoleService.unique(vo);
+		return AjaxResult.builder().result(sysRoleService.unique(vo)).build();
 	}
 
 	/**

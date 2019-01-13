@@ -1,8 +1,11 @@
 package org.smallbun.fast.manage.dict.service;
 
 import org.smallbun.fast.manage.dict.entity.SysDictTypeEntity;
+import org.smallbun.fast.manage.dict.vo.SysDictTypeVO;
 import org.smallbun.framework.base.BaseService;
 import org.smallbun.framework.result.AjaxResult;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 系统字典类型 服务类
@@ -16,5 +19,12 @@ public interface SysDictTypeService extends BaseService<SysDictTypeEntity> {
 	 * @param dictType dictType
 	 * @return AjaxResult
 	 */
-	AjaxResult unique(SysDictTypeEntity dictType);
+	Boolean unique(SysDictTypeEntity dictType);
+
+	/**
+	 * model
+	 * @param request
+	 * @return
+	 */
+	SysDictTypeVO model(HttpServletRequest request);
 }

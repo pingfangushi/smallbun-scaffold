@@ -22,6 +22,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import org.smallbun.fast.manage.menu.entity.SysMenuEntity;
 import org.smallbun.fast.manage.menu.vo.SysMenuVO;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.List;
 
@@ -54,4 +55,11 @@ public interface SysMenuService extends IService<SysMenuEntity> {
 	 * @return {@link SysMenuEntity}
 	 */
 	List<SysMenuEntity> findByRoleId(Serializable roleId);
+
+	/**
+	 * model
+	 * @param request
+	 * @return
+	 */
+	SysMenuVO model(HttpServletRequest request);
 }

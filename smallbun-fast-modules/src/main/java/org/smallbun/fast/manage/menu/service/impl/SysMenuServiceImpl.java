@@ -28,11 +28,15 @@ import org.smallbun.fast.manage.user.details.LoginUserDetails;
 import org.smallbun.fast.manage.user.util.UserUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
+import static org.smallbun.framework.toolkit.AutoMapperUtil.mapping;
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 
 /**
@@ -44,7 +48,20 @@ import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuEntity> implements SysMenuService {
-
+	/**
+	 * model
+	 * @param request
+	 * @return
+	 */
+	@Override
+	public SysMenuVO model(HttpServletRequest request) {
+		if (!request.getRequestURI().contains(UNIQUE)) {
+			return StringUtils.isEmpty(request.getParameter("id")) ?
+					new SysMenuVO() :
+					mapping(request.getParameter("id"), new SysMenuVO());
+		}
+		return new SysMenuVO();
+	}
 
 	/**
 	 * 获取当前用户具有的用户菜单

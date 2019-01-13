@@ -5,6 +5,7 @@ import org.smallbun.fast.manage.role.vo.SysRoleVO;
 import org.smallbun.framework.base.BaseService;
 import org.smallbun.framework.result.AjaxResult;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 
 /**
@@ -27,5 +28,12 @@ public interface SysRoleService extends BaseService<SysRoleEntity> {
 	 * @param vo
 	 * @return
 	 */
-	AjaxResult unique(SysRoleEntity vo);
+	Boolean unique(SysRoleEntity vo);
+
+	/**
+	 * model
+	 * @param request
+	 * @return
+	 */
+	SysRoleVO model(HttpServletRequest request);
 }

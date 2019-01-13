@@ -1,17 +1,21 @@
 package org.smallbun.fast.manage.org.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.smallbun.fast.common.base.BaseTreeDataServiceImpl;
 import org.smallbun.fast.manage.org.dao.SysOrgMapper;
 import org.smallbun.fast.manage.org.entity.SysOrgEntity;
 import org.smallbun.fast.manage.org.service.SysOrgService;
-import org.smallbun.framework.result.AjaxResult;
+import org.smallbun.fast.manage.org.vo.SysOrgVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.List;
+
+import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
+import static org.smallbun.framework.toolkit.AutoMapperUtil.mapping;
 
 /**
  * 系统部门接口
@@ -23,6 +27,21 @@ import java.util.List;
 @Transactional(rollbackFor = Exception.class)
 public class SysOrgServiceImpl extends BaseTreeDataServiceImpl<SysOrgMapper, SysOrgEntity> implements SysOrgService {
 
+
+	/**
+	 * model
+	 * @param request
+	 * @return
+	 */
+	@Override
+	public SysOrgVO model(HttpServletRequest request) {
+		if (!request.getRequestURI().contains(UNIQUE)) {
+			return StringUtils.isEmpty(request.getParameter("id")) ?
+					new SysOrgVO() :
+					mapping(getById(request.getParameter("id")), new SysOrgVO());
+		}
+		return new SysOrgVO();
+	}
 
 	/**
 	 * 根据角色id获取菜单
@@ -41,11 +60,10 @@ public class SysOrgServiceImpl extends BaseTreeDataServiceImpl<SysOrgMapper, Sys
 	 * @return
 	 */
 	@Override
-	public AjaxResult unique(SysOrgEntity org) {
-		//构建查询条件
-		LambdaQueryWrapper<SysOrgEntity> queryWrapper;
-		queryWrapper = new QueryWrapper<SysOrgEntity>().lambda().eq(true, SysOrgEntity::getOrgCode, org.getOrgCode())
-				.eq(true, SysOrgEntity::getOrgName, org.getOrgName());
+	public Boolean unique(SysOrgEntity org) {
+		QueryWrapper<SysOrgEntity> queryWrapper = new QueryWrapper<SysOrgEntity>().allEq(beanToMapExcludeId(org), false);
 		return uniqueResult(org.getId(), queryWrapper);
 	}
+
+
 }

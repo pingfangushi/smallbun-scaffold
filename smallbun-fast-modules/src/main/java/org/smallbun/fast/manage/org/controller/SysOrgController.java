@@ -12,16 +12,16 @@ import org.smallbun.framework.result.AjaxResult;
 import org.smallbun.framework.result.PageableResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.smallbun.framework.toolkit.AutoMapperUtil.mapping;
+import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 
 /**
@@ -39,8 +39,8 @@ public class SysOrgController extends BaseController {
 	}
 
 	@ModelAttribute
-	public SysOrgVO model(String id) {
-		return StringUtils.isEmpty(id) ? new SysOrgVO() : mapping(sysOrgService.getById(id), new SysOrgVO());
+	public SysOrgVO model(HttpServletRequest request) {
+		return sysOrgService.model(request);
 	}
 
 	/**
@@ -142,9 +142,9 @@ public class SysOrgController extends BaseController {
 	 * @param vo
 	 * @return
 	 */
-	@RequestMapping(value = "/unique")
+	@RequestMapping(value = UNIQUE)
 	public AjaxResult unique(SysOrgVO vo) {
-		return sysOrgService.unique(vo);
+		return AjaxResult.builder().result(sysOrgService.unique(vo)).build();
 	}
 
 	/**

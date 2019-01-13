@@ -10,14 +10,13 @@ import org.smallbun.framework.annotation.SystemLog;
 import org.smallbun.framework.base.BaseController;
 import org.smallbun.framework.result.AjaxResult;
 import org.smallbun.framework.result.PageableResult;
-import org.smallbun.framework.toolkit.AutoMapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,10 +37,8 @@ public class SysDictTypeController extends BaseController {
 	}
 
 	@ModelAttribute
-	protected SysDictTypeVO model(String id) {
-		return StringUtils.isEmpty(id) ?
-				new SysDictTypeVO() :
-				AutoMapperUtil.mapping(sysDictTypeService.getById(id), new SysDictTypeVO());
+	protected SysDictTypeVO model(HttpServletRequest request) {
+		return sysDictTypeService.model(request);
 
 	}
 
@@ -130,7 +127,7 @@ public class SysDictTypeController extends BaseController {
 	 */
 	@PostMapping(value = "/unique")
 	public AjaxResult unique(SysDictTypeVO dictType) {
-		return sysDictTypeService.unique(dictType);
+		return AjaxResult.builder().result(sysDictTypeService.unique(dictType)).build();
 	}
 
 	private final SysDictTypeService sysDictTypeService;
