@@ -48,8 +48,7 @@ import java.util.Map;
  * @author SanLi
  * Created by 2689170096@qq.com on 2018/10/6
  */
-public abstract class BaseController {
-
+public abstract class BaseController<T> {
 	private static final String NULL = "null";
 	/**
 	 * 项目名称

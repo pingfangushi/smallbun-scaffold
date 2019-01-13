@@ -47,6 +47,7 @@ public class SysRoleMenuServiceImpl extends BaseServiceImpl<SysRoleMenuMapper, S
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean saveOrUpdateRoleMenu(SysRoleEntity role, List<SysMenuEntity> menus) {
+		boolean flag=false;
 		//根据角色ID获取记录
 		int count = super
 				.count(new QueryWrapper<SysRoleMenuEntity>().lambda().eq(SysRoleMenuEntity::getRole, role.getId()));
@@ -56,13 +57,16 @@ public class SysRoleMenuServiceImpl extends BaseServiceImpl<SysRoleMenuMapper, S
 		}
 		//添加记录
 		List<SysRoleMenuEntity> list = Lists.newArrayList();
-		for (SysMenuEntity menu : menus) {
+		menus.forEach(menu -> {
 			SysRoleMenuEntity menuEntity = new SysRoleMenuEntity();
 			menuEntity.setMenu(menu);
 			menuEntity.setRole(role);
 			list.add(menuEntity);
-		}
+		});
 		//批量添加
-		return super.saveBatch(list);
+		flag = super.saveBatch(list);
+		//刷新用户权限
+		
+		return flag;
 	}
 }

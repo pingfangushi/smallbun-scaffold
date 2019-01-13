@@ -43,12 +43,12 @@ public class SysRoleOrgServiceImpl extends BaseServiceImpl<SysRoleOrgMapper, Sys
 		}
 		//添加记录
 		List<SysRoleOrgEntity> list = Lists.newArrayList();
-		for (SysOrgEntity org : orgList) {
+		orgList.forEach(org -> {
 			SysRoleOrgEntity menuEntity = new SysRoleOrgEntity();
 			menuEntity.setOrg(org);
 			menuEntity.setRole(role);
 			list.add(menuEntity);
-		}
+		});
 		//批量添加
 		return super.saveBatch(list);
 	}

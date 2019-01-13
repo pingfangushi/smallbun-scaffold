@@ -69,7 +69,7 @@
                             <div class="col-sm-8">
                                 <div class="input-group" style="width: 100%">
                                     <input class="form-control" type="text" autocomplete="off" placeholder="请输入机构编码"
-                                           th:field="*{orgCode}" required>
+                                           th:field="*{orgCode}">
                                 </div>
                             </div>
                         </div>
@@ -154,13 +154,14 @@
                             <div class="col-sm-8">
                                 <div class="input-group" style="width: 100%">
                                     <input id="zipCode" name="zipCode" placeholder="请输入邮政编码" autocomplete="off"
-                                           class="form-control" type="text"  th:field="*{zipCode}">
+                                           class="form-control" type="text" th:field="*{zipCode}">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <!--二期功能扩展实现-->
+                <!--<div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="col-sm-4 control-label">区域：</label>
@@ -184,7 +185,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>-->
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
