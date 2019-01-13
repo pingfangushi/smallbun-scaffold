@@ -46,7 +46,6 @@ public class SysOrgServiceImpl extends BaseTreeDataServiceImpl<SysOrgMapper, Sys
 		LambdaQueryWrapper<SysOrgEntity> queryWrapper;
 		queryWrapper = new QueryWrapper<SysOrgEntity>().lambda().eq(true, SysOrgEntity::getOrgCode, org.getOrgCode())
 				.eq(true, SysOrgEntity::getOrgName, org.getOrgName());
-
 		return uniqueResult(org.getId(), queryWrapper);
 	}
 }

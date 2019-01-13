@@ -64,7 +64,7 @@ $(".form-horizontal").validate({
                     id: function () {
                         return $("#id").val();
                     },
-                    typeCode: function () {
+                    orgCode: function () {
                         return $("#orgCode").val();
                     }
                 },
@@ -85,8 +85,8 @@ $(".form-horizontal").validate({
                     id: function () {
                         return $("#id").val();
                     },
-                    typeCode: function () {
-                        return $("#orgCode").val();
+                    orgName: function () {
+                        return $("#orgName").val();
                     }
                 },
                 dataFilter: function (data, type) {
