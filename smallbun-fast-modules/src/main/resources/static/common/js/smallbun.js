@@ -49,25 +49,20 @@ $(function () {
     /**
      * 全局的ajax访问，处理ajax清求时session超时
      */
-    var flag = true;
     $.ajaxSetup({
         contentType: "application/x-www-form-urlencoded;charset=utf-8",
         complete: function (XMLHttpRequest, textStatus) {
-            //如果是登录页面，进行判断，只弹出一次
-            if (flag) {
-                if (XMLHttpRequest.responseText != null && XMLHttpRequest.responseText.indexOf("LOGIN-PAGE") > 0) {
-                    flag = false;
-                    layer.confirm("您的登录已超时, 请点确定后重新登录！", {
-                            icon: $.modal.icon(modal_status.FAIL),
-                            title: "系统提示",
-                            btn: ['确认'],
-                            btnclass: ['btn btn-primary'],
-                        }, function (index) {
-                            layer.close(index);
-                            document.location.href = contextPath + 'login';
-                        }
-                    );
-                }
+            if (XMLHttpRequest.responseText != null && XMLHttpRequest.responseText.indexOf("LOGIN-PAGE") > 0) {
+                layer.confirm("您的登录已超时, 请点确定后重新登录！", {
+                        icon: $.modal.icon(modal_status.FAIL),
+                        title: "系统提示",
+                        btn: ['确认'],
+                        btnclass: ['btn btn-primary']
+                    }, function (index) {
+                        layer.close(index);
+                        document.location.href = contextPath + 'login';
+                    }
+                );
             }
         }
     });

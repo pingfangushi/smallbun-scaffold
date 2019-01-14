@@ -217,11 +217,13 @@
             },
             //展开
             expandAll: function () {
+                $table.removeClass('treegrid-collapsed');
                 $table.treegrid('expandAll');
                 $table.addClass('treegrid-expanded');
             },
             //折叠
             collapseAll: function () {
+                $table.removeClass('treegrid-expanded');
                 $table.treegrid('collapseAll');
                 $table.addClass('treegrid-collapsed');
             },
@@ -230,6 +232,7 @@
                 $table.addClass('treegrid-collapsed');
                 if ($table.treegrid('isExpanded')) {
                     $.treeTable.collapseAll();
+                    return;
                 }
                 if ($table.treegrid('isCollapsed')) {
                     $.treeTable.expandAll();

@@ -1,22 +1,6 @@
-/*
- *
- *  * Copyright(c)[2018] [smallbun] www.smallbun.org
- *  *
- *  * Licensed under the Apache License, Version 2.0 (the "License");
- *  * you may not use this file except in compliance with the License.
- *  * You may obtain a copy of the License at
- *  *
- *  *     http://www.apache.org/licenses/LICENSE-2.0
- *  *
- *  * Unless required by applicable law or agreed to in writing, software
- *  * distributed under the License is distributed on an "AS IS" BASIS,
- *  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  * See the License for the specific language governing permissions and
- *  * limitations under the License.
- *
- */
 var prefix = contextPath + "menu";
 $(function () {
+    //@formatter:off
     var options = {
         modalName: '菜单',
         createUrl: prefix + "/dict_type_form.html", /*添加URL*/
@@ -36,33 +20,13 @@ $(function () {
             {field: 'url', title: '地址', sortable: false, width: '300px', align: 'left'},
             {field: 'sort', title: '排序', sortable: false, width: '60px', align: 'center'},
             {field: 'permission', title: '权限值', width: '300px', sortable: false, align: 'left'},
-            {
-                field: 'icon',
-                title: '图标',
-                sortable: false,
-                width: '100px',
-                align: 'center',
-                formatter: 'iconFormatter'
-            },
-            {
-                field: 'type',
-                title: '类型',
-                sortable: false,
-                width: 'auto',
-                align: 'center',
-                formatter: 'typeFormatter'
-            },
-            {
-                field: 'menuStatus',
-                title: '状态',
-                sortable: false,
-                width: 'auto',
-                align: 'center',
-                formatter: 'statusFormatter'
-            }
+            {field: 'icon', title: '图标', sortable: false, width: '100px', align: 'center', formatter: 'iconFormatter'},
+            {field: 'type', title: '类型', sortable: false, width: 'auto', align: 'center', formatter: 'typeFormatter'},
+            {field: 'menuStatus', title: '状态', sortable: false, width: 'auto', align: 'center', formatter: 'statusFormatter'}
         ]
     };
     $.treeTable.init(options);
+    //@formatter:off
 });
 
 /**
