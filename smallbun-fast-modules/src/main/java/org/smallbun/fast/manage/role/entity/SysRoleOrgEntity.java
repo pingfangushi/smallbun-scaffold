@@ -24,13 +24,11 @@ public class SysRoleOrgEntity implements Serializable {
 	/**
 	 * 角色
 	 */
-	@TableId(type = IdType.NONE)
 	@TableField(value = "role_id", el = "role.id")
 	private SysRoleEntity role;
 	/**
 	 *用户
 	 */
-	@TableId(type = IdType.NONE)
 	@TableField(value = "org_id", el = "org.id")
 	private SysOrgEntity org;
 }

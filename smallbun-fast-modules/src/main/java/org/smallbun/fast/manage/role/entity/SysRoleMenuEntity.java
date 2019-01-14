@@ -25,14 +25,12 @@ public class SysRoleMenuEntity implements Serializable {
 	/**
 	 * 角色
 	 */
-	@TableId(type = IdType.NONE)
 	@TableField(value = "role_id", el = "role.id")
 	private SysRoleEntity role;
 
 	/**
 	 * 菜单
 	 */
-	@TableId(type = IdType.NONE)
 	@TableField(value = "menu_id", el = "menu.id")
 	private SysMenuEntity menu;
 

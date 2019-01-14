@@ -29,7 +29,6 @@ import org.smallbun.framework.result.AjaxResult;
 import org.smallbun.framework.result.PageableResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,7 +41,6 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.smallbun.framework.toolkit.AutoMapperUtil.mapping;
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 
 /**
@@ -77,6 +75,7 @@ public class SysMenuController extends BaseController {
 	 * 菜单页面
 	 * @return ModelAndView
 	 */
+	@RequestMapping(value = "form")
 	public ModelAndView form(SysMenuVO menu, Model model) {
 		model.addAttribute("menu", menu);
 		return new ModelAndView("/modules/manage/menu/menu_form.html");

@@ -92,7 +92,7 @@ public class SysDictTypeController extends BaseController {
 	 */
 	@SystemLog(value = "")
 	@PostMapping(value = "/removeByIds")
-	public AjaxResult saveOrUpdate(@NotNull @RequestParam(value = "ids") List<String> ids) {
+	public AjaxResult removeByIds(@NotNull @RequestParam(value = "ids") List<String> ids) {
 		return AjaxResult.builder().result(sysDictTypeService.removeByIds(ids)).build();
 	}
 

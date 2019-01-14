@@ -95,7 +95,7 @@ public class SysOrgController extends BaseController {
 	 * @return AjaxResult
 	 */
 	@PostMapping("/removeByIds")
-	public AjaxResult removeByIds(@NotNull List<String> ids) {
+	public AjaxResult removeByIds(@NotNull @RequestParam(value = "ids") List<String> ids) {
 		return AjaxResult.builder().result(sysOrgService.removeByIds(ids)).build();
 	}
 

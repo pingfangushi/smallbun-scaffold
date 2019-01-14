@@ -1,13 +1,12 @@
-var prefix = contextPath + "menu";
 $(function () {
     //@formatter:off
     var options = {
         modalName: '菜单',
-        createUrl: prefix + "/dict_type_form.html", /*添加URL*/
-        updateUrl: prefix + "/edit/{id}", /*修改URL*/
-        removeUrl: prefix + "/remove", /*删除URL*/
-        exportUrl: prefix + "/export", /*导出URL*/
-        url: prefix + "/list", /*列表URL*/
+        url: contextPath + "menu/list", /*列表URL*/
+        createUrl: contextPath + "menu/form{id}", /*添加URL*/
+        updateUrl: contextPath + "menu/edit/{id}", /*修改URL*/
+        removeUrl: contextPath + "menu/remove", /*删除URL*/
+        exportUrl: contextPath + "menu/export", /*导出URL*/
         idField: 'id',
         parentIdField: 'parentId',
         rootParentId: '0',

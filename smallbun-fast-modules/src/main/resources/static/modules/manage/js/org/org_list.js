@@ -6,6 +6,7 @@ $(function () {
         createUrl: contextPath + "org/form{id}", /*添加URL*/
         updateUrl: contextPath + "org/form{id}", /*修改URL*/
         removeUrl: contextPath + "org/removeById", /*删除URL*/
+        batRemoveUrl: contextPath + "org/removeByIds",
         exportUrl: contextPath + "org/export", /*导出URL*/
         idField: 'id',
         parentIdField: 'parentId',
