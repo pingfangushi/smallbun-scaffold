@@ -50,8 +50,10 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M, 
 				if (ID.equals(f.getName())) {
 					try {
 						f.setAccessible(true);
-						if (id.equals(f.get(one))) {
-							flag = true;
+						if (!StringUtils.isEmpty(id)) {
+							if (id.equals(f.get(one))) {
+								flag = true;
+							}
 						}
 					} catch (IllegalAccessException e) {
 						log.error("method uniqueResult Exception{}", (Object) e.getStackTrace());

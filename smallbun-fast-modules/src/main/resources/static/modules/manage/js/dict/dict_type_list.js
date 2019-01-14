@@ -37,7 +37,7 @@ $(function () {
             {field: 'typeName', title: '字典名称', formatter: $.table.view},
             {field: 'typeCode', title: '字典类型', sortable: true},
             {field: 'gmtModified', title: '更新时间'},
-            {title: '操作', width: 250, formatter: function (value, row, index) {
+            {title: '操作', width: 250, visible: false, formatter: function (value, row, index) {
                     var actions = [];
                     actions.push('<a class="btn bg-purple btn-xs " href="#" onclick="$.operate.view(\'' + row.id + '\',\'\')"><i class="fa fa-search-plus"></i> 查看</a> ');
                     actions.push('<a class="btn ibtn-white btn-xs " href="#" onclick="$.operate.addTab(\'sys_dict_type' + row.id + '\', \'字典值\', \'dict/value?sysDictType.id=' + row.id + '\')"><i class="fa fa-bars"></i> 字典值</a> ');

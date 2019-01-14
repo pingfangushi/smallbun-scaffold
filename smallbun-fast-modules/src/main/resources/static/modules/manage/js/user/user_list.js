@@ -46,7 +46,7 @@ $(function () {
                 }
             },
             {
-                title: '操作', align: 'center',
+                title: '操作', align: 'center', visible: false,
                 formatter: function (value, row, index) {
 
                 }

@@ -25,13 +25,13 @@
                     <!--/*/     </th:block>/*/-->
                     <!--/*/    <th:block sec:authorize="hasAuthority('manage:menu:edit')">/*/-->
                     <button type="button" class="btn btn-sm bg-orange"
-                            onclick="edit('修改','modules/sys/menu/edit.html','800px','500px')">
+                            onclick="$.operate.edit()">
                         <i class="fa fa-file-text-o"></i>&nbsp;修改
                     </button>
                     <!--/*/     </th:block>/*/-->
                     <!--/*/      <th:block sec:authorize="hasAuthority('manage:menu:del')">/*/-->
                     <button type="button" class="btn btn-sm  bg-maroon"
-                            onclick="del('删除','#')"><i
+                            onclick="$.operate.batRemove()"><i
                             class="fa fa-trash-o"></i>&nbsp;删除
                     </button>
                     <!--/*/     </th:block>/*/-->

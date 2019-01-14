@@ -531,7 +531,7 @@
             },
             // 添加信息
             add: function (id) {
-                var url = $.common.isEmpty(id) ? $.table._option.createUrl : $.table._option.createUrl.replace("{id}", id);
+                var url = $.common.isEmpty(id) ? $.table._option.createUrl.replace("{id}", '') : $.table._option.createUrl.replace("{id}", id);
                 $.modal.open("添加" + $.table._option.modalName, url);
             },
             // 修改信息

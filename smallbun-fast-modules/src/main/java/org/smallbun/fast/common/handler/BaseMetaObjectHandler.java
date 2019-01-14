@@ -85,7 +85,7 @@ public class BaseMetaObjectHandler implements MetaObjectHandler {
 		// 父id
 		Object parentIds = getFieldValByName(PARENT_ID_S, metaObject);
 		if (StringUtils.isEmpty(parentIds)) {
-			setFieldValByName(PARENT_ID, "0", metaObject);
+			setFieldValByName(PARENT_ID_S, "0", metaObject);
 		}
 	}
 
@@ -114,7 +114,7 @@ public class BaseMetaObjectHandler implements MetaObjectHandler {
 		// 父id
 		Object parentIds = getFieldValByName(PARENT_ID_S, metaObject);
 		if (StringUtils.isEmpty(parentIds)) {
-			setFieldValByName(PARENT_ID, "0", metaObject);
+			setFieldValByName(PARENT_ID_S, "0", metaObject);
 		}
 	}
 }

@@ -23,7 +23,7 @@ $(function () {
          {field: 'dictValue', title: '字典键值', sortable: true},
          {field: 'sort', title: '排序', visible: false},
          {field: 'gmtModified', title: '更新时间'},
-         {title: '操作', width: 200, formatter: function (value, row, index) {
+         {title: '操作', width: 200, visible: false, formatter: function (value, row, index) {
               var actions = [];
               actions.push('<a class="btn bg-purple btn-xs " href="#" onclick="$.operate.view(\'' + row.id + '\',\'\')"><i class="fa fa-search-plus"></i> 查看</a> ');
               actions.push('<a class="btn bg-orange btn-xs" href="#" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i> 编辑</a> ');

@@ -3,7 +3,7 @@ $(function () {
     var options = {
         modalName: '部门',
         url: contextPath + "org/list", /*列表URL*/
-        createUrl: contextPath + "org/form", /*添加URL*/
+        createUrl: contextPath + "org/form{id}", /*添加URL*/
         updateUrl: contextPath + "org/form{id}", /*修改URL*/
         removeUrl: contextPath + "org/removeById", /*删除URL*/
         exportUrl: contextPath + "org/export", /*导出URL*/
@@ -15,6 +15,7 @@ $(function () {
         showToggle: 'false',
         columns: [
             {field: 'ck', checkbox: true},
+            {field: 'id', visible: false},
             {field: 'orgName', title: '机构名称', sortable: false, align: 'left'},
             {field: 'orgCode', title: '机构编码', sortable: false, align: 'left'},
             {field: 'orgTypeName', title: '机构类型', sortable: false, align: 'center'},
@@ -22,7 +23,7 @@ $(function () {
             {field: 'principal', title: '负责人', sortable: false, width: 'auto', align: 'center'},
             {field: 'telephone', title: '电话', sortable: false, width: 'auto', align: 'center'},
             {field: 'useable', title: '是否可用', sortable: false, width: 'auto', align: 'center', formatter: 'useableFormatter'},
-            {title: '操作', width: 220, formatter: function (value, row, index) {
+            {title: '操作', width: 220, visible: false,formatter: function (value, row, index) {
                     var actions = [];
                     actions.push('<a class="btn bg-orange btn-xs" href="#" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i> 编辑</a> ');
                     actions.push('<a class="btn bg-maroon btn-xs " href="#" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i> 删除</a> ');

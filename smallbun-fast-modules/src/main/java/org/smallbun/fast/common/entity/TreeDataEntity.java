@@ -16,17 +16,17 @@ import java.util.List;
 @Data
 public class TreeDataEntity<D, T> extends DataEntity<T> {
 
-    /**
-     * 父级编号
-     */
-    private T parentId;
-    /**
-     * 所有父级编号
-     */
-    private String parentIds;
-    /**
-     * 子集合
-     */
-    @TableField(exist = false)
-    private List<?> children;
+	/**
+	 * 父级编号
+	 */
+	private T parentId;
+	/**
+	 * 所有父级编号
+	 */
+	private String parentIds;
+	/**
+	 * 子集合
+	 */
+	@TableField(exist = false)
+	private List<?> children;
 }
