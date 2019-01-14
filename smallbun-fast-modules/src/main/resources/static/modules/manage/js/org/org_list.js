@@ -1,18 +1,17 @@
-var prefix = contextPath + "org";
-
 $(function () {
     //@formatter:off
     var options = {
         modalName: '部门',
-        url: prefix + "/list", /*列表URL*/
-        createUrl: prefix + "/form{id}", /*添加URL*/
-        updateUrl: prefix + "/form{id}", /*修改URL*/
-        removeUrl: prefix + "/removeById", /*删除URL*/
-        exportUrl: prefix + "/export", /*导出URL*/
+        url: contextPath + "org/list", /*列表URL*/
+        createUrl: contextPath + "org/form", /*添加URL*/
+        updateUrl: contextPath + "org/form{id}", /*修改URL*/
+        removeUrl: contextPath + "org/removeById", /*删除URL*/
+        exportUrl: contextPath + "org/export", /*导出URL*/
         idField: 'id',
         parentIdField: 'parentId',
         rootParentId: '0',
         treeShowField: 'orgName',
+        initialState: 'collapsed',
         showToggle: 'false',
         columns: [
             {field: 'ck', checkbox: true},

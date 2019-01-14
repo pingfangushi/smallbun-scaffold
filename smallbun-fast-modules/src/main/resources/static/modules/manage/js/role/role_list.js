@@ -16,6 +16,7 @@
  *
  */
 $(function () {
+    //@formatter:off
     var options = {
         url: contextPath + 'role/page',
         createUrl: contextPath + "role/form",
@@ -39,8 +40,7 @@ $(function () {
             {field: 'dataScopeName', title: '数据范围', sortable: true},
             {field: 'useable', title: '是否可用', sortable: true, formatter: useableFormatter,width: 50},
             {field: 'gmtModified', title: '更新时间'},
-            {
-                title: '操作', width: 205, formatter: function (value, row, index) {
+            {title: '操作', width: 205, formatter: function (value, row, index) {
                     var actions = [];
                     actions.push('<a class="btn ibtn-white btn-xs " href="#" onclick="$.operate.addTab(\'sys_dict_type' + row.id + '\', \'字典值\', \'dict/value?sysDictType.id=' + row.id + '\')"><i class="fa fa-bars"></i> 分配用户</a> ');
                     actions.push('<a class="btn bg-orange btn-xs" href="#" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i> 编辑</a> ');
@@ -50,7 +50,7 @@ $(function () {
             }]
     };
     $.table.init(options);
-
+    //@formatter:off
 });
 
 function useableFormatter(value, row, index) {
