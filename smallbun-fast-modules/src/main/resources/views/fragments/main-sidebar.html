@@ -19,31 +19,34 @@
 
             <th:block th:fragment="row(menus)">
                 <th:block th:each="menu : ${menus}">
-                    <!--/*  如果有子元素  */-->
-                    <th:block th:if="${#lists.size(menu.children)>0}">
-                        <li class="treeview">
-                            <!--显示名称-->
-                            <a href="#">
-                                <i th:class="${menu.icon}"></i>
-                                <span th:text="${menu.menuName}"></span>
-                                <span class="pull-right-container">
+                    <th:block th:unless="${#lists.isEmpty(menu.children)}">
+                        <!--/*  如果有子元素  */-->
+                        <th:block th:if="${#lists.size(menu.children)>0}">
+                            <li class="treeview">
+                                <!--显示名称-->
+                                <a href="#">
+                                    <i th:class="${menu.icon}"></i>
+                                    <span th:text="${menu.menuName}"></span>
+                                    <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </span>
-                            </a>
-                            <!--/*判断子元素中是否还有子元素，递归*/-->
-                            <ul class="treeview-menu" th:include="this::row(${menu.children})">
-                            </ul>
-                        </li>
-                    </th:block>
-                    <!--/*如果没有子元素*/-->
-                    <th:block th:unless="${#lists.size(menu.children)}">
-                        <li th:inline="javascript">
-                            <a href="#" th:data-id="${menu.id}" th:data-title="${menu.menuName}" th:data-url="${menu.url}"
-                               onclick="javascript:addTabs(({id:this.getAttribute('data-id'),title:this.getAttribute('data-title'),close:true,url:this.getAttribute('data-url')}))">
-                                <i th:class="${menu.icon}"></i>
-                                <span th:text="${menu.menuName}"></span>
-                            </a>
-                        </li>
+                                </a>
+                                <!--/*判断子元素中是否还有子元素，递归*/-->
+                                <ul class="treeview-menu" th:include="this::row(${menu.children})">
+                                </ul>
+                            </li>
+                        </th:block>
+                        <!--/*如果没有子元素*/-->
+                        <th:block th:unless="${#lists.size(menu.children)}">
+                            <li th:inline="javascript">
+                                <a href="#" th:data-id="${menu.id}" th:data-title="${menu.menuName}"
+                                   th:data-url="${menu.url}"
+                                   onclick="javascript:addTabs(({id:this.getAttribute('data-id'),title:this.getAttribute('data-title'),close:true,url:this.getAttribute('data-url')}))">
+                                    <i th:class="${menu.icon}"></i>
+                                    <span th:text="${menu.menuName}"></span>
+                                </a>
+                            </li>
+                        </th:block>
                     </th:block>
                 </th:block>
             </th:block>

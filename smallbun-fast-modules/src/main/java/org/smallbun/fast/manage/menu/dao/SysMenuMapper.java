@@ -18,11 +18,11 @@
 
 package org.smallbun.fast.manage.menu.dao;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.smallbun.fast.manage.menu.entity.SysMenuEntity;
+import org.smallbun.framework.base.BaseMapper;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;

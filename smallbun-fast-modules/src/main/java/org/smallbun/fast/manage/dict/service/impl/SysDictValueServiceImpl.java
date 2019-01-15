@@ -1,6 +1,5 @@
 package org.smallbun.fast.manage.dict.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.smallbun.fast.manage.dict.dao.SysDictValueMapper;
@@ -55,22 +54,6 @@ public class SysDictValueServiceImpl extends BaseServiceImpl<SysDictValueMapper,
 	public IPage<SysDictValueEntity> page(Page<SysDictValueEntity> page, SysDictValueVO vo) {
 		return baseMapper.page(page, vo);
 	}
-
-	/**
-	 * 查询唯一
-	 * @param dictValue
-	 * @return
-	 */
-	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public Boolean unique(SysDictValueEntity dictValue) {
-		//构建查询条件
-		QueryWrapper<SysDictValueEntity> queryWrapper = new QueryWrapper<SysDictValueEntity>()
-				.allEq(beanToMapExcludeId(dictValue), false);
-		return uniqueResult(dictValue.getId(), queryWrapper);
-
-	}
-
 
 	/**
 	 * 根据type code 查询字典值

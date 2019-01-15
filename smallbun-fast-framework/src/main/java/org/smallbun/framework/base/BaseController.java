@@ -163,7 +163,7 @@ public abstract class BaseController<T> {
 	 * @param <T>
 	 * @return
 	 */
-	public static <S, T> IPage<T> pageVOFilling(IPage<S> src, Class<?> targetClass) {
+	protected static <S, T> IPage<T> pageVOFilling(IPage<S> src, Class<?> targetClass) {
 		Page<T> page = new Page<>();
 		page.setTotal(src.getTotal());
 		page.setSize(src.getSize());

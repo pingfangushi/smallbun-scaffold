@@ -19,7 +19,7 @@
 package org.smallbun.fast.manage.menu.service.impl;
 
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.smallbun.fast.common.base.BaseTreeDataServiceImpl;
 import org.smallbun.fast.manage.menu.dao.SysMenuMapper;
 import org.smallbun.fast.manage.menu.entity.SysMenuEntity;
 import org.smallbun.fast.manage.menu.service.SysMenuService;
@@ -47,7 +47,8 @@ import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuEntity> implements SysMenuService {
+public class SysMenuServiceImpl extends BaseTreeDataServiceImpl<SysMenuMapper, SysMenuEntity>
+		implements SysMenuService {
 	/**
 	 * model
 	 * @param request
@@ -75,23 +76,9 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuEntity
 		//获取用户所属的菜单
 		assert user != null;
 		List<SysMenuEntity> list = user.getMenus();
-		//循环得到目录和菜单
-		final List<SysMenuEntity> permissions = new ArrayList<>();
-		for (SysMenuEntity l : list) {
-			if (l.getType().equals(0) | l.getType().equals(1)) {
-				permissions.add(l);
-			}
-		}
-		//设置子菜单
-		setChildren(permissions);
-		//过滤菜单，拿到所有的父菜单
-		List<SysMenuEntity> result = new ArrayList<>();
-		for (SysMenuEntity p : permissions) {
-			//判断是否是目录
-			if (!p.getParentId().equals(0L)) {continue;}
-			result.add(p);
-		}
-		return mappingList(result, new ArrayList<>(), SysMenuVO.class);
+		List<SysMenuEntity> build = build(list);
+		System.out.println(build);
+		return mappingList(build(list), new ArrayList<>(), SysMenuVO.class);
 	}
 
 	/**

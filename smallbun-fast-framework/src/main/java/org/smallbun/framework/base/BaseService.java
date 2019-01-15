@@ -17,4 +17,11 @@ public interface BaseService<T> extends IService<T> {
 	 * @return {@link IPage}
 	 */
 	IPage<T> selectDataScopePage(IPage<T> page, Wrapper<T> queryWrapper);
+
+	/**
+	 * 唯一记录
+	 * @param t
+	 * @return
+	 */
+	Boolean unique(T t);
 }

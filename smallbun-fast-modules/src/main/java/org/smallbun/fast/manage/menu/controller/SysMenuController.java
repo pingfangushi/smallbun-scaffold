@@ -20,6 +20,7 @@ package org.smallbun.fast.manage.menu.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.smallbun.fast.common.utils.AutoMapperUtil;
 import org.smallbun.fast.manage.menu.entity.SysMenuEntity;
 import org.smallbun.fast.manage.menu.service.SysMenuService;
 import org.smallbun.fast.manage.menu.vo.SysMenuVO;
@@ -41,6 +42,7 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 
 /**
@@ -147,6 +149,27 @@ public class SysMenuController extends BaseController {
 				.result(mappingList(menuService.list(new QueryWrapper<>(vo)), new ArrayList<SysMenuVO>(),
 						SysMenuVO.class)).build();
 	}
+
+	/**
+	 * 获取tree
+	 * @return {@link AjaxResult}
+	 */
+	@PostMapping(value = "/tree")
+	public AjaxResult tree() {
+		return AjaxResult.builder().result(AutoMapperUtil
+				.mappingTreeList(menuService.tree(new QueryWrapper<>()), new ArrayList<>(), SysMenuVO.class)).build();
+	}
+
+	/**
+	 * 唯一
+	 * @param vo
+	 * @return
+	 */
+	@RequestMapping(value = UNIQUE)
+	public AjaxResult unique(SysMenuVO vo) {
+		return AjaxResult.builder().result(menuService.unique(vo)).build();
+	}
+
 
 	/**
 	 * 注入系统菜单业务逻辑层

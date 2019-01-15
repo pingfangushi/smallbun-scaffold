@@ -54,16 +54,6 @@ public class SysOrgServiceImpl extends BaseTreeDataServiceImpl<SysOrgMapper, Sys
 		return baseMapper.findByRoleId(id);
 	}
 
-	/**
-	 * 唯一
-	 * @param org
-	 * @return
-	 */
-	@Override
-	public Boolean unique(SysOrgEntity org) {
-		QueryWrapper<SysOrgEntity> queryWrapper = new QueryWrapper<SysOrgEntity>().allEq(beanToMapExcludeId(org), false);
-		return uniqueResult(org.getId(), queryWrapper);
-	}
 
 
 }

@@ -15,12 +15,14 @@
                     select="org.smallbun.fast.manage.user.dao.SysUserMapper.findByRoleId"/>
         <!--查询明细设置-->
     </resultMap>
+
+
     <!--获取全部数据-->
-    <select id="findAll" resultMap="roleMap" >
+    <select id="findAll" resultMap="roleMap">
             select * from sys_role where is_deleted=#{isDeleted}
     </select>
     <!--根据用户ID查询用户具有的角色-->
-    <select id="findByUserId" resultMap="roleMap" >
+    <select id="findByUserId" resultMap="roleMap">
       select *
       from  sys_role sr
              inner join sys_user_role sur on sr.id = sur.role_id
@@ -29,4 +31,28 @@
         and su.is_deleted = 0
         and sr.is_deleted = 0
     </select>
+
+    <!--删除角色对应部门，根据角色ID-->
+    <delete id="deleteRoleOrgByRoleId">
+        delete from sys_role_org where role_id=#{id}
+    </delete>
+    <!--根据角色id删除角色菜单-->
+    <delete id="deleteRoleMenuByRoleId">
+        delete from sys_role_menu where role_id=#{id}
+    </delete>
+    <!--批量添加-->
+    <insert id="batchRoleOrgInsert">
+        insert sys_role_org(role_id, org_id)
+        VALUES
+        <foreach collection="entity.orgList" item="item" separator=",">
+            (#{entity.id},#{item.id})
+        </foreach>
+    </insert>
+    <!--批量添加角色-菜单-->
+    <insert id="batchRoleMenuInsert">
+        insert sys_role_menu(role_id, menu_id) VALUES
+        <foreach collection="entity.menuList" item="item" separator=",">
+            (#{entity.id},#{item.id})
+        </foreach>
+    </insert>
 </mapper>

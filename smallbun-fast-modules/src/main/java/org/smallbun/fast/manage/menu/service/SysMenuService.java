@@ -18,7 +18,7 @@
 
 package org.smallbun.fast.manage.menu.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
+import org.smallbun.fast.common.base.BaseTreeService;
 import org.smallbun.fast.manage.menu.entity.SysMenuEntity;
 import org.smallbun.fast.manage.menu.vo.SysMenuVO;
 
@@ -32,7 +32,7 @@ import java.util.List;
  * @author SanLi [隔壁object港哥][https://www.leshalv.net]
  * Created by 2689170096@qq.com on 2018/5/2 13:01
  */
-public interface SysMenuService extends IService<SysMenuEntity> {
+public interface SysMenuService extends BaseTreeService<SysMenuEntity> {
 	/**
 	 * 获取当前用户具有的用户菜单
 	 *

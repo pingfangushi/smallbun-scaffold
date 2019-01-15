@@ -6,6 +6,7 @@ import org.smallbun.fast.manage.role.entity.SysRoleEntity;
 import org.smallbun.framework.base.BaseMapper;
 import org.springframework.stereotype.Repository;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -31,4 +32,28 @@ public interface SysRoleMapper extends BaseMapper<SysRoleEntity> {
 	 * @return 角色集合
 	 */
 	List<SysRoleEntity> findByUserId(@Param("userId") String userId);
+
+	/**
+	 * 按角色ID删除角色组织
+	 * @param id
+	 */
+	void deleteRoleOrgByRoleId(@Param("id") Serializable id);
+
+	/**
+	 * 批量添加角色-部门
+	 * @param entity
+	 */
+	void batchRoleOrgInsert(@Param("entity") SysRoleEntity entity);
+
+	/**
+	 * 根据角色id删除角色菜单
+	 * @param id
+	 */
+	void deleteRoleMenuByRoleId(@Param("id") Serializable id);
+
+	/**
+	 * 批量添加角色-菜单
+	 * @param entity
+	 */
+	void batchRoleMenuInsert(@Param("entity") SysRoleEntity entity);
 }

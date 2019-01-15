@@ -1,6 +1,5 @@
 package org.smallbun.fast.manage.dict.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.smallbun.fast.manage.dict.dao.SysDictTypeMapper;
 import org.smallbun.fast.manage.dict.entity.SysDictTypeEntity;
 import org.smallbun.fast.manage.dict.service.SysDictTypeService;
@@ -40,17 +39,5 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeMapper, S
 		return new SysDictTypeVO();
 	}
 
-	/**
-	 * 唯一条件
-	 * @param dictType dictType
-	 * @return AjaxResult
-	 */
-	@Override
-	public Boolean unique(SysDictTypeEntity dictType) {
-		//构建查询条件
-		QueryWrapper<SysDictTypeEntity> queryWrapper = new QueryWrapper<SysDictTypeEntity>()
-				.allEq(beanToMapExcludeId(dictType), false);
-		return uniqueResult(dictType.getId(), queryWrapper);
-	}
 
 }

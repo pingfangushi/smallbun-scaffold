@@ -11,30 +11,30 @@ import java.util.List;
  * Created by 2689170096@qq.com on 2019/1/6 23:13
  */
 public class AutoMapperUtil extends org.smallbun.framework.toolkit.AutoMapperUtil {
-    /**
-     * 树集合转VO集合
-     *
-     * @param src
-     * @param target
-     * @param targetClass
-     * @param <S>
-     * @param <T>
-     * @return
-     */
-    public static <S, T> List<T> mappingTreeList(List<S> src, List<T> target, Class<?> targetClass) {
-        try {
-            target = mappingList(src, target, targetClass);
-            for (T vo : target) {
-                Field children = ReflectionUtil.getFieldAll(vo, "children");
-                children.setAccessible(true);
-                if (vo != null && children.get(vo) != null) {
-                    src = (List<S>) children.get(vo);
-                    children.set(vo, mappingTreeList(src, new ArrayList<>(), targetClass));
-                }
-            }
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return target;
-    }
+	/**
+	 * 树集合转VO集合
+	 *
+	 * @param src 需要转化的集合
+	 * @param target 转换后的集合
+	 * @param targetClass 转换类型
+	 * @param <S>
+	 * @param <T>
+	 * @return
+	 */
+	public static <S, T> List<T> mappingTreeList(List<S> src, List<T> target, Class<?> targetClass) {
+		try {
+			target = mappingList(src, target, targetClass);
+			for (T vo : target) {
+				Field children = ReflectionUtil.getFieldAll(vo, "children");
+				children.setAccessible(true);
+				if (vo != null && children.get(vo) != null) {
+					src = (List<S>) children.get(vo);
+					children.set(vo, mappingTreeList(src, new ArrayList<>(), targetClass));
+				}
+			}
+		} catch (NoSuchFieldException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return target;
+	}
 }

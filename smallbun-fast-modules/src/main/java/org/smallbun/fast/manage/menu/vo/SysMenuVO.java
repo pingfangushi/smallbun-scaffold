@@ -3,6 +3,7 @@ package org.smallbun.fast.manage.menu.vo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.smallbun.fast.manage.menu.entity.SysMenuEntity;
+import org.smallbun.framework.annotation.DictValue;
 
 /**
  * 系统菜单vo
@@ -16,6 +17,11 @@ public class SysMenuVO extends SysMenuEntity {
 	 * 节点名称
 	 */
 	private String nodeName;
+	/**
+	 * 菜单类型
+	 */
+	@DictValue(valueField = "menuType", typeCode = "MENU_TYPE")
+	private String menuTypeName;
 
 	/**
 	 * 获取拼接的节点名称，名称加上权限

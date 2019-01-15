@@ -1,22 +1,19 @@
 package org.smallbun.fast.manage.role.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.smallbun.fast.manage.menu.service.SysMenuService;
 import org.smallbun.fast.manage.org.service.SysOrgService;
 import org.smallbun.fast.manage.org.vo.SysOrgVO;
 import org.smallbun.fast.manage.role.dao.SysRoleMapper;
 import org.smallbun.fast.manage.role.entity.SysRoleEntity;
-import org.smallbun.fast.manage.role.service.SysRoleMenuService;
-import org.smallbun.fast.manage.role.service.SysRoleOrgService;
 import org.smallbun.fast.manage.role.service.SysRoleService;
 import org.smallbun.fast.manage.role.vo.SysRoleVO;
 import org.smallbun.framework.base.BaseServiceImpl;
-import org.smallbun.framework.result.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -50,10 +47,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRoleEn
 	}
 
 	@Autowired
-	public SysRoleServiceImpl(SysRoleMenuService sysRoleMenuService, SysRoleOrgService sysRoleOrgService,
-			SysMenuService sysMenuService, SysOrgService sysOrgService) {
-		this.sysRoleMenuService = sysRoleMenuService;
-		this.sysRoleOrgService = sysRoleOrgService;
+	public SysRoleServiceImpl(SysMenuService sysMenuService, SysOrgService sysOrgService) {
 		this.sysMenuService = sysMenuService;
 		this.sysOrgService = sysOrgService;
 	}
@@ -68,6 +62,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRoleEn
 	public SysRoleVO getById(Serializable id) {
 		SysRoleVO role = new SysRoleVO();
 		if (!StringUtils.isEmpty(id)) {
+			//转为VO
 			role = mapping(super.getById(id), new SysRoleVO());
 			if (!StringUtils.isEmpty(id)) {
 				//放入当前用户拥有的菜单JSON字符串
@@ -81,20 +76,6 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRoleEn
 			}
 		}
 		return role;
-	}
-
-	/**
-	 * 唯一验证
-	 *
-	 * @param role {@link SysRoleEntity}
-	 * @return {@link AjaxResult}
-	 */
-	@Override
-	public Boolean unique(SysRoleEntity role) {
-		//构建查询条件
-		QueryWrapper<SysRoleEntity> queryWrapper = new QueryWrapper<SysRoleEntity>()
-				.allEq(beanToMapExcludeId(role), false);
-		return uniqueResult(role.getId(), queryWrapper);
 	}
 
 	/**
@@ -112,20 +93,42 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRoleEn
 		//添加角色表信息,
 		flag = super.saveOrUpdate(entity)
 				//添加角色-用户菜单表信息
-				&& sysRoleMenuService.saveOrUpdateRoleMenu(entity, entity.getMenuList())
+				&& saveOrUpdateRoleMenu(entity)
 				//添加角色-明细设置部门范围
-				&& sysRoleOrgService.saveOrUpdateRoleOrg(entity, entity.getOrgList());
+				&& saveOrUpdateRoleOrg(entity);
 		return flag;
 	}
 
 	/**
-	 * 注入角色-菜单表
+	 * 保存或添加角色对应部门数据权限
+	 * @param entity {@link SysRoleEntity}
+	 * @return boolean
 	 */
-	private final SysRoleMenuService sysRoleMenuService;
+	private boolean saveOrUpdateRoleOrg(SysRoleEntity entity) {
+		//1.根据角色删除数据
+		baseMapper.deleteRoleOrgByRoleId(entity.getId());
+		if (!CollectionUtils.isEmpty(entity.getOrgList())) {
+			//2.进行批量添加
+			baseMapper.batchRoleOrgInsert(entity);
+		}
+		return true;
+	}
+
 	/**
-	 * 注入角色-部门
+	 * 保存或添加角色对应菜单
+	 * @param entity {@link SysRoleEntity}
+	 * @return boolean
 	 */
-	private final SysRoleOrgService sysRoleOrgService;
+	private boolean saveOrUpdateRoleMenu(SysRoleEntity entity) {
+		//1.根据角色删除数据
+		baseMapper.deleteRoleMenuByRoleId(entity.getId());
+		if (!CollectionUtils.isEmpty(entity.getMenuList())) {
+			//2.进行批量添加
+			baseMapper.batchRoleMenuInsert(entity);
+		}
+		return true;
+	}
+
 	/**
 	 * 注入菜单
 	 */

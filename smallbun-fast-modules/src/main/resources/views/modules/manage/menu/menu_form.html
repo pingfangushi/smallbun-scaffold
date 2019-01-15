@@ -2,38 +2,53 @@
 <!--suppress ALL-->
 <html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <head>
-            <div th:include="fragments/include  :: header('添加')"></div>
-        </head>
+        <div th:include="fragments/include  :: header('添加')"></div>
+        <div th:include="fragments/include :: jquery-easyui-css"></div>
     </head>
     <body class="list-body">
         <section class="i-content">
             <div class="i-ibox">
                 <div class="ibox-content">
-                    <form class="form-horizontal" th:action="@{/save}" method="post"
+                    <form class="form-horizontal" th:action="@{/menu/saveOrUpdate}" th:object="${menu}" method="post"
                           novalidate="novalidate">
-                        <input id="id" name="id" type="hidden" value="">
+                        <input id="id" name="id" type="hidden" th:field="*{id}">
                         <h4 class="page-header h4">基本信息</h4>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="col-sm-4 control-label">上级菜单</label>
+                                    <label class="col-sm-4 control-label">上级菜单：</label>
                                     <div class="col-sm-8">
                                         <div class="input-group" style="width: 100%">
-                                            <input class="form-control" type="text"
-                                                   maxlength="50" autocomplete="off" placeholder="请输入机构名称" required>
+                                            <!--根节点不显示-->
+                                            <th:block th:unless="*{parentId==0}">
+                                                <input id="parent" class="form-control"
+                                                       th:field="*{parentId}"
+                                                       data-options="prompt:'请选择上级菜单'">
+                                                <input id="parentId" name="parentId" class="hidden"
+                                                       th:field="*{parentId}">
+                                            </th:block>
+                                            <th:block th:if="*{parentId==0}">
+                                                <input id="parentId" name="parentId" class="form-control"
+                                                       placeholder="根节点不可选择"
+                                                       disabled>
+                                                <input id="parentId" name="parentId" class="hidden"
+                                                       th:field="*{parentId}">
+                                            </th:block>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="col-sm-4 control-label"><font color="red">*</font>菜单名称
+                                    <label class="col-sm-4 control-label">
+                                        <font color="red">*</font>
+                                        菜单名称：
                                     </label>
                                     <div class="col-sm-8">
                                         <div class="input-group" style="width: 100%">
                                             <input class="form-control" type="text"
-                                                   maxlength="50" autocomplete="off" placeholder="请输入机构名称" required>
+                                                   maxlength="50" autocomplete="off" placeholder="请输入菜单名称" id="menuName"
+                                                   name="menuName" th:field="*{menuName}" required>
                                         </div>
                                     </div>
                                 </div>
@@ -42,46 +57,24 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="col-sm-4 control-label">菜单链接</label>
+                                    <label class="col-sm-4 control-label">菜单链接：</label>
                                     <div class="col-sm-8">
                                         <div class="input-group" style="width: 100%">
                                             <input class="form-control" type="text"
-                                                   maxlength="50" autocomplete="off" placeholder="请输入机构名称" required>
+                                                   maxlength="50" autocomplete="off" placeholder="请输入菜单链接" id="url"
+                                                   name="url" th:field="*{url}" required>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="col-sm-4 control-label">菜单目标</label>
+                                    <label class="col-sm-4 control-label">菜单目标：</label>
                                     <div class="col-sm-8">
                                         <div class="input-group" style="width: 100%">
                                             <input class="form-control" type="text"
-                                                   maxlength="50" autocomplete="off" placeholder="请输入机构名称" required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label">菜单图标</label>
-                                    <div class="col-sm-8">
-                                        <div class="input-group" style="width: 100%">
-                                            <input class="form-control" type="text"
-                                                   maxlength="50" autocomplete="off" placeholder="请输入机构名称" required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label">排序</label>
-                                    <div class="col-sm-8">
-                                        <div class="input-group" style="width: 100%">
-                                            <input class="form-control" type="text"
-                                                   maxlength="50" autocomplete="off" placeholder="请输入机构名称" required>
+                                                   maxlength="50" autocomplete="off" placeholder="请输入菜单目标" id="target"
+                                                   name="target" th:field="*{target}" required>
                                         </div>
                                     </div>
                                 </div>
@@ -90,19 +83,53 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="col-sm-4 control-label">可见</label>
+                                    <label class="col-sm-4 control-label">菜单图标：</label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group" style="width: 100%">
+                                            <input class="form-control" type="text"
+                                                   maxlength="50" autocomplete="off" placeholder="请选择菜单图标" id="icon"
+                                                   name="icon" th:field="*{icon}" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">排序：</label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group" style="width: 100%">
+                                            <input class="form-control" type="text"
+                                                   maxlength="50" autocomplete="off" id="sort" name="sort"
+                                                   placeholder="请输入顺序" th:field="*{sort}" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">可见：</label>
                                     <div class="col-sm-8" style="margin-top: 5px;">
-
+                                        <div class="input-group" style="width: 100%;">
+                                            <label class="label-radio" th:each="dict : ${@smallbun.dict('VISIBLE')}">
+                                                <input type="radio" class="minimal" th:id="${dict.dictValue}"
+                                                       name="visible"
+                                                       th:value="${dict.dictValue}" required th:field="*{visible}">
+                                                <label th:for="${dict.dictValue}" th:text="${dict.dictLabel}"></label>
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="col-sm-4 control-label">权限标识</label>
+                                    <label class="col-sm-4 control-label">权限标识：</label>
                                     <div class="col-sm-8">
                                         <div class="input-group" style="width: 100%">
                                             <input class="form-control" type="text"
-                                                   maxlength="50" autocomplete="off" placeholder="请输入机构名称" required>
+                                                   maxlength="50" autocomplete="off" id="permission" name="permission"
+                                                   placeholder="请输入权限标识" th:field="*{permission}" required>
                                         </div>
                                     </div>
                                 </div>
@@ -112,9 +139,10 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">备注</label>
+                                    <label class="col-sm-2 control-label">备注：</label>
                                     <div class="col-sm-10">
-                                        <textarea id="remarks" name="remarks" maxlength="200" class="form-control "
+                                        <textarea id="remarks" name="remarks" th:field="*{remarks}" maxlength="200"
+                                                  class="form-control "
                                                   rows="3"></textarea>
                                     </div>
                                 </div>
@@ -126,5 +154,7 @@
         </section>
     </body>
     <div th:include="fragments/include :: include-js"></div>
+    <div th:include="fragments/include :: jquery-validate-js"/>
+    <div th:include="fragments/include :: jquery-easyui-js"/>
     <script th:src="@{/static/modules/manage/js/menu/menu_form.js}"></script>
 </html>

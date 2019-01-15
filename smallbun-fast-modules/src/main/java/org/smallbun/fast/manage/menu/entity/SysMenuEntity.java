@@ -50,7 +50,11 @@ public class SysMenuEntity extends TreeDataEntity<SysMenuEntity,Long> {
     /**
      * 类型 1. 菜单,2 按钮
      */
-    private Integer type;
+    private Integer menuType;
+	/**
+	 * 菜单目标
+	 */
+	private String target;
     /**
      * 方法允许配置标识
      */
@@ -63,5 +67,9 @@ public class SysMenuEntity extends TreeDataEntity<SysMenuEntity,Long> {
      * 菜单状态 0正常 ，1锁定
      */
     private String menuStatus;
+	/**
+	 * 是否可用
+	 */
+	private String visible;
 
 }
