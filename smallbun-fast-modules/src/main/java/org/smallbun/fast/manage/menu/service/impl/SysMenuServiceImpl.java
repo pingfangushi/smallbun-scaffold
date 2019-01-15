@@ -76,9 +76,23 @@ public class SysMenuServiceImpl extends BaseTreeDataServiceImpl<SysMenuMapper, S
 		//获取用户所属的菜单
 		assert user != null;
 		List<SysMenuEntity> list = user.getMenus();
-		List<SysMenuEntity> build = build(list);
-		System.out.println(build);
-		return mappingList(build(list), new ArrayList<>(), SysMenuVO.class);
+		//循环得到目录和菜单
+		final List<SysMenuEntity> permissions = new ArrayList<>();
+		for (SysMenuEntity l : list) {
+			if (l.getMenuType().equals(0) | l.getMenuType().equals(1)) {
+				permissions.add(l);
+			}
+		}
+		//设置子菜单
+		setChildren(permissions);
+		//过滤菜单，拿到所有的父菜单
+		List<SysMenuEntity> result = new ArrayList<>();
+		for (SysMenuEntity p : permissions) {
+			//判断是否是目录
+			if (!p.getParentId().equals(0L)) {continue;}
+			result.add(p);
+		}
+		return mappingList(result, new ArrayList<>(), SysMenuVO.class);
 	}
 
 	/**
