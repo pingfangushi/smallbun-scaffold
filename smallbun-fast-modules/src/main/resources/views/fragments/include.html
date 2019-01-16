@@ -42,10 +42,14 @@
     <div th:fragment="jquery-easyui-css">
         <link rel="stylesheet" th:href="@{/static/common/plugins/jquery-easyui/themes/smallbun/easyui.css}"/>
     </div>
+    <!--ztree-css-->
     <div th:fragment="ztree-css">
         <link rel="stylesheet" th:href="@{/webjars/zTree/3.5.37/css/metroStyle/metroStyle.css}" type="text/css">
     </div>
-
+    <!--selectpage-->
+    <div th:fragment="selectpage-css">
+        <link rel="stylesheet" th:href="@{/webjars/selectpage/selectpage.css}" type="text/css">
+    </div>
 
     <!----------------------------------------------------------------------------------->
     <div th:fragment="include-js">
@@ -110,6 +114,10 @@
     <!--ztree-js-->
     <div th:fragment="ztree-js">
         <script type="text/javascript" th:src="@{/webjars/zTree/3.5.37/js/jquery.ztree.all.min.js}"></script>
+    </div>
+    <!--selectpage-js-->
+    <div th:fragment="selectpage-js">
+        <script type="text/javascript" th:src="@{/webjars/selectpage/selectpage.min.js}"></script>
     </div>
 </head>
 <body>

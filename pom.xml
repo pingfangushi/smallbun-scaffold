@@ -293,6 +293,12 @@
             <artifactId>zTree</artifactId>
             <version>3.5.37</version>
         </dependency>
+        <!--selectPage-->
+        <dependency>
+            <groupId>org.webjars.bowergithub.terryz</groupId>
+            <artifactId>selectpage</artifactId>
+            <version>2.19</version>
+        </dependency>
         <!--layer-->
         <dependency>
             <groupId>org.webjars.bowergithub.sentsin</groupId>
