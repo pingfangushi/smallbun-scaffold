@@ -616,7 +616,7 @@
                     dataType: "json",
                     data: data,
                     success: function (result) {
-                        $.operate.saveSuccess(result, index);
+                        $.modal.saveSuccess(result, index);
                     }
                 };
                 $.ajax(config)

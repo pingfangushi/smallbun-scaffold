@@ -21,8 +21,20 @@ $(function () {
             {field: 'permission', title: '权限值', width: '300px', sortable: false, align: 'left'},
             {field: 'icon', title: '图标', sortable: false, width: '100px', align: 'center', formatter: 'iconFormatter'},
             {field: 'type', title: '类型', sortable: false, width: 'auto', align: 'center', formatter: 'typeFormatter'},
-            {field: 'menuStatus', title: '状态', sortable: false, width: 'auto', align: 'center', formatter: 'statusFormatter'}
-        ]
+            {field: 'menuStatus', title: '状态', sortable: false, width: 'auto', align: 'center', formatter: 'statusFormatter'},
+            {title: '操作', width: 50, visible: true,formatter: function (value, row, index) {
+                var actions = [];
+                actions.push('<div class="btn-group"><button type="button" class="btn ibtn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog"></i>&nbsp;<span class="fa fa-chevron-down"></span></button>'+
+                    '<ul class="dropdown-menu" role="menu">'+
+                    '<li><a href="#" onclick="$.operate.view(\'' + row.id + '\',\'\')"><i class="fa fa-search-plus"></i>查看</a></li>'+
+                    '<li><a href="#" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>修改</a></li>'+
+                    '<li><a href="#" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-trash"></i>删除</a></li>'+
+                    '<li><a href="#" onclick="add(\'' + row.id + '\')"><i class="fa fa-bars"></i>添加下级</a></li>'+
+                    '</ul>'+
+                    '</div>');
+                return actions.join('');
+                }
+            }]
     };
     $.treeTable.init(options);
     //@formatter:off
@@ -74,4 +86,11 @@ function typeFormatter(value, row, index) {
         return '<span class="label label-warning">按钮</span>';
     }
     return '';
+}
+/**
+ * 添加方法
+ * @param id
+ */
+function add(id) {
+    $.modal.open("添加" + $.table._option.modalName, $.table._option.createUrl.replace("{id}" ,"?parentId=" + id));
 }

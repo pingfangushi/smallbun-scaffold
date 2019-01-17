@@ -4,7 +4,8 @@ $(function () {
      url: contextPath + 'dict/value/page',
      createUrl: contextPath + "dict/value/form?dictType=" + $('#dictType').val(),
      updateUrl: contextPath + "dict/value/form/{id}",
-     removeUrl: contextPath + "dict/value/remove",
+     removeUrl: contextPath + "dict/value/removeById",
+     batRemoveUrl: contextPath + "dict/value/removeByIds",
      exportUrl: contextPath + "dict/value/export",
      sortName: "createTime",
      sortOrder: "desc",
@@ -21,13 +22,17 @@ $(function () {
          {field: 'sysDictType.typeName', title: '字典类型', formatter: viewDictType},
          {field: 'dictLabel', title: '字典标签', formatter: $.table.view},
          {field: 'dictValue', title: '字典键值', sortable: true},
-         {field: 'sort', title: '排序', visible: false},
+         {field: 'sort', title: '排序', visible: true},
          {field: 'gmtModified', title: '更新时间'},
-         {title: '操作', width: 200, visible: false, formatter: function (value, row, index) {
+         {title: '操作', width: 50, visible: true, formatter: function (value, row, index) {
               var actions = [];
-              actions.push('<a class="btn bg-purple btn-xs " href="#" onclick="$.operate.view(\'' + row.id + '\',\'\')"><i class="fa fa-search-plus"></i> 查看</a> ');
-              actions.push('<a class="btn bg-orange btn-xs" href="#" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i> 编辑</a> ');
-              actions.push('<a class="btn bg-maroon btn-xs " href="#" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i> 删除</a> ');
+              actions.push('<div class="btn-group"><button type="button" class="btn ibtn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog"></i>&nbsp;<span class="fa fa-chevron-down"></span></button>'+
+                  '<ul class="dropdown-menu" role="menu">'+
+                  '<li><a href="#" onclick="$.operate.view(\'' + row.id + '\',\'\')"><i class="fa fa-search-plus"></i>查看</a></li>'+
+                  '<li><a href="#" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>修改</a></li>'+
+                  '<li><a href="#" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-trash"></i>删除</a></li>'+
+                  '</ul>'+
+                  '</div>');
               return actions.join('');
              }
          }]

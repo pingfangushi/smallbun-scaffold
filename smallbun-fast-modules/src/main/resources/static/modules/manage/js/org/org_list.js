@@ -24,12 +24,17 @@ $(function () {
             {field: 'principal', title: '负责人', sortable: false, width: 'auto', align: 'center'},
             {field: 'telephone', title: '电话', sortable: false, width: 'auto', align: 'center'},
             {field: 'useable', title: '是否可用', sortable: false, width: 'auto', align: 'center', formatter: 'useableFormatter'},
-            {title: '操作', width: 220, visible: false,formatter: function (value, row, index) {
-                    var actions = [];
-                    actions.push('<a class="btn bg-orange btn-xs" href="#" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i> 编辑</a> ');
-                    actions.push('<a class="btn bg-maroon btn-xs " href="#" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i> 删除</a> ');
-                    actions.push('<a class="btn ibtn-white btn-xs " href="#" onclick="add(\'' + row.id + '\')"><i class="fa fa-bars"></i> 添加下级</a> ');
-                    return actions.join('');
+            {title: '操作', width: 50, visible: true,formatter: function (value, row, index) {
+                var actions = [];
+                actions.push('<div class="btn-group"><button type="button" class="btn ibtn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog"></i>&nbsp;<span class="fa fa-chevron-down"></span></button>'+
+                    '<ul class="dropdown-menu" role="menu">'+
+                    '<li><a href="#" onclick="$.operate.view(\'' + row.id + '\',\'\')"><i class="fa fa-search-plus"></i>查看</a></li>'+
+                    '<li><a href="#" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>修改</a></li>'+
+                    '<li><a href="#" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-trash"></i>删除</a></li>'+
+                    '<li><a href="#" onclick="add(\'' + row.id + '\')"><i class="fa fa-bars"></i>添加下级</a></li>'+
+                    '</ul>'+
+                    '</div>');
+                return actions.join('');
                 }
             }
         ]

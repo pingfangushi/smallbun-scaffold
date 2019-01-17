@@ -13,7 +13,6 @@ import org.smallbun.framework.result.AjaxResult;
 import org.smallbun.framework.result.PageableResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,7 +21,6 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.smallbun.framework.toolkit.AutoMapperUtil.mapping;
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 
 /**
@@ -42,7 +40,7 @@ public class SysDictValueController extends BaseController {
 
 	@ModelAttribute
 	protected SysDictValueVO model(HttpServletRequest request) {
-	return 	sysDictValueService.model(request);
+		return sysDictValueService.model(request);
 	}
 
 	/**
@@ -91,13 +89,13 @@ public class SysDictValueController extends BaseController {
 
 	/**
 	 * 删除多条记录
-	 * @param id 主键ID集合
+	 * @param ids 主键ID集合
 	 * @return AjaxResult
 	 */
 	@SystemLog(value = "")
 	@PostMapping(value = "/removeByIds")
-	public AjaxResult saveOrUpdate(@NotNull List<String> id) {
-		return AjaxResult.builder().result(sysDictValueService.removeByIds(id)).build();
+	public AjaxResult saveOrUpdate(@NotNull @RequestParam(value = "ids") List<String> ids) {
+		return AjaxResult.builder().result(sysDictValueService.removeByIds(ids)).build();
 	}
 
 	/**
