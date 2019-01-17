@@ -549,7 +549,7 @@
             }
             ,
             //添加，以tab页展现
-            addTab: function () {
+            addTab: function (id) {
                 var url = $.common.isEmpty(id) ? $.table._option.createUrl : $.table._option.createUrl.replace("{id}", id);
                 $.modal.openTab("_tab" + Math.random().toString(36).substring(2), "添加" + $.table._option.modalName, url);
             },
