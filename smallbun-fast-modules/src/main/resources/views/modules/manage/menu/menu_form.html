@@ -18,10 +18,12 @@
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label">上级菜单：</label>
                                     <div class="col-sm-8">
-                                        <div class="input-group pop-up-tree" style="width: 100%">
-                                            <input id="pop-up-tree" readonly="readonly" th:field="*{parentId}"
-                                                   placeholder="请选择上级菜单" class="form-control "/>
-                                            <span class="input-group-addon">
+                                        <div class="input-group" style="width: 100%">
+                                            <input readonly="readonly" id="pop-up-menu-tree" th:field="*{parentId}"
+                                                   placeholder="请选择上级菜单" required
+                                                   class="form-control" onclick="pop_upr_menu_tree($(this))"/>
+                                            <span class="input-group-addon"
+                                                  onclick="pop_upr_menu_tree($('#pop-up-menu-tree'))">
                                                 <i class="fa fa-search"></i>
                                             </span>
                                         </div>
@@ -76,9 +78,13 @@
                                     <label class="col-sm-4 control-label">菜单图标：</label>
                                     <div class="col-sm-8">
                                         <div class="input-group" style="width: 100%">
-                                            <input class="form-control" type="text"
-                                                   maxlength="50" autocomplete="off" placeholder="请选择菜单图标" id="icon"
-                                                   name="icon" th:field="*{icon}" required>
+                                            <input readonly="readonly" id="pop-up-icon-tree" th:field="*{icon}"
+                                                   placeholder="请选择菜单图标" class="form-control"
+                                                   onclick="pop_upr_icon()"/>
+                                            <span class="input-group-addon"
+                                                  onclick="pop_upr_icon()">
+                                                <i class="fa fa-search"></i>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>

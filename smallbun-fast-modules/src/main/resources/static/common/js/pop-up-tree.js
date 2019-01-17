@@ -30,9 +30,11 @@ $(document).ready(function () {
                     }
                 };
                 var ztree;
+                var obj = options.obj;
+                var value = $('#' + options.value);
                 //在当前对象后面追加html内容
-                $(options.obj).after('<input  id="' + options.value + '" type="text"  name="' + options.value + '" class="hidden"/><div id="' + treeLayerId + '" style="display: none;padding:10px;"><ul id="' + treeId + '" class="ztree"></ul> </div>');
-                $('#' + options.value).val(options.obj.val());
+                obj.after('<input  id="' + options.value + '" type="text"  name="' + options.value + '" class="hidden"/><div id="' + treeLayerId + '" style="display: none;padding:10px;"><ul id="' + treeId + '" class="ztree"></ul> </div>');
+                value.val(obj.val());
                 //发送ajax请求
                 $.ajax({
                     type: options.type,
@@ -46,12 +48,12 @@ $(document).ready(function () {
                             //渲染ztree
                             ztree = $.fn.zTree.init($("#" + treeId), setting, result.result);
                             //根据已经选择的节点ID进行渲染
-                            var node = ztree.getNodeByParam(options.idKey, $('#' + options.value).val());
+                            var node = ztree.getNodeByParam(options.idKey, value.val());
                             //如果node不为空进行查询
                             if (node != null) {
                                 ztree.selectNode(node);
                                 //当前输入框添加内容
-                                $(options.obj).val(node[options.name]);
+                                obj.val(node[options.name]);
                             }
                         } else {
                             alert(result.msg);
@@ -77,9 +79,9 @@ $(document).ready(function () {
                         var node = ztree.getSelectedNodes();
                         if (node.length > 0) {
                             //将选中的值放入隐藏value框
-                            $('#' + options.value).val(node[0][options.idKey]);
+                            value.val(node[0][options.idKey]);
                             //将名称会显示内容框
-                            $(options.obj).val(node[0][options.name]);
+                            obj.val(node[0][options.name]);
                         }
                         //选择上级菜单
                         layer.close(index);
@@ -89,19 +91,3 @@ $(document).ready(function () {
         }
     })
 })(jQuery);
-$(document).ready(function () {
-    //将元素上添加 .pop-up-tree
-    $(".pop-up-tree").click(function () {
-        $.pop_up_tree.init({
-            obj: $(this),
-            value: 'parentId', //隐藏value name 属性和id属性
-            idKey: 'id',
-            pIdKey: 'parentId',
-            rootPId: '0',
-            name: 'nodeName',
-            type: 'POST',
-            url: contextPath + 'menu/list'
-
-        });
-    });
-});

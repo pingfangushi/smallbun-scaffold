@@ -22,10 +22,7 @@ import org.smallbun.fast.manage.menu.service.SysMenuService;
 import org.smallbun.fast.manage.user.util.UserUtil;
 import org.smallbun.framework.base.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -72,30 +69,12 @@ public class ApplicationController extends BaseController {
 	}
 
 	/**
-	 * Tree 控制器
-	 *
-	 * @param model       Model
-	 * @param url         能够取到JSON树数据的URL
-	 * @param multiSelect multiSelect
-	 * @param chkboxType  chkboxType
-	 * @param selectNodes selectNodes
-	 * @return fast/tree.html
+	 * icon
+	 * @return {@link ModelAndView}
 	 */
-	@GetMapping(value = "tree")
-	public ModelAndView treeSelect(Model model, String url, Boolean multiSelect, String chkboxType, String selectNodes) {
-		// 树结构数据URL
-		model.addAttribute("url", url);
-		// 父子关联
-		model.addAttribute("chkboxType", chkboxType);
-
-		if (StringUtils.isEmpty(multiSelect)) {
-			multiSelect = Boolean.TRUE;
-		}
-		// 是否多选
-		model.addAttribute("multiSelect", multiSelect);
-		// 默认值
-		model.addAttribute("selectNodes", selectNodes);
-		return new ModelAndView("/common/tree.html");
+	@RequestMapping("/icon")
+	public ModelAndView icon() {
+		return new ModelAndView("modules/manage/icons");
 	}
 
 	/**
