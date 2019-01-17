@@ -626,7 +626,7 @@
                 addTab({id: id, title: title, close: true, url: url})
             },
             //添加tab页
-            addTab: function () {
+            add_tab: function () {
                 var url = $.common.isEmpty(id) ? $.table._option.createUrl : $.table._option.createUrl.replace("{id}", id);
                 $.modal.addTab("_tab" + Math.random().toString(36).substring(2), "添加" + $.table._option.modalName, url);
             }
