@@ -4,7 +4,7 @@
       xmlns:smallbun="http://www.smallbun.org">
 <head>
     <div th:include="fragments/include :: header('添加部门和机构')"></div>
-    <div th:include="fragments/include :: jquery-easyui-css"></div>
+    <div th:include="fragments/include :: ztree-css"></div>
 </head>
 <body class="list-body">
 <section class="i-content">
@@ -20,10 +20,15 @@
                             <div class="col-sm-8">
                                 <!--根节点不显示-->
                                 <th:block th:unless="*{parentId==0}">
-                                    <input id="parent" class="form-control"
-                                           th:field="*{parentId}"
-                                           data-options="prompt:'请选择上机机构'">
-                                    <input id="parentId" name="parentId" class="hidden" th:field="*{parentId}">
+                                    <div class="input-group" style="width: 100%">
+                                        <input readonly="readonly" id="pop-up-org-tree" th:field="*{parentId}"
+                                               placeholder="请选择上级机构" required
+                                               class="form-control" onclick="pop_upr_org_tree($(this))"/>
+                                        <span class="input-group-addon"
+                                              onclick="pop_upr_org_tree($('#pop-up-org-tree'))">
+                                                <i class="fa fa-search"></i>
+                                            </span>
+                                    </div>
                                 </th:block>
                                 <th:block th:if="*{parentId==0}">
                                     <input id="parentId" name="parentId" class="form-control" placeholder="根节点不可选择"
@@ -232,6 +237,7 @@
 </body>
 <div th:include="fragments/include :: include-js"/>
 <div th:include="fragments/include :: jquery-validate-js"/>
-<div th:include="fragments/include :: jquery-easyui-js"/>
+<div th:include="fragments/include :: ztree-js"></div>
+<script th:src="@{/static/common/js/pop-up-tree.js}"></script>
 <script th:src="@{/static/modules/manage/js/org/org_form.js}"></script>
 </html>

@@ -1,39 +1,18 @@
 /**
- * 初始化
+ * 上级部门弹出树
  */
-$(function () {
-    /**
-     * comboTreeGrid 属性
-     */
-    var comboTreeGridId = '#parent';
-    var idField = 'id';
-    var treeField = 'orgName';
-    var url = contextPath + 'org/tree';
-    var editable = false;
-    var method = 'POST';
-    var contrastField = '#id';
-    var panelWidth = 410;
-    var width = '100%';
-    var columns = [[
-        {field: 'orgName', title: '名称', width: 200},
-        {field: 'orgTypeName', title: '类型', width: 100},
-        {field: 'gradeName', title: '级别', width: 100},
-    ]];
-    $.comboTreeGrid.init(
-        {
-            comboTreeGridId: comboTreeGridId,
-            panelWidth: panelWidth,
-            width: width,
-            idField: idField,
-            treeField: treeField,
-            url: url,
-            editable: editable,
-            method: method,
-            columns: columns,
-            contrastField: contrastField
-        }
-    );
-});
+function pop_upr_org_tree(obj) {
+    $.pop_up_tree.init({
+        obj: obj,//显示input name 属性和id属性
+        value: 'parentId', //隐藏value name 属性和id属性
+        idKey: 'id',       //zTree idKey
+        pIdKey: 'parentId',//zTree pIdKey
+        rootPId: '0',      //zTree rootPId
+        name: 'orgName',  //zTree name
+        type: 'POST',      //ajax 请求
+        url: contextPath + 'org/list' //请求地址
+    });
+}
 
 /**
  * 提交事件
