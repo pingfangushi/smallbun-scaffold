@@ -533,6 +533,12 @@
             add: function (id) {
                 var url = $.common.isEmpty(id) ? $.table._option.createUrl.replace("{id}", '') : $.table._option.createUrl.replace("{id}", id);
                 $.modal.open("添加" + $.table._option.modalName, url);
+            }
+            ,
+            //添加，以tab页展现
+            addTab: function () {
+                var url = $.common.isEmpty(id) ? $.table._option.createUrl : $.table._option.createUrl.replace("{id}", id);
+                $.modal.openTab("_tab" + Math.random().toString(36).substring(2), "添加" + $.table._option.modalName, url);
             },
             // 修改信息
             edit: function (id) {
@@ -622,13 +628,8 @@
                 $.modal.closeLoading(index);
             },
             //添加tab页
-            addTab: function (id, title, url) {
+            openTab: function (id, title, url) {
                 addTab({id: id, title: title, close: true, url: url})
-            },
-            //添加tab页
-            add_tab: function () {
-                var url = $.common.isEmpty(id) ? $.table._option.createUrl : $.table._option.createUrl.replace("{id}", id);
-                $.modal.addTab("_tab" + Math.random().toString(36).substring(2), "添加" + $.table._option.modalName, url);
             }
         },
         /**
