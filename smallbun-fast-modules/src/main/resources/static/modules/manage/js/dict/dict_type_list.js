@@ -37,12 +37,20 @@ $(function () {
             {field: 'typeName', title: '字典名称', formatter: $.table.view},
             {field: 'typeCode', title: '字典类型', sortable: true},
             {field: 'gmtModified', title: '更新时间'},
-            {title: '操作', width: 250, visible: false, formatter: function (value, row, index) {
+            {title: '操作', width: 50, visible: true, formatter: function (value, row, index) {
                     var actions = [];
-                    actions.push('<a class="btn bg-purple btn-xs " href="#" onclick="$.operate.view(\'' + row.id + '\',\'\')"><i class="fa fa-search-plus"></i> 查看</a> ');
-                    actions.push('<a class="btn ibtn-white btn-xs " href="#" onclick="$.operate.addTab(\'sys_dict_type' + row.id + '\', \'字典值\', \'dict/value?sysDictType.id=' + row.id + '\')"><i class="fa fa-bars"></i> 字典值</a> ');
-                    actions.push('<a class="btn bg-orange btn-xs" href="#" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i> 编辑</a> ');
-                    actions.push('<a class="btn bg-maroon btn-xs " href="#" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i> 删除</a>');
+                    //actions.push('<a class="btn bg-purple btn-xs " href="#" onclick="$.operate.view(\'' + row.id + '\',\'\')"><i class="fa fa-search-plus"></i> 查看</a> ');
+                    //actions.push('<a class="btn ibtn-white btn-xs " href="#" onclick="$.operate.addTab(\'sys_dict_type' + row.id + '\', \'字典值\', \'dict/value?sysDictType.id=' + row.id + '\')"><i class="fa fa-bars"></i> 字典值</a> ');
+                    //actions.push('<a class="btn bg-orange btn-xs" href="#" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i> 编辑</a> ');
+                    //actions.push('<a class="btn bg-maroon btn-xs " href="#" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i> 删除</a>');
+                    actions.push('<div class="btn-group"><button type="button" class="btn ibtn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog"></i>&nbsp;<span class="fa fa-chevron-down"></span></button>'+
+                                    '<ul class="dropdown-menu" role="menu">'+
+                                        '<li><a href="#"><i class="fa fa-search-plus"></i>查看</a></li>'+
+                                        '<li><a href="#"><i class="fa fa-edit"></i>修改</a></li>'+
+                                        '<li><a href="#"><i class="fa fa-trash"></i>删除</a></li>'+
+                                        '<li><a href="#"><i class="fa fa-plus"></i>字典值</a></li>'+
+                                    '</ul>'+
+                                '</div>');
                     return actions.join('');
                 }
             }]
