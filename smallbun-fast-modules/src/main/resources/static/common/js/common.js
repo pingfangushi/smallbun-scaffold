@@ -484,6 +484,19 @@
             // 重新加载
             reload: function () {
                 parent.location.reload();
+            },
+            // 保存结果提示msg
+            saveSuccess: function (result, index) {
+                if (result.status === web_status.SUCCESS) {
+                    $.modal.msgReload("保存成功,正在刷新数据请稍后……", modal_status.SUCCESS);
+                } else {
+                    $.modal.alertError(result.msg);
+                }
+                $.modal.closeLoading(index);
+            },
+            //添加tab页
+            openTab: function (id, title, url) {
+                addTab({id: id, title: title, close: true, url: url})
             }
         },
         /**
@@ -617,19 +630,6 @@
                     $.modal.alertError(result.msg);
                 }
                 $.modal.closeLoading(index);
-            },
-            // 保存结果提示msg
-            saveSuccess: function (result, index) {
-                if (result.status === web_status.SUCCESS) {
-                    $.modal.msgReload("保存成功,正在刷新数据请稍后……", modal_status.SUCCESS);
-                } else {
-                    $.modal.alertError(result.msg);
-                }
-                $.modal.closeLoading(index);
-            },
-            //添加tab页
-            openTab: function (id, title, url) {
-                addTab({id: id, title: title, close: true, url: url})
             }
         },
         /**
