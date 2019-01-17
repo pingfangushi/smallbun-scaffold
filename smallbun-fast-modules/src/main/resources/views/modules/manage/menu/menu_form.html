@@ -18,9 +18,12 @@
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label">上级菜单：</label>
                                     <div class="col-sm-8">
-                                        <div class="input-group" style="width: 100%">
-                                            <input id="pop-up-tree" th:field="*{parentId}" placeholder="请选择上级菜单"
-                                                   class="form-control pop-up-tree"/>
+                                        <div class="input-group pop-up-tree" style="width: 100%">
+                                            <input id="pop-up-tree" readonly="readonly" th:field="*{parentId}"
+                                                   placeholder="请选择上级菜单" class="form-control "/>
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-search"></i>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
