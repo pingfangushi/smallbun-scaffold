@@ -49,6 +49,36 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
+                                    <label class="col-sm-4 control-label">菜单类型：</label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group" style="width: 100%">
+                                            <label class="label-radio" th:each="dict : ${@smallbun.dict('MENU_TYPE')}">
+                                                <input type="radio" class="minimal" name="menuType"
+                                                       th:value="${dict.dictValue}" required th:field="*{menuType}">
+                                                <label th:text="${dict.dictLabel}"></label>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">可见：</label>
+                                    <div class="col-sm-8" style="margin-top: 5px;">
+                                        <div class="input-group" style="width: 100%;">
+                                            <label class="label-radio" th:each="dict : ${@smallbun.dict('VISIBLE')}">
+                                                <input type="radio" class="minimal" name="visible"
+                                                       th:value="${dict.dictValue}" required th:field="*{visible}">
+                                                <label th:text="${dict.dictLabel}"></label>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
                                     <label class="col-sm-4 control-label">菜单链接：</label>
                                     <div class="col-sm-8">
                                         <div class="input-group" style="width: 100%">
@@ -78,6 +108,9 @@
                                     <label class="col-sm-4 control-label">菜单图标：</label>
                                     <div class="col-sm-8">
                                         <div class="input-group" style="width: 100%">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-address-book"></i>
+                                            </span>
                                             <input readonly="readonly" id="pop-up-icon-tree" th:field="*{icon}"
                                                    placeholder="请选择菜单图标" class="form-control"
                                                    onclick="pop_upr_icon()"/>
@@ -103,21 +136,6 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label">可见：</label>
-                                    <div class="col-sm-8" style="margin-top: 5px;">
-                                        <div class="input-group" style="width: 100%;">
-                                            <label class="label-radio" th:each="dict : ${@smallbun.dict('VISIBLE')}">
-                                                <input type="radio" class="minimal" th:id="${dict.dictValue}"
-                                                       name="visible"
-                                                       th:value="${dict.dictValue}" required th:field="*{visible}">
-                                                <label th:for="${dict.dictValue}" th:text="${dict.dictLabel}"></label>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label">权限标识：</label>
