@@ -5,187 +5,186 @@
         <div th:include="fragments/include  :: header('添加')"></div>
         <div th:include="fragments/include :: ztree-css"></div>
     </head>
-    <body class="list-body">
-        <section class="i-content">
-            <div class="i-ibox">
-                <div class="ibox-content">
-                    <form class="form-horizontal" th:action="@{/menu/saveOrUpdate}" th:object="${menu}" method="post"
-                          novalidate="novalidate">
-                        <input id="id" name="id" type="hidden" th:field="*{id}">
-                        <h4 class="page-header h4">基本信息</h4>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label">上级菜单：</label>
-                                    <div class="col-sm-8">
-                                        <div class="input-group" style="width: 100%">
-                                            <input readonly="readonly" id="pop-up-menu-tree" th:field="*{parentId}"
-                                                   placeholder="请选择上级菜单" required
-                                                   class="form-control" onclick="pop_upr_menu_tree($(this))"/>
-                                            <span class="input-group-addon"
-                                                  onclick="pop_upr_menu_tree($('#pop-up-menu-tree'))">
-                                                <i class="fa fa-search"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label">
-                                        <font color="red">*</font>
-                                        菜单名称：
-                                    </label>
-                                    <div class="col-sm-8">
-                                        <div class="input-group" style="width: 100%">
-                                            <input class="form-control" type="text"
-                                                   maxlength="50" autocomplete="off" placeholder="请输入菜单名称" id="menuName"
-                                                   name="menuName" th:field="*{menuName}" required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label">菜单类型：</label>
-                                    <div class="col-sm-8">
-                                        <div class="input-group" style="width: 100%">
-                                            <label class="label-radio" th:each="dict : ${@smallbun.dict('MENU_TYPE')}">
-                                                <input type="radio" class="minimal" name="menuType"
-                                                       th:value="${dict.dictValue}" required th:field="*{menuType}">
-                                                <label th:text="${dict.dictLabel}"></label>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label">可见：</label>
-                                    <div class="col-sm-8" style="margin-top: 5px;">
-                                        <div class="input-group" style="width: 100%;">
-                                            <label class="label-radio" th:each="dict : ${@smallbun.dict('VISIBLE')}">
-                                                <input type="radio" class="minimal" name="visible"
-                                                       th:value="${dict.dictValue}" required th:field="*{visible}">
-                                                <label th:text="${dict.dictLabel}"></label>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label">菜单链接：</label>
-                                    <div class="col-sm-8">
-                                        <div class="input-group" style="width: 100%">
-                                            <input class="form-control" type="text"
-                                                   maxlength="50" autocomplete="off" placeholder="请输入菜单链接" id="url"
-                                                   name="url" th:field="*{url}" required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label">菜单目标：</label>
-                                    <div class="col-sm-8">
-                                        <div class="input-group" style="width: 100%">
-                                            <input class="form-control" type="text"
-                                                   maxlength="50" autocomplete="off" placeholder="请输入菜单目标" id="target"
-                                                   name="target" th:field="*{target}" required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label">菜单图标：</label>
-                                    <div class="col-sm-8">
-                                        <div class="input-group" style="width: 100%">
-                                            <span class="input-group-addon">
-                                                <i class="fa fa-address-book"></i>
-                                            </span>
-                                            <input readonly="readonly" id="pop-up-icon-tree" th:field="*{icon}"
-                                                   placeholder="请选择菜单图标" class="form-control"
-                                                   onclick="pop_upr_icon()"/>
-                                            <span class="input-group-addon"
-                                                  onclick="pop_upr_icon()">
-                                                <i class="fa fa-search"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label">排序：</label>
-                                    <div class="col-sm-8">
-                                        <div class="input-group" style="width: 100%">
-                                            <input class="form-control" type="number"
-                                                   maxlength="50" autocomplete="off" id="sort" name="sort"
-                                                   placeholder="请输入顺序" th:field="*{sort}" required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label">权限标识：</label>
-                                    <div class="col-sm-8">
-                                        <div class="input-group" style="width: 100%">
-                                            <input class="form-control" type="text"
-                                                   maxlength="50" autocomplete="off" id="permission" name="permission"
-                                                   placeholder="请输入权限标识" th:field="*{permission}" required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <h4 class="page-header h4">其他信息</h4>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">备注：</label>
-                                    <div class="col-sm-10">
-                                        <textarea id="remarks" name="remarks" th:field="*{remarks}" maxlength="200"
-                                                  class="form-control "
-                                                  rows="3"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </form>
-                </div>
-                <div class="box-footer">
+    <body>
+        <div class="i-ibox">
+            <div class="ibox-content">
+                <form class="form-horizontal" id="form" th:action="@{/menu/saveOrUpdate}" th:object="${menu}"
+                      method="post"
+                      novalidate="novalidate">
+                    <input id="id" name="id" type="hidden" th:field="*{id}">
+                    <h4 class="page-header h4">基本信息</h4>
                     <div class="row">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-sm ibtn-primary" onclick="doSubmit()" id="btn-submit">
-                                <i class="fa fa-check"></i>
-                                保 存
-                            </button>&nbsp;
-                            <button type="button" class="btn btn-sm btn-default" id="btn-cancel" onclick="">
-                                <i class="fa fa-reply-all"></i>
-                                关 闭
-                            </button>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">上级菜单：</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group" style="width: 100%">
+                                        <input readonly="readonly" id="pop-up-menu-tree" th:field="*{parentId}"
+                                               placeholder="请选择上级菜单" required
+                                               class="form-control" onclick="pop_upr_menu_tree($(this))"/>
+                                        <span class="input-group-addon"
+                                              onclick="pop_upr_menu_tree($('#pop-up-menu-tree'))">
+                                            <i class="fa fa-search"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" title="菜单名称">
+                                    <font color="red">*</font>
+                                    菜单名称：
+                                    <i class="icon-question-sign"></i>
+                                </label>
+                                <div class="col-sm-8">
+                                    <div class="input-group" style="width: 100%">
+                                        <input class="form-control" type="text"
+                                               maxlength="50" autocomplete="off" placeholder="请输入菜单名称" id="menuName"
+                                               name="menuName" th:field="*{menuName}" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">菜单类型：</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group" style="width: 100%">
+                                        <label class="label-radio" th:each="dict : ${@smallbun.dict('MENU_TYPE')}">
+                                            <input type="radio" class="minimal" name="menuType"
+                                                   th:value="${dict.dictValue}" required th:field="*{menuType}">
+                                            <label th:text="${dict.dictLabel}"></label>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">可见：</label>
+                                <div class="col-sm-8" style="margin-top: 5px;">
+                                    <div class="input-group" style="width: 100%;">
+                                        <label class="label-radio" th:each="dict : ${@smallbun.dict('VISIBLE')}">
+                                            <input type="radio" class="minimal" name="visible"
+                                                   th:value="${dict.dictValue}" required th:field="*{visible}">
+                                            <label th:text="${dict.dictLabel}"></label>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">菜单链接：</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group" style="width: 100%">
+                                        <input class="form-control" type="text"
+                                               maxlength="50" autocomplete="off" placeholder="请输入菜单链接" id="url"
+                                               name="url" th:field="*{url}" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">菜单目标：</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group" style="width: 100%">
+                                        <input class="form-control" type="text"
+                                               maxlength="50" autocomplete="off" placeholder="请输入菜单目标" id="target"
+                                               name="target" th:field="*{target}" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">菜单图标：</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group" style="width: 100%">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-address-book"></i>
+                                        </span>
+                                        <input readonly="readonly" id="pop-up-icon-tree" th:field="*{icon}"
+                                               placeholder="请选择菜单图标" class="form-control"
+                                               onclick="$.modal.open('选择图标', contextPath + 'icon')"/>
+                                        <span class="input-group-addon"
+                                              onclick="$.modal.open('选择图标', contextPath + 'icon')">
+                                            <i class="fa fa-search"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">排序：</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group" style="width: 100%">
+                                        <input class="form-control" type="number"
+                                               maxlength="50" autocomplete="off" id="sort" name="sort"
+                                               placeholder="请输入顺序" th:field="*{sort}" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">权限标识：</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group" style="width: 100%">
+                                        <input class="form-control" type="text"
+                                               maxlength="50" autocomplete="off" id="permission" name="permission"
+                                               placeholder="请输入权限标识" th:field="*{permission}" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h4 class="page-header h4">其他信息</h4>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">备注：</label>
+                                <div class="col-sm-10">
+                                    <textarea id="remarks" name="remarks" th:field="*{remarks}" maxlength="200"
+                                              class="form-control "
+                                              rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="box-footer">
+                <div class="row">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-sm ibtn-primary" onclick="doSubmit()" id="btn-submit">
+                            <i class="fa fa-check"></i>
+                            保 存
+                        </button>&nbsp;
+                        <button type="button" class="btn btn-sm btn-default" id="btn-cancel" onclick="">
+                            <i class="fa fa-reply-all"></i>
+                            关 闭
+                        </button>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     </body>
     <div th:include="fragments/include :: include-js"></div>
     <div th:include="fragments/include :: ztree-js"></div>
     <div th:include="fragments/include :: jquery-validate-js"/>
-    <script th:src="@{/static/common/js/pop-up-tree.js}"></script>
     <script th:src="@{/static/modules/manage/js/menu/menu_form.js}"></script>
 </html>

@@ -6,234 +6,232 @@
     <div th:include="fragments/include :: header('添加部门和机构')"></div>
     <div th:include="fragments/include :: ztree-css"></div>
 </head>
-<body class="list-body">
-<section class="i-content">
-    <div class="i-ibox">
-        <div class="ibox-content">
-            <form id="form" class="form-horizontal" th:action="@{/org/saveOrUpdate}" method="post" th:object="${org}">
-                <input id="id" name="id" type="hidden" th:field="*{id}">
-                <h4 class="page-header h4">基本信息</h4>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">上级机构：</label>
-                            <div class="col-sm-8">
-                                <!--根节点不显示-->
-                                <th:block th:unless="*{parentId==0}">
-                                    <div class="input-group" style="width: 100%">
-                                        <input readonly="readonly" id="pop-up-org-tree" th:field="*{parentId}"
-                                               placeholder="请选择上级机构" required
-                                               class="form-control" onclick="pop_upr_org_tree($(this))"/>
-                                        <span class="input-group-addon"
-                                              onclick="pop_upr_org_tree($('#pop-up-org-tree'))">
+<body>
+<div class="i-ibox">
+    <div class="ibox-content">
+        <form id="form" class="form-horizontal" th:action="@{/org/saveOrUpdate}" method="post" th:object="${org}">
+            <input id="id" name="id" type="hidden" th:field="*{id}">
+            <h4 class="page-header h4">基本信息</h4>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">上级机构：</label>
+                        <div class="col-sm-8">
+                            <!--根节点不显示-->
+                            <th:block th:unless="*{parentId==0}">
+                                <div class="input-group" style="width: 100%">
+                                    <input readonly="readonly" id="pop-up-org-tree" th:field="*{parentId}"
+                                           placeholder="请选择上级机构" required
+                                           class="form-control" onclick="pop_upr_org_tree($(this))"/>
+                                    <span class="input-group-addon"
+                                          onclick="pop_upr_org_tree($('#pop-up-org-tree'))">
                                                 <i class="fa fa-search"></i>
                                             </span>
-                                    </div>
-                                </th:block>
-                                <th:block th:if="*{parentId==0}">
-                                    <input id="parentId" name="parentId" class="form-control" placeholder="根节点不可选择"
-                                           disabled>
-                                    <input id="parentId" name="parentId" class="hidden" th:field="*{parentId}">
-                                </th:block>
-                            </div>
+                                </div>
+                            </th:block>
+                            <th:block th:if="*{parentId==0}">
+                                <input id="parentId" name="parentId" class="form-control" placeholder="根节点不可选择"
+                                       disabled>
+                                <input id="parentId" name="parentId" class="hidden" th:field="*{parentId}">
+                            </th:block>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label"><span style="color: red">*</span>是否可用：</label>
-                            <div class="col-sm-8">
-                                <div class="input-group" style="width: 100%">
-                                    <select name="useable" id="useable" class="form-control select2 required"
-                                            th:with="type=${@smallbun.dict('WHETHER_USEABLE')}">
-                                        <option value="">请选择是否可用</option>
-                                        <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
-                                                th:value="${dict.dictValue}" th:field="*{useable}">
-                                        </option>
-                                    </select>
-                                </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label"><span style="color: red">*</span>是否可用：</label>
+                        <div class="col-sm-8">
+                            <div class="input-group" style="width: 100%">
+                                <select name="useable" id="useable" class="form-control select2 required"
+                                        th:with="type=${@smallbun.dict('WHETHER_USEABLE')}">
+                                    <option value="">请选择是否可用</option>
+                                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                                            th:value="${dict.dictValue}" th:field="*{useable}">
+                                    </option>
+                                </select>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label"><span style="color: red">*</span>机构名称：</label>
-                            <div class="col-sm-8">
-                                <div class="input-group" style="width: 100%">
-                                    <input id="orgName" name="orgName" class="form-control" type="text"
-                                           th:field="*{orgName}"
-                                           maxlength="50" autocomplete="off" placeholder="请输入机构名称" required>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label"><span style="color: red">*</span>机构编码：</label>
-                            <div class="col-sm-8">
-                                <div class="input-group" style="width: 100%">
-                                    <input class="form-control" type="text" autocomplete="off" placeholder="请输入机构编码"
-                                           th:field="*{orgCode}">
-                                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label"><span style="color: red">*</span>机构名称：</label>
+                        <div class="col-sm-8">
+                            <div class="input-group" style="width: 100%">
+                                <input id="orgName" name="orgName" class="form-control" type="text"
+                                       th:field="*{orgName}"
+                                       maxlength="50" autocomplete="off" placeholder="请输入机构名称" required>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label"><span style="color: red">*</span>机构类型：</label>
-                            <div class="col-sm-8">
-                                <div class="input-group" style="width: 100%">
-                                    <select name="orgType" id="orgType" class="form-control select2 required"
-                                            th:with="type=${@smallbun.dict('ORG_TYPE')}">
-                                        <option value="">请选择机构类型</option>
-                                        <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
-                                                th:value="${dict.dictValue}" th:field="*{orgType}">
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 ">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label"><span style="color: red">*</span>机构级别：</label>
-                            <div class="col-sm-8">
-                                <div class="input-group" style="width: 100%">
-                                    <select name="grade" id="grade" class="form-control select2 required"
-                                            th:with="type=${@smallbun.dict('ORG_LEVEL')}">
-                                        <option value="">请选择机构级别</option>
-                                        <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
-                                                th:value="${dict.dictValue}" th:field="*{grade}">
-                                        </option>
-                                    </select>
-                                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label"><span style="color: red">*</span>机构编码：</label>
+                        <div class="col-sm-8">
+                            <div class="input-group" style="width: 100%">
+                                <input class="form-control" type="text" autocomplete="off" placeholder="请输入机构编码"
+                                       th:field="*{orgCode}">
                             </div>
                         </div>
                     </div>
                 </div>
-                <h4 class="page-header h4">详细信息</h4>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">负责人：</label>
-                            <div class="col-sm-8">
-                                <div class="input-group" style="width: 100%">
-                                    <input type="text" class="form-control" autocomplete="off" placeholder="请输入负责人姓名"
-                                           th:field="*{principal}" id="principal" name="principal">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">电话：</label>
-                            <div class="col-sm-8">
-                                <div class="input-group" style="width: 100%">
-                                    <input id="telephone" name="telephone" class="form-control" autocomplete="off"
-                                           type="text"
-                                           placeholder="请输入联系电话" maxlength="11" th:field="*{telephone}">
-                                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label"><span style="color: red">*</span>机构类型：</label>
+                        <div class="col-sm-8">
+                            <div class="input-group" style="width: 100%">
+                                <select name="orgType" id="orgType" class="form-control select2 required"
+                                        th:with="type=${@smallbun.dict('ORG_TYPE')}">
+                                    <option value="">请选择机构类型</option>
+                                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                                            th:value="${dict.dictValue}" th:field="*{orgType}">
+                                    </option>
+                                </select>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">邮箱：</label>
-                            <div class="col-sm-8">
-                                <div class="input-group" style="width: 100%">
-                                    <input class="form-control" id="email" name="email" autocomplete="off"
-                                           th:field="*{email}" type="text" email="true"
-                                           placeholder="请输入邮箱">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">邮政编码：</label>
-                            <div class="col-sm-8">
-                                <div class="input-group" style="width: 100%">
-                                    <input id="zipCode" name="zipCode" placeholder="请输入邮政编码" autocomplete="off"
-                                           class="form-control" type="text" th:field="*{zipCode}">
-                                </div>
+                <div class="col-sm-6 ">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label"><span style="color: red">*</span>机构级别：</label>
+                        <div class="col-sm-8">
+                            <div class="input-group" style="width: 100%">
+                                <select name="grade" id="grade" class="form-control select2 required"
+                                        th:with="type=${@smallbun.dict('ORG_LEVEL')}">
+                                    <option value="">请选择机构级别</option>
+                                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                                            th:value="${dict.dictValue}" th:field="*{grade}">
+                                    </option>
+                                </select>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!--二期功能扩展实现-->
-                <!--<div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">区域：</label>
-                            <div class="col-sm-8">
-                                <div class="input-group" style="width: 100%">
-                                    <input id="areaId" type="text" autocomplete="off" name="areaId" maxlength="50"
-                                           class="form-control"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">地图标注：</label>
-                            <div class="col-sm-8">
-                                <div class="input-group" style="width: 100%">
-                                    <input id="map" type="text" placeholder="请标注地图" autocomplete="off"
-                                           maxlength="50"
-                                           class="form-control"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">传真：</label>
-                            <div class="col-sm-8">
-                                <div class="input-group" style="width: 100%">
-                                    <input id="fax" name="fax" class="form-control" autocomplete="off" type="text"
-                                           placeholder="请输入传真" th:field="*{fax}">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">地址：</label>
-                            <div class="col-sm-8">
-                                <div class="input-group" style="width: 100%">
-                                    <input id="address" name="address" type="text" placeholder="请输入地址"
-                                           autocomplete="off"
-                                           maxlength="50" class="form-control" th:field="*{address}"/>
-                                </div>
+            </div>
+            <h4 class="page-header h4">详细信息</h4>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">负责人：</label>
+                        <div class="col-sm-8">
+                            <div class="input-group" style="width: 100%">
+                                <input type="text" class="form-control" autocomplete="off" placeholder="请输入负责人姓名"
+                                       th:field="*{principal}" id="principal" name="principal">
                             </div>
                         </div>
                     </div>
                 </div>
-                <h4 class="page-header h4 ">其他信息</h4>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">备注：</label>
-                            <div class="col-sm-10">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">电话：</label>
+                        <div class="col-sm-8">
+                            <div class="input-group" style="width: 100%">
+                                <input id="telephone" name="telephone" class="form-control" autocomplete="off"
+                                       type="text"
+                                       placeholder="请输入联系电话" maxlength="11" th:field="*{telephone}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">邮箱：</label>
+                        <div class="col-sm-8">
+                            <div class="input-group" style="width: 100%">
+                                <input class="form-control" id="email" name="email" autocomplete="off"
+                                       th:field="*{email}" type="text" email="true"
+                                       placeholder="请输入邮箱">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">邮政编码：</label>
+                        <div class="col-sm-8">
+                            <div class="input-group" style="width: 100%">
+                                <input id="zipCode" name="zipCode" placeholder="请输入邮政编码" autocomplete="off"
+                                       class="form-control" type="text" th:field="*{zipCode}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--二期功能扩展实现-->
+            <!--<div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">区域：</label>
+                        <div class="col-sm-8">
+                            <div class="input-group" style="width: 100%">
+                                <input id="areaId" type="text" autocomplete="off" name="areaId" maxlength="50"
+                                       class="form-control"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">地图标注：</label>
+                        <div class="col-sm-8">
+                            <div class="input-group" style="width: 100%">
+                                <input id="map" type="text" placeholder="请标注地图" autocomplete="off"
+                                       maxlength="50"
+                                       class="form-control"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">传真：</label>
+                        <div class="col-sm-8">
+                            <div class="input-group" style="width: 100%">
+                                <input id="fax" name="fax" class="form-control" autocomplete="off" type="text"
+                                       placeholder="请输入传真" th:field="*{fax}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">地址：</label>
+                        <div class="col-sm-8">
+                            <div class="input-group" style="width: 100%">
+                                <input id="address" name="address" type="text" placeholder="请输入地址"
+                                       autocomplete="off"
+                                       maxlength="50" class="form-control" th:field="*{address}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h4 class="page-header h4 ">其他信息</h4>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">备注：</label>
+                        <div class="col-sm-10">
                                 <textarea id="remarks" name="remarks" th:field="*{remarks}" autocomplete="off"
                                           maxlength="50"
                                           class="form-control"
                                           rows="3"></textarea>
-                            </div>
                         </div>
                     </div>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
-</section>
+</div>
 </body>
 <div th:include="fragments/include :: include-js"/>
 <div th:include="fragments/include :: jquery-validate-js"/>

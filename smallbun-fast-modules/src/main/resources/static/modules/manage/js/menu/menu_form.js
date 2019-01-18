@@ -13,14 +13,6 @@ function pop_upr_menu_tree(obj) {
         url: contextPath + 'menu/list' //请求地址
     });
 }
-
-/**
- *
- */
-function pop_upr_icon() {
-    $.modal.open("选择图标", contextPath + 'icon');
-}
-
 /**
  * 验证
  */

@@ -5,66 +5,64 @@
 <head>
     <div th:include="fragments/include  :: header('添加字典类型')"></div>
 </head>
-<body class="list-body">
-<section class="i-content">
-    <div class="i-ibox">
-        <div class="ibox-content">
-            <form id="form" class="form-horizontal" th:action="@{/dict/type/saveOrUpdate}" th:object="${dictType}"
-                  method="post">
-                <!--隐藏域ID-->
-                <input id="id" name="id" type="hidden" th:field="*{id}">
-                <!--类型编码(修改验证重复)-->
-                <input th:value="*{typeCode}" id="onlyTypeCode" class="hidden">
-                <h4 class="page-header h4">基本信息</h4>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="form-group">
-                            <label class="col-xs-3 control-label" for="typeName"><span
-                                    style="color: red;">*</span>类型名称：</label>
-                            <div class="col-xs-8">
-                                <div class="input-group" style="width: 100%">
-                                    <input id="typeName" placeholder="请输入类型名称" name="typeName"
-                                           class="form-control required" th:field="*{typeName}"
-                                           type="text" required autocomplete="off">
-                                </div>
+<body>
+<div class="i-ibox">
+    <div class="ibox-content">
+        <form id="form" class="form-horizontal" th:action="@{/dict/type/saveOrUpdate}" th:object="${dictType}"
+              method="post">
+            <!--隐藏域ID-->
+            <input id="id" name="id" type="hidden" th:field="*{id}">
+            <!--类型编码(修改验证重复)-->
+            <input th:value="*{typeCode}" id="onlyTypeCode" class="hidden">
+            <h4 class="page-header h4">基本信息</h4>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label" for="typeName"><span
+                                style="color: red;">*</span>类型名称：</label>
+                        <div class="col-xs-8">
+                            <div class="input-group" style="width: 100%">
+                                <input id="typeName" placeholder="请输入类型名称" name="typeName"
+                                       class="form-control required" th:field="*{typeName}"
+                                       type="text" required autocomplete="off">
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="form-group">
-                            <label class="col-xs-3 control-label" for="typeCode"><span
-                                    style="color: red; ">*</span>字典类型：</label>
-                            <div class="col-xs-8">
-                                <div class="input-group" style="width: 100%">
-                                    <input id="typeCode" placeholder="请输入字典类型" name="typeCode"
-                                           th:field="*{typeCode}"
-                                           class="form-control " required
-                                           type="text" title="请输入字典类型" autocomplete="off">
-                                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label" for="typeCode"><span
+                                style="color: red; ">*</span>字典类型：</label>
+                        <div class="col-xs-8">
+                            <div class="input-group" style="width: 100%">
+                                <input id="typeCode" placeholder="请输入字典类型" name="typeCode"
+                                       th:field="*{typeCode}"
+                                       class="form-control " required
+                                       type="text" title="请输入字典类型" autocomplete="off">
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="form-group">
-                            <label class="col-xs-3 control-label">备注信息：</label>
-                            <div class="col-xs-8">
-                                <div class="input-group" style="width: 100%">
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">备注信息：</label>
+                        <div class="col-xs-8">
+                            <div class="input-group" style="width: 100%">
                                 <textarea class="form-control" placeholder="请输入备注信息"
                                           type="text" rows="3" name="remarks" id="remarks"
                                           maxlength="50" aria-required="true" th:field="*{remarks}"></textarea>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
-</section>
+</div>
 </body>
 <div th:include="fragments/include :: include-js"></div>
 <div th:include="fragments/include :: jquery-validate-js"></div>
