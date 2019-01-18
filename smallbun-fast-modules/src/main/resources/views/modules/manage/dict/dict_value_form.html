@@ -4,7 +4,7 @@
       xmlns:th="http://www.thymeleaf.org" xmlns:smallbun="http://www.smallbun.org">
 <head>
     <div th:include="fragments/include  :: header('添加字典值')"></div>
-    <div th:include="fragments/include  :: jquery-easyui-css"></div>
+    <div th:include="fragments/include :: selectpage-css"></div>
 </head>
 <body class="list-body">
 <section class="i-content">
@@ -23,12 +23,7 @@
                                     style="color: red;">*</span>字典类型：</label>
                             <div class="col-xs-8">
                                 <div class="input-group" style="width: 100%">
-                                    <input type="text" class="form-control" data-options="prompt:'请选择字典类型'"
-                                           id="combogrid" th:value="*{dictType}">
-                                    <input id="dictType" th:field="*{dictType}" class="form-control"
-                                           style="display: none;" name="dictType"
-                                           required/>
-                                    <input type="text" id="easyui-combogrid-id" class="hidden"/>
+                                    <input type="text" id="dictType" th:field="*{dictType}" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -106,6 +101,6 @@
 </body>
 <div th:include="fragments/include :: include-js"></div>
 <div th:include="fragments/include :: jquery-validate-js"></div>
-<div th:include="fragments/include :: jquery-easyui-js"></div>
+<div th:include="fragments/include :: selectpage-js"></div>
 <script th:src="@{/static/modules/manage/js/dict/dict_value_form.js}"></script>
 </html>

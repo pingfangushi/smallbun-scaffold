@@ -33,7 +33,22 @@ $(document).ready(function () {
                 var obj = options.obj;
                 var value = $('#' + options.value);
                 //在当前对象后面追加html内容
-                obj.after('<input  id="' + options.value + '" type="text"  name="' + options.value + '" class="hidden"/><div id="' + treeLayerId + '" style="display: none;padding:10px;"><ul id="' + treeId + '" class="ztree"></ul> </div>');
+                obj.after(
+                    '<div id="' + treeLayerId + '" style="display: none;padding:10px;">' +
+                    '   <div class="box-header" style="padding-top: 5px;padding-bottom: 5px;">' +
+                    '   <div class="box-title">' +
+                    '       <label style="font-size: 14px;font-weight: 400;">' +
+                    '           <input type="checkbox" id="menuCheckAllNodes" class="minimal">主导航菜单' +
+                    '       </label>' +
+                    '   </div>' +
+                    '   <div class="box-tools pull-right" style="top:8px;">' +
+                    '      <a class="btn btn-box-tool" id="expand_default" value="menuTree_default" onclick="expandTree(\'menuTree\')">展开</a>' +
+                    '      <a class="btn btn-box-tool" id="collapse_default" value="menuTree_default" onclick="closeTree(\'menuTree\')">折叠</a></div>' +
+                    '   </div>' +
+                    '   <input  id="' + options.value + '" type="text"  name="' + options.value + '" class="hidden"/>' +
+                    '   <ul id="' + treeId + '" class="ztree"></ul>' +
+                    '</div>'
+                );
                 value.val(obj.val());
                 //发送ajax请求
                 $.ajax({

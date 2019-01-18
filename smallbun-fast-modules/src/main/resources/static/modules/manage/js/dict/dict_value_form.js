@@ -1,52 +1,21 @@
-/*
- *
- * Copyright(c)[2018] [smallbun] www.smallbun.org
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- */
-
 $(function () {
-    /**
-     * combogrid 加载字典类型
-     */
-    var comboGridId = '#combogrid';          //ComboGrid ID值
-    var valueId = '#dictType';               //下拉框id值
-    var idField = 'id';                      //ID字段
-    var textField = 'typeName';              //显示的字段
-    var url = contextPath + 'dict/type/page';   //URL
-    var pageSize = 10;                       //每页显示
-    var pageList = [10, 20];                 //可设置显示列表
-    var delay = 500;                         //延时查询
-    var editable = true;                     //是否可编辑
-    var method = 'POST';                     //请求方式
-    var columns = [[{field: 'id', title: 'id', hidden: true},
-        {field: 'typeName', title: '类型名称', width: $.comboGrid.fixWidth(0.2)},
-        {field: 'typeCode', title: '类型编码', width: $.comboGrid.fixWidth(0.2)},
-        {field: 'gmtModified', title: '修改时间', width: $.comboGrid.fixWidth(0.2)}
-    ]];
-    $.comboGrid.init({
-        comboGridId: comboGridId,
-        valueId: valueId,
-        idField: idField,
-        textField: textField,
-        url: url,
-        pageSize: pageSize,
-        pageList: pageList,
-        delay: delay,
-        editable: editable,
-        method: method,
-        columns: columns
+    var tag_data = [
+        {id: 1, name: 'Chicago Bulls', desc: '芝加哥公牛'},
+        {id: 2, name: 'Cleveland Cavaliers', desc: '克里夫兰骑士'},
+        {id: 3, name: 'Detroit Pistons', desc: '底特律活塞'},
+        {id: 4, name: 'Indiana Pacers', desc: '印第安纳步行者'}
+    ];
+    $('#dictType').selectPage({
+        showField: 'desc',
+        keyField: 'id',
+        data: tag_data,
+        pageSize: 5,
+        //箭头按钮
+        dropButton: true,
+        //自定义行内容呈现
+        formatItem: function (data) {
+            return data.desc + '(' + data.name + ')';
+        }
     });
 });
 
