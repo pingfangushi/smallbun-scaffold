@@ -34,19 +34,19 @@ $(document).ready(function () {
                 var value = $('#' + options.value);
                 //在当前对象后面追加html内容
                 obj.after(
-                    '<div id="' + treeLayerId + '" style="display: none;padding:10px;">' +
-                    '   <div class="box-header" style="padding-top: 5px;padding-bottom: 5px;">' +
-                    '   <div class="box-title">' +
-                    '       <label style="font-size: 14px;font-weight: 400;">' +
-                    '           <input type="checkbox" id="menuCheckAllNodes" class="minimal">主导航菜单' +
-                    '       </label>' +
+                    '<div id="' + treeLayerId + '" style="display: none;">' +
+                    '   <div class="box-header" id="search" style="display: block;padding: 20px;">' +
+                    '    <label for="keyword">关键字：</label><input autocomplete="off" type="text" id="keyword" style="line-height: 24px; width:60%;border: 1px solid #bbb;padding: 0 4px;" maxlength="50">' +
+                    '    <a class="btn btn-xs ibtn-primary" style="line-height: 22px;" onclick="$.ztree.searchNode(\'' + String(treeId) + '\')">搜索</a>' +
                     '   </div>' +
-                    '   <div class="box-tools pull-right" style="top:8px;">' +
-                    '      <a class="btn btn-box-tool" id="expand_default" value="menuTree_default" onclick="expandTree(\'menuTree\')">展开</a>' +
-                    '      <a class="btn btn-box-tool" id="collapse_default" value="menuTree_default" onclick="closeTree(\'menuTree\')">折叠</a></div>' +
+                    '   <div style="padding:10px 20px">' +
+                    '      <div class="pull-right">' +
+                    '         <a class="btn btn-box-tool" id="expand_default"   onclick="$.ztree.expandTree(\'' + String(treeId) + '\')">展开</a>/' +
+                    '         <a class="btn btn-box-tool" id="collapse_default" onclick="$.ztree.closeTree(\'' + String(treeId) + '\')">折叠</a>' +
+                    '      </div>' +
+                    '      <input  id="' + options.value + '" type="text"  name="' + options.value + '" class="hidden"/>' +
+                    '      <ul id="' + treeId + '" class="ztree"></ul>' +
                     '   </div>' +
-                    '   <input  id="' + options.value + '" type="text"  name="' + options.value + '" class="hidden"/>' +
-                    '   <ul id="' + treeId + '" class="ztree"></ul>' +
                     '</div>'
                 );
                 value.val(obj.val());
@@ -78,6 +78,13 @@ $(document).ready(function () {
                         alert("系统错误，请稍后重试！");
                     }
                 });
+                var width = '300px';
+                var height = '450px';
+                //如果是移动端，就使用自适应大小弹窗
+                if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
+                    width = 'auto';
+                    height = 'auto';
+                }
                 /**
                  * 弹出layer
                  */
@@ -85,7 +92,7 @@ $(document).ready(function () {
                     type: 1,
                     offset: '50px',
                     title: "请选择",
-                    area: ['300px', '400px'],
+                    area: [width, height],
                     shade: 0,
                     shadeClose: false,
                     content: jQuery("#" + treeLayerId), //弹框内容

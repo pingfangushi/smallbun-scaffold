@@ -1,6 +1,3 @@
-$(function () {
-    pop_upr_menu_tree($('#pop-up-menu-tree'));
-});
 /**
  * 上级菜单弹出树
  */

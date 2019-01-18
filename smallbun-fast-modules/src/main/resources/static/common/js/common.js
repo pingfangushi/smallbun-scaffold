@@ -846,7 +846,7 @@
                         temp.total = data.page.total;
                         return temp
                     }
-                };
+                }
 
                 /**
                  * 绑定参数
@@ -928,9 +928,66 @@
                     return data.result;
                 }
             }
+        },
+        /**
+         * ztree 封装
+         */
+        ztree: {
+            /**
+             * 搜索节点
+             * @param obj
+             */
+            searchNode: function (obj) {
+
+            },
+            /**
+             * 展开树
+             * @param obj
+             */
+            expandTree: function (obj) {
+                var tree = $.fn.zTree.getZTreeObj(obj);
+                tree.expandAll(true);
+            },
+
+            /**
+             * 收起树：只展开根节点下的一级节点
+             * @param obj
+             */
+            closeTree: function (obj) {
+                var tree = $.fn.zTree.getZTreeObj(obj);
+                tree.expandAll(false);
+            },
+
+            /**
+             * 勾选全部
+             * @param obj
+             */
+            checkAllTrue: function (obj) {
+                var tree = $.fn.zTree.getZTreeObj(obj);
+                tree.checkAllNodes(true);
+            },
+
+            /**
+             * 取消勾选
+             * @param obj
+             */
+            checkAllFalse: function (obj) {
+                var tree = $.fn.zTree.getZTreeObj(obj);
+                tree.checkAllNodes(false);
+            },
+
+            /**
+             * 获取选中的节点
+             * @param obj
+             * @returns {*}
+             */
+            getCheckedNodes: function (obj) {
+                var tree = $.fn.zTree.getZTreeObj(obj);
+                return tree.getCheckedNodes(true);
+            }
         }
 
-    });
+    })
 })(jQuery);
 /** 消息状态码 */
 web_status = {

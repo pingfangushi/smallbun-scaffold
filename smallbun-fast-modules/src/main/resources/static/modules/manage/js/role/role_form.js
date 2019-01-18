@@ -5,7 +5,7 @@ function doSubmit() {
     //获取from表单的值
     var serializeArray = $('.form-horizontal').serializeArray();
     //菜单节点
-    var menuNodes = getCheckedNodes('menuTree');
+    var menuNodes = $.ztree.getCheckedNodes('menuTree');
     var menuIds = [];
     for (var i = 0; i < menuNodes.length; i = i + 1) {
         menuIds.push(menuNodes[i].id);
@@ -17,7 +17,7 @@ function doSubmit() {
     //如果是按照明细设置,获取数据节点，并添加参数
     if ($("#dataScope").select2("val") === '9') {
         //菜单节点
-        var orgNodes = getCheckedNodes('orgTree');
+        var orgNodes = $.ztree.getCheckedNodes('orgTree');
         var orgIds = [];
         for (var i = 0; i < orgNodes.length; i = i + 1) {
             orgIds.push(orgNodes[i].id);
@@ -94,45 +94,7 @@ $(".form-horizontal").validate({
 });
 
 
-/**
- * 展开树
- */
-function expandTree(obj) {
-    var tree = $.fn.zTree.getZTreeObj(obj);
-    tree.expandAll(true);
-}
 
-/**
- * 收起树：只展开根节点下的一级节点
- */
-function closeTree(obj) {
-    var tree = $.fn.zTree.getZTreeObj(obj);
-    tree.expandAll(false);
-}
-
-/**
- * 勾选全部
- */
-function checkAllTrue(obj) {
-    var tree = $.fn.zTree.getZTreeObj(obj);
-    tree.checkAllNodes(true);
-}
-
-/**
- * 取消勾选
- */
-function checkAllFalse(obj) {
-    var tree = $.fn.zTree.getZTreeObj(obj);
-    tree.checkAllNodes(false);
-}
-
-/**
- * 获取选中的节点
- */
-function getCheckedNodes(obj) {
-    var tree = $.fn.zTree.getZTreeObj(obj);
-    return tree.getCheckedNodes(true);
-}
 
 
 /**
@@ -141,17 +103,17 @@ function getCheckedNodes(obj) {
  */
 //菜单权限
 $('#menuCheckAllNodes').on('ifUnchecked', function () {
-    checkAllFalse('menuTree');
+    $.ztree.checkAllFalse('menuTree');
 });
 $('#menuCheckAllNodes').on('ifChecked', function () {
-    checkAllTrue('menuTree');
+    $.ztree.checkAllTrue('menuTree');
 });
 //明细设置
 $('#orgCheckAllNodes').on('ifUnchecked', function () {
-    checkAllFalse('orgTree');
+    $.ztree.checkAllFalse('orgTree');
 });
 $('#orgCheckAllNodes').on('ifChecked', function () {
-    checkAllTrue('orgTree');
+    $.ztree.checkAllTrue('orgTree');
 });
 /**
  * 数据权限下拉框选择事件
