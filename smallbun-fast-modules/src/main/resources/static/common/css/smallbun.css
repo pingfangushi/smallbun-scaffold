@@ -188,6 +188,10 @@ body .wrapper .main-header .navbar .dropdown-menu li.active > a:hover {
     border-bottom-style: none;
 }
 
+span.input-group-addon:hover {
+    background: #d8dce4;
+}
+
 .ibox-content h1,
 .ibox-content h2,
 .ibox-content h3,
