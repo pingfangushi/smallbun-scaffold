@@ -4,7 +4,7 @@
     <div th:include="fragments/include  :: header('菜单管理')"></div>
     <link rel="stylesheet" th:href="@{/static/modules/manage/css/icons.css}"/>
 </head>
-<body>
+<body onload="(function() {window.Pace.stop();})">
 <!--icon隐藏域-->
 <input class="hidden" id="icon">
 <div class="i-ibox">
