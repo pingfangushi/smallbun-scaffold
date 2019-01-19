@@ -109,14 +109,15 @@
                                 <label class="col-sm-4 control-label">菜单图标：</label>
                                 <div class="col-sm-8">
                                     <div class="input-group" style="width: 100%">
-                                        <span class="input-group-addon">
-                                            <i class="fa fa-address-book"></i>
+                                        <!--显示图标-->
+                                        <span class="input-group-addon" style="width: 38px;">
+                                            <i id="icon-show"></i>
                                         </span>
                                         <input readonly="readonly" id="pop-up-icon-tree" th:field="*{icon}"
                                                placeholder="请选择菜单图标" class="form-control"
-                                               onclick="$.modal.open('选择图标', contextPath + 'icon')"/>
+                                               onclick="$.modal.open('选择图标', contextPath + 'icon','','',iconConfirm)"/>
                                         <span class="input-group-addon"
-                                              onclick="$.modal.open('选择图标', contextPath + 'icon')">
+                                              onclick="$.modal.open('选择图标', contextPath + 'icon','','',iconConfirm)">
                                             <i class="fa fa-search"></i>
                                         </span>
                                     </div>
@@ -187,4 +188,24 @@
     <div th:include="fragments/include :: ztree-js"></div>
     <div th:include="fragments/include :: jquery-validate-js"/>
     <script th:src="@{/static/modules/manage/js/menu/menu_form.js}"></script>
+    <script>
+        /**
+         * 图标选中回调
+         * @param index
+         * @param layero
+         */
+        function iconConfirm(index, layero) {
+            var body = top.layer.getChildFrame('body', index);
+            //得到iframe页的窗口对象，获取icon的值
+            var icon = layero.find('iframe')[0].contentWindow.document.getElementById("icon").value;
+            //设置图标文本值
+            $("input[name='icon']").val(icon);
+            //给图标显示位置添加class,首先移除当前class样式
+            $('#icon-show').removeClass();
+            $('#icon-show').removeAttr('style');
+            $('#icon-show').addClass(icon);
+            //关闭弹框
+            layer.close(index);
+        }
+    </script>
 </html>

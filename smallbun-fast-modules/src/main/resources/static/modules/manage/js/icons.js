@@ -8,6 +8,8 @@ $(function () {
         //移除style
         $('#glyphicons').find("li").removeAttr("style");
         $('#fa-icons').find("i").parent().removeAttr("style");
+        //设置值
+        $('#icon').val($(this).find('i').attr('class').trim());
         //给当前选中元素添加style样式
         $(this).css({"background-color": "#479bff", "color": "#ffffff", "cursor": "pointer"});
     });
@@ -18,6 +20,8 @@ $(function () {
         //移除style
         $('#fa-icons').find("i").parent().removeAttr("style");
         $('#glyphicons').find("li").removeAttr("style");
+        //设置值
+        $('#icon').val($(this).find('span').eq(0).attr('class').trim());
         //给当前选中元素添加style样式
         $(this).css({"background-color": "#479bff", "color": "#ffffff", "cursor": "pointer"});
     });

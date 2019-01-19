@@ -13,6 +13,7 @@ function pop_upr_menu_tree(obj) {
         url: contextPath + 'menu/list' //请求地址
     });
 }
+
 /**
  * 验证
  */
@@ -57,3 +58,4 @@ function doSubmit() {
         $.operate.save($('.form-horizontal').attr('action'), $('.form-horizontal').serializeArray());
     }
 }
+

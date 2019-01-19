@@ -361,7 +361,7 @@
                 });
             },
             // 弹出层指定宽度
-            open: function (title, url, width, height) {
+            open: function (title, url, width, height, callback) {
                 //如果是移动端，就使用自适应大小弹窗
                 if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
                     width = 'auto';
@@ -379,6 +379,15 @@
                 if ($.common.isEmpty(height)) {
                     height = ($(window).height() - 45);
                 }
+                if ($.common.isEmpty(callback)) {
+                    callback = function (index, layero) {
+                        var body = top.layer.getChildFrame('body', index);
+                        var iframeWin = layero.find('iframe')[0]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                        //文档地址
+                        //调用提交方法
+                        iframeWin.contentWindow.doSubmit();
+                    }
+                }
                 layer.open({
                     type: 2,
                     area: [width + 'px', height + 'px'],
@@ -389,17 +398,11 @@
                     title: title,
                     content: url,
                     btn: ['确定', '关闭'],
-                    yes: function (index, layero) {
-                        var body = top.layer.getChildFrame('body', index);
-                        var iframeWin = layero.find('iframe')[0]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
-                        //文档地址
-                        //调用提交方法
-                        iframeWin.contentWindow.doSubmit();
-                    },
+                    yes: callback,
                     cancel: function (index) {
 
                     }
-                });
+                })
             },
             // 弹出层指定宽度
             view: function (title, url, width, height) {
