@@ -3,8 +3,13 @@
 <head>
     <div th:include="fragments/include  :: header('菜单管理')"></div>
     <link rel="stylesheet" th:href="@{/static/modules/manage/css/icons.css}"/>
+    <script>
+        window.onload = function (ev) {
+            window.Pace.stop();
+        }
+    </script>
 </head>
-<body onload="(function() {window.Pace.stop();})">
+<body>
 <!--icon隐藏域-->
 <input class="hidden" id="icon">
 <div class="i-ibox">
