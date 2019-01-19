@@ -1,0 +1,58 @@
+.tab-pane .fa {
+    margin: 5px;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    width: 28px;
+    border-radius: 3px;
+}
+
+.tab-pane .fontawesome-icon-list div:hover {
+    background-color: #479bff;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+
+.bs-glyphicons {
+    padding-left: 0;
+    padding-bottom: 1px;
+    margin-bottom: 20px;
+    list-style: none;
+    overflow: hidden;
+}
+
+.bs-glyphicons li {
+    float: left;
+    width: 25%;
+    height: 115px;
+    padding: 10px;
+    margin: 0 -1px -1px 0;
+    font-size: 12px;
+    line-height: 1.4;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.bs-glyphicons .glyphicon {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+.bs-glyphicons .glyphicon-class {
+    display: block;
+    text-align: center;
+    word-wrap: break-word; /* Help out IE10+ with class names */
+}
+
+.bs-glyphicons li:hover {
+    background-color: #479bff;
+    cursor: pointer;
+}
+
+@media (min-width: 768px) {
+    .bs-glyphicons li {
+        width: 12.5%;
+    }
+}
