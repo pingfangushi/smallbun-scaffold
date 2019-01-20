@@ -63,11 +63,11 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="col-sm-4 control-label"><span style="color: red">*</span>可见：
+                                <label class="col-sm-4 control-label"><span style="color: red">*</span>菜单状态：
                                 </label>
                                 <div class="col-sm-8">
                                     <div class="input-group" style="width: 100%;">
-                                        <label class="label-radio" th:each="dict : ${@smallbun.dict('VISIBLE')}">
+                                        <label class="label-radio" th:each="dict : ${@smallbun.dict('MENU_STATUS')}">
                                             <input type="radio" class="minimal" name="visible"
                                                    th:value="${dict.dictValue}" required th:field="*{visible}">
                                             <label th:text="${dict.dictLabel}"></label>

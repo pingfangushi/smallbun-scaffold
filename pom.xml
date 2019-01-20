@@ -471,7 +471,7 @@
             <artifactId>iCheck</artifactId>
             <version>1.0.2</version>
         </dependency>
-        <!--bootstrap-table，需要更换为1.13.2-->
+        <!--bootstrap-table-->
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>bootstrap-table</artifactId>
@@ -481,7 +481,7 @@
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>inputmask</artifactId>
-            <version>4.0.4</version>
+            <version>4.0.6</version>
         </dependency>
         <!--tablednd-->
         <dependency>

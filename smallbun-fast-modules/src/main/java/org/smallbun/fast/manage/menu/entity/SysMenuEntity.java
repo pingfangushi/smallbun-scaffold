@@ -52,7 +52,7 @@ public class SysMenuEntity extends TreeDataEntity<SysMenuEntity, Long> {
 	 */
 	private String url;
 	/**
-	 * 类型 1. 菜单,2 按钮
+	 * 类型 0.目录 1. 菜单,2 按钮
 	 */
 	private Integer menuType;
 	/**
@@ -68,12 +68,8 @@ public class SysMenuEntity extends TreeDataEntity<SysMenuEntity, Long> {
 	 */
 	private Integer sort;
 	/**
-	 * 菜单状态 0正常 ，1锁定
+	 * 菜单状态 0正常 ，2锁定，也就意味着这个菜单看不到，按钮可以看到但由于控制方法级别而不可用
 	 */
 	private String menuStatus;
-	/**
-	 * 是否可用
-	 */
-	private String visible;
 
 }
