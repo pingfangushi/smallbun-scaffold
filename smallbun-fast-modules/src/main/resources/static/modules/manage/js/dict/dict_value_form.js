@@ -1,24 +1,39 @@
 $(function () {
-    var tag_data = [
-        {id: 1, name: 'Chicago Bulls', desc: '芝加哥公牛'},
-        {id: 2, name: 'Cleveland Cavaliers', desc: '克里夫兰骑士'},
-        {id: 3, name: 'Detroit Pistons', desc: '底特律活塞'},
-        {id: 4, name: 'Indiana Pacers', desc: '印第安纳步行者'}
-    ];
-    $('#dictType').selectPage({
-        showField: 'desc',
-        keyField: 'id',
-        data: tag_data,
-        pageSize: 5,
-        //箭头按钮
-        dropButton: true,
-        //自定义行内容呈现
-        formatItem: function (data) {
-            return data.desc + '(' + data.name + ')';
+    /**
+     * 字典类型
+     */
+    $.ajax({
+        url: contextPath + "dict/type/list",
+        async: true,
+        type: "post",
+        dataType: 'JSON',
+        success: function (data) {
+            $('#dictType').selectPage({
+                showField: 'typeName',
+                keyField: 'id',
+                data: data.result,
+                pageSize: 10,
+                eOpen: function () {
+                    $('.sp_result_area').outerWidth($('#dictType').parent().width());
+                },
+                //自定义行内容呈现
+                formatItem: function (data) {
+                    return data.typeName + '(' + data.typeCode + ')';
+                },
+                //选中处理
+                eSelect: function (data) {
+                    $('#dictType').valid();
+                },
+                //单选模式清除事件
+                eClear: function () {
+                }
+            });
+            //移除class
+            // $('.sp_input').removeClass('sp_input');
+            $('#dictType').addClass('required');
         }
     });
 });
-
 /**
  * 验证
  */

@@ -5,6 +5,11 @@
 <head>
     <div th:include="fragments/include  :: header('添加字典值')"></div>
     <div th:include="fragments/include :: selectpage-css"></div>
+    <style>
+        input #dictType {
+            pers
+        }
+    </style>
 </head>
 <body>
 <div class="i-ibox">
@@ -21,9 +26,8 @@
                         <label class="col-xs-3 control-label" for="dictType"><span
                                 style="color: red;">*</span>字典类型：</label>
                         <div class="col-xs-8">
-                            <div class="input-group" style="width: 100%">
-                                <input type="text" id="dictType" th:field="*{dictType}" class="form-control">
-                            </div>
+                            <input type="text" id="dictType" placeholder="请选择字典类型" th:field="*{dictType}"
+                                   class="form-control">
                         </div>
                     </div>
                 </div>

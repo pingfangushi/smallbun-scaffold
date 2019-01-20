@@ -68,7 +68,7 @@ public class SysMenuEntity extends TreeDataEntity<SysMenuEntity, Long> {
 	 */
 	private Integer sort;
 	/**
-	 * 菜单状态 0正常 ，2锁定，也就意味着这个菜单看不到，按钮可以看到但由于控制方法级别而不可用
+	 * 菜单状态 0正常 ，2锁定
 	 */
 	private String menuStatus;
 

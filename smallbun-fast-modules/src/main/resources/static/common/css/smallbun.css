@@ -800,6 +800,15 @@ ul.clear-list:first-child {
     box-shadow: none;
 }
 
+.has-error .form-control {
+    border-color: #ea2e49;
+}
+
+.has-error .form-control:focus {
+    border-color: #ea2e49;
+    -webkit-box-shadow: none;
+}
+
 .error {
     color: #ea2e49;
 }

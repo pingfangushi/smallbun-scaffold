@@ -146,7 +146,7 @@ $(function () {
         return this.optional(element) || isIdCardNo(value);
     }, "请输入正确的身份证号码。");
     //传真
-    jQuery.validator.addMethod("fax", function(value, element){
+    jQuery.validator.addMethod("fax", function (value, element) {
         return this.optional(element) || /^[+]{0,1}(\d){1,3}[ ]?([-]?((\d)|[ ]){1,12})+$/.test(value);
     }, "请输入正确的传真格式");
     // IP地址验证
@@ -185,7 +185,7 @@ $(function () {
         return this.optional(element) || !reg.test(value);
     }, "含有中英文特殊字符");
     //真实姓名验证
-    jQuery.validator.addMethod("realName", function(value, element) {
+    jQuery.validator.addMethod("realName", function (value, element) {
         return this.optional(element) || /^[\u4e00-\u9fa5]{2,30}$/.test(value);
     }, "姓名只能为2-30个汉字");
 
@@ -229,12 +229,17 @@ $.validator.setDefaults({
     ignore: [], //开启所有字段验证
     highlight: function (element) {
         $(element).closest('.input-group').addClass('has-error');
+        //selectPage
+        $(element).closest('.sp_container').addClass('has-error');
     },
     unhighlight: function (element) {
         $(element).closest('.input-group').removeClass('has-error');
+        //selectPage
+        $(element).closest('.sp_container').removeClass('has-error');
         $(element).closest('.input-group.panel-noscroll.has-error').removeClass('has-error');
     },
     errorPlacement: function (error, element) {
+        console.log(element)
         //radio
         if (element.is(":radio")) {
             error.appendTo(element.parents('.input-group'));//错误信息放到右侧
@@ -243,6 +248,10 @@ $.validator.setDefaults({
         //select 2
         else if (element.hasClass('select2')) {
             error.insertAfter(element.next('span'));
+        }
+        //selectPage
+        else if (element.hasClass('sp_hidden')) {
+            error.insertAfter(element.parent());
         }
         //input-group
         else if (element.parent('.input-group').length) {
