@@ -34,39 +34,43 @@ import org.smallbun.fast.common.entity.TreeDataEntity;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName(value = "sys_menu")
-public class SysMenuEntity extends TreeDataEntity<SysMenuEntity,Long> {
-    /**
-     * 菜单名称
-     */
-    private String menuName;
-    /**
-     * 图标
-     */
-    private String icon;
-    /**
-     * 地址
-     */
-    private String url;
-    /**
-     * 类型 1. 菜单,2 按钮
-     */
-    private Integer menuType;
+public class SysMenuEntity extends TreeDataEntity<SysMenuEntity, Long> {
+	/**
+	 * 菜单名称
+	 */
+	private String menuName;
+	/**
+	 * 图标
+	 */
+	private String icon;
+	/**
+	 *字体颜色
+	 */
+	private String fontColor;
+	/**
+	 * 地址
+	 */
+	private String url;
+	/**
+	 * 类型 1. 菜单,2 按钮
+	 */
+	private Integer menuType;
 	/**
 	 * 菜单目标
 	 */
 	private String target;
-    /**
-     * 方法允许配置标识
-     */
-    private String permission;
-    /**
-     * 排序
-     */
-    private Integer sort;
-    /**
-     * 菜单状态 0正常 ，1锁定
-     */
-    private String menuStatus;
+	/**
+	 * 方法允许配置标识
+	 */
+	private String permission;
+	/**
+	 * 排序
+	 */
+	private Integer sort;
+	/**
+	 * 菜单状态 0正常 ，1锁定
+	 */
+	private String menuStatus;
 	/**
 	 * 是否可用
 	 */

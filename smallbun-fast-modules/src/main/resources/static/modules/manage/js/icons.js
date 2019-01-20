@@ -29,7 +29,6 @@ $(function () {
         //设置值
         $('#icon').val($(this).attr('class').trim());
         //给当前选中元素添加style样式
-        console.log($(this));
         $(this).css({"background-color": "#4F8EF7", "color": "#ffffff", "cursor": "pointer"});
     });
 

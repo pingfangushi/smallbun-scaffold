@@ -35,7 +35,6 @@
                             <div class="form-group">
                                 <label class="col-sm-4 control-label" title="菜单名称">
                                     <font color="red">*</font>菜单名称：
-                                    <i class="icon-question-sign"></i>
                                 </label>
                                 <div class="col-sm-8">
                                     <div class="input-group" style="width: 100%">
@@ -133,10 +132,10 @@
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">字体颜色：</label>
                                 <div class="col-sm-8">
-                                    <div class="input-group my-colorpicker2" style="width: 100%">
+                                    <div class="input-group colorpicker" style="width: 100%">
                                         <input class="form-control" type="text"
                                                maxlength="50" autocomplete="off" id="fontColor" name="fontColor"
-                                               placeholder="请输入顺序" th:field="*{sort}" required>
+                                               placeholder="请选择字体颜色" th:field="*{fontColor}" required>
                                         <div class="input-group-addon">
                                             <i></i>
                                         </div>
@@ -149,6 +148,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"><span style="color: red">*</span>权限标识：
+                                    <i class="ion-help-circled"></i>
                                 </label>
                                 <div class="col-sm-8">
                                     <div class="input-group" style="width: 100%">
@@ -212,7 +212,7 @@
     <script th:src="@{/static/modules/manage/js/menu/menu_form.js}"></script>
     <script>
         (function () {
-            $('.my-colorpicker2').colorpicker()
+            $('.colorpicker').colorpicker()
         })
 
         /**
