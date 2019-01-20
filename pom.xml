@@ -292,6 +292,12 @@
             <groupId>org.webjars</groupId>
             <artifactId>zTree</artifactId>
             <version>3.5.37</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jquery</artifactId>
+                    <groupId>org.webjars</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!--selectPage-->
         <dependency>
@@ -392,6 +398,12 @@
                     <groupId>org.webjars</groupId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <!--colorpicker-->
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>bootstrap-colorpicker</artifactId>
+            <version>3.0.3</version>
         </dependency>
         <!--slimScroll-->
         <dependency>

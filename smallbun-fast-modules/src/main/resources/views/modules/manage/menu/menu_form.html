@@ -19,7 +19,8 @@
                                 <label class="col-sm-4 control-label">上级菜单：</label>
                                 <div class="col-sm-8">
                                     <div class="input-group" style="width: 100%">
-                                        <input readonly="readonly" type="text" id="pop-up-menu-tree" th:field="*{parentId}"
+                                        <input readonly="readonly" type="text" id="pop-up-menu-tree"
+                                               th:field="*{parentId}"
                                                placeholder="请选择上级菜单" required
                                                class="form-control" onclick="pop_upr_menu_tree($(this))"/>
                                         <span class="input-group-addon"
@@ -33,8 +34,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="col-sm-4 control-label" title="菜单名称">
-                                    <font color="red">*</font>
-                                    菜单名称：
+                                    <font color="red">*</font>菜单名称：
                                     <i class="icon-question-sign"></i>
                                 </label>
                                 <div class="col-sm-8">
@@ -50,7 +50,8 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="col-sm-4 control-label">菜单类型：</label>
+                                <label class="col-sm-4 control-label"><span style="color: red">*</span>菜单类型：
+                                </label>
                                 <div class="col-sm-8">
                                     <div class="input-group" style="width: 100%">
                                         <label class="label-radio" th:each="dict : ${@smallbun.dict('MENU_TYPE')}">
@@ -64,7 +65,8 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="col-sm-4 control-label">可见：</label>
+                                <label class="col-sm-4 control-label"><span style="color: red">*</span>可见：
+                                </label>
                                 <div class="col-sm-8" style="margin-top: 5px;">
                                     <div class="input-group" style="width: 100%;">
                                         <label class="label-radio" th:each="dict : ${@smallbun.dict('VISIBLE')}">
@@ -80,7 +82,8 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="col-sm-4 control-label">菜单链接：</label>
+                                <label class="col-sm-4 control-label"><span style="color: red">*</span>菜单链接：
+                                </label>
                                 <div class="col-sm-8">
                                     <div class="input-group" style="width: 100%">
                                         <input class="form-control" type="text"
@@ -92,7 +95,8 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="col-sm-4 control-label">菜单目标：</label>
+                                <label class="col-sm-4 control-label"><span style="color: red">*</span>菜单目标：
+                                </label>
                                 <div class="col-sm-8">
                                     <div class="input-group" style="width: 100%">
                                         <input class="form-control" type="text"
@@ -106,7 +110,8 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="col-sm-4 control-label">菜单图标：</label>
+                                <label class="col-sm-4 control-label"><span style="color: red">*</span>菜单图标：
+                                </label>
                                 <div class="col-sm-8">
                                     <div class="input-group" style="width: 100%">
                                         <!--显示图标-->
@@ -126,12 +131,15 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="col-sm-4 control-label">排序：</label>
+                                <label class="col-sm-4 control-label">字体颜色：</label>
                                 <div class="col-sm-8">
-                                    <div class="input-group" style="width: 100%">
-                                        <input class="form-control" type="number"
-                                               maxlength="50" autocomplete="off" id="sort" name="sort"
+                                    <div class="input-group my-colorpicker2" style="width: 100%">
+                                        <input class="form-control" type="text"
+                                               maxlength="50" autocomplete="off" id="fontColor" name="fontColor"
                                                placeholder="请输入顺序" th:field="*{sort}" required>
+                                        <div class="input-group-addon">
+                                            <i></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -140,12 +148,26 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="col-sm-4 control-label">权限标识：</label>
+                                <label class="col-sm-4 control-label"><span style="color: red">*</span>权限标识：
+                                </label>
                                 <div class="col-sm-8">
                                     <div class="input-group" style="width: 100%">
                                         <input class="form-control" type="text"
                                                maxlength="50" autocomplete="off" id="permission" name="permission"
                                                placeholder="请输入权限标识" th:field="*{permission}" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label"><span style="color: red">*</span>排序：
+                                </label>
+                                <div class="col-sm-8">
+                                    <div class="input-group" style="width: 100%">
+                                        <input class="form-control" type="number"
+                                               maxlength="50" autocomplete="off" id="sort" name="sort"
+                                               placeholder="请输入顺序" th:field="*{sort}" required>
                                     </div>
                                 </div>
                             </div>
@@ -189,6 +211,10 @@
     <div th:include="fragments/include :: jquery-validate-js"/>
     <script th:src="@{/static/modules/manage/js/menu/menu_form.js}"></script>
     <script>
+        (function () {
+            $('.my-colorpicker2').colorpicker()
+        })
+
         /**
          * 图标选中回调
          * @param index
