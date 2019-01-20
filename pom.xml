@@ -477,7 +477,7 @@
             <artifactId>bootstrap-table</artifactId>
             <version>1.13.2</version>
         </dependency>
-        <!--inputmask 需要更换为4.0.6-->
+        <!--inputmask-->
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>inputmask</artifactId>
