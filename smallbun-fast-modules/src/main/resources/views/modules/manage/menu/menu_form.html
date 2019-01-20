@@ -68,8 +68,8 @@
                                 <div class="col-sm-8">
                                     <div class="input-group" style="width: 100%;">
                                         <label class="label-radio" th:each="dict : ${@smallbun.dict('MENU_STATUS')}">
-                                            <input type="radio" class="minimal" name="visible"
-                                                   th:value="${dict.dictValue}" required th:field="*{visible}">
+                                            <input type="radio" class="minimal" name="menuStatus"
+                                                   th:value="${dict.dictValue}" required th:field="*{menuStatus}">
                                             <label th:text="${dict.dictLabel}"></label>
                                         </label>
                                     </div>
