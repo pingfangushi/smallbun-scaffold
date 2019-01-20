@@ -22,10 +22,8 @@
                                     <div class="input-group" style="width: 100%">
                                         <input readonly="readonly" type="text" id="pop-up-menu-tree"
                                                th:value="*{parentId}" placeholder="请选择上级菜单"
-                                               class="form-control"
-                                               onclick="pop_upr_menu_tree($(this))"/>
-                                        <span class="input-group-addon"
-                                              onclick="pop_upr_menu_tree($('#pop-up-menu-tree'))">
+                                               class="form-control"/>
+                                        <span class="input-group-addon">
                                             <i class="fa fa-search"></i>
                                         </span>
                                     </div>
@@ -133,7 +131,7 @@
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">字体颜色：</label>
                                 <div class="col-sm-8">
-                                    <div class="input-group" id="colorpicker" style="width: 100%">
+                                    <div class="input-group" id="color-picker" style="width: 100%">
                                         <input class="form-control" id="fontColor" name="fontColor" readonly="readonly"
                                                placeholder="请选择字体颜色" th:field="*{fontColor}">
                                         <div class="input-group-addon">

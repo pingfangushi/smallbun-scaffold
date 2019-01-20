@@ -1034,8 +1034,11 @@
                     '</div>'
                 );
                 var value = $('#' + options.value);
+                //设置value
                 value.val(obj.val());
-                //发送ajax请求
+                /**
+                 * 发送ajax请求
+                 */
                 $.ajax({
                     type: options.type,
                     url: options.url,
@@ -1063,42 +1066,56 @@
                         alert("系统错误，请稍后重试！");
                     }
                 });
-                var width = '300px';
-                var height = '450px';
-                //如果是移动端，就使用自适应大小弹窗
-                if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
-                    width = 'auto';
-                    height = 'auto';
-                }
                 /**
-                 * 弹出layer
+                 * 绑定单击事件（input）
                  */
-                layer.open({
-                    type: 1,
-                    offset: '50px',
-                    title: "请选择",
-                    area: [width, height],
-                    shade: 0,
-                    shadeClose: false,
-                    content: jQuery("#" + treeLayerId), //弹框内容
-                    btn: ['确定', '取消'],
-                    btn1: function (index) {
-                        var node = ztree.getSelectedNodes();
-                        if (node.length > 0) {
-                            //将选中的值放入隐藏value框
-                            value.val(node[0][options.idKey]);
-                            //将名称会显示内容框
-                            obj.val(node[0][options.name]);
-                        }
-                        //选择上级菜单
-                        layer.close(index);
-                        try {
-                            //调用验证，清除验证消息，可能会发生异常，进行捕获
-                            obj.valid();
-                        } catch (e) {
-                        }
+                options.obj.bind('click', open);
+                /**
+                 * 绑定单击事件（btn）
+                 */
+                options.obj.parent().find('.input-group-addon').bind('click', open);
+
+                /**
+                 * 弹出框
+                 */
+                function open() {
+                    var width = '300px';
+                    var height = '450px';
+                    //如果是移动端，就使用自适应大小弹窗
+                    if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
+                        width = 'auto';
+                        height = 'auto';
                     }
-                });
+                    /**
+                     * 弹出layer
+                     */
+                    layer.open({
+                        type: 1,
+                        offset: '50px',
+                        title: "请选择",
+                        area: [width, height],
+                        shade: 0,
+                        shadeClose: false,
+                        content: jQuery("#" + treeLayerId), //弹框内容
+                        btn: ['确定', '取消'],
+                        btn1: function (index) {
+                            var node = ztree.getSelectedNodes();
+                            if (node.length > 0) {
+                                //将选中的值放入隐藏value框
+                                value.val(node[0][options.idKey]);
+                                //将名称会显示内容框
+                                obj.val(node[0][options.name]);
+                            }
+                            //选择上级菜单
+                            layer.close(index);
+                            try {
+                                //调用验证，清除验证消息，可能会发生异常，进行捕获
+                                obj.valid();
+                            } catch (e) {
+                            }
+                        }
+                    });
+                }
             }
         }
 

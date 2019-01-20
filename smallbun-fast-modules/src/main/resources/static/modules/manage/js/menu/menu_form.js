@@ -1,7 +1,20 @@
 $(function () {
     //默认字体颜色
     $("input[name='fontColor']").val('#ddd');
-    $('#colorpicker').colorpicker()
+    $('#color-picker').colorpicker();
+    /**
+     * 初始化时加载tree弹出数据
+     */
+    $.pop_up_tree.init({
+        obj: $('#pop-up-menu-tree'),//显示input name 属性和id属性
+        value: 'parentId', //隐藏value name 属性和id属性
+        idKey: 'id',       //zTree idKey
+        pIdKey: 'parentId',//zTree pIdKey
+        rootPId: '0',      //zTree rootPId
+        name: 'menuName',  //zTree name
+        type: 'POST',      //ajax 请求
+        url: contextPath + 'menu/list' //请求地址
+    });
 });
 
 /**
@@ -24,21 +37,7 @@ function iconConfirm(index, layero) {
 
 }
 //@formatter:off
-/**
- * 上级菜单弹出树
- */
-function pop_upr_menu_tree(obj) {
-    $.pop_up_tree.init({
-        obj: obj,//显示input name 属性和id属性
-        value: 'parentId', //隐藏value name 属性和id属性
-        idKey: 'id',       //zTree idKey
-        pIdKey: 'parentId',//zTree pIdKey
-        rootPId: '0',      //zTree rootPId
-        name: 'menuName',  //zTree name
-        type: 'POST',      //ajax 请求
-        url: contextPath + 'menu/list' //请求地址
-    });
-}
+
 
 /**
  * 提交事件
@@ -58,26 +57,30 @@ $("input[type=radio][name=visible][value='0']").attr("checked", true);
  * 选择菜单类型事件
  */
 $("input:radio[name='menuType']").on('ifChecked', function (event) {
-    //按钮
+    /**
+     * 按钮
+     */
     if ($(this).val() === '2') {
         $("input[name='fontColor']").parent().parent().parent().hide();
         $("input[name='icon']").parent().parent().parent().hide();
         $("input[name='target']").parent().parent().parent().hide();
         $("input[name='url']").parent().parent().parent().hide();
 
-        //移除必选
+        //移除required
         $("input[name='icon']").removeAttr('required');
         $("input[name='target']").removeAttr('required');
         $("input[name='url']").removeAttr('required');
     }
-    //目录或菜单
+    /**
+     * 目录或菜单
+     */
     if ($(this).val() === '0' || $(this).val() === '1') {
         $("input[name='fontColor']").parent().parent().parent().show();
         $("input[name='icon']").parent().parent().parent().show();
         $("input[name='target']").parent().parent().parent().show();
         $("input[name='url']").parent().parent().parent().show();
 
-         //添加必选
+         //添加required
         $("input[name='icon']").attr('required');
         $("input[name='target']").attr('required');
         $("input[name='url']").attr('required');
