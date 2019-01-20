@@ -20,19 +20,16 @@
                             <!--根节点不显示-->
                             <th:block th:unless="*{parentId==0}">
                                 <div class="input-group" style="width: 100%">
-                                    <input readonly="readonly" id="pop-up-org-tree" th:field="*{parentId}"
+                                    <input readonly="readonly" id="pop-up-org-tree" th:value="*{parentId}"
                                            placeholder="请选择上级机构" required
-                                           class="form-control" onclick="pop_upr_org_tree($(this))"/>
-                                    <span class="input-group-addon"
-                                          onclick="pop_upr_org_tree($('#pop-up-org-tree'))">
-                                                <i class="fa fa-search"></i>
-                                            </span>
+                                           class="form-control"/>
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-search"></i>
+                                    </span>
                                 </div>
                             </th:block>
                             <th:block th:if="*{parentId==0}">
-                                <input id="parentId" name="parentId" class="form-control" placeholder="根节点不可选择"
-                                       disabled>
-                                <input id="parentId" name="parentId" class="hidden" th:field="*{parentId}">
+                                <input th:field="*{parentId}" class="form-control" placeholder="根节点不可选择" disabled>
                             </th:block>
                         </div>
                     </div>

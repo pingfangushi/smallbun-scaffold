@@ -6,7 +6,7 @@ $(function () {
      * 初始化时加载tree弹出数据
      */
     $.pop_up_tree.init({
-        obj: $('#pop-up-menu-tree'),//显示input name 属性和id属性
+        obj: 'pop-up-menu-tree',//显示input name 属性和id属性
         value: 'parentId', //隐藏value name 属性和id属性
         idKey: 'id',       //zTree idKey
         pIdKey: 'parentId',//zTree pIdKey

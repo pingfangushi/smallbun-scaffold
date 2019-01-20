@@ -145,10 +145,10 @@ public class SysMenuController extends BaseController {
 	@SystemLog(value = "查询所有菜单")
 	@PostMapping(value = "/list")
 	public AjaxResult list(SysMenuVO vo) {
-		return AjaxResult.builder()
-				.result(mappingList(menuService.list(new QueryWrapper<>(vo)), new ArrayList<SysMenuVO>(),
-						SysMenuVO.class)).build();
+		return AjaxResult.builder().result(excludeZtreeChildrenField(
+				mappingList(menuService.list(new QueryWrapper<>(vo)), new ArrayList<>(), SysMenuVO.class))).build();
 	}
+
 
 	/**
 	 * 获取tree

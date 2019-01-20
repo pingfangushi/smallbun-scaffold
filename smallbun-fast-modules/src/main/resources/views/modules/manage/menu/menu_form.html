@@ -117,7 +117,8 @@
                                             <i id="icon-show" th:class="*{icon}"></i>
                                         </span>
                                         <input readonly="readonly" id="pop-up-icon-tree" th:field="*{icon}"
-                                               placeholder="请选择菜单图标" class="form-control" name="icon" required
+                                               placeholder="请选择菜单图标" title="请选择菜单图标" class="form-control" name="icon"
+                                               required
                                                onclick="$.modal.open('选择图标', contextPath + 'icon','','',iconConfirm)"/>
                                         <span class="input-group-addon"
                                               onclick="$.modal.open('选择图标', contextPath + 'icon','','',iconConfirm)">

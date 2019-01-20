@@ -120,8 +120,8 @@ public class SysOrgController extends BaseController {
 	@PostMapping(value = "/list")
 	public AjaxResult list() {
 		return AjaxResult.builder()
-				.result(mappingList(sysOrgService.list(new QueryWrapper<>()), new ArrayList<SysOrgVO>(),
-						SysOrgVO.class)).build();
+				.result(excludeZtreeChildrenField(mappingList(sysOrgService.list(new QueryWrapper<>()), new ArrayList<SysOrgVO>(),
+						SysOrgVO.class))).build();
 	}
 
 	/**

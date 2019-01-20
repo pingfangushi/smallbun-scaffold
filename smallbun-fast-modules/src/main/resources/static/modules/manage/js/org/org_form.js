@@ -1,9 +1,10 @@
 /**
- * 上级部门弹出树
+ * 初始化
  */
-function pop_upr_org_tree(obj) {
+$(function () {
+    //加载部门树
     $.pop_up_tree.init({
-        obj: obj,//显示input name 属性和id属性
+        obj: 'pop-up-org-tree',//显示input name 属性和id属性
         value: 'parentId', //隐藏value name 属性和id属性
         idKey: 'id',       //zTree idKey
         pIdKey: 'parentId',//zTree pIdKey
@@ -12,7 +13,7 @@ function pop_upr_org_tree(obj) {
         type: 'POST',      //ajax 请求
         url: contextPath + 'org/list' //请求地址
     });
-}
+});
 
 /**
  * 提交事件

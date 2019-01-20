@@ -18,6 +18,7 @@
 
 package org.smallbun.framework.base;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
@@ -27,6 +28,7 @@ import org.smallbun.framework.toolkit.AutoMapperUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,10 +39,16 @@ import javax.servlet.http.HttpSession;
 import java.beans.PropertyEditorSupport;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Proxy;
 import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import static org.smallbun.framework.toolkit.ReflectionUtil.getFieldAll;
 
 /**
  * 公用Controller
@@ -194,5 +202,39 @@ public abstract class BaseController<T> {
 	 */
 	protected UserDetails getUserDetails() {
 		return UserUtil.getLoginUser();
+	}
+
+	/**
+	 * 由于ztree显示问题，如果json中有children字段，ztree图标显示为文件，此方法将List查询出来的Tree树集合对children字段fastJSON注解
+	 * JSONField 中的serialize进行修改为false，通过此方式解决
+	 * @param list
+	 */
+	protected List excludeZtreeChildrenField(List<Object> list) {
+		for (Object o : list) {
+			try {
+				Field children = getFieldAll(o, "children");
+				if (!StringUtils.isEmpty(children)) {
+					children.setAccessible(true);
+					JSONField annotation = children.getAnnotation(JSONField.class);
+					if (!StringUtils.isEmpty(annotation)) {
+						//获取 foo 这个代理实例所持有的 InvocationHandler
+						InvocationHandler invocationHandler = Proxy.getInvocationHandler(annotation);
+						// 获取 AnnotationInvocationHandler 的 memberValues 字段
+						Field declaredField = invocationHandler.getClass().getDeclaredField("memberValues");
+						// 因为这个字段事 private final 修饰，所以要打开权限
+						declaredField.setAccessible(true);
+						// 获取 memberValues
+						Map memberValues = (Map) declaredField.get(invocationHandler);
+						// 修改 value 属性值
+						memberValues.put("serialize", false);
+						// 获取 foo 的 value 属性值
+						annotation.serialize();
+					}
+				}
+			} catch (NoSuchFieldException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
 	}
 }

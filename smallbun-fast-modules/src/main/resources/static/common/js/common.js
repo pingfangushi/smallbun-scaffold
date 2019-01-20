@@ -1015,7 +1015,7 @@
                     }
                 };
                 var ztree;
-                var obj = options.obj;
+                var obj = $('#' + options.obj);
                 //在当前对象后面追加html内容
                 obj.after(
                     '<div id="' + treeLayerId + '" style="display: none;">' +
@@ -1069,11 +1069,11 @@
                 /**
                  * 绑定单击事件（input）
                  */
-                options.obj.bind('click', open);
+                obj.bind('click', open);
                 /**
                  * 绑定单击事件（btn）
                  */
-                options.obj.parent().find('.input-group-addon').bind('click', open);
+                obj.parent().find('.input-group-addon').bind('click', open);
 
                 /**
                  * 弹出框
