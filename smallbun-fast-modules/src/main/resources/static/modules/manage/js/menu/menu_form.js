@@ -1,3 +1,29 @@
+$(function () {
+    //默认字体颜色
+    $("input[name='fontColor']").val('#ddd');
+    $('#colorpicker').colorpicker()
+});
+
+/**
+ * 图标选中回调
+ * @param index
+ * @param layero
+ */
+//@formatter:off
+function iconConfirm(index, layero) {
+    //得到iframe页的窗口对象，获取icon的值
+    var icon = layero.find('iframe')[0].contentWindow.document.getElementById("icon").value;
+    $("input[name='icon']").val(icon);
+    try {$("input[name='icon']").valid();}catch (e) {}
+    //给图标显示位置添加class,首先移除当前class样式
+    $('#icon-show').removeClass();
+    $('#icon-show').removeAttr('style');
+    $('#icon-show').addClass(icon);
+    //关闭弹框
+    layer.close(index);
+
+}
+//@formatter:off
 /**
  * 上级菜单弹出树
  */
@@ -58,4 +84,30 @@ function doSubmit() {
         $.operate.save($('.form-horizontal').attr('action'), $('.form-horizontal').serializeArray());
     }
 }
+
+//默认为菜单
+$("input[type=radio][name=menuType][value='1']").attr("checked", true);
+//可见为可见
+$("input[type=radio][name=visible][value='0']").attr("checked", true);
+/**
+ * 选择菜单类型事件
+ */
+$("input:radio[name='menuType']").on('ifChecked', function (event) {
+    //按钮
+    if ($(this).val() === '2') {
+        $("input[name='fontColor']").parent().parent().parent().hide();
+        $("input[name='icon']").parent().parent().parent().hide();
+        $("input[name='target']").parent().parent().parent().hide();
+        $("input[name='url']").parent().parent().parent().hide();
+    }
+    //目录或菜单
+    if ($(this).val() === '0' || $(this).val() === '1') {
+        $("input[name='fontColor']").parent().parent().parent().show();
+        $("input[name='icon']").parent().parent().parent().show();
+        $("input[name='target']").parent().parent().parent().show();
+        $("input[name='url']").parent().parent().parent().show();
+    }
+});
+
+
 

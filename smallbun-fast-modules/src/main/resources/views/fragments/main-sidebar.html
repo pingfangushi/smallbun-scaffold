@@ -25,7 +25,7 @@
                             <!--显示名称-->
                             <a href="#">
                                 <i th:class="${menu.icon}"></i>
-                                <span th:text="${menu.menuName}"></span>
+                                <span th:text="${menu.menuName}" th:style="'color: '+${menu.fontColor}+';'"></span>
                                 <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </span>
@@ -42,7 +42,7 @@
                                th:data-url="${menu.url}"
                                onclick="javascript:addTabs(({id:this.getAttribute('data-id'),title:this.getAttribute('data-title'),close:true,url:this.getAttribute('data-url')}))">
                                 <i th:class="${menu.icon}"></i>
-                                <span th:text="${menu.menuName}"></span>
+                                <span th:text="${menu.menuName}" th:style="'color: '+${menu.fontColor}+';'"></span>
                             </a>
                         </li>
                     </th:block>

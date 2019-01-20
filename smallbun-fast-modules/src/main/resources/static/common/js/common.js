@@ -402,7 +402,7 @@
                     cancel: function (index) {
 
                     }
-                })
+                });
             },
             // 弹出层指定宽度
             view: function (title, url, width, height) {

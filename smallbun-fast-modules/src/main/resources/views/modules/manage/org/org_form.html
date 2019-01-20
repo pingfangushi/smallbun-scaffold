@@ -132,7 +132,7 @@
                         <div class="col-sm-8">
                             <div class="input-group" style="width: 100%">
                                 <input id="telephone" name="telephone" class="form-control" autocomplete="off"
-                                       type="text"
+                                       type="tel"
                                        placeholder="请输入联系电话" maxlength="11" th:field="*{telephone}">
                             </div>
                         </div>
@@ -146,8 +146,8 @@
                         <div class="col-sm-8">
                             <div class="input-group" style="width: 100%">
                                 <input class="form-control" id="email" name="email" autocomplete="off"
-                                       th:field="*{email}" type="text" email="true"
-                                       placeholder="请输入邮箱">
+                                       th:field="*{email}" type="text" email="true" data-inputmask="'alias':'email'"
+                                       placeholder="请输入邮箱" data-mask>
                             </div>
                         </div>
                     </div>
@@ -164,8 +164,7 @@
                     </div>
                 </div>
             </div>
-            <!--二期功能扩展实现-->
-            <!--<div class="row">
+            <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label class="col-sm-4 control-label">区域：</label>
@@ -189,7 +188,7 @@
                         </div>
                     </div>
                 </div>
-            </div>-->
+            </div>
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
@@ -236,5 +235,6 @@
 <div th:include="fragments/include :: include-js"/>
 <div th:include="fragments/include :: jquery-validate-js"/>
 <div th:include="fragments/include :: ztree-js"></div>
+<div th:include="fragments/include :: bootstrap-colorpicker-js"></div>
 <script th:src="@{/static/modules/manage/js/org/org_form.js}"></script>
 </html>

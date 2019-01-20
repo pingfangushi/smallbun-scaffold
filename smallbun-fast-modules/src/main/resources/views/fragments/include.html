@@ -35,7 +35,7 @@
     </div>
     <!--bootstrap-table-css-->
     <div th:fragment="bootstrap-table-css">
-        <link rel="stylesheet" th:href="@{/webjars/bootstrap-table/1.13.1/dist/bootstrap-table.min.css}"/>
+        <link rel="stylesheet" th:href="@{/webjars/bootstrap-table/1.13.2/dist/bootstrap-table.min.css}"/>
         <link rel="stylesheet" th:href="@{/webjars/jquery-treegrid/0.3.0/css/jquery.treegrid.css}">
     </div>
     <!--jquery.easyui-css-->
@@ -50,7 +50,10 @@
     <div th:fragment="selectpage-css">
         <link rel="stylesheet" th:href="@{/webjars/selectpage/selectpage.css}" type="text/css">
     </div>
-
+    <div th:fragment="bootstrap-colorpicker-css">
+        <link rel="stylesheet" th:href="@{/webjars/bootstrap-colorpicker/2.5.1/dist/css/bootstrap-colorpicker.css}"
+              type="text/css"/>
+    </div>
     <!----------------------------------------------------------------------------------->
     <div th:fragment="include-js">
         <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
@@ -106,10 +109,10 @@
     </div>
     <!--bootstrap-table-js-->
     <div th:fragment="bootstrap-table-js">
-        <script th:src="@{/webjars/bootstrap-table/1.13.1/dist/bootstrap-table.min.js}"></script>
-        <script th:src="@{/webjars/bootstrap-table/1.13.1/dist/locale/bootstrap-table-zh-CN.min.js}"></script>
-        <script th:src="@{/webjars/bootstrap-table/1.13.1/dist/extensions/mobile/bootstrap-table-mobile.min.js}"></script>
-        <script th:src="@{/webjars/bootstrap-table/1.13.1/dist/extensions/treegrid/bootstrap-table-treegrid.js}"></script>
+        <script th:src="@{/webjars/bootstrap-table/1.13.2/dist/bootstrap-table.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap-table/1.13.2/dist/locale/bootstrap-table-zh-CN.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap-table/1.13.2/dist/extensions/mobile/bootstrap-table-mobile.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap-table/1.13.2/dist/extensions/treegrid/bootstrap-table-treegrid.js}"></script>
         <script th:src="@{/webjars/jquery-treegrid/0.3.0/js/jquery.treegrid.min.js}"></script>
     </div>
     <!--jquery.easyui-js-->
@@ -124,6 +127,24 @@
     <!--selectpage-js-->
     <div th:fragment="selectpage-js">
         <script type="text/javascript" th:src="@{/webjars/selectpage/selectpage.min.js}"></script>
+    </div>
+    <!--bootstrap-colorpicker-->
+    <div th:fragment="bootstrap-colorpicker-js">
+        <script type="text/javascript"
+                th:src="@{/webjars/bootstrap-colorpicker/2.5.1/dist/js/bootstrap-colorpicker.min.js}"></script>
+    </div>
+    <!--bootstrap-colorpicker-js-->
+    <div th:fragment="bootstrap-colorpicker-js">
+        <script th:src="@{/webjars/inputmask/4.0.4/dist/min/inputmask/inputmask.min.js}"></script>
+        <script th:src="@{/webjars/inputmask/4.0.4/dist/min/inputmask/jquery.inputmask.min.js}"></script>
+        <script th:src="@{/webjars/inputmask/4.0.4/dist/min/inputmask/inputmask.date.extensions.min.js}"></script>
+        <script th:src="@{/webjars/inputmask/4.0.4/dist/min/inputmask/inputmask.extensions.min.js}"></script>
+        <script>
+            $(function () {
+                //数据掩码
+                $('[data-mask]').inputmask();
+            });
+        </script>
     </div>
 </head>
 <body>

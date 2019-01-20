@@ -399,12 +399,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!--colorpicker-->
-        <dependency>
-            <groupId>org.webjars.npm</groupId>
-            <artifactId>bootstrap-colorpicker</artifactId>
-            <version>3.0.3</version>
-        </dependency>
         <!--slimScroll-->
         <dependency>
             <groupId>org.webjars</groupId>
@@ -416,6 +410,12 @@
                     <groupId>org.webjars</groupId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <!--colorpicker-->
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>bootstrap-colorpicker</artifactId>
+            <version>2.5.1</version>
         </dependency>
         <!--fast click-->
         <dependency>
@@ -471,11 +471,17 @@
             <artifactId>iCheck</artifactId>
             <version>1.0.2</version>
         </dependency>
-        <!--bootstrap-table-->
+        <!--bootstrap-table，需要更换为1.13.2-->
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>bootstrap-table</artifactId>
-            <version>1.13.1</version>
+            <version>1.13.2</version>
+        </dependency>
+        <!--inputmask 需要更换为4.0.6-->
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>inputmask</artifactId>
+            <version>4.0.4</version>
         </dependency>
         <!--tablednd-->
         <dependency>
