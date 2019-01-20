@@ -1016,7 +1016,6 @@
                 };
                 var ztree;
                 var obj = options.obj;
-                var value = $('#' + options.value);
                 //在当前对象后面追加html内容
                 obj.after(
                     '<div id="' + treeLayerId + '" style="display: none;">' +
@@ -1034,6 +1033,7 @@
                     '   </div>' +
                     '</div>'
                 );
+                var value = $('#' + options.value);
                 value.val(obj.val());
                 //发送ajax请求
                 $.ajax({

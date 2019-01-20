@@ -41,41 +41,6 @@ function pop_upr_menu_tree(obj) {
 }
 
 /**
- * 验证
- */
-$(".form-horizontal").validate({
-    rules: {
-        menuName: {
-            required: true,
-            remote: {
-                async: false, //同步方法，如果用异步的话，flag永远为false
-                url: contextPath + "menu/unique",
-                type: "post",
-                dataType: 'JSON',
-                data: {
-                    id: function () {
-                        return $("#id").val();
-                    },
-                    menuName: function () {
-                        return $("#menuName").val();
-                    }
-                },
-                dataFilter: function (data, type) {
-                    data = JSON.parse(data);
-                    return data.result;
-                }
-            }
-        }
-    },
-    messages: {
-        menuName: {
-            required: "请输入菜单名称",
-            remote: "菜单名称已存在"
-        }
-    }
-});
-
-/**
  * 提交事件
  */
 function doSubmit() {
@@ -99,6 +64,11 @@ $("input:radio[name='menuType']").on('ifChecked', function (event) {
         $("input[name='icon']").parent().parent().parent().hide();
         $("input[name='target']").parent().parent().parent().hide();
         $("input[name='url']").parent().parent().parent().hide();
+
+        //移除必选
+        $("input[name='icon']").removeAttr('required');
+        $("input[name='target']").removeAttr('required');
+        $("input[name='url']").removeAttr('required');
     }
     //目录或菜单
     if ($(this).val() === '0' || $(this).val() === '1') {
@@ -106,6 +76,11 @@ $("input:radio[name='menuType']").on('ifChecked', function (event) {
         $("input[name='icon']").parent().parent().parent().show();
         $("input[name='target']").parent().parent().parent().show();
         $("input[name='url']").parent().parent().parent().show();
+
+         //添加必选
+        $("input[name='icon']").attr('required');
+        $("input[name='target']").attr('required');
+        $("input[name='url']").attr('required');
     }
 });
 

@@ -21,7 +21,8 @@
                                 <div class="col-sm-8">
                                     <div class="input-group" style="width: 100%">
                                         <input readonly="readonly" type="text" id="pop-up-menu-tree"
-                                               th:field="*{parentId}" placeholder="请选择上级菜单" class="form-control"
+                                               th:value="*{parentId}" placeholder="请选择上级菜单"
+                                               class="form-control"
                                                onclick="pop_upr_menu_tree($(this))"/>
                                         <span class="input-group-addon"
                                               onclick="pop_upr_menu_tree($('#pop-up-menu-tree'))">
@@ -196,7 +197,7 @@
                             <i class="fa fa-check"></i>
                             保 存
                         </button>&nbsp;
-                        <button type="button" class="btn btn-sm btn-default" id="btn-cancel" onclick="">
+                        <button type="button" class="btn btn-sm btn-default" id="btn-cancel" onclick="history.go(-1)">
                             <i class="fa fa-reply-all"></i>
                             关 闭
                         </button>

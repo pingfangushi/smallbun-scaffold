@@ -8,9 +8,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Map;
 
 import static com.baomidou.mybatisplus.core.toolkit.TableInfoHelper.getAllFields;
@@ -94,28 +96,30 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T extends BaseEntity> exte
 		//构建查询条件,将实体转换为map ，不包含ID
 		QueryWrapper<T> queryWrapper = new QueryWrapper<T>().allEq(beanToMapExcludeId(t), false);
 		//查询
-		T one = baseMapper.selectOne(queryWrapper);
+		List<T> ts = baseMapper.selectList(queryWrapper);
 		//表示为不是唯一
 		boolean flag = false;
 		//如果没有记录，唯一
-		if (StringUtils.isEmpty(one)) {
+		if (CollectionUtils.isEmpty(ts)) {
 			flag = true;
 		}
 		//如果有记录
 		else {
 			//循环字段
-			for (Field f : getFieldAll(one)) {
-				//获取ID字段的值，和当前ID字段值进行对比，如果ID相同，可以通过，如果不同，flag任为false
-				if (ID.equals(f.getName())) {
-					try {
-						f.setAccessible(true);
-						if (!StringUtils.isEmpty(t.getId())) {
-							if (t.getId().equals(f.get(one))) {
-								flag = true;
+			for (T u : ts) {
+				for (Field f : getFieldAll(u)) {
+					//获取ID字段的值，和当前ID字段值进行对比，如果ID相同，可以通过，如果不同，flag任为false
+					if (ID.equals(f.getName())) {
+						try {
+							f.setAccessible(true);
+							if (!StringUtils.isEmpty(t.getId())) {
+								if (t.getId().equals(f.get(u))) {
+									flag = true;
+								}
 							}
+						} catch (IllegalAccessException e) {
+							log.error("method uniqueResult Exception{}", (Object) e.getStackTrace());
 						}
-					} catch (IllegalAccessException e) {
-						log.error("method uniqueResult Exception{}", (Object) e.getStackTrace());
 					}
 				}
 			}
