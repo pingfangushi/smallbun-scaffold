@@ -3,8 +3,8 @@ $(function () {
     var options = {
         modalName: '菜单',
         url: contextPath + "menu/list", /*列表URL*/
-        createUrl: contextPath + "menu/form{id}", /*添加URL*/
-        updateUrl: contextPath + "menu/edit/{id}", /*修改URL*/
+        createUrl: contextPath + "menu/form/{id}", /*添加URL*/
+        updateUrl: contextPath + "menu/form/{id}", /*修改URL*/
         removeUrl: contextPath + "menu/remove", /*删除URL*/
         exportUrl: contextPath + "menu/export", /*导出URL*/
         idField: 'id',
