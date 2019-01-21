@@ -1,13 +1,13 @@
 var App = function () {
 
 
-    var contextPath = './';
+    var contextPath = '/';
 
-    var imgPath = 'common/img/';
+    var imgPath = 'static/common/img/';
 
-    var pluginsPath = 'common/plugins/';
+    var pluginsPath = 'static/common/plugins/';
 
-    var cssPath = 'common/css/';
+    var cssPath = 'static/common/css/';
     /**
      * 初始化内容页layout组件高度
      * @returns {number}
@@ -541,7 +541,7 @@ var App = function () {
                 $('body').append('<div class="page-spinner-bar"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>');
             } else {
                 $('.page-loading').remove();
-                $('body').append('<div class="page-loading"><img src="' + this.getGlobalImgPath() + 'loading-spinner-blue.gif"/>&nbsp;&nbsp;<span>' + (options && options.message ? options.message : 'Loading...') + '</span></div>');
+                $('body').append('<div class="page-loading"><img src="' + this.getGlobalImgPath() + 'loading/loading-spinner-blue.gif"/>&nbsp;&nbsp;<span>' + (options && options.message ? options.message : 'Loading...') + '</span></div>');
             }
         },
 

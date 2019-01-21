@@ -293,6 +293,11 @@
             <artifactId>layer</artifactId>
             <version>3.1.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.webjars.bowergithub.sentsin</groupId>
+            <artifactId>laydate</artifactId>
+            <version>5.0.9</version>
+        </dependency>
         <!--bootstrap-date picker-->
         <dependency>
             <groupId>org.webjars</groupId>
@@ -440,6 +445,12 @@
             <groupId>org.webjars.bower</groupId>
             <artifactId>iCheck</artifactId>
             <version>1.0.2</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jquery</artifactId>
+                    <groupId>org.webjars.bower</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!--bootstrap-table-->
         <dependency>
@@ -480,6 +491,10 @@
                 <exclusion>
                     <artifactId>jquery</artifactId>
                     <groupId>org.webjars</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>jquery</artifactId>
+                    <groupId>org.webjars.bower</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
