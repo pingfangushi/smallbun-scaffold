@@ -818,6 +818,10 @@ ul.clear-list:first-child {
     border-color: #ea2e49;
 }
 
+.form-control.has-error {
+    border: 1px solid #ea2e49;
+}
+
 .has-error .select2-selection {
     border: 1px solid #ea2e49;
 }

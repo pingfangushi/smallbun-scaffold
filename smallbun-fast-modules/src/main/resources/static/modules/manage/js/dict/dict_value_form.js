@@ -29,11 +29,11 @@ $(function () {
                 }
             });
             //移除class
-            // $('.sp_input').removeClass('sp_input');
             $('#dictType').addClass('required');
         }
     });
 });
+
 /**
  * 验证
  */

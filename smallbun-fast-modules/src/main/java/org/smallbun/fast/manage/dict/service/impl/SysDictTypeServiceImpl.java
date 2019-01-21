@@ -32,9 +32,9 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeMapper, S
 	@Override
 	public SysDictTypeVO model(HttpServletRequest request) {
 		if (!request.getRequestURI().contains(UNIQUE)) {
-			return StringUtils.isEmpty(request.getParameter("id")) ?
+			return StringUtils.isEmpty(request.getParameter(ID)) ?
 					new SysDictTypeVO() :
-					AutoMapperUtil.mapping(getById(request.getParameter("id")), new SysDictTypeVO());
+					AutoMapperUtil.mapping(getById(request.getParameter(ID)), new SysDictTypeVO());
 		}
 		return new SysDictTypeVO();
 	}

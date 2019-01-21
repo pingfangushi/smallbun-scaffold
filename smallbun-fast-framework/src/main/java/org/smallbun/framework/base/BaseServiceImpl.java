@@ -31,7 +31,7 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T extends BaseEntity> exte
 	/**
 	 * 主键ID
 	 */
-	private static final String ID = "id";
+	public static final String ID = "id";
 
 
 	/**

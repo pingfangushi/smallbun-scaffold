@@ -1034,7 +1034,10 @@
                     '</div>'
                 );
                 var value = $('#' + options.value);
-                //设置value
+                //如果是顶级菜单，设置值为主目录
+                if (obj.val() === '0') {
+                    obj.val('主目录');
+                }
                 value.val(obj.val());
                 /**
                  * 发送ajax请求

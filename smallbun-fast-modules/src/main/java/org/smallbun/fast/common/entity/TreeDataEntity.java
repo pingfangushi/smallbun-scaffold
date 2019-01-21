@@ -1,6 +1,7 @@
 package org.smallbun.fast.common.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,10 +21,12 @@ public class TreeDataEntity<D, T> extends DataEntity<T> {
 	/**
 	 * 父级编号
 	 */
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private T parentId;
 	/**
 	 * 所有父级编号
 	 */
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private String parentIds;
 	/**
 	 * 子集合

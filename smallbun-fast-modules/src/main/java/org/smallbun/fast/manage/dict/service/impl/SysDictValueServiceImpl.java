@@ -37,9 +37,9 @@ public class SysDictValueServiceImpl extends BaseServiceImpl<SysDictValueMapper,
 	@Override
 	public SysDictValueVO model(HttpServletRequest request) {
 		if (!request.getRequestURI().contains(UNIQUE)) {
-			return StringUtils.isEmpty(request.getParameter("id")) ?
+			return StringUtils.isEmpty(request.getParameter(ID)) ?
 					new SysDictValueVO() :
-					mapping(getById(request.getParameter("id")), new SysDictValueVO());
+					mapping(getById(request.getParameter(ID)), new SysDictValueVO());
 		}
 		return new SysDictValueVO();
 	}

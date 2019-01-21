@@ -57,9 +57,9 @@ public class SysMenuServiceImpl extends BaseTreeDataServiceImpl<SysMenuMapper, S
 	@Override
 	public SysMenuVO model(HttpServletRequest request) {
 		if (!request.getRequestURI().contains(UNIQUE)) {
-			return StringUtils.isEmpty(request.getParameter("id")) ?
+			return StringUtils.isEmpty(request.getParameter(ID)) ?
 					new SysMenuVO() :
-					mapping(request.getParameter("id"), new SysMenuVO());
+					mapping(getById(request.getParameter(ID)), new SysMenuVO());
 		}
 		return new SysMenuVO();
 	}

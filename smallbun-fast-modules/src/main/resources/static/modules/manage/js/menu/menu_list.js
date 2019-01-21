@@ -5,8 +5,9 @@ $(function () {
         url: contextPath + "menu/list", /*列表URL*/
         createUrl: contextPath + "menu/form/{id}", /*添加URL*/
         updateUrl: contextPath + "menu/form/{id}", /*修改URL*/
-        removeUrl: contextPath + "menu/remove", /*删除URL*/
+        removeUrl: contextPath + "menu/removeById",
         exportUrl: contextPath + "menu/export", /*导出URL*/
+        batRemoveUrl: contextPath + "menu/removeByIds",
         idField: 'id',
         parentIdField: 'parentId',
         rootParentId: '0',

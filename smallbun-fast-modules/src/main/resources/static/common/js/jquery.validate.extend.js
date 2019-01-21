@@ -229,17 +229,18 @@ $.validator.setDefaults({
     ignore: [], //开启所有字段验证
     highlight: function (element) {
         $(element).closest('.input-group').addClass('has-error');
+        $(element).addClass('has-error');
         //selectPage
         $(element).closest('.sp_container').addClass('has-error');
     },
     unhighlight: function (element) {
         $(element).closest('.input-group').removeClass('has-error');
+        $(element).removeClass('has-error');
         //selectPage
         $(element).closest('.sp_container').removeClass('has-error');
         $(element).closest('.input-group.panel-noscroll.has-error').removeClass('has-error');
     },
     errorPlacement: function (error, element) {
-        console.log(element)
         //radio
         if (element.is(":radio")) {
             error.appendTo(element.parents('.input-group'));//错误信息放到右侧
@@ -257,7 +258,7 @@ $.validator.setDefaults({
         else if (element.parent('.input-group').length) {
             error.insertAfter(element.parent());
         } else {
-            //error.insertAfter(element);
+            error.insertAfter(element);
             element.closest('.input-group').after(error);
         }
     }

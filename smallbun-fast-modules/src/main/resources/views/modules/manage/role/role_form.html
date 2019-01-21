@@ -20,11 +20,9 @@
                     <div class="form-group">
                         <label class="col-sm-4 control-label"><span style="color: red; ">*</span>角色名称：</label>
                         <div class="col-sm-8">
-                            <div class="input-group" style="width: 100%">
-                                <input id="roleName" name="roleName" class="form-control" placeholder="请输入角色名称"
-                                       type="text" th:field="*{roleName}" autocomplete="off"
-                                       maxlength="50" onautocomplete="off" required>
-                            </div>
+                            <input id="roleName" name="roleName" class="form-control" placeholder="请输入角色名称"
+                                   type="text" th:field="*{roleName}" autocomplete="off"
+                                   maxlength="50" onautocomplete="off" required>
                         </div>
                     </div>
                 </div>
@@ -32,11 +30,9 @@
                     <div class="form-group">
                         <label class="col-sm-4 control-label"><span style="color: red; ">*</span>角色编码：</label>
                         <div class="col-sm-8">
-                            <div class="input-group" style="width: 100%">
-                                <input id="enName" name="enName" class="form-control" placeholder="请输入角色编码"
-                                       type="text" th:field="*{enName}" autocomplete="off"
-                                       maxlength="30">
-                            </div>
+                            <input id="enName" name="enName" class="form-control" placeholder="请输入角色编码"
+                                   type="text" th:field="*{enName}" autocomplete="off"
+                                   maxlength="30">
                         </div>
                     </div>
                 </div>
@@ -46,7 +42,7 @@
                     <div class="form-group">
                         <label class="col-sm-4 control-label"><span style="color: red; ">*</span>角色类型：</label>
                         <div class="col-sm-8">
-                            <div class="input-group" style="width: 100%;">
+                            <div class="input-group" style="width: 100%">
                                 <select name="roleType" id="roleType" class="form-control select2 required"
                                         th:with="type=${@smallbun.dict('ROLE_TYPE')}">
                                     <option value="">请选择角色类型</option>
@@ -62,7 +58,7 @@
                     <div class="form-group">
                         <label class="col-sm-4 control-label"><span style="color: red; ">*</span>是否可用：</label>
                         <div class="col-sm-8">
-                            <div class="input-group" style="width: 100%;">
+                            <div class="input-group" style="width: 100%">
                                 <select name="roleStatus" id="roleStatus" class="form-control select2 required"
                                         th:with="type=${@smallbun.dict('WHETHER_USEABLE')}" th:field="*{useable}">
                                     <option value="">请选择是否可用</option>
@@ -80,7 +76,7 @@
                     <div class="form-group">
                         <label class="col-sm-4 control-label"><span style="color: red; ">*</span>系统数据：</label>
                         <div class="col-sm-8">
-                            <div class="input-group" style="width: 100%;">
+                            <div class="input-group" id="color-picker" style="width: 100%">
                                 <label class="label-radio" th:each="dict : ${@smallbun.dict('SYS_DATA')}">
                                     <input type="radio" class="minimal" th:id="${dict.dictValue}" name="sysData"
                                            th:value="${dict.dictValue}" required th:field="*{sysData}">
@@ -123,7 +119,7 @@
                     <div class="form-group">
                         <label class="col-sm-4 control-label"><span style="color: red; ">*</span>数据权限：</label>
                         <div class="col-sm-8">
-                            <div class="input-group" style="width: 100%;">
+                            <div class="input-group" style="width: 100%">
                                 <select name="dataScope" id="dataScope" class="form-control select2 required"
                                         th:with="type=${@smallbun.dict('DATA_SCOPE')}" th:field="*{dataScope}">
                                     <option value="">请选择数据权限</option>

@@ -41,7 +41,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRoleEn
 	@Override
 	public SysRoleVO model(HttpServletRequest request) {
 		if (!request.getRequestURI().contains(UNIQUE)) {
-			return getById(request.getParameter("id"));
+			return getById(request.getParameter(ID));
 		}
 		return new SysRoleVO();
 	}

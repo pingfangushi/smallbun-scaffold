@@ -1,6 +1,5 @@
 package org.smallbun.fast.manage.org.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.smallbun.fast.common.base.BaseTreeDataServiceImpl;
 import org.smallbun.fast.manage.org.dao.SysOrgMapper;
 import org.smallbun.fast.manage.org.entity.SysOrgEntity;
@@ -36,9 +35,9 @@ public class SysOrgServiceImpl extends BaseTreeDataServiceImpl<SysOrgMapper, Sys
 	@Override
 	public SysOrgVO model(HttpServletRequest request) {
 		if (!request.getRequestURI().contains(UNIQUE)) {
-			return StringUtils.isEmpty(request.getParameter("id")) ?
+			return StringUtils.isEmpty(request.getParameter(ID)) ?
 					new SysOrgVO() :
-					mapping(getById(request.getParameter("id")), new SysOrgVO());
+					mapping(getById(request.getParameter(ID)), new SysOrgVO());
 		}
 		return new SysOrgVO();
 	}
@@ -53,7 +52,6 @@ public class SysOrgServiceImpl extends BaseTreeDataServiceImpl<SysOrgMapper, Sys
 	public List<SysOrgEntity> findByRoleId(Serializable id) {
 		return baseMapper.findByRoleId(id);
 	}
-
 
 
 }

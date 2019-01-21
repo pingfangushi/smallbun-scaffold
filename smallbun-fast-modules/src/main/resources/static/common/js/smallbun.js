@@ -2,19 +2,19 @@
  * 禁用右键
  * @type {Function}
  */
-document.oncontextmenu = new Function("return false");
+//document.oncontextmenu = new Function("return false");
 /**
  *
  * @type {document.onkeypress}
  */
-document.onkeydown = document.onkeyup = document.onkeypress = function (event) {
-    var e = event || window.event || arguments.callee.caller.arguments[0];
-    //如果是F12
-    if (e && e.keyCode === 123) {
-        e.returnValue = false;
-        return (false);
-    }
-};
+//document.onkeydown = document.onkeyup = document.onkeypress = function (event) {
+//    var e = event || window.event || arguments.callee.caller.arguments[0];
+//    //如果是F12
+//    if (e && e.keyCode === 123) {
+//        e.returnValue = false;
+//        return (false);
+//    }
+//};
 
 /**
  * AJAX 异常统一处理
@@ -66,4 +66,17 @@ $(function () {
             }
         }
     });
+});
+
+$(function () {
+    /**
+     * 轮训selectPage结果页面分页栏
+     */
+    setInterval(function () {
+        if ($('.sp_result_area').css("display") === 'block') {
+            //注释掉的这样代码在具体的from页面编写好用
+            //$('.pageInfoBox a').outerWidth($('.sp_results').width() - $('.csLastPage a').width() + $('.csNextPage a').width() + $('.csPreviousPage a').width() + $('.csFirstPage a').width());
+            $('.pageInfoBox a').width($('.sp_results').width() - 30 * 4 - 2);
+        }
+    }, 100);
 });

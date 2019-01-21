@@ -36,11 +36,9 @@
                                     <font color="red">*</font>菜单名称：
                                 </label>
                                 <div class="col-sm-8">
-                                    <div class="input-group" style="width: 100%">
-                                        <input class="form-control" type="text"
-                                               maxlength="50" autocomplete="off" placeholder="请输入菜单名称" id="menuName"
-                                               name="menuName" th:field="*{menuName}" required>
-                                    </div>
+                                    <input class="form-control" type="text"
+                                           maxlength="50" autocomplete="off" placeholder="请输入菜单名称" id="menuName"
+                                           name="menuName" th:field="*{menuName}" required>
                                 </div>
                             </div>
                         </div>
@@ -51,13 +49,11 @@
                                 <label class="col-sm-4 control-label"><span style="color: red">*</span>菜单类型：
                                 </label>
                                 <div class="col-sm-8">
-                                    <div class="input-group" style="width: 100%">
-                                        <label class="label-radio" th:each="dict : ${@smallbun.dict('MENU_TYPE')}">
-                                            <input type="radio" class="minimal" name="menuType"
-                                                   th:value="${dict.dictValue}" required th:field="*{menuType}">
-                                            <label th:text="${dict.dictLabel}"></label>
-                                        </label>
-                                    </div>
+                                    <label class="label-radio" th:each="dict : ${@smallbun.dict('MENU_TYPE')}">
+                                        <input type="radio" class="minimal" name="menuType"
+                                               th:value="${dict.dictValue}" required th:field="*{menuType}">
+                                        <label th:text="${dict.dictLabel}"></label>
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -66,13 +62,11 @@
                                 <label class="col-sm-4 control-label"><span style="color: red">*</span>菜单状态：
                                 </label>
                                 <div class="col-sm-8">
-                                    <div class="input-group" style="width: 100%;">
-                                        <label class="label-radio" th:each="dict : ${@smallbun.dict('MENU_STATUS')}">
-                                            <input type="radio" class="minimal" name="menuStatus"
-                                                   th:value="${dict.dictValue}" required th:field="*{menuStatus}">
-                                            <label th:text="${dict.dictLabel}"></label>
-                                        </label>
-                                    </div>
+                                    <label class="label-radio" th:each="dict : ${@smallbun.dict('MENU_STATUS')}">
+                                        <input type="radio" class="minimal" name="menuStatus"
+                                               th:value="${dict.dictValue}" required th:field="*{menuStatus}">
+                                        <label th:text="${dict.dictLabel}"></label>
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -83,11 +77,9 @@
                                 <label class="col-sm-4 control-label"><span style="color: red">*</span>菜单链接：
                                 </label>
                                 <div class="col-sm-8">
-                                    <div class="input-group" style="width: 100%">
-                                        <input class="form-control" type="text"
-                                               maxlength="50" autocomplete="off" placeholder="请输入菜单链接" id="url"
-                                               name="url" th:field="*{url}" required>
-                                    </div>
+                                    <input class="form-control" type="text"
+                                           maxlength="50" autocomplete="off" placeholder="请输入菜单链接" id="url"
+                                           name="url" th:field="*{url}" required>
                                 </div>
                             </div>
                         </div>
@@ -96,11 +88,9 @@
                                 <label class="col-sm-4 control-label"><span style="color: red">*</span>菜单目标：
                                 </label>
                                 <div class="col-sm-8">
-                                    <div class="input-group" style="width: 100%">
-                                        <input class="form-control" type="text"
-                                               maxlength="50" autocomplete="off" placeholder="请输入菜单目标" id="target"
-                                               name="target" th:field="*{target}" required>
-                                    </div>
+                                    <input class="form-control" type="text"
+                                           maxlength="50" autocomplete="off" placeholder="请输入菜单目标" id="target"
+                                           name="target" th:field="*{target}" required>
                                 </div>
                             </div>
                         </div>
@@ -111,7 +101,7 @@
                                 <label class="col-sm-4 control-label"><span style="color: red">*</span>菜单图标：
                                 </label>
                                 <div class="col-sm-8">
-                                    <div class="input-group" style="width: 100%">
+                                    <div class="input-group">
                                         <!--显示图标-->
                                         <span class="input-group-addon" style="width: 38px;">
                                             <i id="icon-show" th:class="*{icon}"></i>
@@ -150,11 +140,9 @@
                                     <i class="ion-help-circled"></i>
                                 </label>
                                 <div class="col-sm-8">
-                                    <div class="input-group" style="width: 100%">
-                                        <input class="form-control" type="text"
-                                               maxlength="50" autocomplete="off" id="permission" name="permission"
-                                               placeholder="请输入权限标识" th:field="*{permission}" required>
-                                    </div>
+                                    <input class="form-control" type="text"
+                                           maxlength="50" autocomplete="off" id="permission" name="permission"
+                                           placeholder="请输入权限标识" th:field="*{permission}" required>
                                 </div>
                             </div>
                         </div>
@@ -163,11 +151,9 @@
                                 <label class="col-sm-4 control-label"><span style="color: red">*</span>排序：
                                 </label>
                                 <div class="col-sm-8">
-                                    <div class="input-group" style="width: 100%">
-                                        <input class="form-control" type="number"
-                                               maxlength="50" autocomplete="off" id="sort" name="sort"
-                                               placeholder="请输入顺序" th:field="*{sort}" required>
-                                    </div>
+                                    <input class="form-control" type="number"
+                                           maxlength="50" autocomplete="off" id="sort" name="sort"
+                                           placeholder="请输入顺序" th:field="*{sort}" required>
                                 </div>
                             </div>
                         </div>
@@ -185,8 +171,6 @@
                             </div>
                         </div>
                     </div>
-
-
                 </form>
             </div>
             <div class="box-footer">

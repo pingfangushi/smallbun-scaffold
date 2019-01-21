@@ -31,10 +31,7 @@ import org.smallbun.framework.result.PageableResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -111,19 +108,19 @@ public class SysMenuController extends BaseController {
 	 */
 	@SystemLog(value = "")
 	@PostMapping(value = "/removeById")
-	public AjaxResult removeById(@NotNull String id) {
+	public AjaxResult removeById(@NotNull @RequestParam(value = "id") String id) {
 		return AjaxResult.builder().result(menuService.removeById(id)).build();
 	}
 
 	/**
 	 * 删除多条记录
-	 * @param id 主键ID集合
+	 * @param ids 主键ID集合
 	 * @return AjaxResult
 	 */
 	@SystemLog(value = "")
 	@PostMapping(value = "/removeByIds")
-	public AjaxResult saveOrUpdate(@NotNull List<String> id) {
-		return AjaxResult.builder().result(menuService.removeByIds(id)).build();
+	public AjaxResult saveOrUpdate(@NotNull @RequestParam(value = "ids") List<String> ids) {
+		return AjaxResult.builder().result(menuService.removeByIds(ids)).build();
 	}
 
 
