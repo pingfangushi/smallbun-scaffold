@@ -49,11 +49,14 @@
                                 <label class="col-sm-4 control-label"><span style="color: red">*</span>菜单类型：
                                 </label>
                                 <div class="col-sm-8">
-                                    <label class="label-radio" th:each="dict : ${@smallbun.dict('MENU_TYPE')}">
-                                        <input type="radio" class="minimal" name="menuType"
-                                               th:value="${dict.dictValue}" required th:field="*{menuType}">
-                                        <label th:text="${dict.dictLabel}"></label>
-                                    </label>
+                                    <div class="input-group">
+                                        <label class="label-radio" required
+                                               th:each="dict : ${@smallbun.dict('MENU_TYPE')}">
+                                            <input type="radio" class="minimal" name="menuType"
+                                                   th:value="${dict.dictValue}" required th:field="*{menuType}">
+                                            <label th:text="${dict.dictLabel}"></label>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -62,11 +65,14 @@
                                 <label class="col-sm-4 control-label"><span style="color: red">*</span>菜单状态：
                                 </label>
                                 <div class="col-sm-8">
-                                    <label class="label-radio" th:each="dict : ${@smallbun.dict('MENU_STATUS')}">
-                                        <input type="radio" class="minimal" name="menuStatus"
-                                               th:value="${dict.dictValue}" required th:field="*{menuStatus}">
-                                        <label th:text="${dict.dictLabel}"></label>
-                                    </label>
+                                    <div class="input-group">
+                                        <label class="label-radio" required
+                                               th:each="dict : ${@smallbun.dict('MENU_STATUS')}">
+                                            <input type="radio" class="minimal" name="menuStatus"
+                                                   th:value="${dict.dictValue}" required th:field="*{menuStatus}">
+                                            <label th:text="${dict.dictLabel}"></label>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>

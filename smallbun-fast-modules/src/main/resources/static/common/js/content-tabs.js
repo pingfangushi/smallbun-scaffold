@@ -967,7 +967,7 @@ function closeCurrentTabPage(obj) {
     }, 500);
     scrollToTab(this);
     //刷新表格
-    refreshTable();
+    //refreshTable();
 }
 
 $(function () {
