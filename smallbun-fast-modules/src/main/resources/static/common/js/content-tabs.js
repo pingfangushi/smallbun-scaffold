@@ -937,7 +937,7 @@ var activeTab = function () {
 };
 
 /**
- * 关闭当前选项卡，返回跳转回来的主列表页面，并执行主也列表table刷新事件
+ * 关闭当前选项卡，返回跳转回来的主列表页面
  * @param id 主页面跳转过来的list页面
  */
 function closeCurrentTabPage(obj) {
@@ -966,8 +966,40 @@ function closeCurrentTabPage(obj) {
         height: App.getIframeLayoutHeight() - 1
     }, 500);
     scrollToTab(this);
+}
+
+/**
+ * 保存当前选项卡，返回跳转回来的主列表页面，并执行主也列表table刷新事件
+ * @param id 主页面跳转过来的list页面
+ */
+function saveCurrentTabPage(obj) {
+    //获取当前iframe的id，然后截取前缀（iframe_）获取id，在拼接tab_获取对象
+    var tab_id = "tab_" + obj.frameElement.getAttribute('id').substring(7, obj.frameElement.getAttribute('id').length);
+    var id = obj.frameElement.getAttribute('data-id-list');
+    /**
+     * 关闭TAB
+     */
+    $("#tab_" + tab_id, parent.document).remove();
+    $("#" + tab_id, parent.document).remove();
+    /**
+     * 激活tab页
+     * @type {string}
+     */
+    $(".menu_tab", parent.document).removeClass("active");
+    $("#tab-content > .active", parent.document).removeClass("active");
+    //激活TAB
+    $("#tab_" + id, parent.document).addClass('active');
+    $("#" + id, parent.document).addClass("active");
+    //主要是针对激活tab后，滚动条消失问题，触发一下滚动条事件
+    $("#iframe_" + id, parent.document).animate({
+        height: App.getIframeLayoutHeight() + 1
+    }, 500);
+    $("#iframe_" + id, parent.document).animate({
+        height: App.getIframeLayoutHeight() - 1
+    }, 500);
+    scrollToTab(this);
     //刷新表格
-    //refreshTable();
+    refreshTable();
 }
 
 $(function () {

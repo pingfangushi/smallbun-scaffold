@@ -608,6 +608,33 @@
                 }
                 $.modal.view("查看" + $.table._option.modalName, url);
             },
+            //tab页面展示查看
+            tabView: function (id, url) {
+                if ($.common.isNotEmpty(id)) {
+                    if ($.common.isEmpty(url)) {
+                        url = $.table._option.updateUrl.replace("{id}", "?id=" + id);
+                    } else {
+                        url = url + "?id=" + id;
+                    }
+                } else {
+                    id = $.common.isEmpty($.table._option.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.uniqueId);
+                    if (id.length === 0) {
+                        $.modal.alertWarning("请至少选择一条记录");
+                        return;
+                    } else if (id.length > 1) {
+                        $.modal.alertWarning("只能选择一条数据");
+                        return;
+                    } else {
+                        if ($.common.isEmpty(url)) {
+                            url = $.table._option.updateUrl.replace("{id}", "?id=" + id);
+                        } else {
+                            url = url + "?id=" + id;
+                        }
+                    }
+                }
+                var tab_id = "_tab" + Math.random().toString(36).substring(2);
+                $.modal.openTab(tab_id, "查看" + $.table._option.modalName, url);
+            },
             // 添加信息 全屏
             addFull: function (id) {
                 var url = $.common.isEmpty(id) ? $.table._option.createUrl : $.table._option.createUrl.replace("{id}", id);
@@ -617,6 +644,27 @@
             editFull: function (id) {
                 var url = $.table._option.updateUrl.replace("{id}", id);
                 $.modal.openFull("修改" + $.table._option.modalName, url);
+            },
+            // 保存当前tab页
+            saveCurrentTabPage: function (url, data) {
+                $.modal.loading("正在处理中，请稍后...");
+                var config = {
+                    url: url,
+                    type: "post",
+                    dataType: "json",
+                    data: data,
+                    success: function (result) {
+                        if (result.status === web_status.SUCCESS) {
+                            $.modal.msgSuccess(result.msg);
+                            //跳转list页面
+                            parent.saveCurrentTabPage(window);
+                        } else {
+                            $.modal.alertError(result.msg);
+                        }
+                        $.modal.closeLoading();
+                    }
+                };
+                $.ajax(config)
             },
             // 保存信息
             save: function (url, data) {
@@ -640,7 +688,7 @@
                 } else {
                     $.modal.alertError(result.msg);
                 }
-                $.modal.loading();
+                $.modal.closeLoading();
             }
         },
         /**
