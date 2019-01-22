@@ -180,7 +180,8 @@
                             <i class="fa fa-check"></i>
                             保 存
                         </button>&nbsp;
-                        <button type="button" class="btn btn-sm btn-default" id="btn-cancel" onclick="f()">
+                        <button type="button" class="btn btn-sm btn-default" id="btn-cancel"
+                                onclick="parent.closeCurrentTabPage(window)">
                             <i class="fa fa-reply-all"></i>
                             关 闭
                         </button>
@@ -195,16 +196,4 @@
     <div th:include="fragments/include :: ztree-js"></div>
     <div th:include="fragments/include :: jquery-validate-js"/>
     <script th:src="@{/static/modules/manage/js/menu/menu_form.js}"></script>
-    <script>
-        function f() {
-            App.blockUI({
-                target: '.i-ibox',
-                boxed: true,
-                message: '加载中，请稍后',
-                animate: false
-            });
-
-            App.unblockUI('.i-ibox');
-        }
-    </script>
 </html>

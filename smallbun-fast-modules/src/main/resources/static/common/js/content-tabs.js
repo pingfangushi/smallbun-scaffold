@@ -461,7 +461,6 @@ var App = function () {
             setInterval(function () {
                 handleIframeLayoutContent();
             }, 200);
-            return;
         },
         blockUI: function (options) {
 
@@ -715,7 +714,7 @@ var addTab = function (options) {
                 animate: false
             });
             content = '<div role="tabpanel" class="tab-pane" id="' + id + '" style="background: #F2F2F2;">';
-            loadIframe = '<iframe onload="javascript:App.unblockUI(\'#tab-content\',\'' + options.title + '\');" src="' + options.url +
+            loadIframe = '<iframe data-id-list="' + options.list_id + '"  onload="javascript:App.unblockUI(\'#tab-content\',\'' + options.title + '\');" src="' + options.url +
                 '" width="100%" height="100%" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="yes"  allowtransparency="yes" id="iframe_' + id + '" class="  tab_iframe"></iframe>';
             content += loadIframe;
             content += '</div>';
@@ -783,6 +782,14 @@ var refreshTab = function () {
     var url = target.attr('src');
 
     target.attr('src', url);
+};
+/**
+ * 刷新表
+ */
+var refreshTable = function () {
+    var currentId = $('.page-tabs-content').find('.active').attr('data-id');
+    $("#iframe_" + currentId)[0].contentWindow.$.table.refresh();
+
 };
 var closeOtherTabs = function (isAll) {
     if (isAll) {
@@ -929,6 +936,43 @@ var activeTab = function () {
 
 };
 
+/**
+ * 关闭当前选项卡，返回跳转回来的主列表页面，并执行主也列表table刷新事件
+ * @param id 主页面跳转过来的list页面
+ */
+function closeCurrentTabPage(obj) {
+    //获取当前ifream的id，然后截取前缀（iframe_）获取id，在拼接tab_获取对象
+    var tab_id = "tab_" + obj.frameElement.getAttribute('id').substring(7, obj.frameElement.getAttribute('id').length);
+    var id = obj.frameElement.getAttribute('data-id-list');
+    /**
+     * 关闭TAB
+     */
+    $("#tab_" + tab_id, parent.document).remove();
+    $("#" + tab_id, parent.document).remove();
+    /**
+     * 激活tab页
+     * @type {string}
+     */
+    $(".menu_tab", parent.document).removeClass("active");
+    $("#tab-content > .active", parent.document).removeClass("active");
+    //激活TAB
+    $("#tab_" + id, parent.document).addClass('active');
+    $("#" + id, parent.document).addClass("active");
+    //主要是针对激活tab后，滚动条消失问题，触发一下滚动条事件
+    $("#iframe_" + id, parent.document).animate({
+        height: App.getIframeLayoutHeight() + 1
+    }, 500);
+    $("#iframe_" + id, parent.document).animate({
+        height: App.getIframeLayoutHeight() - 1
+    }, 500);
+    scrollToTab(this);
+    //刷新表格
+    refreshTable();
+}
+
 $(function () {
+    /**
+     * menuTabs点击事件
+     */
     $(".menuTabs").on("click", ".menu_tab", activeTab);
 });

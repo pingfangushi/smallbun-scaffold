@@ -89,27 +89,27 @@
             // 导出
             exportExcel: function (formId) {
                 var currentId = $.common.isEmpty(formId) ? $('form').attr('id') : formId;
-                var index = $.modal.loading("正在导出数据，请稍后...");
+                $.modal.loading("正在导出数据，请稍后...");
                 $.post($.table._option.exportUrl, $("#" + currentId).serializeArray(), function (result) {
                     if (result.status === web_status.SUCCESS) {
                         window.location.href = contextPath + "fast/download?fileName=" + result.msg + "&delete=" + true;
                     } else {
                         $.modal.alertError(result.msg);
                     }
-                    $.modal.closeLoading(index);
+                    $.modal.loading();
                 });
             },
             // 导入
             importExcel: function (formId) {
                 var currentId = $.common.isEmpty(formId) ? $('form').attr('id') : formId;
-                var index = $.modal.loading("正在导出数据，请稍后...");
+                $.modal.loading("正在导出数据，请稍后...");
                 $.post($.table._option.exportUrl, $("#" + currentId).serializeArray(), function (result) {
                     if (result.status === web_status.SUCCESS) {
                         window.location.href = contextPath + "fast/download?fileName=" + result.msg + "&delete=" + true;
                     } else {
                         $.modal.alertError(result.msg);
                     }
-                    $.modal.closeLoading(index);
+                    $.modal.loading();
                 });
             },
             // 刷新
@@ -143,7 +143,7 @@
                 return actions.join('');
             },
             //查看
-            view: function (value, row, index) {
+            view: function (value, row) {
                 var actions = [];
                 actions.push('<a  href="#" onclick="$.operate.view(\'' + row.id + '\',\'\')">' + value + '</a> ');
                 return actions.join('');
@@ -471,17 +471,17 @@
             },
             // 打开遮罩层
             loading: function (message) {
-                return layer.msg(message, {
-                    icon: 16,
-                    shade: 0.01,
-                    time: 0 //不自动关闭
+                App.blockUI({
+                    boxed: true,
+                    message: message,
+                    animate: false
                 });
-                /* $.blockUI({message: '<div class="loaderbox"><div class="loading-activity"></div> ' + message + '</div>'});*/
+                //$.blockUI({message: '<div class="loaderbox"><div class="loading-activity"></div> ' + message + '</div>'});
             },
             // 关闭遮罩层
-            closeLoading: function (index) {
+            closeLoading: function () {
                 setTimeout(function () {
-                    layer.close(index);
+                    App.unblockUI();
                 }, 50);
             },
             // 重新加载
@@ -489,17 +489,24 @@
                 parent.location.reload();
             },
             // 保存结果提示msg
-            saveSuccess: function (result, index) {
+            saveSuccess: function (result) {
                 if (result.status === web_status.SUCCESS) {
-                    $.modal.msgReload("保存成功,正在刷新数据请稍后……", modal_status.SUCCESS);
+                    //$.modal.msgReload("保存成功,正在刷新数据请稍后……", modal_status.SUCCESS);
+                    $.modal.reload();
                 } else {
                     $.modal.alertError(result.msg);
                 }
-                $.modal.closeLoading(index);
+                $.modal.loading("保存成功,正在刷新数据请稍后……");
             },
             //添加tab页
             openTab: function (id, title, url) {
-                addTab({id: id, title: title, close: true, url: url})
+                addTab({
+                    id: id,
+                    title: title,
+                    close: true,
+                    url: url,
+                    list_id: window.frameElement.getAttribute('id').substring(7, window.frameElement.getAttribute('id').length)
+                })
             }
         },
         /**
@@ -508,14 +515,14 @@
         operate: {
             // 提交数据
             submit: function (url, type, dataType, data) {
-                var index = $.modal.loading("正在处理中，请稍后...");
+                $.modal.loading("正在处理中，请稍后...");
                 var config = {
                     url: url,
                     type: type,
                     dataType: dataType,
                     data: data,
                     success: function (result) {
-                        $.operate.ajaxSuccess(result, index);
+                        $.operate.ajaxSuccess(result);
                     }
                 };
                 $.ajax(config)
@@ -553,8 +560,9 @@
             ,
             //添加，以tab页展现
             addTab: function (id) {
+                var tab_id = "_tab" + Math.random().toString(36).substring(2);
                 var url = $.common.isEmpty(id) ? $.table._option.createUrl.replace("{id}", '') : $.table._option.createUrl.replace("{id}", id);
-                $.modal.openTab("_tab" + Math.random().toString(36).substring(2), "添加" + $.table._option.modalName, url);
+                $.modal.openTab(tab_id, "添加" + $.table._option.modalName, url);
             },
             // 修改信息
             edit: function (id) {
@@ -612,27 +620,27 @@
             },
             // 保存信息
             save: function (url, data) {
-                var index = $.modal.loading("正在处理中，请稍后...");
+                $.modal.loading("正在处理中，请稍后...");
                 var config = {
                     url: url,
                     type: "post",
                     dataType: "json",
                     data: data,
                     success: function (result) {
-                        $.modal.saveSuccess(result, index);
+                        $.modal.saveSuccess(result);
                     }
                 };
                 $.ajax(config)
             },
             // 保存结果弹出msg刷新table表格
-            ajaxSuccess: function (result, index) {
+            ajaxSuccess: function (result) {
                 if (result.status === web_status.SUCCESS) {
                     $.modal.msgSuccess(result.msg);
                     $.table.refresh();
                 } else {
                     $.modal.alertError(result.msg);
                 }
-                $.modal.closeLoading(index);
+                $.modal.loading();
             }
         },
         /**
