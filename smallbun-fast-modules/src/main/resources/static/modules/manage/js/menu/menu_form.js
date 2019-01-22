@@ -48,11 +48,6 @@ function doSubmit() {
         $.operate.save($('.form-horizontal').attr('action'), $('.form-horizontal').serializeArray());
     }
 }
-
-//默认为菜单
-//$("input[type=radio][name=menuType][value='1']").attr("checked", true);
-//可见为可见
-//$("input[type=radio][name=visible][value='0']").attr("checked", true);
 /**
  * 选择菜单类型事件
  */
@@ -71,6 +66,11 @@ $("input:radio[name='menuType']").on('ifChecked', function (event) {
         $("input[name='target']").removeAttr('required');
         $("input[name='url']").removeAttr('required');
 
+        //disabled 不提交
+        $("input[name='fontColor']").attr('disabled');
+        $("input[name='icon']").attr('disabled');
+        $("input[name='target']").attr('disabled');
+        $("input[name='url']").attr('disabled');
     }
     /**
      * 目录或菜单
@@ -85,6 +85,12 @@ $("input:radio[name='menuType']").on('ifChecked', function (event) {
         $("input[name='icon']").attr('required');
         $("input[name='target']").attr('required');
         $("input[name='url']").attr('required');
+
+        //disabled 移除
+        $("input[name='fontColor']").removeAttr('disabled');
+        $("input[name='icon']").removeAttr('disabled');
+        $("input[name='target']").removeAttr('disabled');
+        $("input[name='url']").removeAttr('disabled');
     }
 });
 
