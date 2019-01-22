@@ -50,9 +50,9 @@ function doSubmit() {
 }
 
 //默认为菜单
-$("input[type=radio][name=menuType][value='1']").attr("checked", true);
+//$("input[type=radio][name=menuType][value='1']").attr("checked", true);
 //可见为可见
-$("input[type=radio][name=visible][value='0']").attr("checked", true);
+//$("input[type=radio][name=visible][value='0']").attr("checked", true);
 /**
  * 选择菜单类型事件
  */
@@ -70,6 +70,7 @@ $("input:radio[name='menuType']").on('ifChecked', function (event) {
         $("input[name='icon']").removeAttr('required');
         $("input[name='target']").removeAttr('required');
         $("input[name='url']").removeAttr('required');
+
     }
     /**
      * 目录或菜单
