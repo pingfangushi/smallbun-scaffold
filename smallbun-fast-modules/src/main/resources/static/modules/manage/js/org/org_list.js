@@ -21,8 +21,8 @@ $(function () {
             {field: 'orgCode', title: '机构编码', sortable: false, align: 'left'},
             {field: 'orgTypeName', title: '机构类型', sortable: false, align: 'center'},
             {field: 'gradeName', title: '机构级别', sortable: false, align: 'left'},
-            {field: 'principal', title: '负责人', sortable: false, width: 'auto', align: 'center'},
-            {field: 'telephone', title: '电话', sortable: false, width: 'auto', align: 'center'},
+            {field: 'principal', title: '负责人', visible: false,sortable: false, width: 'auto', align: 'center'},
+            {field: 'telephone', title: '电话', visible: false,  sortable: false, width: 'auto', align: 'center'},
             {field: 'useable', title: '是否可用', sortable: false, width: 'auto', align: 'center', formatter: 'useableFormatter'},
             {title: '操作', width: 50, visible: true,formatter: function (value, row, index) {
                 var actions = [];

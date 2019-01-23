@@ -564,6 +564,26 @@
                 var url = $.common.isEmpty(id) ? $.table._option.createUrl.replace("{id}", '') : $.table._option.createUrl.replace("{id}", "?id=" + id);
                 $.modal.openTab(tab_id, "添加" + $.table._option.modalName, url);
             },
+            //修改，以tab页打开
+            editTab: function (id) {
+                var tab_id = "_tab" + Math.random().toString(36).substring(2);
+                var url = "/404.html";
+                if ($.common.isNotEmpty(id)) {
+                    url = $.table._option.updateUrl.replace("{id}", "?id=" + id);
+                } else {
+                    id = $.common.isEmpty($.table._option.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.uniqueId);
+                    if (id.length === 0) {
+                        $.modal.alertWarning("请至少选择一条记录");
+                        return;
+                    } else if (id.length > 1) {
+                        $.modal.alertWarning("只能选择一条数据");
+                        return;
+                    } else {
+                        url = $.table._option.updateUrl.replace("{id}", "?id=" + id);
+                    }
+                }
+                $.modal.openTab(tab_id, "修改" + $.table._option.modalName, url);
+            },
             // 修改信息
             edit: function (id) {
                 var url = "/404.html";

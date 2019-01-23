@@ -1,6 +1,8 @@
 $(function () {
     //默认字体颜色
-    $("input[name='fontColor']").val('#ddd');
+    if ($.common.isEmpty($("input[name='fontColor']").val())) {
+        $("input[name='fontColor']").val('#ddd');
+    }
     $('#color-picker').colorpicker();
     /**
      * 初始化时加载tree弹出数据

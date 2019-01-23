@@ -118,6 +118,7 @@ public class SysOrgController extends BaseController {
 	 * @return AjaxResult
 	 */
 	@PostMapping(value = "/list")
+	@AutoQueryDictValue
 	public AjaxResult list() {
 		return AjaxResult.builder()
 				.result(excludeZtreeChildrenField(mappingList(sysOrgService.list(new QueryWrapper<>()), new ArrayList<SysOrgVO>(),
@@ -130,6 +131,7 @@ public class SysOrgController extends BaseController {
 	 * @return AjaxResult
 	 */
 	@PostMapping(value = "/tree")
+	@AutoQueryDictValue
 	public AjaxResult tree() {
 		return AjaxResult.builder().result(AutoMapperUtil
 				.mappingTreeList(sysOrgService.tree(new QueryWrapper<>()), new ArrayList<>(), SysOrgVO.class)).build();

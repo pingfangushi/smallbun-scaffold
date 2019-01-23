@@ -28,7 +28,7 @@ $(function () {
                 var actions = [];
                 actions.push('<div class="btn-group"><button type="button" class="btn ibtn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog"></i>&nbsp;<span class="fa fa-chevron-down"></span></button>'+
                     '<ul class="dropdown-menu" role="menu">'+
-                    '<li><a href="#" onclick="$.operate.addTab(\'' + row.id + '\')"><i class="fa fa-edit"></i>修改</a></li>'+
+                    '<li><a href="#" onclick="$.operate.editTab(\'' + row.id + '\')"><i class="fa fa-edit"></i>修改</a></li>'+
                     '<li><a href="#" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-trash"></i>删除</a></li>'+
                     '<li><a href="#" onclick="add(\'' + row.id + '\')"><i class="fa fa-bars"></i>添加下级</a></li>'+
                     '</ul>'+

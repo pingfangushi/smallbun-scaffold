@@ -17,20 +17,14 @@
                     <div class="form-group">
                         <label class="col-sm-4 control-label">上级机构：</label>
                         <div class="col-sm-8">
-                            <!--根节点不显示-->
-                            <th:block th:unless="*{parentId==0}">
-                                <div class="input-group" style="width: 100%">
-                                    <input readonly="readonly" id="pop-up-org-tree" th:value="*{parentId}"
-                                           placeholder="请选择上级机构" required
-                                           class="form-control"/>
-                                    <span class="input-group-addon">
+                            <div class="input-group" style="width: 100%">
+                                <input readonly="readonly" id="pop-up-org-tree" th:value="*{parentId}"
+                                       placeholder="请选择上级机构" required
+                                       class="form-control"/>
+                                <span class="input-group-addon">
                                         <i class="fa fa-search"></i>
                                     </span>
-                                </div>
-                            </th:block>
-                            <th:block th:if="*{parentId==0}">
-                                <input th:field="*{parentId}" class="form-control" placeholder="根节点不可选择" disabled>
-                            </th:block>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -161,7 +155,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <!--<div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label class="col-sm-4 control-label">区域：</label>
@@ -185,7 +179,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
