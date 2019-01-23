@@ -561,7 +561,7 @@
             //添加，以tab页展现
             addTab: function (id) {
                 var tab_id = "_tab" + Math.random().toString(36).substring(2);
-                var url = $.common.isEmpty(id) ? $.table._option.createUrl.replace("{id}", '') : $.table._option.createUrl.replace("{id}", id);
+                var url = $.common.isEmpty(id) ? $.table._option.createUrl.replace("{id}", '') : $.table._option.createUrl.replace("{id}", "?id=" + id);
                 $.modal.openTab(tab_id, "添加" + $.table._option.modalName, url);
             },
             // 修改信息
@@ -1090,11 +1090,11 @@
                     '</div>'
                 );
                 var value = $('#' + options.value);
+                value.val(obj.val());
                 //如果是顶级菜单，设置值为主目录
                 if (obj.val() === '0') {
                     obj.val('主目录');
                 }
-                value.val(obj.val());
                 /**
                  * 发送ajax请求
                  */

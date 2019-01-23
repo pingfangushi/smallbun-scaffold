@@ -38,7 +38,6 @@ function iconConfirm(index, layero) {
 }
 //@formatter:off
 
-
 /**
  * 提交事件
  */
@@ -48,6 +47,8 @@ function doSubmit() {
         $.operate.saveCurrentTabPage($('.form-horizontal').attr('action'), $('.form-horizontal').serializeArray());
     }
 }
+
+
 /**
  * 选择菜单类型事件
  */
@@ -55,44 +56,54 @@ $("input:radio[name='menuType']").on('ifChecked', function (event) {
     /**
      * 按钮
      */
-    if ($(this).val() === '2') {
-        $("input[name='fontColor']").parent().parent().parent().hide();
-        $("input[name='icon']").parent().parent().parent().hide();
-        $("input[name='target']").parent().parent().parent().hide();
-        $("input[name='url']").parent().parent().parent().hide();
-
-        //移除required
-        $("input[name='icon']").removeAttr('required');
-        $("input[name='target']").removeAttr('required');
-        $("input[name='url']").removeAttr('required');
-
-        //disabled 不提交
-        $("input[name='fontColor']").attr('disabled');
-        $("input[name='icon']").attr('disabled');
-        $("input[name='target']").attr('disabled');
-        $("input[name='url']").attr('disabled');
-    }
+    if ($(this).val() === '2') {btnExtracted ();}
     /**
      * 目录或菜单
      */
-    if ($(this).val() === '0' || $(this).val() === '1') {
-        $("input[name='fontColor']").parent().parent().parent().show();
-        $("input[name='icon']").parent().parent().parent().show();
-        $("input[name='target']").parent().parent().parent().show();
-        $("input[name='url']").parent().parent().parent().show();
-
-         //添加required
-        $("input[name='icon']").attr('required');
-        $("input[name='target']").attr('required');
-        $("input[name='url']").attr('required');
-
-        //disabled 移除
-        $("input[name='fontColor']").removeAttr('disabled');
-        $("input[name='icon']").removeAttr('disabled');
-        $("input[name='target']").removeAttr('disabled');
-        $("input[name='url']").removeAttr('disabled');
-    }
+    if ($(this).val() === '0' || $(this).val() === '1') {menuExtracted()}
 });
 
 
+$(function() {
+   var menuType= $('input:radio[name="menuType"]:checked');
+   if (menuType.val()==='2') {btnExtracted()}
+   if (menuType.val()==='1' || menuType.val()==='0'  ) {menuExtracted()}
+});
+/**
+ * 如果选中的是按钮
+ */
+function btnExtracted (){
+     $("input[name='fontColor']").parent().parent().parent().hide();
+     $("input[name='icon']").parent().parent().parent().hide();
+     $("input[name='url']").parent().parent().parent().hide();
+     $("input[name='permission']").parent().parent().parent().show();
 
+     //添加required
+     $("input[name='icon']").attr('readonly', "true");
+     $("input[name='url']").attr('readonly', "true");
+     $("input[name='fontColor']").attr('readonly', "true");
+
+
+     //设置为必选
+     $("#pop-up-menu-tree").attr('required', "true");
+}
+
+/**
+ * 如果选中的是菜单
+ */
+function menuExtracted (){
+     $("input[name='fontColor']").parent().parent().parent().show();
+     $("input[name='icon']").parent().parent().parent().show();
+     $("input[name='url']").parent().parent().parent().show();
+     $("input[name='permission']").parent().parent().parent().hide();
+
+     //移除required
+     $("input[name='icon']").removeAttr('readonly');
+     $("input[name='url']").removeAttr('readonly');
+     $("input[name='fontColor']").removeAttr('readonly');
+
+
+     //不需要为必选
+     $("#pop-up-menu-tree").removeAttr('required');
+     $("#pop-up-menu-tree").valid();
+}
