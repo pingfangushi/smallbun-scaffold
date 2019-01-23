@@ -76,12 +76,14 @@ function btnExtracted (){
      $("input[name='fontColor']").parent().parent().parent().hide();
      $("input[name='icon']").parent().parent().parent().hide();
      $("input[name='url']").parent().parent().parent().hide();
+     $("input[name='target']").parent().parent().parent().hide();
      $("input[name='permission']").parent().parent().parent().show();
 
      //添加required
      $("input[name='icon']").attr('readonly', "true");
      $("input[name='url']").attr('readonly', "true");
      $("input[name='fontColor']").attr('readonly', "true");
+     $("input[name='target']").attr('readonly', "true");
 
 
      //设置为必选
@@ -95,12 +97,14 @@ function menuExtracted (){
      $("input[name='fontColor']").parent().parent().parent().show();
      $("input[name='icon']").parent().parent().parent().show();
      $("input[name='url']").parent().parent().parent().show();
+     $("input[name='target']").parent().parent().parent().show();
      $("input[name='permission']").parent().parent().parent().hide();
 
      //移除required
      $("input[name='icon']").removeAttr('readonly');
      $("input[name='url']").removeAttr('readonly');
      $("input[name='fontColor']").removeAttr('readonly');
+     $("input[name='target']").removeAttr('readonly');
 
 
      //不需要为必选

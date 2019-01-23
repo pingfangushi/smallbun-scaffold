@@ -16,12 +16,13 @@ $(function () {
         showToggle: 'false',
         columns: [
             {field: 'ck', checkbox: true},
+            {field: 'id', visible: false},
             {field: 'menuName', title: '名称', sortable: false, width: '200px', align: 'left'},
             {field: 'url', title: '地址', sortable: false, width: '300px', align: 'left'},
             {field: 'sort', title: '排序', sortable: false, width: '60px', align: 'center'},
             {field: 'permission', title: '权限值', width: '300px', sortable: false, align: 'left'},
             {field: 'icon', title: '图标', sortable: false, width: '100px', align: 'center', formatter: 'iconFormatter'},
-            {field: 'type', title: '类型', sortable: false, width: 'auto', align: 'center', formatter: 'typeFormatter'},
+            {field: 'menuType', title: '类型', sortable: false, width: 'auto', align: 'center', formatter: 'typeFormatter'},
             {field: 'menuStatus', title: '状态', sortable: false, width: 'auto', align: 'center', formatter: 'statusFormatter'},
             {title: '操作', width: 50, visible: true,formatter: function (value, row, index) {
                 var actions = [];
