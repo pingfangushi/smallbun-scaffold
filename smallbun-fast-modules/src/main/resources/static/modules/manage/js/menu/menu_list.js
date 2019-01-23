@@ -20,10 +20,10 @@ $(function () {
             {field: 'menuName', title: '名称', sortable: false, width: '200px', align: 'left'},
             {field: 'url', title: '地址', sortable: false, width: '300px', align: 'left'},
             {field: 'sort', title: '排序', sortable: false, width: '60px', align: 'center'},
-            {field: 'permission', title: '权限值', width: '300px', sortable: false, align: 'left'},
+            {field: 'permission', title: '权限值',visible: false, width: '300px', sortable: false, align: 'left'},
             {field: 'icon', title: '图标', sortable: false, width: '100px', align: 'center', formatter: 'iconFormatter'},
-            {field: 'menuType', title: '类型', sortable: false, width: 'auto', align: 'center', formatter: 'typeFormatter'},
-            {field: 'menuStatus', title: '状态', sortable: false, width: 'auto', align: 'center', formatter: 'statusFormatter'},
+            {field: 'menuType', title: '类型', sortable: false, width: '100px', align: 'center', formatter: 'typeFormatter'},
+            {field: 'menuStatus', title: '状态', sortable: false, width: '100px', align: 'center', formatter: 'statusFormatter'},
             {title: '操作', width: 50, visible: true,formatter: function (value, row, index) {
                 var actions = [];
                 actions.push('<div class="btn-group"><button type="button" class="btn ibtn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog"></i>&nbsp;<span class="fa fa-chevron-down"></span></button>'+
