@@ -1090,9 +1090,17 @@
                     '</div>'
                 );
                 var value = $('#' + options.value);
-                value.val(obj.val());
-                //如果是顶级菜单，设置值为主目录
-                if (obj.val() === '0') {
+                //如果不为空，设置值
+                if ($.common.isNotEmpty(obj.val())) {
+                    value.val(obj.val());
+                    //如果是顶级菜单，设置值为主目录
+                    if (obj.val() === '0') {
+                        obj.val('主目录');
+                    }
+                }
+                //为空
+                else {
+                    value.val('0');
                     obj.val('主目录');
                 }
                 /**
