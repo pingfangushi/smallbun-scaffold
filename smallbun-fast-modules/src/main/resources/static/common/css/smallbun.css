@@ -297,9 +297,10 @@ span.input-group-addon:hover {
     overflow: auto;
     background-color: #fff;
     color: inherit;
-    padding: 0 20px 0 0;
+    padding: 0 20px 0 20px;
     margin-top: 5px;
     -webkit-border-image: none;
+    -o-border-image: none;
     border: 0 solid #e7eaec;
     border-bottom-style: none;
 }
