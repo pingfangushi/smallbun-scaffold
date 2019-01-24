@@ -33,7 +33,44 @@ $(function () {
     };
     $.table.init(options);
      //@formatter:off
+    loadOrg();
 });
+/**
+ * 加载部门
+ */
+function loadOrg(){
+    var orgSetting = {
+        view: {
+            selectedMulti: false,
+            showLine: true
+        },
+        check: {
+            enable: false,
+            chkboxType: {"Y": "ps", "N": "ps"}
+        },
+        data: {
+            simpleData: {
+                enable: true,
+                idKey: "orgId",
+                pIdKey: "parentId",
+                rootPId: 0
+            },
+            key: {
+                name: "orgName"
+            }
+        },
+        callback: {
+            onClick: function (event, treeId, treeNode) {
+
+            }
+        }
+    };
+    $.post(contextPath + "org/list", function (data) {
+        var orgTree = $.fn.zTree.init($("#orgTree"), orgSetting, data.result);
+        //展开
+        orgTree.expandAll(true);
+    }, null, null, "正在加载，请稍后...");
+}
 /**
  * 格式化用户状态
  * @param value

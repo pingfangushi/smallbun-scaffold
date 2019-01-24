@@ -1,5 +1,5 @@
 project:
-  name: SmallBun-快速开发平台 #名称
+  name: SmallBun-企业级脚手架 #名称
   version: v1.0.0 #版本
   powered-by: http://www.smallbun.org
 logging:
