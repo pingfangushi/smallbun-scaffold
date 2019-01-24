@@ -59,7 +59,7 @@ public class LoginUserDetails implements UserDetails {
 	/**
 	 * 状态
 	 */
-	private Integer status;
+	private String status;
 	/**
 	 * 用户实体类
 	 */
@@ -108,7 +108,7 @@ public class LoginUserDetails implements UserDetails {
 	@JSONField(serialize = false)
 	@Override
 	public boolean isAccountNonLocked() {
-		return !getStatus().equals(SystemConstant.LOCKED);
+		return !getStatus().equals(String.valueOf(SystemConstant.LOCKED));
 	}
 
 	/**
@@ -130,7 +130,7 @@ public class LoginUserDetails implements UserDetails {
 	@Override
 	@JSONField(serialize = false)
 	public boolean isEnabled() {
-		return !getStatus().equals(SystemConstant.DISABLED);
+		return !getStatus().equals(String.valueOf(SystemConstant.DISABLED));
 	}
 
 	@Override

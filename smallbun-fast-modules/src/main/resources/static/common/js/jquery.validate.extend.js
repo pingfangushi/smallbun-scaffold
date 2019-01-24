@@ -242,7 +242,7 @@ $.validator.setDefaults({
     },
     errorPlacement: function (error, element) {
         //radio
-        if (element.is(":radio")) {
+        if (element.is(":radio") || element.is(":checkbox")) {
             error.appendTo(element.parents('.input-group'));//错误信息放到右侧
             //error.insertAfter(element.parents('.input-group'));//错误信息放到底部
         }

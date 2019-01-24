@@ -3,7 +3,6 @@ package org.smallbun.fast.manage.org.service;
 import org.smallbun.fast.common.base.BaseTreeService;
 import org.smallbun.fast.manage.org.entity.SysOrgEntity;
 import org.smallbun.fast.manage.org.vo.SysOrgVO;
-import org.smallbun.framework.result.AjaxResult;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
@@ -21,7 +20,7 @@ public interface SysOrgService extends BaseTreeService<SysOrgEntity> {
 	 * @param request
 	 * @return
 	 */
-	SysOrgVO model( HttpServletRequest request);
+	SysOrgVO model(HttpServletRequest request);
 
 	/**
 	 * 根据角色id获取菜单
@@ -36,5 +35,6 @@ public interface SysOrgService extends BaseTreeService<SysOrgEntity> {
 	 * @param org
 	 * @return
 	 */
+	@Override
 	Boolean unique(SysOrgEntity org);
 }

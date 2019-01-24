@@ -18,10 +18,13 @@
 
 package org.smallbun.fast.manage.user.dao;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.smallbun.fast.manage.user.entity.SysUserEntity;
+import org.smallbun.fast.manage.user.vo.SysUserVO;
+import org.smallbun.framework.base.BaseMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -59,4 +62,12 @@ public interface SysUserMapper extends BaseMapper<SysUserEntity> {
 	 * @return 成功条数
 	 */
 	int changePassword(@Param("id") Long id, @Param("password") String password);
+
+	/**
+	 * 自定义分页查询
+	 * @param page
+	 * @param vo
+	 * @return
+	 */
+	IPage<SysUserEntity> page(Page<SysUserEntity> page, @Param("p") SysUserVO vo);
 }

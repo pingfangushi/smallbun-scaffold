@@ -35,13 +35,13 @@
                         <!--/*/<th:block sec:authorize="hasAuthority('manage:user:add')">/*/-->
                         <button type="button" class="btn btn-sm ibtn-info" data-toggle="tooltip" data-placement="left"
                                 title="新增"
-                                onclick="$.operate.add()">
+                                onclick="$.operate.addTab()">
                             <i class="fa fa-plus"></i> 新增
                         </button>
                         <!--/*/</th:block>/*/-->
                         <!--/*/<th:block sec:authorize="hasAuthority('manage:user:edit')">/*/-->
                         <button class="btn btn-sm bg-orange" title="修改" data-toggle="tooltip" data-placement="left"
-                                onclick="$.operate.edit('0')">
+                                onclick="$.operate.editTab()">
                             <i class="fa fa-pencil"></i> 修改
                         </button>
                         <!--/*/</th:block>/*/-->

@@ -1,5 +1,5 @@
 $(function () {
-
+    //@formatter:off
     var options = {
         url: contextPath + 'user/page',
         createUrl: "user/form",
@@ -10,31 +10,45 @@ $(function () {
         sortOrder: "desc",
         modalName: "用户",
         search: false,
-        showExport: false,
-        showRefresh: false,
-        showColumns: false,
-        showToggle: false,
+        showRefresh: true,
+        showColumns: true,
+        showToggle: true,
         columns: [{checkbox: true},
             {field: 'username', title: '用户名'},
             {field: 'fullName', title: '姓名', sortable: true},
             {field: 'phone', title: '手机'},
             {field: 'telephone', title: '电话'},
-            {field: 'email', title: '邮箱', visible: false},
-            {field: 'mobile', title: '归属公司'},
-            {field: 'mobile', title: '归属部门'},
-            {
-                field: 'status', title: '状态', align: 'center',
-                formatter: function (value, row, index) {
-                    //return $.table.selectDictLabel(dist, value);
-                }
-            },
-            {
-                title: '操作', align: 'center', visible: false,
-                formatter: function (value, row, index) {
-
-                }
-            }]
+            {field: 'email', title: '邮箱', visible: true},
+            {field: 'org.orgName', title: '部门'},
+            {field: 'userStatus', title: '状态', align: 'center', formatter: statusFormatter},
+            {title: '操作', align: 'center', visible: true, formatter: function (value, row, index) {var actions = [];actions.push('<div class="btn-group"><button type="button" class="btn ibtn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog"></i>&nbsp;<span class="fa fa-chevron-down"></span></button>' +
+               '<ul class="dropdown-menu" role="menu">' +
+               '<li><a href="#" onclick="$.operate.view(\'' + row.id + '\',\'\')"><i class="fa fa-search-plus"></i>查看</a></li>' +
+               '<li><a href="#" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>修改</a></li>' +
+               '<li><a href="#" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-trash"></i>删除</a></li>' +
+               '</ul>' +
+               '</div>');
+            return actions.join('');
+            }}]
     };
     $.table.init(options);
+     //@formatter:off
 });
-
+/**
+ * 格式化用户状态
+ * @param value
+ * @param row
+ * @param index
+ */
+statusFormatter = function (value, row, index) {
+    if (value === '0') {
+        return '<span class="label label-info">正常</span>';
+    }
+    if (value === '1') {
+        return '<span class="label label-primary">禁用</span>';
+    }
+    if (value === '2') {
+        return '<span class="label label-warning">锁定</span>';
+    }
+    return '';
+};

@@ -122,7 +122,7 @@
                         <label class="col-sm-4 control-label">电话：</label>
                         <div class="col-sm-8">
                             <div class="input-group" style="width: 100%">
-                                <input id="telephone" name="telephone" class="form-control" autocomplete="off"
+                                <input class="form-control" autocomplete="off"
                                        type="tel"
                                        placeholder="请输入联系电话" maxlength="11" th:field="*{telephone}">
                             </div>
@@ -227,5 +227,6 @@
 <div th:include="fragments/include :: jquery-validate-js"/>
 <div th:include="fragments/include :: ztree-js"></div>
 <div th:include="fragments/include :: bootstrap-colorpicker-js"></div>
+<div th:include="fragments/include :: inputmask-js"></div>
 <script th:src="@{/static/modules/manage/js/org/org_form.js}"></script>
 </html>

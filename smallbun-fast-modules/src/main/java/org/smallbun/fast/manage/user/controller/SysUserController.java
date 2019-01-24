@@ -23,19 +23,23 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.fast.manage.user.service.SysUserService;
 import org.smallbun.fast.manage.user.util.UserUtil;
+import org.smallbun.fast.manage.user.vo.SysUserVO;
 import org.smallbun.framework.annotation.SystemLog;
+import org.smallbun.framework.base.BaseController;
 import org.smallbun.framework.result.AjaxResult;
 import org.smallbun.framework.result.PageableResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
+
+import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 
 /**
  * 用户控制器
@@ -45,7 +49,7 @@ import java.util.Objects;
  */
 @RestController
 @RequestMapping(value = "/user")
-public class SysUserController {
+public class SysUserController extends BaseController {
 
 
 	@Autowired
@@ -54,8 +58,8 @@ public class SysUserController {
 	}
 
 	@ModelAttribute
-	protected SysUserEntity model(String id) {
-		return StringUtils.isEmpty(id) ? new SysUserEntity() : sysUserService.getById(id);
+	protected SysUserVO model(HttpServletRequest request) {
+		return sysUserService.model(request);
 	}
 
 	/**
@@ -76,8 +80,8 @@ public class SysUserController {
 	 */
 	@SystemLog(value = "")
 	@GetMapping(value = "/form")
-	public ModelAndView form(SysUserEntity user, Model model) {
-		model.addAttribute("dictType", user);
+	public ModelAndView form(SysUserVO user, Model model) {
+		model.addAttribute("user", user);
 		return new ModelAndView("modules/manage/user/user_form.html");
 	}
 
@@ -109,7 +113,7 @@ public class SysUserController {
 	 */
 	@SystemLog(value = "")
 	@PostMapping(value = "/saveOrUpdate")
-	public AjaxResult saveOrUpdate(@Validated SysUserEntity user) {
+	public AjaxResult saveOrUpdate(@Validated SysUserVO user) {
 		return AjaxResult.builder().result(sysUserService.saveOrUpdate(user)).build();
 	}
 
@@ -121,7 +125,7 @@ public class SysUserController {
 	 */
 	@SystemLog(value = "")
 	@PostMapping(value = "/removeById")
-	public AjaxResult removeById(@NotNull String id) {
+	public AjaxResult removeById(@NotNull @RequestParam(value = "id") String id) {
 		return AjaxResult.builder().result(sysUserService.removeById(id)).build();
 	}
 
@@ -133,20 +137,20 @@ public class SysUserController {
 	 */
 	@SystemLog(value = "")
 	@PostMapping(value = "/removeByIds")
-	public AjaxResult saveOrUpdate(@NotNull List<String> id) {
+	public AjaxResult saveOrUpdate(@NotNull @RequestParam(value = "ids") List<String> id) {
 		return AjaxResult.builder().result(sysUserService.removeByIds(id)).build();
 	}
 
 
 	/**
 	 * 分页查询
-	 *
 	 * @param page
+	 * @param vo
 	 * @return
 	 */
-	@RequestMapping(value = "/page")
-	public PageableResult page(Page<SysUserEntity> page) {
-		return PageableResult.builder().page(sysUserService.page(page, new QueryWrapper<>())).build();
+	@PostMapping(value = "/page")
+	public PageableResult page(Page<SysUserEntity> page, SysUserVO vo) {
+		return PageableResult.builder().page(sysUserService.page(page, vo)).build();
 	}
 
 	/**
@@ -157,6 +161,16 @@ public class SysUserController {
 	@RequestMapping(value = "/list")
 	public AjaxResult list() {
 		return AjaxResult.builder().result(sysUserService.list(new QueryWrapper<>())).build();
+	}
+
+	/**
+	 * 唯一
+	 * @param vo
+	 * @return
+	 */
+	@RequestMapping(value = UNIQUE)
+	public AjaxResult unique(SysUserVO vo) {
+		return AjaxResult.builder().result(sysUserService.unique(vo)).build();
 	}
 
 	/**

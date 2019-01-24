@@ -19,6 +19,7 @@ public interface SysDictTypeService extends BaseService<SysDictTypeEntity> {
 	 * @param dictType dictType
 	 * @return AjaxResult
 	 */
+	@Override
 	Boolean unique(SysDictTypeEntity dictType);
 
 	/**

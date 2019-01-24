@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import org.smallbun.fast.manage.dict.entity.SysDictValueEntity;
 import org.smallbun.fast.manage.dict.service.SysDictValueService;
+import org.smallbun.fast.manage.role.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -20,8 +21,9 @@ import java.util.List;
 public class SmallBunUtil {
 
 	@Autowired
-	public SmallBunUtil(SysDictValueService valueService) {
+	public SmallBunUtil(SysDictValueService valueService, SysRoleService sysRoleService) {
 		this.valueService = valueService;
+		this.sysRoleService = sysRoleService;
 	}
 
 	/**
@@ -46,9 +48,24 @@ public class SmallBunUtil {
 	}
 
 	/**
+	 * 获取所有角色
+	 * @return
+	 */
+	public List<Role> roles() {
+		List<Role> roles = Lists.newArrayList();
+		sysRoleService.list().forEach(
+				u -> roles.add(Role.builder().id(String.valueOf(u.getId())).roleName(u.getRoleName()).build()));
+		return roles;
+	}
+
+	/**
 	 * 注入字典类型service接口
 	 */
 	private final SysDictValueService valueService;
+	/**
+	 * 注入角色service接口
+	 */
+	private final SysRoleService sysRoleService;
 
 }
 
@@ -74,4 +91,20 @@ class Dict {
 	 * 字典值
 	 */
 	private String dictValue;
+}
+
+/**
+ * Role
+ */
+@Builder
+@Data
+class Role {
+	/**
+	 * 角色Id
+	 */
+	private String id;
+	/**
+	 * 角色名称
+	 */
+	private String roleName;
 }

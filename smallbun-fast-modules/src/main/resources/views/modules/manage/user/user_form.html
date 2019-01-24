@@ -1,29 +1,39 @@
 <!DOCTYPE HTML>
+<!--suppress ALL-->
 <html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:include="fragments/include  :: header('添加用户')"></div>
+    <div th:include="fragments/include :: ztree-css"></div>
 </head>
 <body>
 <div class="i-ibox">
     <div class="ibox-content">
-        <form id="inputForm" class="form-horizontal" th:action="@{/}" method="post"
-              novalidate="novalidate">
-            <input id="id" name="id" type="hidden" value="">
+        <form id="inputForm" class="form-horizontal" th:action="@{/user/saveOrUpdate}" method="post"
+              th:object="${user}">
+            <input id="id" name="id" type="hidden" th:field="*{id}">
             <h4 class="page-header h4">基本信息</h4>
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="col-sm-4 control-label"><span style="color: red; ">*</span>归属公司</label>
+                        <label class="col-sm-4 control-label">
+                            <span style="color: red; ">*</span>归属部门：</label>
                         <div class="col-sm-8">
-
+                            <div class="input-group" style="width: 100%">
+                                <input readonly="readonly" type="text" id="pop-up-org-tree" placeholder="归属部门"
+                                       class="form-control"/>
+                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                            </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="col-sm-4 control-label"><span style="color: red; ">*</span>归属部门</label>
+                        <label class="col-sm-4 control-label"><span style="color: red; ">*</span>姓名：</label>
                         <div class="col-sm-8">
-
+                            <input th:field="*{fullName}" autocomplete="off" class="form-control required" type="text"
+                                   maxlength="30"
+                                   aria-required="true">
                         </div>
                     </div>
                 </div>
@@ -31,19 +41,19 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="col-sm-4 control-label"><span style="color: red; ">*</span>工号</label>
+                        <label class="col-sm-4 control-label"><span style="color: red; ">*</span>工号：</label>
                         <div class="col-sm-8">
-                            <input id="no" name="no" class="form-control required valid" type="text"
-                                   value="" maxlength="50" aria-required="true" aria-invalid="false">
+                            <input th:field="*{jobNumber}" autocomplete="off" class="form-control required" type="text"
+                                   maxlength="50">
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="col-sm-4 control-label"><span style="color: red; ">*</span>姓名</label>
+                        <label class="col-sm-4 control-label">电话：</label>
                         <div class="col-sm-8">
-                            <input id="name" name="name" class="form-control required" type="text" value=""
-                                   maxlength="30" aria-required="true">
+                            <input th:field="*{telephone}" autocomplete="off" class="form-control" type="text" value=""
+                                   maxlength="50">
                         </div>
                     </div>
                 </div>
@@ -51,19 +61,20 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="col-sm-4 control-label">邮箱</label>
+                        <label class="col-sm-4 control-label">出生日期：</label>
                         <div class="col-sm-8">
-                            <input id="email" name="email" class="form-control email" type="text" value=""
+                            <input th:field="*{birthday}" autocomplete="off" class="form-control" type="date" value=""
                                    maxlength="50">
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="col-sm-4 control-label">电话</label>
+                        <label class="col-sm-4 control-label">邮箱：</label>
                         <div class="col-sm-8">
-                            <input id="phone" name="phone" class="form-control" type="text" value=""
-                                   maxlength="50">
+                            <input th:field="*{email}" autocomplete="off" class="form-control email" type="text"
+                                   maxlength="50"
+                                   data-inputmask="'alias':'email'" placeholder="请输入邮箱" data-mask>
                         </div>
                     </div>
                 </div>
@@ -72,21 +83,19 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="col-sm-4 control-label"><span style="color: red; ">*</span>登录名</label>
+                        <label class="col-sm-4 control-label"><span style="color: red; ">*</span>登录名：</label>
                         <div class="col-sm-8">
-                            <input id="oldLoginName" name="oldLoginName" type="hidden" value="">
-                            <input id="loginName" name="loginName" class="form-control required error"
-                                   type="text" value="" maxlength="30" aria-required="true"
-                                   aria-invalid="true">
+                            <input th:field="*{username}" autocomplete="off" class="form-control required" type="text"
+                                   maxlength="30">
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="col-sm-4 control-label"><span style="color: red; ">*</span>手机号</label>
+                        <label class="col-sm-4 control-label">手机号：</label>
                         <div class="col-sm-8">
-                            <input id="mobile" name="mobile" minlength="11" class="form-control digits"
-                                   type="text" value="" maxlength="11">
+                            <input th:field="*{phone}" minlength="11" autocomplete="off" class="form-control digits"
+                                   type="tel" maxlength="11">
                         </div>
                     </div>
                 </div>
@@ -94,22 +103,22 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="col-sm-4 control-label"><span style="color: red; ">*</span>密码</label>
+                        <label class="col-sm-4 control-label">密码：</label>
                         <div class="col-sm-8">
-                            <input id="newPassword" name="newPassword" type="password" value=""
-                                   maxlength="50" minlength="3" class="form-control required"
-                                   aria-required="true">
+                            <input th:field="*{password}" autocomplete="off" placeholder="请输入密码" type="password"
+                                   maxlength="50" minlength="6" class="form-control">
 
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="col-sm-4 control-label"><span style="color: red; ">*</span>确认密码</label>
+                        <label class="col-sm-4 control-label">确认密码：</label>
                         <div class="col-sm-8">
-                            <input id="confirmNewPassword" name="confirmNewPassword" type="password"
-                                   class="form-control required" value="" maxlength="50" minlength="3"
-                                   equalto="#newPassword" aria-required="true">
+                            <input id="confirm_password" autocomplete="off" placeholder="请确认密码" name="confirm_password"
+                                   type="password"
+                                   class="form-control" maxlength="50" minlength="6"
+                                   equalto="#password">
                         </div>
                     </div>
                 </div>
@@ -118,28 +127,33 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="col-sm-4 control-label">用户类型</label>
+                        <label class="col-sm-4 control-label"><span style="color: red; ">*</span>用户类型：</label>
                         <div class="col-sm-8">
-                            <select id="userType" name="userType"
-                                    class="form-control select2" tabindex="-1"
-                                    aria-hidden="true">
-                                <option value="1">系统管理</option>
-                                <option value="2">部门经理</option>
-                                <option value="3" selected="selected">普通用户</option>
-                            </select>
+                            <div class="input-group" style="width: 100%">
+                                <select class="form-control select2 required" th:field="*{userType}"
+                                        th:with="type=${@smallbun.dict('USER_TYPE')}">
+                                    <option value="">请选择用户类型</option>
+                                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                                            th:value="${dict.dictValue}">
+                                    </option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="col-sm-4 control-label">用户状态</label>
+                        <label class="col-sm-4 control-label"><span style="color: red; ">*</span>用户状态：</label>
                         <div class="col-sm-8">
-                            <select id="loginFlag" name="loginFlag"
-                                    class="form-control select2" tabindex="-1"
-                                    aria-hidden="true">
-                                <option value="1" selected="selected">激活</option>
-                                <option value="0">冻结</option>
-                            </select>
+                            <div class="input-group" style="width: 100%">
+                                <select class="form-control select2 required" th:field="*{userStatus}"
+                                        th:with="type=${@smallbun.dict('USER_STATUS')}">
+                                    <option value="">请选择用户状态</option>
+                                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                                            th:value="${dict.dictValue}">
+                                    </option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -148,16 +162,14 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">用户角色</label>
+                        <label class="col-sm-2 control-label">用户角色：</label>
                         <div class="col-sm-10">
-                            <div class="form-control" style="border: 0px;">
-                                <label>
-                                    <input type="checkbox" class="minimal">
-                                    超级管理员
-                                </label>
-                                <label>
-                                    <input type="checkbox" class="minimal">
-                                    普通用户
+                            <div class="input-group" style="width: 100%">
+                                <label class="label-radio" required
+                                       th:each="role : ${@smallbun.roles()}">
+                                    <input type="checkbox" class="minimal" name="menuStatus"
+                                           th:value="${role.id}" required>
+                                    <label th:text="${role.roleName}"></label>
                                 </label>
                             </div>
                         </div>
@@ -168,18 +180,40 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">备注</label>
-                        <div class="col-sm-8">
-                                        <textarea id="remarks" name="remarks" maxlength="200" class="form-control "
-                                                  rows="2"></textarea>
+                        <label class="col-xs-2 control-label">备注：</label>
+                        <div class="col-xs-10">
+                            <textarea th:field="*{remarks}" autocomplete="off" maxlength="200" class="form-control "
+                                      rows="3"></textarea>
                         </div>
                     </div>
                 </div>
             </div>
         </form>
     </div>
+    <div class="box-footer">
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-sm ibtn-primary" onclick="doSubmit()" id="btn-submit">
+                    <i class="fa fa-check"></i>
+                    保 存
+                </button>&nbsp;
+                <button type="button" class="btn btn-sm btn-default" id="btn-cancel"
+                        onclick="parent.closeCurrentTabPage(window)">
+                    <i class="fa fa-reply-all"></i>
+                    关 闭
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 <div th:include="fragments/include :: include-js"></div>
-<script th:src="@{/static/modules/manage/js/org/org_form.js}"></script>
+<div th:include="fragments/include :: ztree-js"></div>
+<div th:include="fragments/include :: jquery-validate-js"/>
+<div th:include="fragments/include :: laydate-js"/>
+<div th:include="fragments/include :: inputmask-js"></div>
+<script th:src="@{/static/modules/manage/js/user/user_form.js}"></script>
+<script>
+
+</script>
 </html>

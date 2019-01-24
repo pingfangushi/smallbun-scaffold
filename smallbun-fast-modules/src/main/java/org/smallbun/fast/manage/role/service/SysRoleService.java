@@ -28,6 +28,7 @@ public interface SysRoleService extends BaseService<SysRoleEntity> {
 	 * @param vo
 	 * @return
 	 */
+	@Override
 	Boolean unique(SysRoleEntity vo);
 
 	/**

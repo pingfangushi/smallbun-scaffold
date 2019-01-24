@@ -98,15 +98,23 @@ public class SysUserEntity extends DataEntity<Long> {
 	/**
 	 * 上次登录ip
 	 */
-	//private String lastLoginIp;
+	private String lastLoginIp;
 	/**
 	 * 上次登录地址
 	 */
-	//private String lastLoginAddress;
+	private String lastLoginAddress;
 	/**
 	 * 用户状态
 	 */
-	private Integer userStatus;
+	private String userStatus;
+	/**
+	 * 用户类型
+	 */
+	private String userType;
+	/**
+	 * 工号
+	 */
+	private String jobNumber;
 	/**
 	 * 用户角色集合
 	 */

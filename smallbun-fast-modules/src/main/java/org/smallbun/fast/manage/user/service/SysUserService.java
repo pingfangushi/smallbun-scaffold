@@ -18,18 +18,27 @@
 
 package org.smallbun.fast.manage.user.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.smallbun.fast.manage.user.entity.SysUserEntity;
-import org.smallbun.fast.manage.monitor.vo.OnlineUserVO;
+import org.smallbun.fast.manage.user.vo.SysUserVO;
+import org.smallbun.framework.base.BaseService;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author SanLi [隔壁object港哥][https://www.leshalv.net]
  * <br>
  * Created by 2689170096@qq.com on  2018/7/27 8:38
  */
-public interface SysUserService extends IService<SysUserEntity> {
+public interface SysUserService extends BaseService<SysUserEntity> {
+
+	/**
+	 * model
+	 * @param request
+	 * @return
+	 */
+	SysUserVO model(HttpServletRequest request);
 
 	/**
 	 * 根据用户名查询用户
@@ -38,5 +47,12 @@ public interface SysUserService extends IService<SysUserEntity> {
 	 */
 	SysUserEntity findByUsername(String username);
 
+	/**
+	 * 自定义分页查询
+	 * @param page
+	 * @param vo
+	 * @return
+	 */
+	IPage<SysUserEntity> page(Page<SysUserEntity> page, SysUserVO vo);
 
 }
