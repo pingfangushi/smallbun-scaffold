@@ -6,7 +6,6 @@ $(function () {
         updateUrl: "user/form/{id}",
         removeUrl: contextPath + "/remove",
         exportUrl: contextPath + "/export",
-        sortName: "createTime",
         sortOrder: "desc",
         modalName: "用户",
         search: false,
@@ -61,7 +60,7 @@ function loadOrg(){
         },
         callback: {
             onClick: function (event, treeId, treeNode) {
-
+                $('.table').bootstrapTable('refresh', {query: {orgId:treeNode.id}});
             }
         }
     };

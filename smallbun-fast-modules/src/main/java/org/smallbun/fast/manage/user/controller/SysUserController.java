@@ -159,8 +159,8 @@ public class SysUserController extends BaseController {
 	 * @return AjaxResult
 	 */
 	@RequestMapping(value = "/list")
-	public AjaxResult list() {
-		return AjaxResult.builder().result(sysUserService.list(new QueryWrapper<>())).build();
+	public AjaxResult list(QueryWrapper<SysUserEntity> wrapper) {
+		return AjaxResult.builder().result(sysUserService.list(wrapper)).build();
 	}
 
 	/**

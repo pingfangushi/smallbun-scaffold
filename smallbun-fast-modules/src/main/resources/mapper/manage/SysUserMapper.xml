@@ -32,6 +32,9 @@
     </select>
     <!--自定义分页查询-->
     <select id="page" resultMap="userMap">
-        select * from sys_user s  where s.is_deleted=#{p.isDeleted}
+        select * from sys_user s where s.is_deleted=#{p.isDeleted}
+        <if test="!@org.springframework.util.ObjectUtils@isEmpty(p.orgId)">
+            and s.org_id=#{p.orgId}
+        </if>
     </select>
 </mapper>
