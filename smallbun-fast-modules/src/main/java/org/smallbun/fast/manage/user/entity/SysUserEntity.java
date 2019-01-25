@@ -22,6 +22,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.google.common.collect.Lists;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -125,7 +126,7 @@ public class SysUserEntity extends DataEntity<Long> {
 	 * 用户角色集合
 	 */
 	@TableField(exist = false)
-	private List<SysRoleEntity> roleList;
+	private List<SysRoleEntity> roleList = Lists.newArrayList();
 	/**
 	 * 所属部门
 	 */
