@@ -73,7 +73,6 @@ public class SecurityHandler {
 			//获取当前用户信息
 			UserDetails loginUser = UserUtil.getLoginUser();
 			logger.info("----------------------------------------------------------");
-			assert loginUser != null;
 			logger.info("{}:登录成功!", loginUser.getUsername());
 			response.setContentType("application/json;charset=utf-8");
 			PrintWriter out = response.getWriter();

@@ -38,7 +38,10 @@ import org.springframework.core.env.Environment;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.springframework.web.servlet.resource.VersionResourceResolver;
 
@@ -91,18 +94,6 @@ public class WebMvcConfig extends RequestMappingHandlerMapping
 				.addResolver(new VersionResourceResolver().addContentVersionStrategy("/**"));
 		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/")
 				.resourceChain(true).addResolver(new VersionResourceResolver().addContentVersionStrategy("/**"));
-	}
-
-
-	/**
-	 * 添加视图控制器
-	 *
-	 * @param registry {@link ViewControllerRegistry}
-	 */
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-		//如果设备类型是手机端 403页面
-		//registry.addViewController(IS_PHONE_PATH).setViewName(IS_PHONE_403_VIEW);
 	}
 
 	/**

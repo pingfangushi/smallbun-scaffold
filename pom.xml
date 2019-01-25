@@ -510,6 +510,12 @@
             <artifactId>pace</artifactId>
             <version>1.0.2</version>
         </dependency>
+        <!--weui-->
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>weui</artifactId>
+            <version>1.1.2</version>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>

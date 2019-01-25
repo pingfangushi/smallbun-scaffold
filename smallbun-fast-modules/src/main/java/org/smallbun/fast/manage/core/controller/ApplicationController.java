@@ -29,6 +29,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Objects;
 
+import static org.smallbun.framework.constant.AuthoritiesConstant.IS_PHONE_403_VIEW;
+import static org.smallbun.framework.constant.AuthoritiesConstant.IS_PHONE_PATH;
 import static org.smallbun.framework.security.SecurityConstant.LOGIN;
 
 /**
@@ -75,6 +77,16 @@ public class ApplicationController extends BaseController {
 	@RequestMapping("/icon")
 	public ModelAndView icon() {
 		return new ModelAndView("modules/manage/icons");
+	}
+
+
+	/**
+	 * 手机端访问
+	 * @return {@link ModelAndView}
+	 */
+	@RequestMapping(IS_PHONE_PATH)
+	public ModelAndView phone() {
+		return new ModelAndView(IS_PHONE_403_VIEW);
 	}
 
 	/**
