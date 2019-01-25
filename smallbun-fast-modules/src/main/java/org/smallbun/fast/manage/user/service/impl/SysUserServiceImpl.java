@@ -20,16 +20,21 @@ package org.smallbun.fast.manage.user.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.smallbun.fast.manage.role.entity.SysRoleEntity;
+import org.smallbun.fast.manage.role.service.SysRoleService;
 import org.smallbun.fast.manage.user.dao.SysUserMapper;
 import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.fast.manage.user.service.SysUserService;
 import org.smallbun.fast.manage.user.vo.SysUserVO;
 import org.smallbun.framework.base.BaseServiceImpl;
 import org.smallbun.framework.toolkit.AutoMapperUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 
@@ -41,6 +46,11 @@ import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 @Service
 public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEntity> implements SysUserService {
 
+
+	@Autowired
+	public SysUserServiceImpl(SysRoleService sysRoleService) {
+		this.sysRoleService = sysRoleService;
+	}
 
 	/**
 	 * model
@@ -55,6 +65,24 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 					AutoMapperUtil.mapping(getById(request.getParameter(ID)), new SysUserVO());
 		}
 		return new SysUserVO();
+	}
+
+	/**
+	 * 添加用户基本信息，关联保存用户-角色
+	 * @param entity
+	 * @return
+	 */
+	@Override
+	public boolean save(SysUserEntity entity) {
+		boolean flag;
+		flag = super.save(entity);
+		if (flag) {
+			//保存用户和角色
+			flag = sysRoleService.saveRoleUser(entity.getId().toString(),
+					entity.getRoleList().stream().map(SysRoleEntity::getId).map(Objects::toString)
+							.collect(Collectors.toList()));
+		}
+		return flag;
 	}
 
 	/**
@@ -77,4 +105,6 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 	public IPage<SysUserEntity> page(Page<SysUserEntity> page, SysUserVO vo) {
 		return baseMapper.page(page, vo);
 	}
+
+	private final SysRoleService sysRoleService;
 }

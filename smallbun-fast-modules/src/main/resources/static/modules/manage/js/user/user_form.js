@@ -17,6 +17,7 @@ $(function () {
         rootPId: '0',      //zTree rootPId
         name: 'orgName',  //zTree name
         type: 'POST',      //ajax 请求
+        expand: true,
         url: contextPath + 'org/list' //请求地址
     });
 
@@ -37,43 +38,3 @@ function doSubmit() {
         $.operate.saveCurrentTabPage($('.form-horizontal').attr('action'), $('.form-horizontal').serializeArray());
     }
 }
-
-/**
- * 验证
- */
-$(".form-horizontal").validate({
-    rules: {
-        telephone: {
-            isTel: true
-        },
-        phone: {
-            isTel: true
-        },
-        username: {
-            required: true,
-            remote: {
-                async: false, //同步方法，如果用异步的话，flag永远为false
-                url: contextPath + "user/unique",
-                type: "post",
-                dataType: 'JSON',
-                data: {
-                    id: function () {
-                        return $("#id").val();
-                    },
-                    username: function () {
-                        return $("#username").val();
-                    }
-                },
-                dataFilter: function (data, type) {
-                    data = JSON.parse(data);
-                    return data.result;
-                }
-            }
-        }
-    },
-    messages: {
-        username: {
-            remote: "用户名已存在"
-        }
-    }
-});

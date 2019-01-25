@@ -900,3 +900,7 @@ ul.clear-list:first-child {
 ::-webkit-scrollbar-corner {
     background: 0 0
 }
+
+.help-inline {
+    color: #aaaaaa;
+}

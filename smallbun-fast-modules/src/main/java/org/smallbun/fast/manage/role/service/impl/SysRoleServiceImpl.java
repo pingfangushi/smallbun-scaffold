@@ -19,6 +19,7 @@ import org.springframework.util.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 import static org.smallbun.framework.permission.constant.DataScopeConstant.DATA_SCOPE_CUSTOM;
@@ -33,6 +34,13 @@ import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 @Service
 @Transactional(rollbackFor = Exception.class, readOnly = true)
 public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRoleEntity> implements SysRoleService {
+
+	@Autowired
+	public SysRoleServiceImpl(SysMenuService sysMenuService, SysOrgService sysOrgService) {
+		this.sysMenuService = sysMenuService;
+		this.sysOrgService = sysOrgService;
+	}
+
 	/**
 	 * model
 	 * @param request
@@ -46,10 +54,16 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRoleEn
 		return new SysRoleVO();
 	}
 
-	@Autowired
-	public SysRoleServiceImpl(SysMenuService sysMenuService, SysOrgService sysOrgService) {
-		this.sysMenuService = sysMenuService;
-		this.sysOrgService = sysOrgService;
+	/**
+	 * 保存角色和用户
+	 * @param userId
+	 * @param roleIds
+	 * @return
+	 */
+	@Override
+	public boolean saveRoleUser(String userId, List<String> roleIds) {
+		return baseMapper.saveRoleUser(userId, roleIds);
+
 	}
 
 	/**

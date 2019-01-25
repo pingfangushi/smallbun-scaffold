@@ -28,6 +28,7 @@ import lombok.experimental.Accessors;
 import org.smallbun.fast.common.entity.DataEntity;
 import org.smallbun.fast.manage.org.entity.SysOrgEntity;
 import org.smallbun.fast.manage.role.entity.SysRoleEntity;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -81,6 +82,7 @@ public class SysUserEntity extends DataEntity<Long> {
 	 * 生日
 	 */
 	@JsonFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthday;
 	/**
 	 * 性别
@@ -115,6 +117,10 @@ public class SysUserEntity extends DataEntity<Long> {
 	 * 工号
 	 */
 	private String jobNumber;
+	/**
+	 * 身份证号
+	 */
+	private String idCard;
 	/**
 	 * 用户角色集合
 	 */

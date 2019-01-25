@@ -56,4 +56,12 @@ public interface SysRoleMapper extends BaseMapper<SysRoleEntity> {
 	 * @param entity
 	 */
 	void batchRoleMenuInsert(@Param("entity") SysRoleEntity entity);
+
+	/**
+	 * 保存角色-用户关联
+	 * @param userId
+	 * @param roleIds
+	 * @return
+	 */
+	boolean saveRoleUser(@Param("userId") String userId, @Param("roleIds") List<String> roleIds);
 }

@@ -564,6 +564,12 @@
                 var url = $.common.isEmpty(id) ? $.table._option.createUrl.replace("{id}", '') : $.table._option.createUrl.replace("{id}", "?id=" + id);
                 $.modal.openTab(tab_id, "添加" + $.table._option.modalName, url);
             },
+            //查看，以tab页展现
+            viewTab: function (id) {
+                var tab_id = "_tab" + Math.random().toString(36).substring(2);
+                var url = $.common.isEmpty(id) ? $.table._option.updateUrl.replace("{id}", '') : $.table._option.createUrl.replace("{id}", "?id=" + id);
+                $.modal.openTab(tab_id, "查看" + $.table._option.modalName, url);
+            },
             //修改，以tab页打开
             editTab: function (id) {
                 var tab_id = "_tab" + Math.random().toString(36).substring(2);
@@ -1145,6 +1151,7 @@
                                 //当前输入框添加内容
                                 obj.val(node[options.name]);
                             }
+                            ztree.expandAll(options.expand);
                         } else {
                             alert(result.msg);
                         }

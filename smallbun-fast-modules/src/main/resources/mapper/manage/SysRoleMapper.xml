@@ -55,4 +55,12 @@
             (#{entity.id},#{item.id})
         </foreach>
     </insert>
+    <!--添加角色-用户-->
+    <insert id="saveRoleUser">
+        insert into sys_user_role(user_id, role_id)
+        VALUES
+        <foreach collection="roleIds" item="item" index="index" separator=",">
+            (userId,#{item})
+        </foreach>
+    </insert>
 </mapper>

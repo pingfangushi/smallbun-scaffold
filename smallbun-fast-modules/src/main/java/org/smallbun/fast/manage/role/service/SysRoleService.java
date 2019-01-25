@@ -3,10 +3,10 @@ package org.smallbun.fast.manage.role.service;
 import org.smallbun.fast.manage.role.entity.SysRoleEntity;
 import org.smallbun.fast.manage.role.vo.SysRoleVO;
 import org.smallbun.framework.base.BaseService;
-import org.smallbun.framework.result.AjaxResult;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *
@@ -37,4 +37,12 @@ public interface SysRoleService extends BaseService<SysRoleEntity> {
 	 * @return
 	 */
 	SysRoleVO model(HttpServletRequest request);
+
+	/**
+	 * 保存角色和用户
+	 * @param userId
+	 * @param roleIds
+	 * @return
+	 */
+	boolean saveRoleUser(String userId, List<String> roleIds);
 }
