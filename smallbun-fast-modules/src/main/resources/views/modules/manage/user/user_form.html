@@ -182,11 +182,12 @@
                         <div class="col-sm-10">
                             <div class="input-group" style="width: 100%">
                                 <label class="label-radio" required
-                                       th:each="role : ${@smallbun.roles()}">
+                                       th:each="role ,iterStat: ${@smallbun.roles()}">
                                     <!--为空，显示所有-->
                                     <th:block th:if="*{#lists.isEmpty(roleList)}">
                                         <input type="checkbox" class="minimal"
-                                               th:value="${role.id}" required>
+                                               th:value="${role.id}" th:name="${'roleList['+iterStat.index+'].id'}"
+                                               required>
                                         <label th:text="${role.roleName}"></label>
                                     </th:block>
                                     <!--不为空-->
@@ -197,6 +198,7 @@
                                             <th:block
                                                     th:if="${#strings.toString(roles.id) eq #strings.toString(role.id)}">
                                                 <input type="checkbox" class="minimal"
+                                                       th:name="${'roleList['+iterStat.index+'].id'}"
                                                        th:value="${role.id}" checked="checked" required>
                                                 <label th:text="${role.roleName}"></label>
                                             </th:block>
@@ -204,6 +206,7 @@
                                             <th:block
                                                     th:unless="${#strings.toString(roles.id) eq #strings.toString(role.id)}">
                                                 <input type="checkbox" class="minimal"
+                                                       th:name="${'roleList['+iterStat.index+'].id'}"
                                                        th:value="${role.id}" required>
                                                 <label th:text="${role.roleName}"></label>
                                             </th:block>
