@@ -133,7 +133,7 @@
                         <div class="col-sm-8">
                             <input id="confirm_password" autocomplete="off" placeholder="请确认密码" name="confirm_password"
                                    type="password"
-                                   class="form-control" maxlength="50" title="两次密码不相同" minlength="6"
+                                   class="form-control" maxlength="50" title="两次密码不一致" minlength="6"
                                    equalto="#password" required>
                         </div>
                     </div>
@@ -181,19 +181,33 @@
                         <label class="col-sm-2 control-label">用户角色：</label>
                         <div class="col-sm-10">
                             <div class="input-group" style="width: 100%">
-                                <!-- <label class="label-radio" required
-                                        th:each="role : ${@smallbun.roles()}">
-                                     <input type="checkbox" class="minimal"
-                                            th:value="${role.id}" th:field="*{roleList.id}" required>
-                                     <label th:text="${role.roleName}"></label>
-                                 </label>-->
-                                <ul>
-                                    <li th:each="role : ${@smallbun.roles()}">
-                                        <input type="checkbox" th:field="*{roleList}" th:value="${role.id}"
-                                               th:checked="${#sets.contains(roleList,role.id)}"/>
-                                        <label
-                                                th:text="${role.roleName}">ROLE_USER</label></li>
-                                </ul>
+                                <label class="label-radio" required
+                                       th:each="role : ${@smallbun.roles()}">
+                                    <!--为空，显示所有-->
+                                    <th:block th:if="${#lists.isEmpty(roleList)}">
+                                        <input type="checkbox" class="minimal"
+                                               th:value="${role.id}" required>
+                                        <label th:text="${role.roleName}"></label>
+                                    </th:block>
+                                    <!--不为空-->
+                                    <th:block th:if="${not #lists.isEmpty(roleList)}">
+                                        <!--循环有的角色-->
+                                        <th:block th:each="roles : ${roleList}">
+                                            <!--如果id相同，选中展示-->
+                                            <th:block th:if="${roles.id eq role.id}">
+                                                <input type="checkbox" class="minimal"
+                                                       th:value="${role.id}" checked="checked" required>
+                                                <label th:text="${role.roleName}"></label>
+                                            </th:block>
+                                            <!--如果不相同，展示，不选中-->
+                                            <th:block th:if="${ not roles.id eq role.id}">
+                                                <input type="checkbox" class="minimal"
+                                                       th:value="${role.id}" required>
+                                                <label th:text="${role.roleName}"></label>
+                                            </th:block>
+                                        </th:block>
+                                    </th:block>
+                                </label>
                             </div>
                         </div>
                     </div>
