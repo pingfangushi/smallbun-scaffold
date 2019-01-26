@@ -77,5 +77,5 @@ public interface SysUserMapper extends BaseMapper<SysUserEntity> {
 	 * @param id
 	 * @return
 	 */
-	SysUserEntity findById(Serializable id);
+	SysUserEntity findById(@Param("id") Serializable id);
 }

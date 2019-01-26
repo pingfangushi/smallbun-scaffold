@@ -16,10 +16,7 @@
     <!--更改密码-->
     <update id="changePassword">
         update sys_user t
-        set t
-            .
-            password =
-            #{password}
+        set t.password =#{password}
         where t.id = #{id}
     </update>
     <!--根据角色ID查询所有的用户-->
@@ -29,7 +26,7 @@
         from sys_role sr
                  inner join sys_user_role sur on sr.id = sur.role_id
                  inner join sys_user su on sur.user_id = su.id
-        where sr.id = #{roleId};
+        where sr.id = #{roleId}
     </select>
     <!--根据用户名查询用户-->
     <select id="findByUsername" resultMap="userMap">
@@ -68,5 +65,6 @@
                remarks
         from sys_user
         where is_deleted = 0
+          and id = #{id}
     </select>
 </mapper>
