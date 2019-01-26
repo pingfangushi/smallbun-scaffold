@@ -27,6 +27,7 @@ import org.smallbun.fast.manage.user.vo.SysUserVO;
 import org.smallbun.framework.base.BaseMapper;
 import org.springframework.stereotype.Repository;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -70,4 +71,11 @@ public interface SysUserMapper extends BaseMapper<SysUserEntity> {
 	 * @return
 	 */
 	IPage<SysUserEntity> page(Page<SysUserEntity> page, @Param("p") SysUserVO vo);
+
+	/**
+	 * 根据id进行查询用户
+	 * @param id
+	 * @return
+	 */
+	SysUserEntity findById(Serializable id);
 }

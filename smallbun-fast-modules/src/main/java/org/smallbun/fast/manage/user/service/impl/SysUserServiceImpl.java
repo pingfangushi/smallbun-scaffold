@@ -33,6 +33,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -65,6 +66,16 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 					AutoMapperUtil.mapping(getById(request.getParameter(ID)), new SysUserVO());
 		}
 		return new SysUserVO();
+	}
+
+	/**
+	 * 重写getById
+	 * @param id
+	 * @return
+	 */
+	@Override
+	public SysUserEntity getById(Serializable id) {
+		return baseMapper.findById(id);
 	}
 
 	/**

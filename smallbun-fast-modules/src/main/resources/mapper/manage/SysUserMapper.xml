@@ -15,20 +15,28 @@
     </resultMap>
     <!--更改密码-->
     <update id="changePassword">
-        update sys_user t set t.password = #{password} where t.id = #{id}
+        update sys_user t
+        set t
+            .
+            password =
+            #{password}
+        where t.id = #{id}
     </update>
     <!--根据角色ID查询所有的用户-->
     <select id="findByRoleId" resultType="org.smallbun.fast.manage.user.entity.SysUserEntity" flushCache="true"
             useCache="true">
         select su.*
         from sys_role sr
-               inner join sys_user_role sur on sr.id = sur.role_id
-               inner join sys_user su on sur.user_id = su.id
+                 inner join sys_user_role sur on sr.id = sur.role_id
+                 inner join sys_user su on sur.user_id = su.id
         where sr.id = #{roleId};
     </select>
     <!--根据用户名查询用户-->
     <select id="findByUsername" resultMap="userMap">
-        select * from sys_user t where t.username = #{username} and is_deleted=0
+        select *
+        from sys_user t
+        where t.username = #{username}
+          and is_deleted = 0
     </select>
     <!--自定义分页查询-->
     <select id="page" resultMap="userMap">
@@ -36,5 +44,29 @@
         <if test="!@org.springframework.util.ObjectUtils@isEmpty(p.orgId)">
             and s.org_id=#{p.orgId}
         </if>
+    </select>
+    <!--根据ID查询用户-->
+    <select id="findById" resultMap="userMap">
+        select id,
+               full_name,
+               username,
+               nick_name,
+               head_portrait_url,
+               phone,
+               telephone,
+               email,
+               birthday,
+               sex,
+               qr_code,
+               last_login_time,
+               user_status,
+               org_id,
+               creator,
+               gmt_create,
+               editor,
+               gmt_modified,
+               remarks
+        from sys_user
+        where is_deleted = 0
     </select>
 </mapper>

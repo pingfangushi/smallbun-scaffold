@@ -200,7 +200,7 @@
                                                 <label th:text="${role.roleName}"></label>
                                             </th:block>
                                             <!--如果不相同，展示，不选中-->
-                                            <th:block th:if="${ not roles.id eq role.id}">
+                                            <th:block th:unless="${ roles.id eq role.id}">
                                                 <input type="checkbox" class="minimal"
                                                        th:value="${role.id}" required>
                                                 <label th:text="${role.roleName}"></label>
