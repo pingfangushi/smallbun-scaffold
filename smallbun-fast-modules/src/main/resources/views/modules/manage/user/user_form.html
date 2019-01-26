@@ -42,11 +42,10 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="col-sm-4 control-label"><span style="color: red; ">*</span>工号：</label>
+                        <label class="col-sm-4 control-label">工号：</label>
                         <div class="col-sm-8">
                             <input th:field="*{jobNumber}" placeholder="请输入工号" autocomplete="off"
-                                   class="form-control required" type="text"
-                                   maxlength="10">
+                                   class="form-control" type="text" maxlength="10">
                         </div>
                     </div>
                 </div>
@@ -122,7 +121,7 @@
                     <div class="form-group">
                         <label class="col-sm-4 control-label"><span style="color: red; ">*</span>密码：</label>
                         <div class="col-sm-8">
-                            <input th:field="*{password}" autocomplete="off" placeholder="请输入密码" type="password"
+                            <input autocomplete="off" placeholder="请输入密码" type="password"
                                    maxlength="50" minlength="6" class="form-control " required>
                         </div>
                     </div>
@@ -271,9 +270,6 @@
             idCard: {
                 isIdCardNo: true
             },
-            fullName: {
-                realName: true
-            },
             username: {
                 required: true,
                 remote: {
@@ -320,9 +316,6 @@
         messages: {
             username: {
                 remote: "用户名已存在"
-            },
-            jobNumber: {
-                remote: "工号已存在"
             }
         }
     });

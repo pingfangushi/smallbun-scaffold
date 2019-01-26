@@ -2,10 +2,11 @@ $(function () {
     //@formatter:off
     var options = {
         url: contextPath + 'user/page',
-        createUrl: "user/form",
-        updateUrl: "user/form{id}",
-        removeUrl: contextPath + "/remove",
-        exportUrl: contextPath + "/export",
+        createUrl: contextPath +"user/form",
+        updateUrl: contextPath +"user/form{id}",
+        removeUrl: contextPath + "user/removeById",
+        batRemoveUrl: contextPath + "user/removeByIds",
+        exportUrl: contextPath + "user/export",
         sortOrder: "desc",
         modalName: "用户",
         search: false,
@@ -13,6 +14,7 @@ $(function () {
         showColumns: true,
         showToggle: true,
         columns: [{checkbox: true},
+            {field: 'id', visible: false},
             {field: 'username', title: '用户名'},
             {field: 'fullName', title: '姓名', sortable: true},
             {field: 'phone', title: '手机'},
