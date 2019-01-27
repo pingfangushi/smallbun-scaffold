@@ -176,6 +176,19 @@ public class SysUserController extends BaseController {
 	}
 
 	/**
+	 * 修改密码
+	 * @param oldPassword oldPassword
+	 * @param newPassword newPassword
+	 * @param confirmPassword confirmPassword
+	 * @return AjaxResult
+	 */
+	@PostMapping(value = "/changPassword")
+	public AjaxResult changePassword(String oldPassword, String newPassword, String confirmPassword) {
+		return AjaxResult.builder().result(sysUserService.changePassword(oldPassword, newPassword, confirmPassword))
+				.build();
+	}
+
+	/**
 	 * 注入SysUserService
 	 */
 	private final SysUserService sysUserService;
