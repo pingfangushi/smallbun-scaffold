@@ -23,6 +23,7 @@ import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.smallbun.fast.manage.menu.entity.SysMenuEntity;
+import org.smallbun.fast.manage.menu.service.SysMenuService;
 import org.smallbun.fast.manage.role.entity.SysRoleEntity;
 import org.smallbun.fast.manage.user.details.LoginUserDetails;
 import org.smallbun.fast.manage.user.entity.SysUserEntity;
@@ -57,8 +58,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	private static final String USER_HAS_BEEN_REVOKED = "用户已作废";
 
 	@Autowired
-	public UserDetailsServiceImpl(SysUserService sysUserService) {
+	public UserDetailsServiceImpl(SysUserService sysUserService, SysMenuService sysMenuService) {
 		this.sysUserService = sysUserService;
+		this.sysMenuService = sysMenuService;
 	}
 
 	@Override
@@ -68,18 +70,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			logger.info("------------------------{}------------------------", USER_DOES_NOT_EXIST);
 			throw new UsernameNotFoundException(USER_DOES_NOT_EXIST);
 		}
-		if (user.getUserStatus().equals(SystemConstant.LOCKED)) {
+		if (user.getUserStatus().equals(String.valueOf(SystemConstant.LOCKED))) {
 			logger.info("------------------------{}------------------------", USER_IS_LOCKED);
 			throw new LockedException(USER_IS_LOCKED);
 		}
-		if (user.getUserStatus().equals(SystemConstant.DISABLED)) {
+		if (user.getUserStatus().equals(String.valueOf(SystemConstant.DISABLED))) {
 			logger.info("------------------------{}------------------------", USER_HAS_BEEN_REVOKED);
 			throw new DisabledException(USER_HAS_BEEN_REVOKED);
 		}
 		//获取菜单
 		List<SysMenuEntity> menus = Lists.newArrayList();
 		for (SysRoleEntity role : user.getRoleList()) {
-			menus.addAll(role.getMenuList());
+			menus.addAll(sysMenuService.findByRoleId(role.getId()));
 		}
 		logger.info("------------------------用户{}：具有的菜单{}------------------------", user.getUsername(), menus);
 		logger.info("------------------------用户{}：具有的角色{}------------------------", user.getUsername(),
@@ -94,6 +96,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	 * 注入用户业务逻辑接口
 	 */
 	private final SysUserService sysUserService;
+	private final SysMenuService sysMenuService;
 
 
 }

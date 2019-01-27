@@ -24,7 +24,7 @@ $(function () {
          {field: 'dictValue', title: '字典键值', sortable: true},
          {field: 'sort', title: '排序', visible: true},
          {field: 'gmtModified', title: '更新时间'},
-         {title: '操作', width: 50, visible: true, formatter: function (value, row, index) {
+         {title: '操作', align: 'center',width: 50, visible: true, formatter: function (value, row, index) {
               var actions = [];
               actions.push('<div class="btn-group"><button type="button" class="btn ibtn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog"></i>&nbsp;<span class="fa fa-chevron-down"></span></button>'+
                   '<ul class="dropdown-menu" role="menu">'+

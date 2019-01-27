@@ -11,6 +11,7 @@ $(function () {
         rootPId: '0',      //zTree rootPId
         name: 'orgName',  //zTree name
         type: 'POST',      //ajax 请求
+        expand: true,
         url: contextPath + 'org/list' //请求地址
     });
 });

@@ -37,7 +37,7 @@ $(function () {
             {field: 'typeName', title: '字典名称', formatter: $.table.view},
             {field: 'typeCode', title: '字典类型', sortable: true},
             {field: 'gmtModified', title: '更新时间'},
-            {title: '操作', width: 50, visible: true, formatter: function (value, row, index) {
+            {title: '操作',align: 'center', width: 50, visible: true, formatter: function (value, row, index) {
                     var actions = [];
                     actions.push('<div class="btn-group"><button type="button" class="btn ibtn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog"></i>&nbsp;<span class="fa fa-chevron-down"></span></button>'+
                                     '<ul class="dropdown-menu" role="menu">'+

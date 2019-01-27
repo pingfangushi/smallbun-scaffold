@@ -22,6 +22,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.smallbun.fast.manage.role.entity.SysRoleEntity;
 import org.smallbun.fast.manage.role.service.SysRoleService;
+import org.smallbun.fast.manage.role.vo.SysRoleVO;
 import org.smallbun.fast.manage.user.dao.SysUserMapper;
 import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.fast.manage.user.service.SysUserService;
@@ -30,7 +31,6 @@ import org.smallbun.framework.base.BaseServiceImpl;
 import org.smallbun.framework.toolkit.AutoMapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -76,7 +76,14 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 	 */
 	@Override
 	public SysUserEntity getById(Serializable id) {
-		return baseMapper.findById(id);
+		SysUserEntity byId = baseMapper.findById(id);
+		byId.setRoleVOS(AutoMapperUtil.mappingList(sysRoleService.list(), byId.getRoleVOS(), SysRoleVO.class));
+		byId.getRoleList().forEach(u -> byId.getRoleVOS().forEach(s -> {
+			if (u.getId().equals(s.getId())) {
+				s.setFlag(true);
+			}
+		}));
+		return byId;
 	}
 
 	/**

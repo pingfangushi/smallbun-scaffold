@@ -50,4 +50,8 @@ public class SysRoleVO extends SysRoleEntity {
 	@DictValue(typeCode = "SYS_DATA", valueField = "sysData")
 	@TableField(exist = false)
 	private String sysDataName;
+	/**
+	 * 选中，如果是选中为true
+	 */
+	private Boolean flag;
 }

@@ -24,7 +24,7 @@ $(function () {
             {field: 'icon', title: '图标', sortable: false, width: '100px', align: 'center', formatter: 'iconFormatter'},
             {field: 'menuType', title: '类型', sortable: false, width: '100px', align: 'center', formatter: 'typeFormatter'},
             {field: 'menuStatus', title: '状态', sortable: false, width: '100px', align: 'center', formatter: 'statusFormatter'},
-            {title: '操作', width: 50, visible: true,formatter: function (value, row, index) {
+            {title: '操作', width: 50, align: 'center',visible: true,formatter: function (value, row, index) {
                 var actions = [];
                 actions.push('<div class="btn-group"><button type="button" class="btn ibtn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog"></i>&nbsp;<span class="fa fa-chevron-down"></span></button>'+
                     '<ul class="dropdown-menu" role="menu">'+

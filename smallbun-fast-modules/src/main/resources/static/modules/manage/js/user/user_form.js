@@ -28,7 +28,71 @@ $(function () {
         elem: '#birthday', theme: '#6284f3', max: new Date().toLocaleDateString()
     });
 });
-
+/**
+ * 验证
+ */
+$(".form-horizontal").validate({
+    rules: {
+        telephone: {
+            isTel: true
+        },
+        phone: {
+            isPhone: true
+        }
+        ,
+        idCard: {
+            isIdCardNo: true
+        },
+        username: {
+            required: true,
+            remote: {
+                async: false, //同步方法，如果用异步的话，flag永远为false
+                url: contextPath + "user/unique",
+                type: "post",
+                dataType: 'JSON',
+                data: {
+                    id: function () {
+                        return $("#id").val();
+                    },
+                    username: function () {
+                        return $("#username").val();
+                    }
+                },
+                dataFilter: function (data, type) {
+                    data = JSON.parse(data);
+                    return data.result;
+                }
+            }
+        },
+        jobNumber: {
+            required: true,
+            remote: {
+                async: false, //同步方法，如果用异步的话，flag永远为false
+                url: contextPath + "user/unique",
+                type: "post",
+                dataType: 'JSON',
+                data: {
+                    id: function () {
+                        return $("#id").val();
+                    },
+                    username: function () {
+                        return $("#jobNumber").val();
+                    }
+                },
+                dataFilter: function (data, type) {
+                    data = JSON.parse(data);
+                    return data.result;
+                }
+            }
+        }
+    },
+    messages: {
+        username: {
+            remote: "用户名已存在"
+        },
+        jobNumber: {remote: "工号已存在"}
+    }
+});
 /**
  * 提交事件
  */
