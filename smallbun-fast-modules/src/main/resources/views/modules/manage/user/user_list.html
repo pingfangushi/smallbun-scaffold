@@ -29,10 +29,10 @@
                 <div class="ibox-title dashboard-header gray-bg">
                     <h5>用户列表</h5>
                     <div class="pull-right">
-                        <a class="btn btn-sm ibtn-primary query-a" title="查询" data-toggle="tooltip"
-                           data-placement="left">
+                        <button class="btn btn-sm ibtn-primary query-a" title="查询" data-toggle="tooltip"
+                                data-placement="left">
                             <i class="fa fa-filter"></i> 查询
-                        </a>
+                        </button>
                         <!--/*/<th:block sec:authorize="hasAuthority('manage:user:add')">/*/-->
                         <button type="button" class="btn btn-sm ibtn-info" data-toggle="tooltip" data-placement="left"
                                 title="新增"
@@ -67,38 +67,34 @@
                 </div>
                 <!--盒子内容-->
                 <div class="ibox-content-table">
-                    <form class="form-inline search hidden search-form" action="" method="post">
-                        <div class="form-group" style=" margin-bottom: 10px;">
-                            <span class="col-sm-4 control-label ">姓名：</span>
-                            <div class="col-sm-8">
-                                <input class=" input-sm form-control  width-140"
-                                       type="text" value="" maxlength="20">
-                            </div>
+                    <!--查询框-->
+                    <form class="form-inline search search-form" id="search-form" th:action="@{/user/page}"
+                          method="post">
+                        <div class="form-group" style="padding-bottom: 10px;padding-left: 5px;padding-right: 5px">
+                            <label for="username">用户名：</label>
+                            <input class="form-control input-sm" type="text" id="username" name="username"
+                                   autocomplete="off">
                         </div>
-                        <div class="form-group " style=" margin-bottom: 10px;">
-                            <span class="col-sm-4 control-label ">编号：</span>
-                            <div class="col-sm-8">
-                                <input class=" input-sm form-control width-140"
-                                       type="text" value="" maxlength="20">
-                            </div>
+                        <div class="form-group" style="padding-bottom: 10px;padding-left: 5px;padding-right: 5px">
+                            <label for="phone">手机号：</label>
+                            <input class="form-control input-sm" type="text" id="phone" name="phone"
+                                   autocomplete="off">
                         </div>
-                        <div class="form-group">
-                            <div class="col-sm-6">
-                                <button class="btn ibtn-white btn-sm " style=" margin-bottom: 10px;"
-                                        data-toggle="tooltip"
-                                        data-placement="left" title="搜索"
-                                        onclick="">
-                                    <i class="fa fa-search"></i> 搜索
-                                </button>
-                            </div>
-                            <div class="col-sm-6">
-                                <button class="btn ibtn-white btn-sm" style=" margin-bottom: 10px;"
-                                        data-toggle="tooltip"
-                                        data-placement="left" title="重置"
-                                        onclick="">
-                                    <i class="fa fa-refresh"></i> 重置
-                                </button>
-                            </div>
+                        <div class="form-group" style="padding-bottom: 10px;padding-left: 5px;padding-right: 5px">
+                            <label for="birthdayStart">出生日期起：</label>
+                            <input class="form-control input-sm" type="text" id="birthdayStart" name="birthdayStart"
+                                   autocomplete="off">
+                        </div>
+                        <div class="form-group" style="padding-bottom: 10px;padding-left: 5px;padding-right: 5px">
+                            <label for="birthdayEnd">出生日期止：</label>
+                            <input class="form-control input-sm" type="text" id="birthdayEnd" name="birthdayEnd"
+                                   autocomplete="off">
+                        </div>
+                        <div class="form-group" style="padding-bottom: 10px;padding-left: 5px;padding-right: 5px">
+                            <a class="btn ibtn-white btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                        </div>
+                        <div class="form-group" style="padding-bottom: 10px;padding-left: 5px;padding-right: 5px">
+                            <a class="btn ibtn-white btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
                         </div>
                     </form>
                     <table id="table" class="table table-bordered table-striped"
@@ -111,6 +107,18 @@
 </body>
 <div th:include="fragments/include :: include-js"></div>
 <div th:include="fragments/include :: ztree-js"></div>
+<div th:include="fragments/include :: laydate-js"/>
 <div th:include="fragments/include :: bootstrap-table-js"></div>
 <script th:src="@{/static/modules/manage/js/user/user_list.js}"></script>
+<script>
+    /**
+     * 日期
+     */
+    laydate.render({
+        elem: '#birthdayStart', theme: '#6284f3', max: new Date().toLocaleDateString()
+    });
+    laydate.render({
+        elem: '#birthdayEnd', theme: '#6284f3', max: new Date().toLocaleDateString()
+    });
+</script>
 </html>

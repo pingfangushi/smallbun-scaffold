@@ -63,6 +63,18 @@ body .wrapper .main-header .navbar .dropdown-menu li.active > a:hover {
     font-weight: 400;
 }
 
+.form-group label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 400;
+}
+
+.search .form-group input {
+    width: 123px;
+    height: 28px;
+}
+
 .form-radio {
     border-width: 0;
     padding-left: 0;

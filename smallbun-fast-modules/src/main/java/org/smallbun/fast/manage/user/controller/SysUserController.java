@@ -91,7 +91,9 @@ public class SysUserController extends BaseController {
 	 * @return ModelAndView
 	 */
 	@GetMapping(value = "/profile")
-	public ModelAndView profile() {
+	public ModelAndView profile(Model model) {
+		//查询个人信息
+		model.addAttribute("user", Objects.requireNonNull(UserUtil.getLoginUser()).getSysUser());
 		return new ModelAndView("modules/manage/user/profile.html");
 	}
 
@@ -149,7 +151,7 @@ public class SysUserController extends BaseController {
 	 * @return
 	 */
 	@PostMapping(value = "/page")
-	public PageableResult page(Page<SysUserEntity> page, SysUserVO vo) {
+	public PageableResult page(Page<SysUserEntity> page, @ModelAttribute(value = "vo") SysUserVO vo) {
 		return PageableResult.builder().page(sysUserService.page(page, vo)).build();
 	}
 

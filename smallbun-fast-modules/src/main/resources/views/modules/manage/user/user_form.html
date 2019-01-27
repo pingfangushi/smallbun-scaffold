@@ -66,7 +66,7 @@
                         <label class="col-sm-4 control-label">出生日期：</label>
                         <div class="col-sm-8">
                             <input th:field="*{birthday}" autocomplete="off" placeholder="请选择出生日期" class="form-control"
-                                   type="date" value=""
+                                   type="text"
                                    maxlength="50">
                         </div>
                     </div>
@@ -216,7 +216,4 @@
 <div th:include="fragments/include :: laydate-js"/>
 <div th:include="fragments/include :: inputmask-js"></div>
 <script th:src="@{/static/modules/manage/js/user/user_form.js}"></script>
-<script>
-
-</script>
 </html>
