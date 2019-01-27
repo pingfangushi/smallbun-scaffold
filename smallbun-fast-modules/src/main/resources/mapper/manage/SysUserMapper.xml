@@ -6,6 +6,7 @@
         <id column="id" property="id"/>
         <result column="username" property="username"/>
         <result column="phone" property="phone"/>
+        <result column="org_id" property="orgId"/>
         <!--用户归属部门-->
         <association property="org" column="org_id" fetchType="eager"
                      select="org.smallbun.fast.manage.org.dao.SysOrgMapper.selectById"/>
@@ -47,7 +48,11 @@
         select id,
                full_name,
                username,
+               org_id,
+               id_card,
+               job_number,
                nick_name,
+               user_type,
                head_portrait_url,
                phone,
                telephone,

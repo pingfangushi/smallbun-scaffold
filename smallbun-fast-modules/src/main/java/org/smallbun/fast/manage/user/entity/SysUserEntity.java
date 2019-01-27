@@ -35,6 +35,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+import static com.baomidou.mybatisplus.annotation.FieldStrategy.IGNORED;
+
 /**
  * 用户实体类
  *
@@ -70,14 +72,17 @@ public class SysUserEntity extends DataEntity<Long> {
 	/**
 	 * 手机号
 	 */
+	@TableField(strategy = IGNORED)
 	private String phone;
 	/**
 	 * 电话
 	 */
+	@TableField(strategy = IGNORED)
 	private String telephone;
 	/**
 	 * 邮箱
 	 */
+	@TableField(strategy = IGNORED)
 	private String email;
 	/**
 	 * 生日

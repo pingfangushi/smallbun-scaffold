@@ -61,9 +61,20 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRoleEn
 	 * @return
 	 */
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public boolean saveRoleUser(String userId, List<String> roleIds) {
 		return baseMapper.saveRoleUser(userId, roleIds);
 
+	}
+
+	/**
+	 * 删除角色-用户关联根据用户ID
+	 * @param id
+	 * @return
+	 */
+	@Override
+	public boolean delRoleUserByUserId(Long id) {
+		return baseMapper.delRoleUserByUserId(id);
 	}
 
 	/**
@@ -73,6 +84,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRoleEn
 	 * @return
 	 */
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public SysRoleVO getById(Serializable id) {
 		SysRoleVO role = new SysRoleVO();
 		if (!StringUtils.isEmpty(id)) {

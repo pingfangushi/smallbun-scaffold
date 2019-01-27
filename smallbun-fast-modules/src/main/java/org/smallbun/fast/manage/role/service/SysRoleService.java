@@ -3,6 +3,7 @@ package org.smallbun.fast.manage.role.service;
 import org.smallbun.fast.manage.role.entity.SysRoleEntity;
 import org.smallbun.fast.manage.role.vo.SysRoleVO;
 import org.smallbun.framework.base.BaseService;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
@@ -45,4 +46,12 @@ public interface SysRoleService extends BaseService<SysRoleEntity> {
 	 * @return
 	 */
 	boolean saveRoleUser(String userId, List<String> roleIds);
+
+	/**
+	 * 删除角色-用户关联根据用户ID
+	 * @param id
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	boolean delRoleUserByUserId(Long id);
 }

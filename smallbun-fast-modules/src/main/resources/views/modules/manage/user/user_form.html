@@ -20,7 +20,7 @@
                         <div class="col-sm-8">
                             <div class="input-group" style="width: 100%">
                                 <input readonly="readonly" type="text" id="pop-up-org-tree" placeholder="请选择归属部门"
-                                       class="form-control"/>
+                                       class="form-control" th:value="*{orgId}"/>
                                 <span class="input-group-addon"><i class="fa fa-search"></i></span>
                             </div>
                         </div>
@@ -42,10 +42,10 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="col-sm-4 control-label">工号：</label>
+                        <label class="col-sm-4 control-label"><span style="color: red; ">*</span>工号：</label>
                         <div class="col-sm-8">
                             <input th:field="*{jobNumber}" placeholder="请输入工号" autocomplete="off"
-                                   class="form-control" type="text" maxlength="10">
+                                   class="form-control" request type="text" maxlength="10">
                         </div>
                     </div>
                 </div>
@@ -87,7 +87,7 @@
                     <div class="form-group">
                         <label class="col-sm-4 control-label">身份证号：</label>
                         <div class="col-sm-8">
-                            <input th:field="*{idCard}" autocomplete="off" class="form-control email" type="text"
+                            <input th:field="*{idCard}" autocomplete="off" class="form-control" type="text"
                                    maxlength="18" placeholder="请输入身份证号">
                         </div>
                     </div>
@@ -116,29 +116,6 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label"><span style="color: red; ">*</span>密码：</label>
-                        <div class="col-sm-8">
-                            <input autocomplete="off" placeholder="请输入密码" type="password"
-                                   maxlength="50" minlength="6" class="form-control " required>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label"><span style="color: red; ">*</span>确认密码：</label>
-                        <div class="col-sm-8">
-                            <input id="confirm_password" autocomplete="off" placeholder="请确认密码" name="confirm_password"
-                                   type="password"
-                                   class="form-control" maxlength="50" title="两次密码不一致" minlength="6"
-                                   equalto="#password" required>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
@@ -180,38 +157,40 @@
                         <label class="col-sm-2 control-label">用户角色：</label>
                         <div class="col-sm-10">
                             <div class="input-group" style="width: 100%">
-                                <label class="label-radio" required
-                                       th:each="role ,iterStat: ${@smallbun.roles()}">
-                                    <!--为空，显示所有-->
-                                    <th:block th:if="*{#lists.isEmpty(roleList)}">
+                                <!--为空，显示所有-->
+                                <th:block th:if="*{#lists.isEmpty(roleList)}">
+                                    <label class="label-radio"
+                                           th:each="role ,iterStat: ${@smallbun.roles()}">
                                         <input type="checkbox" class="minimal"
-                                               th:value="${role.id}" th:name="${'roleList['+iterStat.index+'].id'}"
-                                               required>
+                                               th:value="${role.id}" th:name="${'roleList['+iterStat.index+'].id'}">
                                         <label th:text="${role.roleName}"></label>
-                                    </th:block>
-                                    <!--不为空-->
-                                    <th:block th:if="*{not #lists.isEmpty(roleList)}">
-                                        <!--循环有的角色-->
-                                        <th:block th:each="roles : *{roleList}">
+                                    </label>
+                                </th:block>
+                                <!--不为空-->
+                                <th:block th:if="*{not #lists.isEmpty(roleList)}">
+                                    <!--循环有的角色-->
+                                    <th:block th:each="roles ,iterStat : *{roleList}">
+                                        <label class="label-radio"
+                                               th:each="role,iterStat_: ${@smallbun.roles()}">
                                             <!--如果id相同，选中展示-->
                                             <th:block
                                                     th:if="${#strings.toString(roles.id) eq #strings.toString(role.id)}">
                                                 <input type="checkbox" class="minimal"
                                                        th:name="${'roleList['+iterStat.index+'].id'}"
-                                                       th:value="${role.id}" checked="checked" required>
+                                                       th:value="${role.id}" checked="checked">
                                                 <label th:text="${role.roleName}"></label>
                                             </th:block>
                                             <!--如果不相同，展示，不选中-->
                                             <th:block
                                                     th:unless="${#strings.toString(roles.id) eq #strings.toString(role.id)}">
                                                 <input type="checkbox" class="minimal"
-                                                       th:name="${'roleList['+iterStat.index+'].id'}"
-                                                       th:value="${role.id}" required>
+                                                       th:name="${'roleList['+iterStat_.index+'].id'}"
+                                                       th:value="${role.id}">
                                                 <label th:text="${role.roleName}"></label>
                                             </th:block>
-                                        </th:block>
+                                        </label>
                                     </th:block>
-                                </label>
+                                </th:block>
                             </div>
                         </div>
                     </div>
@@ -316,7 +295,8 @@
         messages: {
             username: {
                 remote: "用户名已存在"
-            }
+            },
+            jobNumber: {remote: "工号已存在"}
         }
     });
 </script>

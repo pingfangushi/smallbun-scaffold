@@ -147,6 +147,13 @@
                 var actions = [];
                 actions.push('<a  href="#" onclick="$.operate.view(\'' + row.id + '\',\'\')">' + value + '</a> ');
                 return actions.join('');
+            },
+            //为空处理
+            emptyProcessing: function (value, row, index) {
+                if ($.common.isEmpty(value)) {
+                    return '-'
+                }
+                return value;
             }
         },
         /**
@@ -567,7 +574,7 @@
             //查看，以tab页展现
             viewTab: function (id) {
                 var tab_id = "_tab" + Math.random().toString(36).substring(2);
-                var url = $.common.isEmpty(id) ? $.table._option.updateUrl.replace("{id}", '') : $.table._option.createUrl.replace("{id}", "?id=" + id);
+                var url = $.common.isEmpty(id) ? $.table._option.updateUrl.replace("{id}", '') : $.table._option.updateUrl.replace("{id}", "?id=" + id);
                 $.modal.openTab(tab_id, "查看" + $.table._option.modalName, url);
             },
             //修改，以tab页打开

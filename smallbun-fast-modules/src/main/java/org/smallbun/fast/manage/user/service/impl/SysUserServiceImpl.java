@@ -30,6 +30,7 @@ import org.smallbun.framework.base.BaseServiceImpl;
 import org.smallbun.framework.toolkit.AutoMapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -79,19 +80,23 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 	}
 
 	/**
-	 * 添加用户基本信息，关联保存用户-角色
-	 * @param entity
-	 * @return
+	 * <p>
+	 * TableId 注解存在更新记录，否插入一条记录
+	 * </p>
+	 *
+	 * @param entity 实体对象
+	 * @return boolean
 	 */
 	@Override
-	public boolean save(SysUserEntity entity) {
+	public boolean saveOrUpdate(SysUserEntity entity) {
 		boolean flag;
-		flag = super.save(entity);
+		flag = super.saveOrUpdate(entity);
 		if (flag) {
-			//保存用户和角色
-			flag = sysRoleService.saveRoleUser(entity.getId().toString(),
-					entity.getRoleList().stream().map(SysRoleEntity::getId).map(Objects::toString)
-							.collect(Collectors.toList()));
+			//根据用户删除关联,保存用户和角色
+			sysRoleService.delRoleUserByUserId(entity.getId());
+			sysRoleService.saveRoleUser(entity.getId().toString(),
+					entity.getRoleList().stream().filter(u -> !StringUtils.isEmpty(u.getId())).map(SysRoleEntity::getId)
+							.map(Objects::toString).collect(Collectors.toList()));
 		}
 		return flag;
 	}

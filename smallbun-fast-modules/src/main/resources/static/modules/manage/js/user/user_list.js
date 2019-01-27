@@ -15,12 +15,12 @@ $(function () {
         showToggle: true,
         columns: [{checkbox: true},
             {field: 'id', visible: false},
-            {field: 'username', title: '用户名'},
-            {field: 'fullName', title: '姓名', sortable: true},
-            {field: 'phone', title: '手机'},
-            {field: 'telephone', title: '电话'},
-            {field: 'email', title: '邮箱', visible: true},
-            {field: 'org.orgName', title: '部门'},
+            {field: 'username', title: '用户名',formatter:$.table.emptyProcessing},
+            {field: 'fullName', title: '姓名', sortable: true,formatter:$.table.emptyProcessing},
+            {field: 'phone', title: '手机',formatter:$.table.emptyProcessing},
+            {field: 'telephone', title: '电话',formatter:$.table.emptyProcessing},
+            {field: 'email', title: '邮箱', visible: true,formatter:$.table.emptyProcessing},
+            {field: 'org.orgName', title: '部门',formatter:$.table.emptyProcessing},
             {field: 'userStatus', title: '状态', align: 'center', formatter: statusFormatter},
             {title: '操作', align: 'center', visible: true, formatter: function (value, row, index) {var actions = [];actions.push('<div class="btn-group"><button type="button" class="btn ibtn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog"></i>&nbsp;<span class="fa fa-chevron-down"></span></button>' +
                '<ul class="dropdown-menu" role="menu">' +

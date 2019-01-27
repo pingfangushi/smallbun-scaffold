@@ -56,6 +56,13 @@ body .wrapper .main-header .navbar .dropdown-menu li.active > a:hover {
     background: #222d32;
 }
 
+.input-group label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 400;
+}
+
 .form-radio {
     border-width: 0;
     padding-left: 0;

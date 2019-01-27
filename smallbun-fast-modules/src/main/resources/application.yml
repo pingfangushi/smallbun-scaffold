@@ -65,8 +65,8 @@ mybatis-plus:
       logic-delete-value: 1
       logic-not-delete-value: 0
       db-type: MYSQL
-    refresh: true
     banner: false
+    refresh: true
   configuration:
     #驼峰下划线转换#驼峰下划线转换
     map-underscore-to-camel-case: true

@@ -64,4 +64,11 @@ public interface SysRoleMapper extends BaseMapper<SysRoleEntity> {
 	 * @return
 	 */
 	boolean saveRoleUser(@Param("userId") String userId, @Param("roleIds") List<String> roleIds);
+
+	/**
+	 * 删除角色-用户关联根据用户ID
+	 * @param id
+	 * @return
+	 */
+	boolean delRoleUserByUserId(@Param("id") Long id);
 }
