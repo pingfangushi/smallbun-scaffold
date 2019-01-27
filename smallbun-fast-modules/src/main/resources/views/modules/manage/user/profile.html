@@ -22,7 +22,9 @@
                     <div style="text-align: center;">
                         <p><img width="120" height="120"
                                 th:src="${user.headPortraitUrl}"></p>
-                        <p class="avatar-txt-margin" style="text-align: center"><a class="ng-isolate-scope">修改头像</a></p>
+                        <p class="avatar-txt-margin" style="text-align: center">
+                            <a data-toggle="modal" data-target="#modal-default">修改头像</a>
+                        </p>
                     </div>
                     <ul class="list-group list-group-unbordered">
                         <li class="list-group-item">
@@ -89,7 +91,8 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn ibtn-primary">提交</button>
+                                            <button type="submit" class="btn ibtn-primary">提交
+                                            </button>
                                         </div>
                                     </div>
                                 </form>
@@ -127,6 +130,102 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">修改头像</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#personality_avatar" data-toggle="tab" aria-expanded="true">个性头像编辑</a>
+                            </li>
+                            <li class=""><a href="#local_avatar" data-toggle="tab" aria-expanded="false">本地头像上传</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="personality_avatar">
+                                <div ng-show="selectedMode != 'local'" class=""><p class="margin-top-2"
+                                                                                   bo-bind="'accountcenter.common.avarta.select.local' | translate">
+                                    从个性头像库里选择一张图片作为头像</p>
+                                    <div class="clearfix">
+                                        <div class="pull-left default-avatar-wrap">
+                                            <ul class="default-avatar-list">
+                                                <!-- ngRepeat: item in ATATAR_DEFAULT_IMAGES -->
+                                                <li ng-click="select(item.src)"
+                                                    ng-repeat="item in ATATAR_DEFAULT_IMAGES"
+                                                    ng-class="{'no-margin': ($index + 1)%3 == 0,selected: selectedValue == item.src }"
+                                                    class="ng-scope selected"><img
+                                                        ng-src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_beauty.jpg"
+                                                        alt=""
+                                                        src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_beauty.jpg">
+                                                </li><!-- end ngRepeat: item in ATATAR_DEFAULT_IMAGES -->
+                                                <li ng-click="select(item.src)"
+                                                    ng-repeat="item in ATATAR_DEFAULT_IMAGES"
+                                                    ng-class="{'no-margin': ($index + 1)%3 == 0,selected: selectedValue == item.src }"
+                                                    class="ng-scope"><img
+                                                        ng-src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_colleagues.jpg"
+                                                        alt=""
+                                                        src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_colleagues.jpg">
+                                                </li><!-- end ngRepeat: item in ATATAR_DEFAULT_IMAGES -->
+                                                <li ng-click="select(item.src)"
+                                                    ng-repeat="item in ATATAR_DEFAULT_IMAGES"
+                                                    ng-class="{'no-margin': ($index + 1)%3 == 0,selected: selectedValue == item.src }"
+                                                    class="ng-scope no-margin"><img
+                                                        ng-src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_family.jpg"
+                                                        alt=""
+                                                        src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_family.jpg">
+                                                </li><!-- end ngRepeat: item in ATATAR_DEFAULT_IMAGES -->
+                                                <li ng-click="select(item.src)"
+                                                    ng-repeat="item in ATATAR_DEFAULT_IMAGES"
+                                                    ng-class="{'no-margin': ($index + 1)%3 == 0,selected: selectedValue == item.src }"
+                                                    class="ng-scope"><img
+                                                        ng-src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_friend.jpg"
+                                                        alt=""
+                                                        src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_friend.jpg">
+                                                </li><!-- end ngRepeat: item in ATATAR_DEFAULT_IMAGES -->
+                                                <li ng-click="select(item.src)"
+                                                    ng-repeat="item in ATATAR_DEFAULT_IMAGES"
+                                                    ng-class="{'no-margin': ($index + 1)%3 == 0,selected: selectedValue == item.src }"
+                                                    class="ng-scope"><img
+                                                        ng-src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_handsome.jpg"
+                                                        alt=""
+                                                        src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_handsome.jpg">
+                                                </li><!-- end ngRepeat: item in ATATAR_DEFAULT_IMAGES -->
+                                                <li ng-click="select(item.src)"
+                                                    ng-repeat="item in ATATAR_DEFAULT_IMAGES"
+                                                    ng-class="{'no-margin': ($index + 1)%3 == 0,selected: selectedValue == item.src }"
+                                                    class="ng-scope no-margin"><img
+                                                        ng-src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_trade.jpg"
+                                                        alt=""
+                                                        src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_trade.jpg">
+                                                </li><!-- end ngRepeat: item in ATATAR_DEFAULT_IMAGES --></ul>
+                                        </div>
+                                        <div class="pull-left avatar-preview text-center" ng-show="!!selectedValue"><p>
+                                            <img ng-src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_beauty.jpg"
+                                                 alt=""
+                                                 src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_beauty.jpg">
+                                        </p>
+                                            <p bo-bind="'accountcenter.common.avarta.preview' | translate">头像预览</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="local_avatar">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn ibtn-primary">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 </div>
             </div>
         </div>
