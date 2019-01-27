@@ -26,10 +26,13 @@ import org.smallbun.fast.manage.role.vo.SysRoleVO;
 import org.smallbun.fast.manage.user.dao.SysUserMapper;
 import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.fast.manage.user.service.SysUserService;
+import org.smallbun.fast.manage.user.util.UserUtil;
 import org.smallbun.fast.manage.user.vo.SysUserVO;
 import org.smallbun.framework.base.BaseServiceImpl;
+import org.smallbun.framework.exception.BusinessExecption;
 import org.smallbun.framework.toolkit.AutoMapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -127,6 +130,30 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 	@Override
 	public IPage<SysUserEntity> page(Page<SysUserEntity> page, SysUserVO vo) {
 		return baseMapper.page(page, vo);
+	}
+
+	/**
+	 *修改密码
+	 * @param oldPassword 旧密码
+	 * @param newPassword 新密码
+	 * @param confirmPassword 确认密码
+	 * @return
+	 */
+	@Override
+	public boolean changePassword(String oldPassword, String newPassword, String confirmPassword) {
+		//1.判断旧密码
+		if (!new BCryptPasswordEncoder()
+				.matches(oldPassword, Objects.requireNonNull(UserUtil.getLoginUser()).getPassword())) {
+			throw new BusinessExecption("旧密码输入错误");
+		}
+		//2.新密码
+		if (!newPassword.equals(confirmPassword)) {
+			throw new BusinessExecption("两次输入密码不一致");
+		}
+		//修改密码
+		baseMapper.changePassword(UserUtil.getLoginUser().getSysUser().getId(),
+				new BCryptPasswordEncoder().encode(newPassword));
+		return false;
 	}
 
 	private final SysRoleService sysRoleService;

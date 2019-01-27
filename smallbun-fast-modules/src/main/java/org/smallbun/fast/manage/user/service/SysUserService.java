@@ -25,6 +25,7 @@ import org.smallbun.fast.manage.user.vo.SysUserVO;
 import org.smallbun.framework.base.BaseService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * @author SanLi [隔壁object港哥][https://www.leshalv.net]
@@ -54,5 +55,15 @@ public interface SysUserService extends BaseService<SysUserEntity> {
 	 * @return
 	 */
 	IPage<SysUserEntity> page(Page<SysUserEntity> page, SysUserVO vo);
+
+	/**
+	 *修改密码
+	 * @param oldPassword 旧密码
+	 * @param newPassword 新密码
+	 * @param confirmPassword 确认密码
+	 * @return
+	 */
+	boolean changePassword(@NotEmpty String oldPassword, @NotEmpty String newPassword,
+			@NotEmpty String confirmPassword);
 
 }
