@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author SanLi
  * Created by 2689170096@qq.com on 2018/10/9
  */
-//@RestControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
 	/**
@@ -53,7 +53,7 @@ public class GlobalExceptionHandler {
 	 * @param e   {@link Exception}
 	 * @return
 	 */
-	//@ExceptionHandler(value = Exception.class)
+	@ExceptionHandler(value = Exception.class)
 	public Object defaultErrorHandler(HttpServletRequest req, Exception e) {
 		//使用HttpServletRequest中的header检测请求是否为ajax, 如果是ajax则返回json, 如果为非ajax则返回view(即ModelAndView)
 		String contentTypeHeader = req.getHeader("Content-Type");
@@ -63,7 +63,7 @@ public class GlobalExceptionHandler {
 				&& acceptHeader.contains(APPLICATION_JSON)) || XML_HTTP_REQUEST.equalsIgnoreCase(xRequestedWith);
 		if (b) {
 			//返回Ajax错误
-			return AjaxResult.builder().msg(SystemConstant.DEFAULT_ERROR_MESSAGE).status(ExceptionConstant.EX900001)
+			return AjaxResult.builder().msg(e.getMessage()).status(ExceptionConstant.EX900001)
 					.build();
 		}
 		//非Ajax ,返回ModelAndView
@@ -90,7 +90,6 @@ public class GlobalExceptionHandler {
 		for (FieldError error : exception.getBindingResult().getFieldErrors()) {
 			buffer.append(error.getDefaultMessage()).append(",");
 		}
-		System.out.println("===============" + buffer);
 		return AjaxResult.builder().msg(buffer.toString());
 	}
 

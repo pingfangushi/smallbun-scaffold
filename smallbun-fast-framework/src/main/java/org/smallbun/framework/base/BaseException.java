@@ -39,6 +39,7 @@ public abstract class BaseException extends RuntimeException {
 	private String msg;
 
 	public BaseException(String status, String msg) {
+		super(msg);
 		this.status = status;
 		this.msg = msg;
 		log.error("异常原因(status:{},msg:{})", status, msg);

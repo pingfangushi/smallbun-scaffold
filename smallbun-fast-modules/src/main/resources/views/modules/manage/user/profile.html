@@ -97,7 +97,8 @@
                                 </form>
                             </div>
                             <div class="tab-pane" id="settings">
-                                <form class="form-horizontal" th:action="@{/user/changPassword}" method="post">
+                                <form class="form-horizontal" id="changPasswordForm" th:action="@{/user/changPassword}"
+                                      method="post">
                                     <div class="form-group">
                                         <label for="oldPassword" class="col-sm-2 control-label">旧密码：</label>
                                         <div class="col-sm-10">
@@ -123,7 +124,9 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn ibtn-primary">提交</button>
+                                            <button type="button" onclick="changPassword()" class="btn ibtn-primary">
+                                                提交
+                                            </button>
                                         </div>
                                     </div>
                                 </form>
@@ -233,4 +236,23 @@
 </section>
 </body>
 <div th:include="fragments/include :: include-js"></div>
+<div th:include="fragments/include :: jquery-validate-js"/>
+<script>
+    function changPassword() {
+        // 手动触发校验代码
+        if ($('#changPasswordForm').valid()) {
+            $.ajax({
+                url: $('#changPasswordForm').attr('action'),
+                type: "post",
+                data: $('#changPasswordForm').serializeArray(),
+                dataType: "json",
+                success: function (result) {
+                    if (result.status === '900001') {
+                        $.modal.alertError(result.msg)
+                    }
+                }
+            })
+        }
+    }
+</script>
 </html>
