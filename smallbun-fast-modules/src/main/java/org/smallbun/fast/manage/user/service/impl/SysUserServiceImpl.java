@@ -41,6 +41,7 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static org.smallbun.framework.constant.ExceptionConstant.EX000102;
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 
 /**
@@ -144,7 +145,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 		//1.判断旧密码
 		if (!new BCryptPasswordEncoder()
 				.matches(oldPassword, Objects.requireNonNull(UserUtil.getLoginUser()).getPassword())) {
-			throw new BusinessExecption("旧密码输入错误");
+			throw new BusinessExecption(EX000102, "旧密码输入错误");
 		}
 		//2.新密码
 		if (!newPassword.equals(confirmPassword)) {
