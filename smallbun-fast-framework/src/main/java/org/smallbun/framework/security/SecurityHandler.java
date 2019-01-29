@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import org.smallbun.framework.constant.SystemConstant;
 import org.smallbun.framework.toolkit.IpUtil;
 import org.smallbun.framework.toolkit.UserAgentUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -49,7 +50,12 @@ import static org.smallbun.framework.toolkit.AddressUtil.getRealAddressByIP;
 @Configuration
 public class SecurityHandler {
 
-	private static final String USER = "USER";
+	public static final String USER = "USER";
+
+	@Autowired
+	public SecurityHandler(LoginSuccessHandler loginSuccessHandler) {
+		this.loginSuccessHandler = loginSuccessHandler;
+	}
 
 	@Bean
 	public ActiveUserStore activeUserStore() {
@@ -81,6 +87,8 @@ public class SecurityHandler {
 			out.close();
 			//添加登录信息
 			putLogInInfo(request);
+			//修改登录信息
+			loginSuccessHandler.updateLoginInfo(loginUser);
 			logger.info("----------------------------------------------------------");
 		};
 	}
@@ -167,4 +175,11 @@ public class SecurityHandler {
 	private void delLogInInfo(HttpServletRequest request) {
 		request.getSession().removeAttribute(USER);
 	}
+
+	/**
+	 * 注入LoginSuccessHandler
+	 */
+	private final LoginSuccessHandler loginSuccessHandler;
+
+
 }

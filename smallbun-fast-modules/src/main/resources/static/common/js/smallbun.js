@@ -53,7 +53,7 @@ $(function () {
         contentType: "application/x-www-form-urlencoded;charset=utf-8",
         complete: function (XMLHttpRequest, textStatus) {
             if (XMLHttpRequest.responseText != null && XMLHttpRequest.responseText.indexOf("LOGIN-PAGE") > 0) {
-                layer.confirm("您的登录已超时, 请点确定后重新登录！", {
+                layer.confirm("您的登录已超时, 请重新登录！", {
                         icon: $.modal.icon(modal_status.FAIL),
                         title: "系统提示",
                         btn: ['确认'],

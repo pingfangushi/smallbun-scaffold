@@ -31,19 +31,25 @@ import org.smallbun.fast.manage.user.util.UserUtil;
 import org.smallbun.fast.manage.user.vo.SysUserVO;
 import org.smallbun.framework.base.BaseServiceImpl;
 import org.smallbun.framework.exception.BusinessExecption;
+import org.smallbun.framework.security.LoggedUser;
+import org.smallbun.framework.security.LoggedUserBindingListener;
+import org.smallbun.framework.security.LoginSuccessHandler;
 import org.smallbun.framework.toolkit.AutoMapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static org.smallbun.framework.constant.ExceptionConstant.EX000102;
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
+import static org.smallbun.framework.security.SecurityHandler.USER;
 
 /**
  * @author SanLi [隔壁object港哥][https://www.leshalv.net]
@@ -51,7 +57,8 @@ import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
  * Created by 2689170096@qq.com on  2018/7/27 8:38
  */
 @Service
-public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEntity> implements SysUserService {
+public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEntity>
+		implements SysUserService, LoginSuccessHandler {
 
 
 	@Autowired
@@ -155,27 +162,44 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 		//修改密码
 		baseMapper.changePassword(UserUtil.getLoginUser().getSysUser().getId(),
 				new BCryptPasswordEncoder().encode(newPassword));
-		return false;
+		return true;
 	}
 
 	/**
-	 * 修改用户最后修改信息
-	 * @param loginUser
+	 * 验证原密码
+	 * @param oldPassword
+	 * @return
 	 */
 	@Override
-	public void updateLastLoginInfo(LoginUserDetails loginUser) {
+	public boolean verifyOldPassword(String oldPassword) {
+		return new BCryptPasswordEncoder()
+				.matches(oldPassword, Objects.requireNonNull(UserUtil.getLoginUser()).getPassword());
+	}
+
+	/**
+	 * 修改登录信息
+	 * @param userDetails {@link UserDetails}
+	 */
+	@Override
+	public void updateLoginInfo(UserDetails userDetails) {
+		LoggedUserBindingListener activeUserStore = (LoggedUserBindingListener) UserUtil.getSession()
+				.getAttribute(USER);
+		LoggedUser loggedUser = activeUserStore.getLoggedUser();
+		//强转LoginUserDetails
+		LoginUserDetails user = (LoginUserDetails) userDetails;
 		//设置ip
-		loginUser.getSysUser().setLastLoginIp(loginUser.getLogInIp());
+		user.getSysUser().setLastLoginIp(loggedUser.getLogInIp());
 		//设置地址
-		loginUser.getSysUser().setLastLoginAddress(loginUser.getLogInAddress());
+		user.getSysUser().setLastLoginAddress(loggedUser.getLogInAddress());
 		//设置登录时间
-		loginUser.getSysUser().setLastLoginTime(loginUser.getLogInTime());
+		user.getSysUser().setLastLoginTime(new Timestamp(loggedUser.getLogInTime().getTime()));
 		//调用修改
-		baseMapper.updateLastLoginInfo(loginUser.getSysUser());
+		baseMapper.updateLastLoginInfo(user.getSysUser());
 	}
 
 	/**
 	 * 注入角色业务逻辑接口
 	 */
 	private final SysRoleService sysRoleService;
+
 }

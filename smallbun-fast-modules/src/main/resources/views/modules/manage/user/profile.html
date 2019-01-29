@@ -28,16 +28,19 @@
                     </div>
                     <ul class="list-group list-group-unbordered">
                         <li class="list-group-item">
-                            <b style="font-weight: 400">上次登录地：</b> <a class="pull-right"
-                                                                      th:text="${user.lastLoginAddress}"></a>
+                            <b style="font-weight: 400">上次登录地：</b>
+                            <p class="pull-right"
+                               th:text="${user.lastLoginAddress}"></p>
                         </li>
                         <li class="list-group-item">
-                            <b style="font-weight: 400">上次登录IP：</b> <a class="pull-right"
-                                                                       th:text="${user.lastLoginIp}"></a>
+                            <b style="font-weight: 400">上次登录IP：</b>
+                            <p class="pull-right"
+                               th:text="${user.lastLoginIp}"></p>
                         </li>
                         <li class="list-group-item">
-                            <b style="font-weight: 400">上次登录时间：</b> <a class="pull-right"
-                                                                       th:text="${user.lastLoginTime}"></a>
+                            <b style="font-weight: 400">上次登录时间：</b>
+                            <p class="pull-right"
+                               th:text="${user.lastLoginTime}"></p>
                         </li>
                     </ul>
                 </div>
@@ -102,7 +105,8 @@
                                     <div class="form-group">
                                         <label for="oldPassword" class="col-sm-2 control-label">旧密码：</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="oldPassword" name="oldPassword"
+                                            <input type="password" title="请输入旧密码" class="form-control required"
+                                                   id="oldPassword" name="oldPassword"
                                                    placeholder="请输入旧密码">
                                         </div>
                                     </div>
@@ -110,14 +114,16 @@
                                         <label for="newPassword" class="col-sm-2 control-label">新密码：</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="newPassword" name="newPassword"
+                                            <input type="password" title="请输入新密码" class="form-control required"
+                                                   id="newPassword" name="newPassword"
                                                    placeholder="请输入新密码">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="confirmPassword" class="col-sm-2 control-label">确认密码：</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="confirmPassword"
+                                            <input type="password" title="两次密码不相同" class="form-control required"
+                                                   id="confirmPassword" equalto="#newPassword"
                                                    name="confirmPassword"
                                                    placeholder="请确认密码">
                                         </div>
@@ -250,9 +256,54 @@
                     if (result.status === '900001') {
                         $.modal.alertError(result.msg)
                     }
+                    if (result.status === web_status.SUCCESS) {
+                        layer.confirm("修改成功, 请重新登录！", {
+                                icon: $.modal.icon(modal_status.SUCCESS),
+                                title: "系统提示",
+                                btn: ['确认'],
+                                btnclass: ['btn btn-primary']
+                            }, function (index) {
+                                layer.close(index);
+                                document.location.href = contextPath + 'logout';
+                            }
+                        );
+
+                    }
                 }
             })
         }
     }
+
+    /**
+     * 验证
+     */
+    $("#changPasswordForm").validate({
+        onkeyup: false,
+        rules: {
+            oldPassword: {
+                required: true,
+                remote: {
+                    async: false, //同步方法，如果用异步的话，flag永远为false
+                    url: contextPath + "user/verifyOldPassword",
+                    type: "post",
+                    dataType: 'JSON',
+                    data: {
+                        oldPassword: function () {
+                            return $("#oldPassword").val();
+                        }
+                    },
+                    dataFilter: function (data, type) {
+                        data = JSON.parse(data);
+                        return data.result;
+                    }
+                }
+            }
+        },
+        messages: {
+            oldPassword: {
+                remote: "原密码不正确"
+            }
+        }
+    });
 </script>
 </html>

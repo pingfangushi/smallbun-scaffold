@@ -189,6 +189,16 @@ public class SysUserController extends BaseController {
 	}
 
 	/**
+	 * 验证原密码
+	 * @param oldPassword oldPassword
+	 * @return AjaxResult
+	 */
+	@PostMapping(value = "/verifyOldPassword")
+	public AjaxResult verifyOldPassword(@RequestParam(value = "oldPassword") String oldPassword) {
+		return AjaxResult.builder().result(sysUserService.verifyOldPassword(oldPassword)).build();
+	}
+
+	/**
 	 * 注入SysUserService
 	 */
 	private final SysUserService sysUserService;

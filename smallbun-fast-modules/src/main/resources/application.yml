@@ -33,6 +33,8 @@ spring:
   thymeleaf:
     cache: false #不进行缓存
     prefix: classpath:views/ #更改模板位置为views
+  main:
+    allow-bean-definition-overriding: true
 #------------------------------------------#
 #                                          #
 #          SmallBun自定义配置                #
