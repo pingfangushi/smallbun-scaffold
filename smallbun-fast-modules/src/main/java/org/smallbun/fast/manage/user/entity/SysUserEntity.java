@@ -36,7 +36,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
-import static com.baomidou.mybatisplus.annotation.FieldStrategy.IGNORED;
+import static com.baomidou.mybatisplus.annotation.FieldStrategy.NOT_EMPTY;
 
 /**
  * 用户实体类
@@ -73,17 +73,17 @@ public class SysUserEntity extends DataEntity<Long> {
 	/**
 	 * 手机号
 	 */
-	@TableField(strategy = IGNORED)
+	@TableField(strategy = NOT_EMPTY)
 	private String phone;
 	/**
 	 * 电话
 	 */
-	@TableField(strategy = IGNORED)
+	@TableField(strategy = NOT_EMPTY)
 	private String telephone;
 	/**
 	 * 邮箱
 	 */
-	@TableField(strategy = IGNORED)
+	@TableField(strategy = NOT_EMPTY)
 	private String email;
 	/**
 	 * 生日
@@ -103,7 +103,6 @@ public class SysUserEntity extends DataEntity<Long> {
 	 * 最后登陆时间
 	 */
 	private Timestamp lastLoginTime;
-
 	/**
 	 * 上次登录ip
 	 */

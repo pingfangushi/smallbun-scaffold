@@ -32,6 +32,7 @@ import org.smallbun.framework.base.BaseServiceImpl;
 import org.smallbun.framework.exception.BusinessExecption;
 import org.smallbun.framework.toolkit.AutoMapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -157,5 +158,17 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 		return false;
 	}
 
+	/**
+	 * 修改用户最后修改信息
+	 * @param loginUser
+	 */
+	@Override
+	public void updateLastLoginInfo(UserDetails loginUser) {
+
+	}
+
+	/**
+	 * 注入角色业务逻辑接口
+	 */
 	private final SysRoleService sysRoleService;
 }

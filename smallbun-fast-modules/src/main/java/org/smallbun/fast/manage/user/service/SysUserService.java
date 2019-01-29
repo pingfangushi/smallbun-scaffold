@@ -23,9 +23,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.fast.manage.user.vo.SysUserVO;
 import org.smallbun.framework.base.BaseService;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.constraints.NotEmpty;
 
 /**
  * @author SanLi [隔壁object港哥][https://www.leshalv.net]
@@ -63,7 +63,12 @@ public interface SysUserService extends BaseService<SysUserEntity> {
 	 * @param confirmPassword 确认密码
 	 * @return
 	 */
-	boolean changePassword(@NotEmpty String oldPassword, @NotEmpty String newPassword,
-			@NotEmpty String confirmPassword);
+	boolean changePassword(String oldPassword, String newPassword, String confirmPassword);
+
+	/**
+	 * 修改用户最后修改信息
+	 * @param loginUser
+	 */
+	void updateLastLoginInfo(UserDetails loginUser);
 
 }
