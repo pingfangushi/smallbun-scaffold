@@ -83,8 +83,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		for (SysRoleEntity role : user.getRoleList()) {
 			menus.addAll(sysMenuService.findByRoleId(role.getId()));
 		}
-		logger.info("------------------------用户{}：具有的菜单{}------------------------", user.getUsername(), menus);
-		logger.info("------------------------用户{}：具有的角色{}------------------------", user.getUsername(),
+		logger.debug("------------------------用户{}：具有的菜单{}------------------------", user.getUsername(), menus);
+		logger.debug("------------------------用户{}：具有的角色{}------------------------", user.getUsername(),
 				user.getRoleList());
 		return LoginUserDetails.builder().username(user.getUsername()).password(user.getPassword())
 				.status(user.getUserStatus()).sysUser(user)
@@ -96,6 +96,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	 * 注入用户业务逻辑接口
 	 */
 	private final SysUserService sysUserService;
+	/**
+	 * 注入系统菜单业务逻辑接口
+	 */
 	private final SysMenuService sysMenuService;
 
 
