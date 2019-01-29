@@ -38,6 +38,7 @@ $(function () {
  * 验证
  */
 $(".form-horizontal").validate({
+    onkeyup: false,
     rules: {
         dictValue: {
             required: true,

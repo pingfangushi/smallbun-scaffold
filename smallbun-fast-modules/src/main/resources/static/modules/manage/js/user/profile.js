@@ -44,7 +44,7 @@ function updateUserInfo() {
             dataType: "json",
             success: function (result) {
                 if (result.status === web_status.SUCCESS) {
-
+                    $.modal.alertSuccess("更新成功！")
                 }
             }
         })
@@ -88,10 +88,29 @@ $("#changPasswordForm").validate({
 $("#updateUserInfoForm").validate({
     onkeyup: false,
     rules: {
-        phone: {
-            isPhone: true
+        email: {
+            required: true,
+            remote: {
+                async: false, //同步方法，如果用异步的话，flag永远为false
+                url: contextPath + "user/unique",
+                type: "post",
+                dataType: 'JSON',
+                data: {
+                    id: function () {
+                        return $("#id").val();
+                    },
+                    email: function () {
+                        return $("#email").val();
+                    }
+                },
+                dataFilter: function (data, type) {
+                    data = JSON.parse(data);
+                    return data.result;
+                }
+            }
         },
-        oldPassword: {
+        phone: {
+            isPhone: true,
             required: true,
             remote: {
                 async: false, //同步方法，如果用异步的话，flag永远为false
@@ -104,9 +123,6 @@ $("#updateUserInfoForm").validate({
                     },
                     phone: function () {
                         return $("#phone").val();
-                    },
-                    email: function () {
-                        return $("#email").val();
                     }
                 },
                 dataFilter: function (data, type) {

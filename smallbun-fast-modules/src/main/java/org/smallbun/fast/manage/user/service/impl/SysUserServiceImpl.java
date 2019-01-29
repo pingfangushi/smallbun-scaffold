@@ -176,6 +176,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 				.matches(oldPassword, Objects.requireNonNull(UserUtil.getLoginUser()).getPassword());
 	}
 
+
 	/**
 	 * 修改登录信息
 	 * @param userDetails {@link UserDetails}

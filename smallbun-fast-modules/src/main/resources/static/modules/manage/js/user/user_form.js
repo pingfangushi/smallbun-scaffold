@@ -32,14 +32,29 @@ $(function () {
  * 验证
  */
 $(".form-horizontal").validate({
+    onkeyup: false,
     rules: {
         telephone: {
-            isTel: true
+            isTel: true,
+            remote: {
+                async: false, //同步方法，如果用异步的话，flag永远为false
+                url: contextPath + "user/unique",
+                type: "post",
+                dataType: 'JSON',
+                data: {
+                    id: function () {
+                        return $("#id").val();
+                    },
+                    telephone: function () {
+                        return $("#telephone").val();
+                    }
+                },
+                dataFilter: function (data, type) {
+                    data = JSON.parse(data);
+                    return data.result;
+                }
+            }
         },
-        phone: {
-            isPhone: true
-        }
-        ,
         idCard: {
             isIdCardNo: true
         },
@@ -84,15 +99,59 @@ $(".form-horizontal").validate({
                     return data.result;
                 }
             }
+        },
+        email: {
+            required: true,
+            remote: {
+                async: false, //同步方法，如果用异步的话，flag永远为false
+                url: contextPath + "user/unique",
+                type: "post",
+                dataType: 'JSON',
+                data: {
+                    id: function () {
+                        return $("#id").val();
+                    },
+                    email: function () {
+                        return $("#email").val();
+                    }
+                },
+                dataFilter: function (data, type) {
+                    data = JSON.parse(data);
+                    return data.result;
+                }
+            }
+        },
+        phone: {
+            isPhone: true,
+            remote: {
+                async: false, //同步方法，如果用异步的话，flag永远为false
+                url: contextPath + "user/unique",
+                type: "post",
+                dataType: 'JSON',
+                data: {
+                    id: function () {
+                        return $("#id").val();
+                    },
+                    phone: function () {
+                        return $("#phone").val();
+                    }
+                },
+                dataFilter: function (data, type) {
+                    data = JSON.parse(data);
+                    return data.result;
+                }
+            }
         }
     },
     messages: {
-        username: {
-            remote: "用户名已存在"
-        },
-        jobNumber: {remote: "工号已存在"}
+        username: {remote: "用户名已存在"},
+        jobNumber: {remote: "工号已存在"},
+        phone: {remote: "手机号已存在"},
+        email: {remote: "邮箱已存在"},
+        telephone: {remote: "电话已存在"}
     }
 });
+
 /**
  * 提交事件
  */

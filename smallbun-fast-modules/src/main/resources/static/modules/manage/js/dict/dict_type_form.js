@@ -19,6 +19,7 @@
  * 验证
  */
 $(".form-horizontal").validate({
+    onkeyup: false,
     rules: {
         typeCode: {
             required: true,

@@ -8,7 +8,6 @@ import org.smallbun.fast.manage.user.util.UserUtil;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -96,25 +95,12 @@ public class BaseMetaObjectHandler implements MetaObjectHandler {
 	@Override
 	public void updateFill(MetaObject metaObject) {
 		// 更新用户
-		Object updateBy = getFieldValByName(EDITOR, metaObject);
-		if (StringUtils.isEmpty(updateBy)) {
-			setFieldValByName(EDITOR, Objects.requireNonNull(UserUtil.getLoginUser()).getSysUser(), metaObject);
-		}
-
+		setFieldValByName(EDITOR, Objects.requireNonNull(UserUtil.getLoginUser()).getSysUser(), metaObject);
 		// 更新时间
-		Object updateDate = getFieldValByName(GMT_MODIFIED, metaObject);
-		if (StringUtils.isEmpty(updateDate)) {
-			setFieldValByName(GMT_MODIFIED, new Date(), metaObject);
-		}
+		setFieldValByName(GMT_MODIFIED, LocalDateTime.now(), metaObject);
 		// 父id
-		Object parentId = getFieldValByName(PARENT_ID, metaObject);
-		if (StringUtils.isEmpty(parentId)) {
-			setFieldValByName(PARENT_ID, 0L, metaObject);
-		}
-		// 父id
-		Object parentIds = getFieldValByName(PARENT_ID_S, metaObject);
-		if (StringUtils.isEmpty(parentIds)) {
-			setFieldValByName(PARENT_ID_S, "0", metaObject);
-		}
+		setFieldValByName(PARENT_ID, 0L, metaObject);
+		// 父ids
+		setFieldValByName(PARENT_ID_S, "0", metaObject);
 	}
 }

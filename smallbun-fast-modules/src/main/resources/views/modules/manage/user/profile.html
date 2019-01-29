@@ -3,12 +3,6 @@
 <html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:include="fragments/include  :: header('个人信息')"></div>
-    <style>
-        .secure .secure-set-list li {
-            padding: 33px;
-            border-top: 1px dashed #e1e6eb;
-        }
-    </style>
 </head>
 <body class="list-body">
 <section class="content">
@@ -27,6 +21,11 @@
                         </p>
                     </div>
                     <ul class="list-group list-group-unbordered">
+                        <li class="list-group-item">
+                            <b style="font-weight: 400">用户名：</b>
+                            <p class="pull-right"
+                               th:text="${user.username}"></p>
+                        </li>
                         <li class="list-group-item">
                             <b style="font-weight: 400">上次登录地：</b>
                             <p class="pull-right"
@@ -62,16 +61,9 @@
                         <div class="tab-content">
                             <!--用户信息-->
                             <div class="tab-pane active" id="user_info">
-                                <form class="form-horizontal" th:action="@{/user/updateInfo}" id="updateUserInfoForm">
-                                    <div class="form-group">
-                                        <label for="username" class="col-sm-2 control-label">用户名：</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" autocomplete="off" class="form-control required"
-                                                   disabled="disabled"
-                                                   th:value="${user.username}" name="username" id="username"
-                                                   placeholder="请输入用户名">
-                                        </div>
-                                    </div>
+                                <form class="form-horizontal" th:action="@{/user/saveOrUpdate}" id="updateUserInfoForm">
+                                    <!--隐藏ID-->
+                                    <input th:value="${user.id}" name="id" type="hidden">
                                     <div class="form-group">
                                         <label for="nickName" class="col-sm-2 control-label">昵称：</label>
                                         <div class="col-sm-10">

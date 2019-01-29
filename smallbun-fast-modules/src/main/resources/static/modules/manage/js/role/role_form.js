@@ -38,6 +38,7 @@ function doSubmit() {
  * 验证
  */
 $(".form-horizontal").validate({
+    onkeyup: false,
     rules: {
         roleName: {
             required: true,
