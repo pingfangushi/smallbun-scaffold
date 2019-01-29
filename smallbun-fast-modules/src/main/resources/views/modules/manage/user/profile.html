@@ -222,7 +222,7 @@
                                                 <li ng-click="select(item.src)"
                                                     ng-repeat="item in ATATAR_DEFAULT_IMAGES"
                                                     ng-class="{'no-margin': ($index + 1)%3 == 0,selected: selectedValue == item.src }"
-                                                    class="ng-scope no-margin"><img
+                                                    class="ng-scope"><img
                                                         ng-src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_family.jpg"
                                                         alt=""
                                                         src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_family.jpg">
@@ -246,13 +246,13 @@
                                                 <li ng-click="select(item.src)"
                                                     ng-repeat="item in ATATAR_DEFAULT_IMAGES"
                                                     ng-class="{'no-margin': ($index + 1)%3 == 0,selected: selectedValue == item.src }"
-                                                    class="ng-scope no-margin"><img
+                                                    class="ng-scope"><img
                                                         ng-src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_trade.jpg"
                                                         alt=""
                                                         src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_trade.jpg">
                                                 </li><!-- end ngRepeat: item in ATATAR_DEFAULT_IMAGES --></ul>
                                         </div>
-                                        <div class="pull-left avatar-preview text-center" ng-show="!!selectedValue"><p>
+                                        <div class="pull-left avatar-preview text-center" style="margin-left: 10px"><p>
                                             <img ng-src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_beauty.jpg"
                                                  alt=""
                                                  src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_beauty.jpg">
