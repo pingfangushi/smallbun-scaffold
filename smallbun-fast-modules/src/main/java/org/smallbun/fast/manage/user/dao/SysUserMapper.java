@@ -78,4 +78,11 @@ public interface SysUserMapper extends BaseMapper<SysUserEntity> {
 	 * @return
 	 */
 	SysUserEntity findById(@Param("id") Serializable id);
+
+	/**
+	 * 更改最后登录信息
+	 * @param sysUser
+	 * @return
+	 */
+	boolean updateLastLoginInfo(@Param("info") SysUserEntity sysUser);
 }

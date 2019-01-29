@@ -164,7 +164,14 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 	 */
 	@Override
 	public void updateLastLoginInfo(LoginUserDetails loginUser) {
-
+		//设置ip
+		loginUser.getSysUser().setLastLoginIp(loginUser.getLogInIp());
+		//设置地址
+		loginUser.getSysUser().setLastLoginAddress(loginUser.getLogInAddress());
+		//设置登录时间
+		loginUser.getSysUser().setLastLoginTime(loginUser.getLogInTime());
+		//调用修改
+		baseMapper.updateLastLoginInfo(loginUser.getSysUser());
 	}
 
 	/**

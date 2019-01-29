@@ -20,6 +20,14 @@
         set t.password =#{password}
         where t.id = #{id}
     </update>
+    <!--更改最后登录信息-->
+    <update id="updateLastLoginInfo">
+        update sys_user
+               set
+               last_login_address=#{info.lastLoginAddress} ,
+               last_login_ip=#{info.lastLoginIp},
+               last_login_time=#{info.lastLoginTime} where id=#{info.id}
+    </update>
     <!--根据角色ID查询所有的用户-->
     <select id="findByRoleId" resultType="org.smallbun.fast.manage.user.entity.SysUserEntity" flushCache="true"
             useCache="true">

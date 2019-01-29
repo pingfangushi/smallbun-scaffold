@@ -29,6 +29,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
 
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -75,7 +76,7 @@ public class LoginUserDetails implements UserDetails {
 	/**
 	 * 登录时间
 	 */
-	private String logInTime;
+	private Timestamp logInTime;
 
 	/**
 	 * 返回授予用户的权限。, 无法返回<fast> null </ fast>
