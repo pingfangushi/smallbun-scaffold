@@ -20,10 +20,10 @@ package org.smallbun.fast.manage.user.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.smallbun.fast.manage.user.details.LoginUserDetails;
 import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.fast.manage.user.vo.SysUserVO;
 import org.smallbun.framework.base.BaseService;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -69,6 +69,6 @@ public interface SysUserService extends BaseService<SysUserEntity> {
 	 * 修改用户最后修改信息
 	 * @param loginUser
 	 */
-	void updateLastLoginInfo(UserDetails loginUser);
+	void updateLastLoginInfo(LoginUserDetails loginUser);
 
 }

@@ -24,6 +24,7 @@ import org.smallbun.fast.manage.role.entity.SysRoleEntity;
 import org.smallbun.fast.manage.role.service.SysRoleService;
 import org.smallbun.fast.manage.role.vo.SysRoleVO;
 import org.smallbun.fast.manage.user.dao.SysUserMapper;
+import org.smallbun.fast.manage.user.details.LoginUserDetails;
 import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.fast.manage.user.service.SysUserService;
 import org.smallbun.fast.manage.user.util.UserUtil;
@@ -32,7 +33,6 @@ import org.smallbun.framework.base.BaseServiceImpl;
 import org.smallbun.framework.exception.BusinessExecption;
 import org.smallbun.framework.toolkit.AutoMapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -163,7 +163,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 	 * @param loginUser
 	 */
 	@Override
-	public void updateLastLoginInfo(UserDetails loginUser) {
+	public void updateLastLoginInfo(LoginUserDetails loginUser) {
 
 	}
 
