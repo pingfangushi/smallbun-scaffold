@@ -16,17 +16,25 @@
     </resultMap>
     <!--更改密码-->
     <update id="changePassword">
-        update sys_user t
-        set t.password =#{password}
-        where t.id = #{id}
+        update sys_user
+        set password =
+                #{password}
+        where id = #{id}
     </update>
     <!--更改最后登录信息-->
     <update id="updateLastLoginInfo">
         update sys_user
-               set
-               last_login_address=#{info.lastLoginAddress} ,
-               last_login_ip=#{info.lastLoginIp},
-               last_login_time=#{info.lastLoginTime} where id=#{info.id}
+        set
+            last_login_address=#{info.lastLoginAddress},
+            last_login_ip=#{info.lastLoginIp},
+            last_login_time=#{info.lastLoginTime}
+        where id = #{info.id}
+    </update>
+    <!--更新用户头像-->
+    <update id="updateHeadPortrait">
+        update sys_user
+        set head_portrait_url=#{headPortraitUrl}
+        where id = #{id}
     </update>
     <!--根据角色ID查询所有的用户-->
     <select id="findByRoleId" resultType="org.smallbun.fast.manage.user.entity.SysUserEntity" flushCache="true"
