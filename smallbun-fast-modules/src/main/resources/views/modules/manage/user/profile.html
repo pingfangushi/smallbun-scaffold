@@ -202,9 +202,9 @@
                 <div class="modal-body">
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="#personality_avatar" data-toggle="tab" aria-expanded="true">个性头像编辑</a>
+                            <li class="active"><a href="#personality_avatar" data-toggle="tab"
+                                                  aria-expanded="true">个性头像</a>
                             </li>
-                            <li class=""><a href="#local_avatar" data-toggle="tab" aria-expanded="false">本地头像上传</a></li>
                         </ul>
                         <div class="tab-content">
                             <!--本地头像库-->
@@ -244,10 +244,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--本地头像-->
-                            <div class="tab-pane" id="local_avatar">
-
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -264,21 +260,4 @@
 <div th:include="fragments/include :: include-js"></div>
 <div th:include="fragments/include :: jquery-validate-js"/>
 <script th:src="@{/static/modules/manage/js/user/profile.js}"></script>
-<script>
-    function avatarSubmit() {
-        $('#head-portrait-url').attr('src', $('.ng-scope.selected').find('img').attr('src'));
-        //发送请求
-        $.ajax({
-            url: contextPath + 'user/updateHeadPortrait',
-            type: "post",
-            data: {
-                id: $('#id').val(),
-                headPortraitUrl: $('.ng-scope.selected').find('img').attr('src')
-            },
-            dataType: "json",
-            success: function (result) {
-            }
-        })
-    }
-</script>
 </html>

@@ -42,6 +42,11 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 @RestController
 public class SecurityController extends BaseController {
+	@Autowired
+	public SecurityController(SecurityService securityService) {
+		this.securityService = securityService;
+	}
+
 	/**
 	 * get public key
 	 *
@@ -68,6 +73,5 @@ public class SecurityController extends BaseController {
 	/**
 	 * 注入安全业务逻辑接口
 	 */
-	@Autowired
-	private SecurityService securityService;
+	private final SecurityService securityService;
 }

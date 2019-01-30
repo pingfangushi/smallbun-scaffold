@@ -36,6 +36,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -200,12 +201,13 @@ public class SysUserController extends BaseController {
 
 	/**
 	 * 更新头像
-	 * @param sysUserVO
+	 * @param id
+	 * @param url
 	 * @return
 	 */
 	@PostMapping(value = "/verifyOldPassword")
-	public AjaxResult updateHeadPortrait(SysUserVO sysUserVO) {
-		return AjaxResult.builder().result(sysUserService.updateHeadPortrait(sysUserVO)).build();
+	public AjaxResult updateHeadPortrait(@RequestParam("id") Serializable id, @RequestParam("url") String url) {
+		return AjaxResult.builder().result(sysUserService.updateHeadPortrait(id, url)).build();
 	}
 
 	/**

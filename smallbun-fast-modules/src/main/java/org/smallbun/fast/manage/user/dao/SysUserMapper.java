@@ -92,5 +92,5 @@ public interface SysUserMapper extends BaseMapper<SysUserEntity> {
 	 * @param headPortraitUrl
 	 * @return
 	 */
-	boolean updateHeadPortrait(@Param("id") Long id, @Param("headPortraitUrl") String headPortraitUrl);
+	boolean updateHeadPortrait(@Param("id") Serializable id, @Param("headPortraitUrl") String headPortraitUrl);
 }

@@ -1,4 +1,23 @@
 /**
+ * 更新用户头像
+ */
+function avatarSubmit() {
+    $('#head-portrait-url').attr('src', $('.ng-scope.selected').find('img').attr('src'));
+    //发送请求
+    $.ajax({
+        url: contextPath + 'user/updateHeadPortrait',
+        type: "post",
+        data: {
+            id: $('#id').val(),
+            url: $('.ng-scope.selected').find('img').attr('src')
+        },
+        dataType: "json",
+        success: function (result) {
+        }
+    })
+}
+
+/**
  * 更改密码
  **/
 function changPassword() {
