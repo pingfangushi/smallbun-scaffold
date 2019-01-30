@@ -139,7 +139,7 @@ public class SysUserController extends BaseController {
 	 */
 	@SystemLog(value = "")
 	@PostMapping(value = "/removeByIds")
-	public AjaxResult saveOrUpdate(@NotNull @RequestParam(value = "ids") List<String> id) {
+	public AjaxResult removeByIds(@NotNull @RequestParam(value = "ids") List<String> id) {
 		return AjaxResult.builder().result(sysUserService.removeByIds(id)).build();
 	}
 
