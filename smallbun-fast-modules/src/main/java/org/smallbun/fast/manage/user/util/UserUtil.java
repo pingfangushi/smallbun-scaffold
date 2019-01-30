@@ -19,12 +19,19 @@
 package org.smallbun.fast.manage.user.util;
 
 import org.smallbun.fast.manage.user.details.LoginUserDetails;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * User 工具类
@@ -56,5 +63,17 @@ public class UserUtil {
 		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
 		// true == allow create
 		return attr.getRequest().getSession(true);
+	}
+
+	public void shuaxin() {
+		//用于存储修改之后的权限列表
+		List<GrantedAuthority> authList = new ArrayList<>();
+		authList.add(new SimpleGrantedAuthority("addUser"));
+		authList.add(new SimpleGrantedAuthority("editUser"));
+		SecurityContext context = SecurityContextHolder.getContext();
+		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
+		Authentication auth = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), authList);
+		//重新设置上下文中存储的用户权限
+		context.setAuthentication(auth);
 	}
 }

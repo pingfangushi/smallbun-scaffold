@@ -36,6 +36,10 @@ import org.smallbun.framework.security.LoggedUserBindingListener;
 import org.smallbun.framework.security.LoginSuccessHandler;
 import org.smallbun.framework.toolkit.AutoMapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -184,6 +188,13 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 	 */
 	@Override
 	public boolean updateHeadPortrait(String id, String url) {
+		//刷新用户头像
+		SecurityContext context = SecurityContextHolder.getContext();
+		LoginUserDetails userDetails = (LoginUserDetails) context.getAuthentication().getPrincipal();
+		userDetails.getSysUser().setHeadPortraitUrl(url);
+		Authentication auth = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword());
+		//重新设置上下文中存储的用户权限
+		context.setAuthentication(auth);
 		return baseMapper.updateHeadPortrait(id, url);
 	}
 
