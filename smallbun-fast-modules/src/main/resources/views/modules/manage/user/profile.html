@@ -60,7 +60,7 @@
                 </div>
                 <div class="ibox-content">
                     <div style="text-align: center;">
-                        <p><img width="120" height="120"
+                        <p><img id="head-portrait-url" width="120" height="120"
                                 th:src="${user.headPortraitUrl}"></p>
                         <p class="avatar-txt-margin" style="text-align: center">
                             <a data-toggle="modal" data-target="#modal-default">修改头像</a>
@@ -252,7 +252,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn ibtn-primary">确定</button>
+                    <button type="submit" onclick="avatarSubmit()" class="btn ibtn-primary" data-dismiss="modal">确定
+                    </button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 </div>
             </div>
@@ -263,4 +264,21 @@
 <div th:include="fragments/include :: include-js"></div>
 <div th:include="fragments/include :: jquery-validate-js"/>
 <script th:src="@{/static/modules/manage/js/user/profile.js}"></script>
+<script>
+    function avatarSubmit() {
+        $('#head-portrait-url').attr('src', $('.ng-scope.selected').find('img').attr('src'));
+        //发送请求
+        $.ajax({
+            url: contextPath + 'user/updateHeadPortrait',
+            type: "post",
+            data: {
+                id: $('#id').val(),
+                headPortraitUrl: $('.ng-scope.selected').find('img').attr('src')
+            },
+            dataType: "json",
+            success: function (result) {
+            }
+        })
+    }
+</script>
 </html>

@@ -199,6 +199,16 @@ public class SysUserController extends BaseController {
 	}
 
 	/**
+	 * 更新头像
+	 * @param sysUserVO
+	 * @return
+	 */
+	@PostMapping(value = "/verifyOldPassword")
+	public AjaxResult updateHeadPortrait(SysUserVO sysUserVO) {
+		return AjaxResult.builder().result(sysUserService.updateHeadPortrait(sysUserVO)).build();
+	}
+
+	/**
 	 * 注入SysUserService
 	 */
 	private final SysUserService sysUserService;

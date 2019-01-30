@@ -70,4 +70,11 @@ public interface SysUserService extends BaseService<SysUserEntity> {
 	 * @return
 	 */
 	boolean verifyOldPassword(String oldPassword);
+
+	/**
+	 * 更新头像
+	 * @param sysUserVO
+	 * @return
+	 */
+	boolean updateHeadPortrait(SysUserVO sysUserVO);
 }

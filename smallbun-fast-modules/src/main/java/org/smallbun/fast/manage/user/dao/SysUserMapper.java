@@ -85,4 +85,12 @@ public interface SysUserMapper extends BaseMapper<SysUserEntity> {
 	 * @return
 	 */
 	boolean updateLastLoginInfo(@Param("info") SysUserEntity sysUser);
+
+	/**
+	 * 更新头像
+	 * @param id
+	 * @param headPortraitUrl
+	 * @return
+	 */
+	boolean updateHeadPortrait(@Param("id") Long id, @Param("headPortraitUrl") String headPortraitUrl);
 }

@@ -176,6 +176,16 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 				.matches(oldPassword, Objects.requireNonNull(UserUtil.getLoginUser()).getPassword());
 	}
 
+	/**
+	 * 更新头像
+	 * @param vo
+	 * @return
+	 */
+	@Override
+	public boolean updateHeadPortrait(SysUserVO vo) {
+		return baseMapper.updateHeadPortrait(vo.getId(), vo.getHeadPortraitUrl());
+	}
+
 
 	/**
 	 * 修改登录信息
