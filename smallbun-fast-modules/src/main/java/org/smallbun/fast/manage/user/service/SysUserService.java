@@ -78,5 +78,5 @@ public interface SysUserService extends BaseService<SysUserEntity> {
 	 * @param url
 	 * @return
 	 */
-	boolean updateHeadPortrait(Serializable id,String url);
+	boolean updateHeadPortrait(String id,String url);
 }

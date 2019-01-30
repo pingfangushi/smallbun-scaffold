@@ -206,7 +206,7 @@ public class SysUserController extends BaseController {
 	 * @return
 	 */
 	@PostMapping(value = "/verifyOldPassword")
-	public AjaxResult updateHeadPortrait(@RequestParam("id") Serializable id, @RequestParam("url") String url) {
+	public AjaxResult updateHeadPortrait(@RequestParam("id") String id, @RequestParam("url") String url) {
 		return AjaxResult.builder().result(sysUserService.updateHeadPortrait(id, url)).build();
 	}
 

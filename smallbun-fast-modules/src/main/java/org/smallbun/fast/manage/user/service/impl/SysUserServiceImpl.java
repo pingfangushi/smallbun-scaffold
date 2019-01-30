@@ -183,7 +183,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 	 * @return
 	 */
 	@Override
-	public boolean updateHeadPortrait(Serializable id, String url) {
+	public boolean updateHeadPortrait(String id, String url) {
 		return baseMapper.updateHeadPortrait(id, url);
 	}
 
