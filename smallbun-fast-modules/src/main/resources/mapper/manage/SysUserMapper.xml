@@ -54,9 +54,9 @@
     </select>
     <!--自定义分页查询-->
     <select id="page" resultMap="userMap">
-        select * from sys_user s where s.is_deleted=#{p.isDeleted}
+        select * from sys_user s left join sys_org o on o.id = s.org_id where s.is_deleted=#{p.isDeleted}
         <if test="!@org.springframework.util.ObjectUtils@isEmpty(p.orgId)">
-            and s.org_id=#{p.orgId}
+            and o.id=#{p.orgId} or o.parent_id=#{p.orgId}
         </if>
     </select>
     <!--根据ID查询用户-->
