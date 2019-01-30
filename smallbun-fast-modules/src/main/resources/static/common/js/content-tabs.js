@@ -160,9 +160,9 @@ var App = function () {
          * 修复可堆叠模式问题：当2个或更多的模态打开时，关闭一个模态将删除.modal-open类
          */
         $('body').on('hide.bs.modal', function () {
-            if ($('.modal:visible').size() > 1 && $('html').hasClass('modal-open') === false) {
+            if ($('.modal:visible').length > 1 && $('html').hasClass('modal-open') === false) {
                 $('html').addClass('modal-open');
-            } else if ($('.modal:visible').size() <= 1) {
+            } else if ($('.modal:visible').length <= 1) {
                 $('html').removeClass('modal-open');
             }
         });

@@ -36,6 +36,18 @@
             border: 1px solid #D9D9D9;
             overflow-y: auto;
         }
+
+        .margin-top-2 {
+            margin-top: 16px !important;
+        }
+
+        .default-avatar-wrap .default-avatar-list li.selected img {
+            border-color: #60A2E6;
+        }
+
+        .head-sculpture {
+            padding-left: 20px;
+        }
     </style>
 </head>
 <body class="list-body">
@@ -195,73 +207,44 @@
                             <li class=""><a href="#local_avatar" data-toggle="tab" aria-expanded="false">本地头像上传</a></li>
                         </ul>
                         <div class="tab-content">
+                            <!--本地头像库-->
                             <div class="tab-pane active" id="personality_avatar">
-                                <div ng-show="selectedMode != 'local'" class=""><p class="margin-top-2"
-                                                                                   bo-bind="'accountcenter.common.avarta.select.local' | translate">
-                                    从个性头像库里选择一张图片作为头像</p>
+                                <div>
+                                    <p class="margin-top-2">从个性头像库里选择一张图片作为头像</p>
                                     <div class="clearfix">
                                         <div class="pull-left default-avatar-wrap">
                                             <ul class="default-avatar-list">
-                                                <!-- ngRepeat: item in ATATAR_DEFAULT_IMAGES -->
-                                                <li ng-click="select(item.src)"
-                                                    ng-repeat="item in ATATAR_DEFAULT_IMAGES"
-                                                    ng-class="{'no-margin': ($index + 1)%3 == 0,selected: selectedValue == item.src }"
-                                                    class="ng-scope selected"><img
-                                                        ng-src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_beauty.jpg"
-                                                        alt=""
+                                                <li class="ng-scope selected"><img
                                                         src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_beauty.jpg">
-                                                </li><!-- end ngRepeat: item in ATATAR_DEFAULT_IMAGES -->
-                                                <li ng-click="select(item.src)"
-                                                    ng-repeat="item in ATATAR_DEFAULT_IMAGES"
-                                                    ng-class="{'no-margin': ($index + 1)%3 == 0,selected: selectedValue == item.src }"
-                                                    class="ng-scope"><img
-                                                        ng-src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_colleagues.jpg"
-                                                        alt=""
+                                                </li>
+                                                <li class="ng-scope"><img
                                                         src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_colleagues.jpg">
-                                                </li><!-- end ngRepeat: item in ATATAR_DEFAULT_IMAGES -->
-                                                <li ng-click="select(item.src)"
-                                                    ng-repeat="item in ATATAR_DEFAULT_IMAGES"
-                                                    ng-class="{'no-margin': ($index + 1)%3 == 0,selected: selectedValue == item.src }"
-                                                    class="ng-scope"><img
-                                                        ng-src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_family.jpg"
-                                                        alt=""
+                                                </li>
+                                                <li class="ng-scope"><img
                                                         src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_family.jpg">
-                                                </li><!-- end ngRepeat: item in ATATAR_DEFAULT_IMAGES -->
-                                                <li ng-click="select(item.src)"
-                                                    ng-repeat="item in ATATAR_DEFAULT_IMAGES"
-                                                    ng-class="{'no-margin': ($index + 1)%3 == 0,selected: selectedValue == item.src }"
-                                                    class="ng-scope"><img
-                                                        ng-src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_friend.jpg"
-                                                        alt=""
+                                                </li>
+                                                <li class="ng-scope"><img
                                                         src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_friend.jpg">
-                                                </li><!-- end ngRepeat: item in ATATAR_DEFAULT_IMAGES -->
-                                                <li ng-click="select(item.src)"
-                                                    ng-repeat="item in ATATAR_DEFAULT_IMAGES"
-                                                    ng-class="{'no-margin': ($index + 1)%3 == 0,selected: selectedValue == item.src }"
-                                                    class="ng-scope"><img
-                                                        ng-src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_handsome.jpg"
-                                                        alt=""
+                                                </li>
+                                                <li class="ng-scope"><img
                                                         src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_handsome.jpg">
-                                                </li><!-- end ngRepeat: item in ATATAR_DEFAULT_IMAGES -->
-                                                <li ng-click="select(item.src)"
-                                                    ng-repeat="item in ATATAR_DEFAULT_IMAGES"
-                                                    ng-class="{'no-margin': ($index + 1)%3 == 0,selected: selectedValue == item.src }"
-                                                    class="ng-scope"><img
-                                                        ng-src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_trade.jpg"
-                                                        alt=""
+                                                </li>
+                                                <li class="ng-scope"><img
                                                         src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_trade.jpg">
-                                                </li><!-- end ngRepeat: item in ATATAR_DEFAULT_IMAGES --></ul>
+                                                </li>
+                                            </ul>
                                         </div>
-                                        <div class="pull-left avatar-preview text-center" style="margin-left: 10px"><p>
-                                            <img ng-src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_beauty.jpg"
-                                                 alt=""
+                                        <!--头像浏览-->
+                                        <div class="pull-left text-center head-sculpture"><p>
+                                            <img id="browse-img"
                                                  src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_beauty.jpg">
                                         </p>
-                                            <p bo-bind="'accountcenter.common.avarta.preview' | translate">头像预览</p>
+                                            <p>头像预览</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <!--本地头像-->
                             <div class="tab-pane" id="local_avatar">
 
                             </div>
@@ -280,4 +263,13 @@
 <div th:include="fragments/include :: include-js"></div>
 <div th:include="fragments/include :: jquery-validate-js"/>
 <script th:src="@{/static/modules/manage/js/user/profile.js}"></script>
+<script>
+
+    $(".ng-scope").click(function (event) {
+        $('.ng-scope').removeClass('selected');
+        $(this).addClass('selected');
+        $('#browse-img').attr('src', $(this).find('img').attr('src'));
+    });
+</script>
+
 </html>
