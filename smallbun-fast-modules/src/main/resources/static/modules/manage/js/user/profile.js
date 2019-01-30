@@ -144,3 +144,12 @@ $("#updateUserInfoForm").validate({
         }
     }
 });
+
+/**
+ * 监听ng-scope
+ */
+$(".ng-scope").click(function (event) {
+    $('.ng-scope').removeClass('selected');
+    $(this).addClass('selected');
+    $('#browse-img').attr('src', $(this).find('img').attr('src'));
+});

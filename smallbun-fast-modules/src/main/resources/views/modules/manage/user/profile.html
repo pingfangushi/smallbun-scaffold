@@ -263,13 +263,4 @@
 <div th:include="fragments/include :: include-js"></div>
 <div th:include="fragments/include :: jquery-validate-js"/>
 <script th:src="@{/static/modules/manage/js/user/profile.js}"></script>
-<script>
-
-    $(".ng-scope").click(function (event) {
-        $('.ng-scope').removeClass('selected');
-        $(this).addClass('selected');
-        $('#browse-img').attr('src', $(this).find('img').attr('src'));
-    });
-</script>
-
 </html>
