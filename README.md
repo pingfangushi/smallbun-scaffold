@@ -7,6 +7,7 @@
 <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SmallBun是参考多个优秀的开源项目及自身学习，及经验运用，高度整合封装而成的高效，高性能，强安全性的开源Java EE 企业级脚手架。       
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SmallBun是您快速完成项目的基础平台解决方案，SmallBun是您想学习Java平台的最佳学习案例，SmallBun还是接私活的最佳助手。
+<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SmallBun主要定位于企业级开发，内置企业级开发的基础功能和高效的代码生成工具， 包括：系统权限组件、数据权限组件、数据字典组件、核心工具组件、视图操作组件、工作流组件、代码生成等。 前端界面风格采用了结构简单、性能优良、页面美观大气的 Bootstrap AdminLte 前端框架。 采用分层设计、双重验证、提交数据安全编码、密码加密、访问验证、数据权限验证。 使用Maven做项目管理，提高项目的易开发性、扩展性。
 <br>
 > SmallBun 不轻易说完美
