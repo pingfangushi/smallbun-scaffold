@@ -52,6 +52,10 @@
         <httpclient.version>4.5.6</httpclient.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+        </dependency>
         <!--web-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
