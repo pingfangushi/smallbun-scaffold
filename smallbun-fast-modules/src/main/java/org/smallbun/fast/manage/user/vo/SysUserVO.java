@@ -2,8 +2,11 @@ package org.smallbun.fast.manage.user.vo;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.smallbun.fast.manage.role.vo.SysRoleVO;
 import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.framework.annotation.DictValue;
+
+import java.util.List;
 
 /**
  * 用户VO
@@ -18,5 +21,10 @@ public class SysUserVO extends SysUserEntity {
 	 */
 	@DictValue(typeCode = "USER_STATUS", valueField = "userStatus")
 	private String userStatusName;
+
+	/**
+	 * 角色vo集合
+	 */
+	private List<SysRoleVO> roleVOS;
 
 }

@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import org.smallbun.fast.manage.dict.entity.SysDictValueEntity;
 import org.smallbun.fast.manage.dict.service.SysDictValueService;
+import org.smallbun.fast.manage.role.entity.SysRoleEntity;
 import org.smallbun.fast.manage.role.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -59,6 +60,22 @@ public class SmallBunUtil {
 	}
 
 	/**
+	 * 获取所有角色，传入已经选择的集合，设置为true
+	 * @return
+	 */
+	public List<Role> roles(List<SysRoleEntity> list) {
+		List<Role> roles = roles();
+		if (!CollectionUtils.isEmpty(list)) {
+			list.forEach(u -> roles.forEach(s -> {
+				if (String.valueOf(u.getId()).equals(String.valueOf(s.getId()))) {
+					s.setFlag(true);
+				}
+			}));
+		}
+		return roles;
+	}
+
+	/**
 	 * 注入字典类型service接口
 	 */
 	private final SysDictValueService valueService;
@@ -107,4 +124,8 @@ class Role {
 	 * 角色名称
 	 */
 	private String roleName;
+	/**
+	 * 选中
+	 */
+	private Boolean flag;
 }

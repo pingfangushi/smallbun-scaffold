@@ -25,7 +25,6 @@ import org.smallbun.fast.manage.user.vo.SysUserVO;
 import org.smallbun.framework.base.BaseService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.Serializable;
 
 /**
  * @author SanLi [隔壁object港哥][https://www.leshalv.net]
@@ -47,6 +46,13 @@ public interface SysUserService extends BaseService<SysUserEntity> {
 	 * @return SysUserEntity
 	 */
 	SysUserEntity findByUsername(String username);
+
+	/**
+	 * 保存或更新
+	 * @param vo
+	 * @return
+	 */
+	boolean saveOrUpdate(SysUserVO vo);
 
 	/**
 	 * 自定义分页查询
@@ -78,5 +84,12 @@ public interface SysUserService extends BaseService<SysUserEntity> {
 	 * @param url
 	 * @return
 	 */
-	boolean updateHeadPortrait(String id,String url);
+	boolean updateHeadPortrait(String id, String url);
+
+	/**
+	 * changPassword
+	 * @param password
+	 * @return
+	 */
+	boolean changPassword(String password);
 }

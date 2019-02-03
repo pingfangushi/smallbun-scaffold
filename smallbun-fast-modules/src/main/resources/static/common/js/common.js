@@ -265,6 +265,7 @@
                         checkeds += ("," + $(this).val());
                     }
                 });
+                checkeds = checkeds.substring(1, checkeds.length);
                 return checkeds;
             },
             // 获取选中下拉框项

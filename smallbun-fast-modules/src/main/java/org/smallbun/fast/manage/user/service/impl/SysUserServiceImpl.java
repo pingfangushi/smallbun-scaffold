@@ -22,7 +22,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.smallbun.fast.manage.role.entity.SysRoleEntity;
 import org.smallbun.fast.manage.role.service.SysRoleService;
-import org.smallbun.fast.manage.role.vo.SysRoleVO;
 import org.smallbun.fast.manage.user.dao.SysUserMapper;
 import org.smallbun.fast.manage.user.details.LoginUserDetails;
 import org.smallbun.fast.manage.user.entity.SysUserEntity;
@@ -36,8 +35,6 @@ import org.smallbun.framework.security.LoggedUserBindingListener;
 import org.smallbun.framework.security.LoginSuccessHandler;
 import org.smallbun.framework.toolkit.AutoMapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -90,33 +87,23 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 	 */
 	@Override
 	public SysUserEntity getById(Serializable id) {
-		SysUserEntity byId = baseMapper.findById(id);
-		byId.setRoleVOS(AutoMapperUtil.mappingList(sysRoleService.list(), byId.getRoleVOS(), SysRoleVO.class));
-		byId.getRoleList().forEach(u -> byId.getRoleVOS().forEach(s -> {
-			if (u.getId().equals(s.getId())) {
-				s.setFlag(true);
-			}
-		}));
-		return byId;
+		return baseMapper.findById(id);
 	}
 
 	/**
-	 * <p>
-	 * TableId 注解存在更新记录，否插入一条记录
-	 * </p>
-	 *
-	 * @param entity 实体对象
-	 * @return boolean
+	 * 保存或更新
+	 * @param vo
+	 * @return
 	 */
 	@Override
-	public boolean saveOrUpdate(SysUserEntity entity) {
+	public boolean saveOrUpdate(SysUserVO vo) {
 		boolean flag;
-		flag = super.saveOrUpdate(entity);
+		flag = super.saveOrUpdate(vo);
 		if (flag) {
 			//根据用户删除关联,保存用户和角色
-			sysRoleService.delRoleUserByUserId(entity.getId());
-			sysRoleService.saveRoleUser(entity.getId().toString(),
-					entity.getRoleList().stream().filter(u -> !StringUtils.isEmpty(u.getId())).map(SysRoleEntity::getId)
+			sysRoleService.delRoleUserByUserId(vo.getId());
+			sysRoleService.saveRoleUser(vo.getId().toString(),
+					vo.getRoleVOS().stream().filter(u -> !StringUtils.isEmpty(u.getId())).map(SysRoleEntity::getId)
 							.map(Objects::toString).collect(Collectors.toList()));
 		}
 		return flag;
@@ -162,9 +149,9 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 			throw new BusinessExecption("两次输入密码不一致");
 		}
 		//修改密码
-		baseMapper.changePassword(UserUtil.getLoginUser().getSysUser().getId(),
+		int i = baseMapper.changePassword(UserUtil.getLoginUser().getSysUser().getId(),
 				new BCryptPasswordEncoder().encode(newPassword));
-		return true;
+		return i > 0;
 	}
 
 	/**
@@ -187,6 +174,19 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 	@Override
 	public boolean updateHeadPortrait(String id, String url) {
 		return baseMapper.updateHeadPortrait(id, url);
+	}
+
+	/**
+	 * changPassword
+	 * @param password
+	 * @return
+	 */
+	@Override
+	public boolean changPassword(String password) {
+		//修改密码
+		int i = baseMapper.changePassword(Objects.requireNonNull(UserUtil.getLoginUser()).getSysUser().getId(),
+				new BCryptPasswordEncoder().encode(password));
+		return i > 0;
 	}
 
 

@@ -29,7 +29,6 @@ import lombok.experimental.Accessors;
 import org.smallbun.fast.common.entity.DataEntity;
 import org.smallbun.fast.manage.org.entity.SysOrgEntity;
 import org.smallbun.fast.manage.role.entity.SysRoleEntity;
-import org.smallbun.fast.manage.role.vo.SysRoleVO;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Timestamp;
@@ -132,11 +131,6 @@ public class SysUserEntity extends DataEntity<Long> {
 	 */
 	@TableField(exist = false)
 	private List<SysRoleEntity> roleList = Lists.newArrayList();
-	/**
-	 * 角色vo集合
-	 */
-	@TableField(exist = false)
-	private List<SysRoleVO> roleVOS = Lists.newArrayList();
 	/**
 	 * 所属部门
 	 */

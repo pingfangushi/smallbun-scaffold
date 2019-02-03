@@ -158,6 +158,10 @@ $(".form-horizontal").validate({
 function doSubmit() {
     // 手动触发校验代码
     if ($('.form-horizontal').valid()) {
-        $.operate.saveCurrentTabPage($('.form-horizontal').attr('action'), $('.form-horizontal').serializeArray());
+        var data = $('.form-horizontal').serializeArray();
+        $('input:checkbox[id="roleList"]:checked').each(function (i) {
+            data.push({"name": "roleVOS[" + i + "].id", "value": $(this).val()});
+        });
+        $.operate.saveCurrentTabPage($('.form-horizontal').attr('action'), data);
     }
 }

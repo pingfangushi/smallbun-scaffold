@@ -98,6 +98,16 @@ public class SysUserController extends BaseController {
 	}
 
 	/**
+	 * 重置密码视图
+	 * @return
+	 */
+	@GetMapping(value = "/settingPassword/view")
+	public ModelAndView settingPassword(Model model) {
+		model.addAttribute("username", Objects.requireNonNull(UserUtil.getLoginUser()).getUsername());
+		return new ModelAndView("modules/manage/user/setting_password.html");
+	}
+
+	/**
 	 * 获取当前用户个人信息
 	 *
 	 * @return AjaxResult
@@ -207,6 +217,12 @@ public class SysUserController extends BaseController {
 	@PostMapping(value = "/updateHeadPortrait")
 	public AjaxResult updateHeadPortrait(@RequestParam("id") String id, @RequestParam("url") String url) {
 		return AjaxResult.builder().result(sysUserService.updateHeadPortrait(id, url)).build();
+	}
+
+
+	@PostMapping(value = "/settingPassword")
+	public AjaxResult settingPassword(@RequestParam("password") String password) {
+		return AjaxResult.builder().result(sysUserService.changPassword(password)).build();
 	}
 
 	/**
