@@ -46,23 +46,7 @@
                     showExport: $.common.visible(options.showExport),   // 是否支持导出文件
                     queryParams: $.table._params,                       // 传递参数（*）
                     columns: options.columns,                           // 显示列信息（*）
-                    responseHandler: $.table.responseHandler,            // 回调函数
-                    onPostBody: function () {
-                        //改变复选框样式
-                        $table.find("input:checkbox").each(function (i) {
-                            var $check = $(this);
-                            if ($check.attr("id") && $check.next("label")) {
-                                return;
-                            }
-                            var name = $check.attr("name");
-                            var id = name + "-" + i;
-                            var $label = $('<label for="' + id + '"></label>');
-                            $check.attr("id", id).parent().addClass("bella-checkbox").append($label);
-                        });
-                        if ($.isFunction(options.onPostBody)) {
-                            options.onPostBody();
-                        }
-                    }
+                    responseHandler: $.table.responseHandler            // 回调函数
                 });
             },
             // 查询条件
