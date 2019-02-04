@@ -1,14 +1,15 @@
-/*$(function () {
+$(function () {
     //默认打开首页
-    addTabs(({id: '10008', title: '首页', close: false, url: 'dashboard'}));
-    App.fixIframeContent();
-});*/
+    addTabs(({id: "_tab" + Math.random().toString(36).substring(2), title: '首页', close: false, url: 'dashboard'}));
+});
+
 /**
  * 打开个人主页
  */
 function profile() {
     addTabs(({id: 'profile', title: '个人中心', close: true, url: 'modules/manage/profile.html'}));
 }
+
 /**
  * 首页控制台输出
  */
