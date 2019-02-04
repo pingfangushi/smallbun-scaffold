@@ -43,6 +43,8 @@ spring:
 smallbun:
   kaptcha:
     text-producer-char-length: 4
+  demo:
+    open: true #演示模式
 
 #------------------------------------------#
 #                                          #

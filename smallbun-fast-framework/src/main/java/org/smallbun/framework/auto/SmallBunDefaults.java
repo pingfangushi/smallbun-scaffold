@@ -20,12 +20,8 @@
 package org.smallbun.framework.auto;
 
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 /**
- * 乐傻驴快速开发平台默认配置
+ * SmallBun快速开发平台默认配置
  *
  * @author SanLi [隔壁object港哥][https://www.leshalv.net]
  * Created by 2689170096@qq.com on 2018/5/11 13:24
@@ -84,6 +80,13 @@ public interface SmallBunDefaults {
 		 * 文本生产者字体名称
 		 */
 		String textProducerFontNames = "宋体,楷体,微软雅黑";
+	}
+
+	/**
+	 * 演示环境
+	 */
+	interface Demo {
+		boolean OPEN = false;
 	}
 }
 

@@ -43,21 +43,20 @@ public class SmallBunProperties {
 	 */
 	private final String version = "v1.0.0 ";
 	/**
-	 * 动力
+	 *
 	 */
 	private final String poweredBy = "http://www.smallbun.org";
 	@NestedConfigurationProperty
 	private final Http http = new Http();
 	@NestedConfigurationProperty
 	private final DefaultKaptcha kaptcha = new DefaultKaptcha();
+	private final Demo demo = new Demo();
 
 	public static class Http {
 		/**
-		 *
+		 * http版本
 		 */
-		public enum Version {
-			V_1_1, V_2_0
-		}
+		public enum Version {V_1_1, V_2_0}
 
 		private final Cache cache = new Cache();
 
@@ -167,6 +166,21 @@ public class SmallBunProperties {
 
 		public void setTextProducerFontNames(String textProducerFontNames) {
 			this.textProducerFontNames = textProducerFontNames;
+		}
+	}
+
+	/**
+	 * 演示环境
+	 */
+	public static class Demo {
+		boolean open = SmallBunDefaults.Demo.OPEN;
+
+		public boolean isOpen() {
+			return open;
+		}
+
+		public void setOpen(boolean open) {
+			this.open = open;
 		}
 	}
 }

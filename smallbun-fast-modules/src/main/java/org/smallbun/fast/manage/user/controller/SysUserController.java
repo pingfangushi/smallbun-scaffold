@@ -24,6 +24,7 @@ import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.fast.manage.user.service.SysUserService;
 import org.smallbun.fast.manage.user.util.UserUtil;
 import org.smallbun.fast.manage.user.vo.SysUserVO;
+import org.smallbun.framework.annotation.DemoEnvironment;
 import org.smallbun.framework.annotation.SystemLog;
 import org.smallbun.framework.base.BaseController;
 import org.smallbun.framework.result.AjaxResult;
@@ -124,6 +125,7 @@ public class SysUserController extends BaseController {
 	 * @return AjaxResult
 	 */
 	@SystemLog(value = "")
+	@DemoEnvironment
 	@PostMapping(value = "/saveOrUpdate")
 	public AjaxResult saveOrUpdate(@Validated SysUserVO user) {
 		return AjaxResult.builder().result(sysUserService.saveOrUpdate(user)).build();
