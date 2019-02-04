@@ -671,7 +671,7 @@ var addTabs = function (options) {
     window.top.$("#tab_" + id).addClass('active');
     scrollToTab(window.top.$('.menu_tab.active'));
     window.top.$("#" + id).addClass("active");
-
+    App.fixIframeContent();
 };
 /**
  * 添加tab
@@ -734,7 +734,7 @@ var addTab = function (options) {
     window.top.$("#tab_" + id).addClass('active');
     scrollToTab(window.top.$('.menu_tab.active'));
     window.top.$("#" + id).addClass("active");
-
+    App.fixIframeContent();
 };
 /**
  * 关闭tabs

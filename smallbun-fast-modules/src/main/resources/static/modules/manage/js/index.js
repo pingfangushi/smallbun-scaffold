@@ -1,8 +1,8 @@
-$(function () {
+/*$(function () {
     //默认打开首页
     addTabs(({id: '10008', title: '首页', close: false, url: 'dashboard'}));
     App.fixIframeContent();
-});
+});*/
 /**
  * 打开个人主页
  */
