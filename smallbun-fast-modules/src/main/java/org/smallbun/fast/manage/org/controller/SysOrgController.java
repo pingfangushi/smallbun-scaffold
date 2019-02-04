@@ -7,6 +7,7 @@ import org.smallbun.fast.manage.org.entity.SysOrgEntity;
 import org.smallbun.fast.manage.org.service.SysOrgService;
 import org.smallbun.fast.manage.org.vo.SysOrgVO;
 import org.smallbun.framework.annotation.AutoQueryDictValue;
+import org.smallbun.framework.annotation.DemoEnvironment;
 import org.smallbun.framework.base.BaseController;
 import org.smallbun.framework.result.AjaxResult;
 import org.smallbun.framework.result.PageableResult;
@@ -72,6 +73,7 @@ public class SysOrgController extends BaseController {
 	 * @param org 实体类对象
 	 * @return AjaxResult
 	 */
+	@DemoEnvironment
 	@PostMapping("/saveOrUpdate")
 	public AjaxResult saveOrUpdate(@Validated SysOrgVO org) {
 		return AjaxResult.builder().result(sysOrgService.saveOrUpdate(org)).build();
@@ -83,6 +85,7 @@ public class SysOrgController extends BaseController {
 	 * @param id 主键ID
 	 * @return AjaxResult
 	 */
+	@DemoEnvironment
 	@PostMapping("/removeById")
 	public AjaxResult removeById(@NotNull Long id) {
 		return AjaxResult.builder().result(sysOrgService.removeById(id)).build();
@@ -94,6 +97,7 @@ public class SysOrgController extends BaseController {
 	 * @param ids ID列表
 	 * @return AjaxResult
 	 */
+	@DemoEnvironment
 	@PostMapping("/removeByIds")
 	public AjaxResult removeByIds(@NotNull @RequestParam(value = "ids") List<String> ids) {
 		return AjaxResult.builder().result(sysOrgService.removeByIds(ids)).build();

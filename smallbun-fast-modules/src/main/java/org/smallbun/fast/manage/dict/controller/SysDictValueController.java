@@ -7,6 +7,7 @@ import org.smallbun.fast.manage.dict.entity.SysDictValueEntity;
 import org.smallbun.fast.manage.dict.service.SysDictValueService;
 import org.smallbun.fast.manage.dict.vo.SysDictTypeVO;
 import org.smallbun.fast.manage.dict.vo.SysDictValueVO;
+import org.smallbun.framework.annotation.DemoEnvironment;
 import org.smallbun.framework.annotation.SystemLog;
 import org.smallbun.framework.base.BaseController;
 import org.smallbun.framework.result.AjaxResult;
@@ -71,6 +72,7 @@ public class SysDictValueController extends BaseController {
 	 * @return AjaxResult
 	 */
 	@SystemLog(value = "")
+	@DemoEnvironment
 	@PostMapping(value = "/saveOrUpdate")
 	public AjaxResult saveOrUpdate(SysDictValueVO vo) {
 		return AjaxResult.builder().result(sysDictValueService.saveOrUpdate(vo)).build();
@@ -82,6 +84,8 @@ public class SysDictValueController extends BaseController {
 	 * @return AjaxResult
 	 */
 	@SystemLog(value = "")
+	@DemoEnvironment
+
 	@PostMapping(value = "/removeById")
 	public AjaxResult removeById(@NotNull String id) {
 		return AjaxResult.builder().result(sysDictValueService.removeById(id)).build();

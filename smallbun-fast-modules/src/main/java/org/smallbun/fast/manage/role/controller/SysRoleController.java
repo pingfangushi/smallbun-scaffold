@@ -6,6 +6,7 @@ import org.smallbun.fast.manage.role.entity.SysRoleEntity;
 import org.smallbun.fast.manage.role.service.SysRoleService;
 import org.smallbun.fast.manage.role.vo.SysRoleVO;
 import org.smallbun.framework.annotation.AutoQueryDictValue;
+import org.smallbun.framework.annotation.DemoEnvironment;
 import org.smallbun.framework.annotation.SystemLog;
 import org.smallbun.framework.base.BaseController;
 import org.smallbun.framework.result.AjaxResult;
@@ -66,6 +67,7 @@ public class SysRoleController extends BaseController {
 	 * @return AjaxResult
 	 */
 	@SystemLog(value = "")
+	@DemoEnvironment
 	@RequestMapping(value = "/saveOrUpdate")
 	public AjaxResult saveOrUpdate(@Validated SysRoleVO vo) {
 		return AjaxResult.builder().result(sysRoleService.saveOrUpdate(vo)).build();
@@ -77,6 +79,7 @@ public class SysRoleController extends BaseController {
 	 * @return AjaxResult
 	 */
 	@SystemLog(value = "")
+	@DemoEnvironment
 	@PostMapping(value = "/removeById")
 	public AjaxResult removeById(@NotNull @RequestParam(value = "id") String id) {
 		return AjaxResult.builder().result(sysRoleService.removeById(id)).build();
@@ -88,6 +91,7 @@ public class SysRoleController extends BaseController {
 	 * @return AjaxResult
 	 */
 	@SystemLog(value = "")
+	@DemoEnvironment
 	@PostMapping(value = "/removeByIds")
 	public AjaxResult saveOrUpdate(@NotNull @RequestParam(value = "ids") List<String> ids) {
 		return AjaxResult.builder().result(sysRoleService.removeByIds(ids)).build();

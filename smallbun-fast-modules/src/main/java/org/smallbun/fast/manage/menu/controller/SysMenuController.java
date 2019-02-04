@@ -24,6 +24,7 @@ import org.smallbun.fast.common.utils.AutoMapperUtil;
 import org.smallbun.fast.manage.menu.entity.SysMenuEntity;
 import org.smallbun.fast.manage.menu.service.SysMenuService;
 import org.smallbun.fast.manage.menu.vo.SysMenuVO;
+import org.smallbun.framework.annotation.DemoEnvironment;
 import org.smallbun.framework.annotation.SystemLog;
 import org.smallbun.framework.base.BaseController;
 import org.smallbun.framework.result.AjaxResult;
@@ -96,6 +97,7 @@ public class SysMenuController extends BaseController {
 	 * @return AjaxResult
 	 */
 	@SystemLog(value = "")
+	@DemoEnvironment
 	@PostMapping(value = "/saveOrUpdate")
 	public AjaxResult saveOrUpdate(@Validated SysMenuVO menu) {
 		return AjaxResult.builder().result(menuService.saveOrUpdate(menu)).build();
@@ -107,6 +109,7 @@ public class SysMenuController extends BaseController {
 	 * @return AjaxResult
 	 */
 	@SystemLog(value = "")
+	@DemoEnvironment
 	@PostMapping(value = "/removeById")
 	public AjaxResult removeById(@NotNull @RequestParam(value = "id") String id) {
 		return AjaxResult.builder().result(menuService.removeById(id)).build();
@@ -118,6 +121,7 @@ public class SysMenuController extends BaseController {
 	 * @return AjaxResult
 	 */
 	@SystemLog(value = "")
+	@DemoEnvironment
 	@PostMapping(value = "/removeByIds")
 	public AjaxResult saveOrUpdate(@NotNull @RequestParam(value = "ids") List<String> ids) {
 		return AjaxResult.builder().result(menuService.removeByIds(ids)).build();

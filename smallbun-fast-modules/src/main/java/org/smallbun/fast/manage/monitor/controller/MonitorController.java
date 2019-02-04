@@ -1,6 +1,7 @@
 package org.smallbun.fast.manage.monitor.controller;
 
 import org.smallbun.fast.manage.monitor.service.MonitorService;
+import org.smallbun.framework.annotation.DemoEnvironment;
 import org.smallbun.framework.base.BaseController;
 import org.smallbun.framework.result.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,7 @@ public class MonitorController extends BaseController {
 	 * 下线所有用户，除当前用户除外
 	 * @return {@link AjaxResult}
 	 */
+	@DemoEnvironment
 	@PostMapping(value = "/online/user/expireUserSessions")
 	public AjaxResult expireUserSessions() {
 		monitorService.expireUserSessions();
@@ -62,6 +64,7 @@ public class MonitorController extends BaseController {
 	 * @param sessionId sessionId
 	 * @return {@link AjaxResult}
 	 */
+	@DemoEnvironment
 	@PostMapping(value = "/online/user/expireUserSession")
 	public AjaxResult expireUserSession(String sessionId) {
 		monitorService.expireUserSession(sessionId);

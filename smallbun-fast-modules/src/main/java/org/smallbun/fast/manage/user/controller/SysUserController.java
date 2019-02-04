@@ -138,6 +138,7 @@ public class SysUserController extends BaseController {
 	 * @return AjaxResult
 	 */
 	@SystemLog(value = "")
+	@DemoEnvironment
 	@PostMapping(value = "/removeById")
 	public AjaxResult removeById(@NotNull @RequestParam(value = "id") String id) {
 		return AjaxResult.builder().result(sysUserService.removeById(id)).build();
@@ -150,6 +151,7 @@ public class SysUserController extends BaseController {
 	 * @return AjaxResult
 	 */
 	@SystemLog(value = "")
+	@DemoEnvironment
 	@PostMapping(value = "/removeByIds")
 	public AjaxResult removeByIds(@NotNull @RequestParam(value = "ids") List<String> id) {
 		return AjaxResult.builder().result(sysUserService.removeByIds(id)).build();
@@ -195,6 +197,7 @@ public class SysUserController extends BaseController {
 	 * @return AjaxResult
 	 */
 	@PostMapping(value = "/changPassword")
+	@DemoEnvironment
 	public AjaxResult changePassword(String oldPassword, String newPassword, String confirmPassword) {
 		return AjaxResult.builder().result(sysUserService.changePassword(oldPassword, newPassword, confirmPassword))
 				.build();
@@ -223,6 +226,7 @@ public class SysUserController extends BaseController {
 
 
 	@PostMapping(value = "/settingPassword")
+	@DemoEnvironment
 	public AjaxResult settingPassword(@RequestParam("password") String password) {
 		return AjaxResult.builder().result(sysUserService.changPassword(password)).build();
 	}
