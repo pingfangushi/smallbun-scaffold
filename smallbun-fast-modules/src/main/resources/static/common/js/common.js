@@ -499,12 +499,12 @@
             // 保存结果提示msg
             saveSuccess: function (result) {
                 if (result.status === web_status.SUCCESS) {
-                    //$.modal.msgReload("保存成功,正在刷新数据请稍后……", modal_status.SUCCESS);
+                    $.modal.loading("保存成功,正在刷新数据请稍后……");
                     $.modal.reload();
                 } else {
                     $.modal.alertError(result.msg);
                 }
-                $.modal.loading("保存成功,正在刷新数据请稍后……");
+                $.modal.closeLoading();
             },
             //添加tab页
             openTab: function (id, title, url) {
