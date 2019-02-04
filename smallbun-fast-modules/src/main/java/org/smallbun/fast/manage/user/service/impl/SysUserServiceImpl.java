@@ -46,7 +46,7 @@ import java.sql.Timestamp;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static org.smallbun.framework.constant.ExceptionConstant.EX000102;
+import static org.smallbun.framework.constant.CoreConstant.EX000102;
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 import static org.smallbun.framework.security.SecurityHandler.USER;
 

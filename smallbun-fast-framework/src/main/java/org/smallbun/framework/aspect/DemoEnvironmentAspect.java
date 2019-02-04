@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+import static org.smallbun.framework.constant.ExceptionConstant.DEMO_ERROR_MSG;
+
 /**
  * 演示环境切面
  * @author SanLi
@@ -37,16 +39,13 @@ public class DemoEnvironmentAspect {
 	@Around("@annotation(demoEnvironment)")
 	public Object demo(ProceedingJoinPoint pjp, DemoEnvironment demoEnvironment) throws Throwable {
 		//1.如果系统没开启演示环境，忽略注解
-		if (smallBunProperties.getDemo().isOpen()) {
-			log.info("---------------------------演示环境拦截---------------------------");
-			throw new BusinessExecption(String.valueOf(HttpStatus.FORBIDDEN), "演示环境不允许操作");
-		}
 		//2.如果系统整体开启了，根据注解值进行判断是否拦截并提示，演示环境不允许操作
-
-		boolean open = demoEnvironment.open();
-		if (open) {
-			log.info("---------------------------演示环境拦截---------------------------");
-			throw new BusinessExecption(String.valueOf(HttpStatus.FORBIDDEN), "演示环境不允许操作");
+		if (smallBunProperties.getDemo().isOpen()) {
+			boolean open = demoEnvironment.open();
+			if (open) {
+				log.info("---------------------------演示环境拦截---------------------------");
+				throw new BusinessExecption(String.valueOf(HttpStatus.FORBIDDEN), DEMO_ERROR_MSG);
+			}
 		}
 		return pjp.proceed();
 	}

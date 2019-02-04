@@ -1,6 +1,6 @@
 package org.smallbun.framework.exception.handler;
 
-import org.smallbun.framework.constant.ExceptionConstant;
+import org.smallbun.framework.constant.CoreConstant;
 import org.smallbun.framework.constant.SystemConstant;
 import org.smallbun.framework.result.AjaxResult;
 import org.springframework.validation.FieldError;
@@ -63,8 +63,7 @@ public class GlobalExceptionHandler {
 				&& acceptHeader.contains(APPLICATION_JSON)) || XML_HTTP_REQUEST.equalsIgnoreCase(xRequestedWith);
 		if (b) {
 			//返回Ajax错误
-			return AjaxResult.builder().msg(e.getMessage()).status(ExceptionConstant.EX900001)
-					.build();
+			return AjaxResult.builder().msg(e.getMessage()).status(CoreConstant.EX900001).build();
 		}
 		//非Ajax ,返回ModelAndView
 		else {
