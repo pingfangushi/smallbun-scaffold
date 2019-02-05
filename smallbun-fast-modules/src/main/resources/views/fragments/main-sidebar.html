@@ -21,7 +21,7 @@
                 <th:block th:each="menu : ${menus}">
                     <!--/*  如果有子元素  */-->
                     <th:block th:if="${#lists.size(menu.children)>0}">
-                        <li class="treeview">
+                        <li class="treeview submenu">
                             <!--显示名称-->
                             <a href="#">
                                 <i th:class="${menu.icon}"></i>

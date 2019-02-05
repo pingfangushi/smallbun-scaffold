@@ -99,8 +99,14 @@ public class BaseMetaObjectHandler implements MetaObjectHandler {
 		// 更新时间
 		setFieldValByName(GMT_MODIFIED, LocalDateTime.now(), metaObject);
 		// 父id
-		setFieldValByName(PARENT_ID, 0L, metaObject);
-		// 父ids
-		setFieldValByName(PARENT_ID_S, "0", metaObject);
+		Object parentId = getFieldValByName(PARENT_ID, metaObject);
+		if (StringUtils.isEmpty(parentId)) {
+			setFieldValByName(PARENT_ID, 0L, metaObject);
+		}
+		// 父id
+		Object parentIds = getFieldValByName(PARENT_ID_S, metaObject);
+		if (StringUtils.isEmpty(parentIds)) {
+			setFieldValByName(PARENT_ID_S, "0", metaObject);
+		}
 	}
 }
