@@ -2,5 +2,5 @@
 <footer class="main-footer">
     <div class="pull-right hidden-xs" th:text="${version}"></div>
     版权所有 &copy;<th:block th:text="${title}"></th:block>
-    <th:block th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy')}"></th:block>
+    <th:block th:text="${'2018 - '+#dates.format(new java.util.Date().getTime(), 'yyyy')}"></th:block>
 </footer>

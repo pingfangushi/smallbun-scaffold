@@ -612,6 +612,13 @@ jQuery(document).ready(function () {
  * @param options
  */
 var addTabs = function (options) {
+   //if (options.obj != null) {
+   //    options.obj.parents('ul').find('li').each(function () {
+   //        $(this).removeClass('menu-open');
+   //        $(this).find('ul').slideUp(500);
+   //    });
+   //    options.obj.parent('li').addClass('menu-open');
+   //}
     var url = window.location.pathname + "/../";
     //var url = window.location.protocol + '//' + window.location.host + "/";
     options.url = url + options.url;

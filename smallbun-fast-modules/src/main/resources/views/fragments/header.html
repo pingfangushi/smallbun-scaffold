@@ -58,21 +58,21 @@
                             <a href="#" onclick="parent.addTabs(({id: 'profile', title: '个人中心', close: true, url:'user/profile'}))" data-index="0">
                                 <i class="fa fa-user"></i>&nbsp;&nbsp;<span>个人资料</span></a>
                         </li>
-                        <li class="divider"></li>
+                        <li class="divider" style="margin-top: 5px;margin-bottom: 5px;"></li>
                         <li>
                             <a href="#" onclick="$.modal.open('设置密码', contextPath+'user/settingPassword/view',800,300)" data-index="1"><i
                                     class="fa fa-lock" ></i>&nbsp;&nbsp;<span>更换密码</span></a>
                         </li>
-                        <li class="divider"></li>
+                        <li class="divider" style="margin-top: 5px;margin-bottom: 5px;"></li>
                         <li>
-                            <a href="#" download="企客CRM软件用户操作手册.pdf"><i class="ace-icon fa fa-check-circle"></i>&nbsp;&nbsp;<span>看谁在线</span></a>
+                            <a href="#" download="企客CRM软件用户操作手册.pdf"><i class="ace-icon fa fa-check-circle"></i>&nbsp;&nbsp;<span>帮助手册</span></a>
                         </li>
-                        <li class="divider"></li>
+                        <li class="divider" style="margin-top: 5px;margin-bottom: 5px;"></li>
                         <li>
                             <a href="#" download=""><i
-                                    class="fa fa-question-circle"></i>&nbsp;&nbsp;<span>帮助手册</span></a>
+                                    class="fa fa-question-circle"></i>&nbsp;&nbsp;<span>关于我们</span></a>
                         </li>
-                        <li class="divider"></li>
+                        <li class="divider" style="margin-top: 5px;margin-bottom: 5px;"></li>
                         <li>
                             <a th:href="@{/logout}" data-index="2"><i
                                     class="ace-icon fa fa-power-off"></i>&nbsp;&nbsp;<span>安全退出</span></a>

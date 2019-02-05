@@ -37,10 +37,10 @@
                     </th:block>
                     <!--/*如果没有子元素*/-->
                     <th:block th:unless="${#lists.size(menu.children)}">
-                        <li th:inline="javascript">
+                        <li th:inline="javascript" class="treeview">
                             <a href="#" th:data-id="${menu.id}" th:data-title="${menu.menuName}"
                                th:data-url="${menu.url}"
-                               onclick="javascript:addTabs(({id:this.getAttribute('data-id'),title:this.getAttribute('data-title'),close:true,url:this.getAttribute('data-url')}))">
+                               onclick="javascript:addTabs(({obj:$(this),id:this.getAttribute('data-id'),title:this.getAttribute('data-title'),close:true,url:this.getAttribute('data-url')}))">
                                 <i th:class="${menu.icon}"></i>
                                 <span th:text="${menu.menuName}" th:style="'color: '+${menu.fontColor}+';'"></span>
                             </a>

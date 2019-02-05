@@ -40,7 +40,7 @@
                         <li class="list-group-item">
                             <b style="font-weight: 400">上次登录时间：</b>
                             <p class="pull-right"
-                               th:text="${user.lastLoginTime}"></p>
+                               th:text="${#dates.format(user.lastLoginTime, 'yyyy-MM-dd HH:mm:ss')}"></p>
                         </li>
                     </ul>
                 </div>

@@ -923,3 +923,8 @@ ul.clear-list:first-child {
 .help-inline {
     color: #aaaaaa;
 }
+
+.timeline > li > .timeline-item > .timeline-header {
+    color: #6284f3;
+    font-weight: 600;
+}
