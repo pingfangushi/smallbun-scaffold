@@ -18,7 +18,7 @@ spring:
   profiles:
     active: prod
   session:
-    store-type: redis #session 存储类型
+    store-type:  none #session 存储类型
   redis: #redis
     host: 47.92.112.34
     password: chenbaipay
@@ -41,10 +41,12 @@ spring:
 #                                          #
 #------------------------------------------#
 smallbun:
+  #验证码
   kaptcha:
-    text-producer-char-length: 4
+    text-producer-char-length: 4 #长度
+  #演示模式
   demo:
-    open: false #演示模式
+    open: false
 
 #------------------------------------------#
 #                                          #
