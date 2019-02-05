@@ -1,6 +1,6 @@
 package org.smallbun.fast.manage.monitor.controller;
 
-import org.smallbun.fast.manage.monitor.service.MonitorService;
+import org.smallbun.fast.manage.monitor.service.SysMonitorService;
 import org.smallbun.framework.annotation.DemoEnvironment;
 import org.smallbun.framework.base.BaseController;
 import org.smallbun.framework.result.AjaxResult;
@@ -17,11 +17,12 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @RestController
 @RequestMapping(value = "/monitor")
-public class MonitorController extends BaseController {
+public class SysMonitorController extends BaseController {
 	@Autowired
-	public MonitorController(MonitorService monitorService) {
+	public SysMonitorController(SysMonitorService monitorService) {
 		this.monitorService = monitorService;
 	}
+
 	/**
 	 * 在线用户数量
 	 * @return {@link AjaxResult}
@@ -30,6 +31,7 @@ public class MonitorController extends BaseController {
 	public AjaxResult onlineUserCount() {
 		return AjaxResult.builder().result(monitorService.onlineUserCount()).build();
 	}
+
 	/**
 	 * 在线用户
 	 * @return {@link AjaxResult}
@@ -74,5 +76,5 @@ public class MonitorController extends BaseController {
 	/**
 	 * MonitorService
 	 */
-	private final MonitorService monitorService;
+	private final SysMonitorService monitorService;
 }

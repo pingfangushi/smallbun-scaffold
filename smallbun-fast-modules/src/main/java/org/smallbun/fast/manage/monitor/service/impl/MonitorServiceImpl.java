@@ -1,7 +1,8 @@
 package org.smallbun.fast.manage.monitor.service.impl;
 
 import com.google.common.collect.Lists;
-import org.smallbun.fast.manage.monitor.service.MonitorService;
+import lombok.extern.slf4j.Slf4j;
+import org.smallbun.fast.manage.monitor.service.SysMonitorService;
 import org.smallbun.fast.manage.monitor.vo.OnlineUserVO;
 import org.smallbun.fast.manage.user.details.LoginUserDetails;
 import org.smallbun.framework.security.ActiveUserStore;
@@ -20,8 +21,9 @@ import static org.smallbun.fast.manage.user.util.UserUtil.getSession;
  * @author SanLi
  * Created by 2689170096@qq.com on 2019/1/13 13:51
  */
+@Slf4j
 @Service
-public class MonitorServiceImpl implements MonitorService {
+public class MonitorServiceImpl implements SysMonitorService {
 	@Autowired
 	public MonitorServiceImpl(SessionRegistry sessionRegistry, ActiveUserStore activeUserStore) {
 		this.activeUserStore = activeUserStore;
@@ -86,7 +88,11 @@ public class MonitorServiceImpl implements MonitorService {
 	 */
 	@Override
 	public void expireUserSession(String sessionId) {
-		sessionRegistry.getSessionInformation(sessionId).expireNow();
+		try {
+			sessionRegistry.getSessionInformation(sessionId).expireNow();
+		} catch (NullPointerException e) {
+			log.error("下线指定用户{}，" + "没有找到指定用户", sessionId);
+		}
 	}
 
 	/**

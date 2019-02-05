@@ -9,7 +9,7 @@ import java.util.List;
  * @author SanLi
  * Created by 2689170096@qq.com on 2019/1/13 13:51
  */
-public interface MonitorService {
+public interface SysMonitorService {
 
 	/**
 	 * 从会话注册表中获取用户

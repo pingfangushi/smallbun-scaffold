@@ -1,14 +1,20 @@
 <!--suppress ALL-->
 <aside class="main-sidebar">
     <section class="sidebar sidebar-collapse">
-        <div class="user-panel" style="padding-top: 30px;padding-bottom: 20px;">
-            <div class="pull-left image">
-                <img th:src="${user.headPortraitUrl}" class="img-circle"
-                     alt="用户头像">
-            </div>
+        <div class="user-panel">
+            <a title="个人中心" href="javascript:void(0);"
+               onclick="parent.addTabs(({id: 'profile', title: '个人中心', close: true, url:'user/profile'}))"
+               data-index="0">
+                <div class="hide">个人中心</div>
+                <div class="pull-left image">
+                    <img th:src="${user.headPortraitUrl}" class="img-circle"
+                         alt="用户头像">
+                </div>
+            </a>
             <div class="pull-left info">
                 <p sec:authentication="name"></p>
-                <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+                <a href="javascript:void(0);"><i class="fa fa-circle text-success"></i> 在线</a>
+                <a th:href="@{/logout}" style="padding-left:5px;"><i class="fa fa-sign-out text-danger"></i> 注销</a>
             </div>
         </div>
         <ul class="sidebar-menu tree">
