@@ -254,6 +254,8 @@
             reset: function (formId) {
                 var currentId = $.common.isEmpty(formId) ? $('form').attr('id') : formId;
                 $("#" + currentId)[0].reset();
+                //刷新表格
+                $.table.refresh();
             },
             // 获取选中复选框项
             selectCheckeds: function (name) {

@@ -26,5 +26,13 @@ public class SysUserVO extends SysUserEntity {
 	 * 角色vo集合
 	 */
 	private List<SysRoleVO> roleVOS;
+	/**
+	 * 出生日期起
+	 */
+	private String birthdayStart;
+	/**
+	 * 出生日期止
+	 */
+	private String birthdayEnd;
 
 }

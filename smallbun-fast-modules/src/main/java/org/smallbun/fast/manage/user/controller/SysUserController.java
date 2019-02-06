@@ -165,7 +165,7 @@ public class SysUserController extends BaseController {
 	 * @return
 	 */
 	@PostMapping(value = "/page")
-	public PageableResult page(Page<SysUserEntity> page, @ModelAttribute(value = "vo") SysUserVO vo) {
+	public PageableResult page(Page<SysUserEntity> page, SysUserVO vo) {
 		return PageableResult.builder().page(sysUserService.page(page, vo)).build();
 	}
 

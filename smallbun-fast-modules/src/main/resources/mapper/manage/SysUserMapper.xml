@@ -58,6 +58,15 @@
         <if test="!@org.springframework.util.ObjectUtils@isEmpty(p.orgId)">
             and o.id=#{p.orgId} or o.parent_id=#{p.orgId}
         </if>
+        <if test="!@org.springframework.util.ObjectUtils@isEmpty(p.username)">
+            and s.username like CONCAT('%',#{p.username},'%')
+        </if>
+        <if test="!@org.springframework.util.ObjectUtils@isEmpty(p.phone)">
+            and s.phone=#{p.phone}
+        </if>
+        <if test="!@org.springframework.util.ObjectUtils@isEmpty(p.birthdayStart) and !@org.springframework.util.ObjectUtils@isEmpty(p.birthdayEnd)">
+            and s.birthday between #{p.birthdayStart} and #{p.birthdayEnd}
+        </if>
     </select>
     <!--根据ID查询用户-->
     <select id="findById" resultMap="userMap">
