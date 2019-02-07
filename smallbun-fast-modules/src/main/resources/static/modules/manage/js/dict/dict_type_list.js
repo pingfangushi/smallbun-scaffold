@@ -34,9 +34,9 @@ $(function () {
         showToggle: true,
         columns: [{checkbox: true},
             {field: 'id', visible: false},
-            {field: 'typeName', title: '字典名称', formatter: $.table.view},
+            {field: 'typeName', title: '字典名称', formatter: $.table.view, sortable: true},
             {field: 'typeCode', title: '字典类型', sortable: true},
-            {field: 'gmtModified', title: '更新时间'},
+            {field: 'gmtModified', title: '更新时间', sortable: true},
             {title: '操作',align: 'center', width: 50, visible: true, formatter: function (value, row, index) {
                     var actions = [];
                     actions.push('<div class="btn-group"><button type="button" class="btn ibtn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog"></i>&nbsp;<span class="fa fa-chevron-down"></span></button>'+

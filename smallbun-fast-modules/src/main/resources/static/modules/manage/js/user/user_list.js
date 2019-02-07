@@ -16,12 +16,12 @@ $(function () {
         columns: [{checkbox: true},
             {field: 'id', visible: false},
             {field: 'username', title: '用户名',formatter:$.table.emptyProcessing},
-            {field: 'fullName', title: '姓名', sortable: true,formatter:$.table.emptyProcessing},
+            {field: 'fullName', title: '姓名',formatter:$.table.emptyProcessing},
             {field: 'phone', title: '手机',formatter:$.table.emptyProcessing},
             {field: 'telephone', title: '电话',formatter:$.table.emptyProcessing},
             {field: 'email', title: '邮箱', visible: true,formatter:$.table.emptyProcessing},
             {field: 'org.orgName', title: '部门',formatter:$.table.emptyProcessing},
-            {field: 'userStatus', title: '状态', align: 'center', formatter: statusFormatter},
+            {field: 'userStatusName', title: '状态', align: 'center'},
             {title: '操作', align: 'center', visible: true, formatter: function (value, row, index) {var actions = [];actions.push('<div class="btn-group"><button type="button" class="btn ibtn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog"></i>&nbsp;<span class="fa fa-chevron-down"></span></button>' +
                '<ul class="dropdown-menu" role="menu">' +
                '<li><a href="#" onclick="$.operate.editTab(\'' + row.id + '\')"><i class="fa fa-edit"></i>修改</a></li>' +
@@ -87,21 +87,3 @@ function loadOrg(){
         orgTree.expandAll(true);
     }, null, null, "正在加载，请稍后...");
 }
-/**
- * 格式化用户状态
- * @param value
- * @param row
- * @param index
- */
-statusFormatter = function (value, row, index) {
-    if (value === '0') {
-        return '<span class="label label-info">正常</span>';
-    }
-    if (value === '1') {
-        return '<span class="label label-primary">禁用</span>';
-    }
-    if (value === '2') {
-        return '<span class="label label-warning">锁定</span>';
-    }
-    return '';
-};

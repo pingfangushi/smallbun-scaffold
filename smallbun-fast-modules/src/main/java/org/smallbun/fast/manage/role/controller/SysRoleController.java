@@ -2,6 +2,7 @@ package org.smallbun.fast.manage.role.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.smallbun.fast.common.PageFactory;
 import org.smallbun.fast.manage.role.entity.SysRoleEntity;
 import org.smallbun.fast.manage.role.service.SysRoleService;
 import org.smallbun.fast.manage.role.vo.SysRoleVO;
@@ -105,8 +106,9 @@ public class SysRoleController extends BaseController {
 	@AutoQueryDictValue
 	@PostMapping(value = "/page")
 	public PageableResult page(Page<SysRoleEntity> page, SysRoleVO vo) {
-		return PageableResult.builder()
-				.page(pageVOFilling(sysRoleService.page(page, new QueryWrapper<>(vo)), SysRoleVO.class)).build();
+		return PageableResult.builder().page(pageVOFilling(
+				sysRoleService.page(new PageFactory<SysRoleEntity>().defaultPage(page), new QueryWrapper<>(vo)),
+				SysRoleVO.class)).build();
 	}
 
 	/**

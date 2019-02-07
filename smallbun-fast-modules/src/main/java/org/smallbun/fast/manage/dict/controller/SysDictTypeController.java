@@ -3,6 +3,7 @@ package org.smallbun.fast.manage.dict.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.smallbun.fast.common.PageFactory;
 import org.smallbun.fast.manage.dict.entity.SysDictTypeEntity;
 import org.smallbun.fast.manage.dict.service.SysDictTypeService;
 import org.smallbun.fast.manage.dict.vo.SysDictTypeVO;
@@ -107,9 +108,9 @@ public class SysDictTypeController extends BaseController {
 	@SystemLog(value = "")
 	@PostMapping(value = "/page")
 	public PageableResult page(Page<SysDictTypeEntity> page, SysDictTypeVO vo) {
-		return PageableResult.builder()
-				.page(pageVOFilling(sysDictTypeService.page(page, new QueryWrapper<>(vo)), SysDictTypeVO.class))
-				.build();
+		return PageableResult.builder().page(pageVOFilling(
+				sysDictTypeService.page(new PageFactory<SysDictTypeEntity>().defaultPage(page), new QueryWrapper<>(vo)),
+				SysDictTypeVO.class)).build();
 	}
 
 	/**

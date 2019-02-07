@@ -1,5 +1,5 @@
 $(function () {
- //@formatter:off
+    //@formatter:off
  var options = {
      url: contextPath + 'dict/value/page',
      createUrl: contextPath + "dict/value/form?dictType=" + $('#dictType').val(),
@@ -7,7 +7,7 @@ $(function () {
      removeUrl: contextPath + "dict/value/removeById",
      batRemoveUrl: contextPath + "dict/value/removeByIds",
      exportUrl: contextPath + "dict/value/export",
-     sortName: "createTime",
+     sortName: "gmtCreate",
      sortOrder: "desc",
      modalName: "字典",
      queryParams: queryParams,
@@ -20,10 +20,10 @@ $(function () {
          {field: 'id', visible: false},
          {field: 'sysDictType.id', visible: false},
          {field: 'sysDictType.typeName', title: '字典类型', formatter: viewDictType},
-         {field: 'dictLabel', title: '字典标签', formatter: $.table.view},
+         {field: 'dictLabel', title: '字典标签', formatter: $.table.view, sortable: true},
          {field: 'dictValue', title: '字典键值', sortable: true},
-         {field: 'sort', title: '排序', visible: true},
-         {field: 'gmtModified', title: '更新时间'},
+         {field: 'sort', title: '排序', visible: true, sortable: true},
+         {field: 'gmtModified', title: '更新时间', sortable: true},
          {title: '操作', align: 'center',width: 50, visible: true, formatter: function (value, row, index) {
               var actions = [];
               actions.push('<div class="btn-group"><button type="button" class="btn ibtn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog"></i>&nbsp;<span class="fa fa-chevron-down"></span></button>'+

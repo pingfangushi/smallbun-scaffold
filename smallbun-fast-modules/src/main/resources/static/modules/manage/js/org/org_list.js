@@ -16,13 +16,13 @@ $(function () {
         columns: [
             {field: 'ck', checkbox: true},
             {field: 'id', visible: false},
-            {field: 'orgName', title: '机构名称', sortable: false, align: 'left'},
-            {field: 'orgCode', title: '机构编码', sortable: false, align: 'left'},
-            {field: 'orgTypeName', title: '机构类型', sortable: false, align: 'left'},
-            {field: 'gradeName', title: '机构级别', sortable: false, align: 'left'},
+            {field: 'orgName', title: '机构名称', align: 'left'},
+            {field: 'orgCode', title: '机构编码', align: 'left'},
+            {field: 'orgTypeName', title: '机构类型', align: 'left'},
+            {field: 'gradeName', title: '机构级别', align: 'left'},
             {field: 'principal', title: '负责人', visible: false,sortable: false, width: 'auto', align: 'left'},
             {field: 'telephone', title: '电话', visible: false,  sortable: false, width: 'auto', align: 'left'},
-            {field: 'useable', title: '是否可用', sortable: false, width: 'auto', align: 'left', formatter: 'useableFormatter'},
+            {field: 'useable', title: '是否可用', width: 'auto', align: 'left', formatter: 'useableFormatter'},
             {title: '操作', width: 50,align: 'center', visible: true,formatter: function (value, row, index) {
                 var actions = [];
                 actions.push('<div class="btn-group"><button type="button" class="btn ibtn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog"></i>&nbsp;<span class="fa fa-chevron-down"></span></button>'+

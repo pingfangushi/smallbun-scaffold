@@ -20,10 +20,12 @@ package org.smallbun.fast.manage.user.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.smallbun.fast.common.PageFactory;
 import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.fast.manage.user.service.SysUserService;
 import org.smallbun.fast.manage.user.util.UserUtil;
 import org.smallbun.fast.manage.user.vo.SysUserVO;
+import org.smallbun.framework.annotation.AutoQueryDictValue;
 import org.smallbun.framework.annotation.DemoEnvironment;
 import org.smallbun.framework.annotation.SystemLog;
 import org.smallbun.framework.base.BaseController;
@@ -37,10 +39,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
+import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 
 /**
  * 用户控制器
@@ -165,8 +169,11 @@ public class SysUserController extends BaseController {
 	 * @return
 	 */
 	@PostMapping(value = "/page")
+	@AutoQueryDictValue
 	public PageableResult page(Page<SysUserEntity> page, SysUserVO vo) {
-		return PageableResult.builder().page(sysUserService.page(page, vo)).build();
+		return PageableResult.builder()
+				.page(pageVOFilling(sysUserService.page(new PageFactory<SysUserEntity>().defaultPage(page), vo),
+						SysUserVO.class)).build();
 	}
 
 	/**
@@ -175,8 +182,10 @@ public class SysUserController extends BaseController {
 	 * @return AjaxResult
 	 */
 	@RequestMapping(value = "/list")
+	@AutoQueryDictValue
 	public AjaxResult list(QueryWrapper<SysUserEntity> wrapper) {
-		return AjaxResult.builder().result(sysUserService.list(wrapper)).build();
+		return AjaxResult.builder()
+				.result(mappingList(sysUserService.list(wrapper), new ArrayList<>(), SysUserVO.class)).build();
 	}
 
 	/**

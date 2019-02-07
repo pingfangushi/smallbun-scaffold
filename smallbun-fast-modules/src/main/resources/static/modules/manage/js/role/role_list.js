@@ -1,4 +1,3 @@
-
 $(function () {
     //@formatter:off
     var options = {
@@ -18,11 +17,11 @@ $(function () {
         showToggle: true,
         columns: [{checkbox: true},
             {field: 'id', visible: false},
-            {field: 'roleName', title: '角色名称', formatter: $.table.view},
+            {field: 'roleName', title: '角色名称', formatter: $.table.view, sortable: true},
             {field: 'enName', title: '角色编码', sortable: true},
-            {field: 'roleTypeName', title: '角色类型', sortable: true},
-            {field: 'dataScopeName', title: '数据范围', sortable: true},
-            {field: 'useable', title: '是否可用', sortable: true, formatter: useableFormatter,width: 50},
+            {field: 'roleTypeName', title: '角色类型'},
+            {field: 'dataScopeName', title: '数据范围'},
+            {field: 'useableName', title: '是否可用',width: 50},
             {field: 'gmtModified', title: '更新时间'},
             {title: '操作',align: 'center', width: 50,visible: true, formatter: function (value, row, index) {
               var actions = [];
@@ -40,12 +39,3 @@ $(function () {
     $.table.init(options);
     //@formatter:off
 });
-
-function useableFormatter(value, row, index) {
-    if (value === '0') {
-        return '<span class="label label-success">可用</span>';
-    }
-    if (value === '1') {
-        return '<span class="label label-danger">不可用</span>';
-    }
-}

@@ -460,7 +460,7 @@
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>bootstrap-table</artifactId>
-            <version>1.13.2</version>
+            <version>1.13.3</version>
         </dependency>
         <!--inputmask-->
         <dependency>

@@ -171,8 +171,8 @@
                     singleSelect: true,
                     striped: true,
                     clickToSelect: true,                                //是否启用点击选中行
-                    toolbarAlign: 'left',                              //工具栏对齐方式
-                    buttonsAlign: 'right',                               //按钮对齐方式
+                    toolbarAlign: 'left',                               //工具栏对齐方式
+                    buttonsAlign: 'right',                              //按钮对齐方式
                     width: 'auto',
                     height: '760',
                     sidePagination: 'server',
@@ -180,6 +180,7 @@
                     showRefresh: $.common.visible(options.showRefresh), // 是否显示刷新按钮
                     showColumns: $.common.visible(options.showColumns), // 是否显示隐藏某列下拉框
                     showToggle: $.common.visible(options.showToggle),   // 是否显示详细视图和列表视图的切换按钮
+                    iconSize: 'sm',                                     // 图标大小：undefined默认的按钮尺寸 xs超小按钮sm小按钮lg大按钮
                     idField: options.idField,
                     rootParentId: options.rootParentId,
                     parentIdField: options.parentIdField,

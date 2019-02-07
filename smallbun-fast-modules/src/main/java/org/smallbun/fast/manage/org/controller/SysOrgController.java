@@ -2,6 +2,7 @@ package org.smallbun.fast.manage.org.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.smallbun.fast.common.PageFactory;
 import org.smallbun.fast.common.utils.AutoMapperUtil;
 import org.smallbun.fast.manage.org.entity.SysOrgEntity;
 import org.smallbun.fast.manage.org.service.SysOrgService;
@@ -112,8 +113,9 @@ public class SysOrgController extends BaseController {
 	@PostMapping(value = "/page")
 	@AutoQueryDictValue
 	public PageableResult page(Page<SysOrgEntity> page, SysOrgVO vo) {
-		return PageableResult.builder()
-				.page(pageVOFilling(sysOrgService.page(page, new QueryWrapper<>(vo)), SysOrgVO.class)).build();
+		return PageableResult.builder().page(pageVOFilling(
+				sysOrgService.page(new PageFactory<SysOrgEntity>().defaultPage(page), new QueryWrapper<>(vo)),
+				SysOrgVO.class)).build();
 	}
 
 	/**
@@ -122,6 +124,7 @@ public class SysOrgController extends BaseController {
 	 * @return AjaxResult
 	 */
 	@PostMapping(value = "/list")
+	@AutoQueryDictValue
 	public AjaxResult list() {
 		return AjaxResult.builder().result(excludeZtreeChildrenField(
 				mappingList(sysOrgService.list(new QueryWrapper<>()), new ArrayList<SysOrgVO>(), SysOrgVO.class)))

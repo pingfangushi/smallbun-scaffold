@@ -19,7 +19,8 @@
 package org.smallbun.fast.manage.menu.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.smallbun.fast.common.PageFactory;
 import org.smallbun.fast.common.utils.AutoMapperUtil;
 import org.smallbun.fast.manage.menu.entity.SysMenuEntity;
 import org.smallbun.fast.manage.menu.service.SysMenuService;
@@ -134,8 +135,10 @@ public class SysMenuController extends BaseController {
 	 * @return AjaxResult
 	 */
 	@RequestMapping(value = "/page")
-	public PageableResult page(IPage<SysMenuEntity> page, SysMenuVO vo) {
-		return PageableResult.builder().page(menuService.page(page, new QueryWrapper<>(vo))).build();
+	public PageableResult page(Page<SysMenuEntity> page, SysMenuVO vo) {
+		return PageableResult.builder()
+				.page(menuService.page(new PageFactory<SysMenuEntity>().defaultPage(page), new QueryWrapper<>(vo)))
+				.build();
 	}
 
 	/**
