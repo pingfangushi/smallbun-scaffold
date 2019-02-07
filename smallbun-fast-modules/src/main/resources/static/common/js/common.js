@@ -515,7 +515,7 @@
                     title: title,
                     close: true,
                     url: url,
-                    list_id: window.frameElement.getAttribute('id').substring(7, window.frameElement.getAttribute('id').length)
+                    list_id: $.common.isNotEmpty(window.frameElement) ? window.frameElement.getAttribute('id').substring(7, window.frameElement.getAttribute('id').length) : null
                 })
             }
         },

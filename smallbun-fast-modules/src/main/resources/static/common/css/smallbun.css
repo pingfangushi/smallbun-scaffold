@@ -326,11 +326,11 @@ span.input-group-addon:hover {
 
 .search-form {
     display: none;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
 }
 
-.bootstrap-table {
-    border-top: 1px solid #ddd;
-}
 
 .ibox-heading {
     background-color: #f3f6fb;
@@ -941,4 +941,24 @@ ul.clear-list:first-child {
     width: 100%;
     max-width: 45px;
     height: auto;
+}
+
+.bootstrap-table {
+    font-size: 12px;
+}
+
+.fixed-table-container {
+    position: relative !important;;
+    clear: both !important;
+    border-radius: 0 !important;
+    border: 0 solid !important;
+}
+
+.bootstrap-table .table > thead > tr > th {
+    vertical-align: bottom !important;
+    border-bottom: 0 solid !important;
+}
+
+.table-bordered {
+    border: 1px solid #ddd !important;
 }

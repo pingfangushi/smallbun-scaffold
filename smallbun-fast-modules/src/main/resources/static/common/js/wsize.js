@@ -8,6 +8,7 @@ $(document).ready(function () {
         var form = $('.search-form');
         if (form.is(":hidden")) {
             form.slideToggle("slow", function () {
+                $('.bootstrap-table').css('border-top', '1px solid #ddd');
                 //-1 为bootstrap-table 上边框高度
                 table.bootstrapTable('resetView', {height: $('.ibox-content-table').height() - $('.search-form').outerHeight(true) - 1});
                 query.text('');
@@ -17,6 +18,7 @@ $(document).ready(function () {
             });
         } else {
             form.slideToggle("slow", function () {
+                $('.bootstrap-table').css('border-top', '0 solid #ddd');
                 //-1 为bootstrap-table 上边框高度
                 table.bootstrapTable('resetView', {height: $('.ibox-content-table').height() - 1});
                 query.text('');
