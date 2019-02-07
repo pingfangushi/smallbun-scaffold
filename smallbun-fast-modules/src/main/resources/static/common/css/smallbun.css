@@ -960,5 +960,6 @@ ul.clear-list:first-child {
 }
 
 .table-bordered {
-    border: 1px solid #ddd !important;
+    border: 0 solid !important;
+    border-top: 1px solid #ddd !important;
 }
