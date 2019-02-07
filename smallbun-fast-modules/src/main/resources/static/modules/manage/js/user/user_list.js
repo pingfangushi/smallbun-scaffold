@@ -35,6 +35,15 @@ $(function () {
     $.table.init(options);
      //@formatter:off
     loadOrg();
+     /**
+     * 日期
+     */
+    laydate.render({
+        elem: '#birthdayStart', theme: '#6284f3', max: new Date().toLocaleDateString()
+    });
+    laydate.render({
+        elem: '#birthdayEnd', theme: '#6284f3', max: new Date().toLocaleDateString()
+    });
 });
 /**
  * 加载部门
@@ -62,7 +71,13 @@ function loadOrg(){
         },
         callback: {
             onClick: function (event, treeId, treeNode) {
-                $('.table').bootstrapTable('refresh', {query: {orgId:treeNode.id}});
+                var currentId = $('form').attr('id');
+                var search = {};
+                $.each($("#" + currentId).serializeArray(), function (i, field) {
+                    search[field.name] = field.value;
+                });
+                search.orgId=treeNode.id;
+                $('.table').bootstrapTable('refresh', {query: search});
             }
         }
     };

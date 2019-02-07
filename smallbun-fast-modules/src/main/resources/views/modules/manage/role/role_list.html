@@ -52,16 +52,17 @@
                 <!--盒子内容-->
                 <div class="ibox-content-table">
                     <!--查询框-->
-                    <form class="form-inline search search-form" id="search-form" action="" method="post">
-                        <div class="form-group" style="padding-bottom: 10px;padding-left: 5px;padding-right: 5px">
-                            <label for="roleName">角色名称：</label>
-                            <input class="form-control input-sm" type="text" id="roleName"
-                                   name="roleName" style="width:150px;" autocomplete="off">
+                    <form style="padding-bottom: 10px;padding-left: 5px;padding-right: 5px"
+                          class="form-inline search search-form" id="search-form" action="" method="post">
+                        <div class="form-group">
+                            <span>角色名称：</span>
+                            <div class="input-group input-sm width-160">
+                                <input id="roleName" name="roleName" type="text"
+                                       class="form-control" autocomplete="off">
+                            </div>
                         </div>
-                        <div class="form-group" style="padding-bottom: 10px;padding-left: 5px;padding-right: 5px">
+                        <div class="form-group">
                             <a class="btn ibtn-white btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
-                        </div>
-                        <div class="form-group" style="padding-bottom: 10px;padding-left: 5px;padding-right: 5px">
                             <a class="btn ibtn-white btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
                         </div>
                     </form>
