@@ -29,6 +29,11 @@ public class SysOrgVO extends SysOrgEntity {
 	 */
 	@DictValue(valueField = "grade", typeCode = "ORG_LEVEL")
 	private String gradeName;
+	/**
+	 * 是否可用
+	 */
+	@DictValue(valueField = "useable", typeCode = "WHETHER_USEABLE")
+	private String useableName;
 
 	public Serializable getOrgId() {
 		return getId();

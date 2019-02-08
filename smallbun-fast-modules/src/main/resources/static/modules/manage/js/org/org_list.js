@@ -22,7 +22,7 @@ $(function () {
             {field: 'gradeName', title: '机构级别', align: 'left'},
             {field: 'principal', title: '负责人', visible: false,sortable: false, width: 'auto', align: 'left'},
             {field: 'telephone', title: '电话', visible: false,  sortable: false, width: 'auto', align: 'left'},
-            {field: 'useable', title: '是否可用', width: 'auto', align: 'left', formatter: 'useableFormatter'},
+            {field: 'useableName', title: '是否可用', width: 'auto', align: 'left'},
             {title: '操作', width: 50,align: 'center', visible: true,formatter: function (value, row, index) {
                 var actions = [];
                 actions.push('<div class="btn-group"><button type="button" class="btn ibtn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog"></i>&nbsp;<span class="fa fa-chevron-down"></span></button>'+
@@ -41,22 +41,6 @@ $(function () {
     $.treeTable.init(options);
     //@formatter:off
 });
-
-/**
- * 可用
- * @param value
- * @param row
- * @param index
- * @returns {string}
- */
-function useableFormatter(value, row, index) {
-    if (value === '0') {
-        return '<span class="label label-success">可用</span>';
-    }
-    if (value === '1') {
-        return '<span class="label label-danger">不可用</span>';
-    }
-}
 /**
  * 添加方法
  * @param id
