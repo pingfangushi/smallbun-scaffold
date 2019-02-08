@@ -11,6 +11,8 @@ $(function () {
         idField: 'id',
         parentIdField: 'parentId',
         rootParentId: '0',
+        sortName: "sort",
+        sortOrder: "asc",
         treeShowField: 'menuName',
         initialState: 'collapsed',
         showToggle: 'false',

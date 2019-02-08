@@ -150,7 +150,8 @@ public class SysMenuController extends BaseController {
 	@PostMapping(value = "/list")
 	public AjaxResult list(SysMenuVO vo) {
 		return AjaxResult.builder().result(excludeZtreeChildrenField(
-				mappingList(menuService.list(new QueryWrapper<>(vo)), new ArrayList<>(), SysMenuVO.class))).build();
+				mappingList(menuService.list(new QueryWrapper<SysMenuEntity>(vo).orderByAsc("sort")), new ArrayList<>(),
+						SysMenuVO.class))).build();
 	}
 
 
@@ -161,7 +162,8 @@ public class SysMenuController extends BaseController {
 	@PostMapping(value = "/tree")
 	public AjaxResult tree() {
 		return AjaxResult.builder().result(AutoMapperUtil
-				.mappingTreeList(menuService.tree(new QueryWrapper<>()), new ArrayList<>(), SysMenuVO.class)).build();
+				.mappingTreeList(menuService.tree(new QueryWrapper<SysMenuEntity>().orderByAsc("sort")),
+						new ArrayList<>(), SysMenuVO.class)).build();
 	}
 
 	/**

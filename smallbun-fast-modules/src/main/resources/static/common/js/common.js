@@ -256,7 +256,7 @@
                 var currentId = $.common.isEmpty(formId) ? $('form').attr('id') : formId;
                 $("#" + currentId)[0].reset();
                 //刷新表格
-                $.table.refreshAll();
+                $.table.refresh();
             },
             // 获取选中复选框项
             selectCheckeds: function (name) {
@@ -721,7 +721,7 @@
             ajaxSuccess: function (result) {
                 if (result.status === web_status.SUCCESS) {
                     $.modal.msgSuccess(result.msg);
-                    $.table.refreshAll();
+                    $.table.refresh();
                 } else {
                     $.modal.alertError(result.msg);
                 }

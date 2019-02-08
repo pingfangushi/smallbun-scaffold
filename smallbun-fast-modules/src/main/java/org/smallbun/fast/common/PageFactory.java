@@ -15,8 +15,8 @@ import static com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline
  * Created by 2689170096@qq.com on 2019/2/7 21:11
  */
 public class PageFactory<T> {
-	private static final String DESC = "desc";
-	private static final String ASC = "asc";
+	public static final String DESC = "desc";
+	public static final String ASC = "asc";
 
 	/**
 	 * @param page
