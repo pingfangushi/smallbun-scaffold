@@ -1,8 +1,8 @@
 $(function () {
     //在线用户数量
-    onlineUserCount();
+    //onlineUserCount();
     //定时
-    timingLoading();
+    //timingLoading();
 });
 
 /**

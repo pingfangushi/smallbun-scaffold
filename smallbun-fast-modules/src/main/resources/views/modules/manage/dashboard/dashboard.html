@@ -13,10 +13,15 @@
         </li>
         <li class="active">控制台</li>
     </ol>
+    <div class="center-block">
+        <h2 th:text="'欢迎使用'+${title}+'!'"
+            style="text-align: center;margin-top: 170px;margin-bottom: 20px;font-size: 28px;color: #91ADDC;"></h2>
+        <img th:src="@{/static/common/img/welcome.png}" class="img-responsive center-block" style="max-width: 100%;">
+    </div>
 </section>
 <!-- Main content -->
-<section class="content">
-    <!-- Info boxes -->
+<!--<section class="content">
+    &lt;!&ndash; Info boxes &ndash;&gt;
     <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
@@ -26,11 +31,11 @@
                     <span class="info-box-text">CPU 流量</span>
                     <span class="info-box-number">90<small>%</small></span>
                 </div>
-                <!-- /.info-box-content -->
+                &lt;!&ndash; /.info-box-content &ndash;&gt;
             </div>
-            <!-- /.info-box -->
+            &lt;!&ndash; /.info-box &ndash;&gt;
         </div>
-        <!-- /.col -->
+        &lt;!&ndash; /.col &ndash;&gt;
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
                 <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
@@ -39,13 +44,13 @@
                     <span class="info-box-text">喜欢</span>
                     <span class="info-box-number">41,410</span>
                 </div>
-                <!-- /.info-box-content -->
+                &lt;!&ndash; /.info-box-content &ndash;&gt;
             </div>
-            <!-- /.info-box -->
+            &lt;!&ndash; /.info-box &ndash;&gt;
         </div>
-        <!-- /.col -->
+        &lt;!&ndash; /.col &ndash;&gt;
 
-        <!-- fix for small devices only -->
+        &lt;!&ndash; fix for small devices only &ndash;&gt;
         <div class="clearfix visible-sm-block"></div>
 
         <div class="col-md-3 col-sm-6 col-xs-12">
@@ -56,11 +61,11 @@
                     <span class="info-box-text">销售</span>
                     <span class="info-box-number">760</span>
                 </div>
-                <!-- /.info-box-content -->
+                &lt;!&ndash; /.info-box-content &ndash;&gt;
             </div>
-            <!-- /.info-box -->
+            &lt;!&ndash; /.info-box &ndash;&gt;
         </div>
-        <!-- /.col -->
+        &lt;!&ndash; /.col &ndash;&gt;
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
                 <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
@@ -69,14 +74,14 @@
                     <span class="info-box-text">在线用户</span>
                     <span class="info-box-number" id="online-user-count"></span>
                 </div>
-                <!-- /.info-box-content -->
+                &lt;!&ndash; /.info-box-content &ndash;&gt;
             </div>
-            <!-- /.info-box -->
+            &lt;!&ndash; /.info-box &ndash;&gt;
         </div>
-        <!-- /.col -->
+        &lt;!&ndash; /.col &ndash;&gt;
     </div>
-    <!-- /.row -->
-</section>
+    &lt;!&ndash; /.row &ndash;&gt;
+</section>-->
 <div th:include="fragments/include :: include-js"></div>
 <script th:src="@{/static/modules/manage/js/dashboard/dashboard.js}"></script>
 </body>
