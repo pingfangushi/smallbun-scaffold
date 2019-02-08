@@ -72,7 +72,7 @@ public class UserUtil {
 	}
 
 	/**
-	 * 刷新 LoginUserDetails
+	 * 刷新当前登录用户的 LoginUserDetails
 	 *
 	 */
 	public static void refresh() {
@@ -91,7 +91,7 @@ public class UserUtil {
 	}
 
 	/**
-	 * 刷新所有 LoginUserDetails
+	 * 刷新所有已经登录用户的 LoginUserDetails
 	 *
 	 */
 	public static void refreshAll() {
