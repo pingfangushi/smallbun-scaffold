@@ -29,10 +29,12 @@
                 <div class="ibox-title dashboard-header gray-bg">
                     <h5>用户列表</h5>
                     <div class="pull-right">
+                        <!--/*/<th:block sec:authorize="hasAuthority('manage:user:query')">/*/-->
                         <button class="btn btn-sm ibtn-primary query-a" title="查询" data-toggle="tooltip"
                                 data-placement="left">
                             <i class="fa fa-filter"></i> 查询
                         </button>
+                        <!--/*/</th:block>/*/-->
                         <!--/*/<th:block sec:authorize="hasAuthority('manage:user:add')">/*/-->
                         <button type="button" class="btn btn-sm ibtn-info" data-toggle="tooltip" data-placement="left"
                                 title="新增"
@@ -69,8 +71,8 @@
                 <div class="ibox-content-table">
                     <!--查询框-->
                     <form
-                          class="form-inline search search-form" id="search-form" th:action="@{/user/page}"
-                          method="post">
+                            class="form-inline search search-form" id="search-form" th:action="@{/user/page}"
+                            method="post">
                         <div class="form-group">
                             <span>用户名：</span>
                             <div class="input-group input-sm width-140">

@@ -81,7 +81,7 @@ public class ApplicationController extends BaseController {
 	 */
 	@RequestMapping("/icon")
 	public ModelAndView icon() {
-		return new ModelAndView("modules/manage/icons");
+		return new ModelAndView("modules/common/icons");
 	}
 
 

@@ -29,24 +29,26 @@
                 <div class="ibox-title dashboard-header gray-bg">
                     <h5>字典列表</h5>
                     <div class="pull-right">
+                        <!--/*/<th:block sec:authorize="hasAuthority('manage:dict:query')">/*/-->
                         <button class="btn btn-sm ibtn-primary query-a" title="查询" data-toggle="tooltip"
                                 data-placement="left">
                             <i class="fa fa-filter"></i> 查询
                         </button>
-                        <!--/*/<th:block sec:authorize="hasAuthority('manage:user:add')">/*/-->
+                        <!--/*/</th:block>/*/-->
+                        <!--/*/<th:block sec:authorize="hasAuthority('manage:dict:add')">/*/-->
                         <button type="button" class="btn btn-sm ibtn-info" data-toggle="tooltip" data-placement="left"
                                 title="新增"
                                 onclick="$.operate.add()">
                             <i class="fa fa-plus"></i> 新增
                         </button>
                         <!--/*/</th:block>/*/-->
-                        <!--/*/<th:block sec:authorize="hasAuthority('manage:user:edit')">/*/-->
+                        <!--/*/<th:block sec:authorize="hasAuthority('manage:dict:edit')">/*/-->
                         <button class="btn btn-sm bg-orange" title="修改" data-toggle="tooltip" data-placement="left"
                                 onclick="$.operate.edit()">
                             <i class="fa fa-pencil"></i> 修改
                         </button>
                         <!--/*/</th:block>/*/-->
-                        <!--/*/<th:block sec:authorize="hasAuthority('manage:user:del')">/*/-->
+                        <!--/*/<th:block sec:authorize="hasAuthority('manage:dict:del')">/*/-->
                         <button class="btn btn-sm bg-maroon" data-toggle="tooltip" data-placement="left" title="删除"
                                 onclick="$.operate.batRemove()"><i
                                 class="fa fa-trash-o"></i> 删除

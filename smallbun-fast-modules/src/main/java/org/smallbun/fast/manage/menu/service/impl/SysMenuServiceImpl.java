@@ -35,6 +35,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.smallbun.fast.manage.user.util.UserUtil.refresh;
+import static org.smallbun.fast.manage.user.util.UserUtil.refreshAll;
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mapping;
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
@@ -49,6 +51,8 @@ import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 @Transactional(rollbackFor = Exception.class)
 public class SysMenuServiceImpl extends BaseTreeDataServiceImpl<SysMenuMapper, SysMenuEntity>
 		implements SysMenuService {
+
+
 	/**
 	 * model
 	 * @param request
@@ -133,5 +137,20 @@ public class SysMenuServiceImpl extends BaseTreeDataServiceImpl<SysMenuMapper, S
 			}
 			per.setChildren(child);
 		});
+	}
+
+	/**
+	 * <p>
+	 * TableId 注解存在更新记录，否插入一条记录
+	 * </p>
+	 *
+	 * @param entity 实体对象
+	 * @return boolean
+	 */
+	@Override
+	public boolean saveOrUpdate(SysMenuEntity entity) {
+		boolean b = super.saveOrUpdate(entity);
+		if (b) { refreshAll(); }
+		return b;
 	}
 }

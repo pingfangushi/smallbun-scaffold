@@ -19,19 +19,20 @@
 package org.smallbun.fast.manage.user.util;
 
 import org.smallbun.fast.manage.user.details.LoginUserDetails;
+import org.smallbun.fast.manage.user.service.impl.UserDetailsServiceImpl;
+import org.smallbun.framework.toolkit.SpringContextUtil;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * User 工具类
@@ -47,11 +48,16 @@ public class UserUtil {
 	 */
 	public static LoginUserDetails getLoginUser() {
 		//获取当前用户信息
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		if (principal instanceof UserDetails) {
-			return ((LoginUserDetails) principal);
+		Object details = SecurityContextHolder.getContext().getAuthentication().getDetails();
+		if (StringUtils.isEmpty(details)) {
+			details = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		}
-		return null;
+		if (details instanceof UserDetails) {
+			return ((LoginUserDetails) details);
+		} else {
+			details = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			return ((LoginUserDetails) details);
+		}
 	}
 
 	/**
@@ -65,15 +71,55 @@ public class UserUtil {
 		return attr.getRequest().getSession(true);
 	}
 
-	public void shuaxin() {
-		//用于存储修改之后的权限列表
-		List<GrantedAuthority> authList = new ArrayList<>();
-		authList.add(new SimpleGrantedAuthority("addUser"));
-		authList.add(new SimpleGrantedAuthority("editUser"));
-		SecurityContext context = SecurityContextHolder.getContext();
-		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
-		Authentication auth = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), authList);
-		//重新设置上下文中存储的用户权限
-		context.setAuthentication(auth);
+	/**
+	 * 刷新 LoginUserDetails
+	 *
+	 */
+	public static void refresh() {
+		UserDetailsService detailsService = getUserDetailsService();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		//重新查询载入 LoginUserDetails
+		LoginUserDetails userDetails = (LoginUserDetails) detailsService
+				.loadUserByUsername(((LoginUserDetails) auth.getPrincipal()).getUsername());
+		//设置权限
+		UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(),
+				auth.getCredentials(), userDetails.getAuthorities());
+
+		//设置setDetails
+		newAuth.setDetails(userDetails);
+		SecurityContextHolder.getContext().setAuthentication(newAuth);
+	}
+
+	/**
+	 * 刷新所有 LoginUserDetails
+	 *
+	 */
+	public static void refreshAll() {
+		SessionRegistry sessionRegistry = (SessionRegistry) SpringContextUtil.getBean(SessionRegistry.class);
+		for (LoginUserDetails details : sessionRegistry.getAllPrincipals().stream().map(u -> (LoginUserDetails) u)
+				.collect(Collectors.toList())) {
+			//排除不是当前用户sessionId的用户
+			sessionRegistry.getAllSessions(details, true).forEach(u -> {
+				UserDetailsService detailsService = getUserDetailsService();
+				//重新查询载入 LoginUserDetails
+				LoginUserDetails userDetails = (LoginUserDetails) detailsService
+						.loadUserByUsername(((LoginUserDetails) u.getPrincipal()).getUsername());
+				//设置权限
+				UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(u.getPrincipal(),
+						((LoginUserDetails) u.getPrincipal()).getPassword(), userDetails.getAuthorities());
+
+				//设置setDetails
+				newAuth.setDetails(userDetails);
+				SecurityContextHolder.getContext().setAuthentication(newAuth);
+			});
+		}
+	}
+
+	/**
+	 * 获取 UserDetailsService
+	 * @return {@link UserDetailsService}
+	 */
+	private static UserDetailsService getUserDetailsService() {
+		return (UserDetailsService) SpringContextUtil.getBean(UserDetailsServiceImpl.class);
 	}
 }

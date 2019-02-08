@@ -794,7 +794,7 @@ var refreshTab = function () {
  */
 var refreshTable = function () {
     var currentId = $('.page-tabs-content').find('.active').attr('data-id');
-    $("#iframe_" + currentId)[0].contentWindow.$.table.refresh();
+    $("#iframe_" + currentId)[0].contentWindow.$.table.refreshAll();
 
 };
 var closeOtherTabs = function (isAll) {

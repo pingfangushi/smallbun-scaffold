@@ -21,6 +21,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.smallbun.fast.manage.user.util.UserUtil.refreshAll;
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 import static org.smallbun.framework.permission.constant.DataScopeConstant.DATA_SCOPE_CUSTOM;
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mapping;
@@ -122,6 +123,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRoleEn
 				&& saveOrUpdateRoleMenu(entity)
 				//添加角色-明细设置部门范围
 				&& saveOrUpdateRoleOrg(entity);
+		if (flag) { refreshAll(); }
 		return flag;
 	}
 

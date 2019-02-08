@@ -35,6 +35,9 @@ import org.smallbun.framework.security.LoggedUserBindingListener;
 import org.smallbun.framework.security.LoginSuccessHandler;
 import org.smallbun.framework.toolkit.AutoMapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -46,6 +49,7 @@ import java.sql.Timestamp;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static org.smallbun.fast.manage.user.util.UserUtil.getLoginUser;
 import static org.smallbun.framework.constant.CoreConstant.EX000102;
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 import static org.smallbun.framework.security.SecurityHandler.USER;
@@ -140,8 +144,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 	@Override
 	public boolean changePassword(String oldPassword, String newPassword, String confirmPassword) {
 		//1.判断旧密码
-		if (!new BCryptPasswordEncoder()
-				.matches(oldPassword, Objects.requireNonNull(UserUtil.getLoginUser()).getPassword())) {
+		if (!new BCryptPasswordEncoder().matches(oldPassword, Objects.requireNonNull(getLoginUser()).getPassword())) {
 			throw new BusinessExecption(EX000102, "旧密码输入错误");
 		}
 		//2.新密码
@@ -149,8 +152,8 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 			throw new BusinessExecption("两次输入密码不一致");
 		}
 		//修改密码
-		int i = baseMapper.changePassword(UserUtil.getLoginUser().getSysUser().getId(),
-				new BCryptPasswordEncoder().encode(newPassword));
+		int i = baseMapper
+				.changePassword(getLoginUser().getSysUser().getId(), new BCryptPasswordEncoder().encode(newPassword));
 		return i > 0;
 	}
 
@@ -161,8 +164,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 	 */
 	@Override
 	public boolean verifyOldPassword(String oldPassword) {
-		return new BCryptPasswordEncoder()
-				.matches(oldPassword, Objects.requireNonNull(UserUtil.getLoginUser()).getPassword());
+		return new BCryptPasswordEncoder().matches(oldPassword, Objects.requireNonNull(getLoginUser()).getPassword());
 	}
 
 	/**
@@ -173,7 +175,20 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 	 */
 	@Override
 	public boolean updateHeadPortrait(String id, String url) {
-		return baseMapper.updateHeadPortrait(id, url);
+		boolean b = baseMapper.updateHeadPortrait(id, url);
+		//更新用户头像
+		if (b) {
+			//更新LoginUserDetails
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(),
+					auth.getCredentials(), auth.getAuthorities());
+			//设置setDetails
+			LoginUserDetails details = (LoginUserDetails) auth.getDetails();
+			details.getSysUser().setHeadPortraitUrl(url);
+			newAuth.setDetails(details);
+			SecurityContextHolder.getContext().setAuthentication(newAuth);
+		}
+		return b;
 	}
 
 	/**
@@ -184,7 +199,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 	@Override
 	public boolean changPassword(String password) {
 		//修改密码
-		int i = baseMapper.changePassword(Objects.requireNonNull(UserUtil.getLoginUser()).getSysUser().getId(),
+		int i = baseMapper.changePassword(Objects.requireNonNull(getLoginUser()).getSysUser().getId(),
 				new BCryptPasswordEncoder().encode(password));
 		return i > 0;
 	}

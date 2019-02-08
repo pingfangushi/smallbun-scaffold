@@ -108,7 +108,7 @@ public class TreeShowTagProcessor extends AbstractElementTagProcessor {
 						+ "                tree.expandNode(treeNode);\n" + "                $(\"#" + treeShow
 						.getHideId() + "\").val(treeNode." + treeShow.getIdKey() + ");\n" + "                $(\"#"
 						+ treeShow.getHidePId() + "\").val(treeNode." + treeShow.getPIdKey() + ");\n"
-						+ "                //刷新表\n $.table.refresh()" + "            }\n" + "        }\n" + "    };\n"
+						+ "                //刷新表\n $.table.refreshAll()" + "            }\n" + "        }\n" + "    };\n"
 						+ "    /**\n" + "     * 加载树\n" + "     */\n" + "    loadTree = function () {\n"
 						+ "        $.post(contextPath+\"" + treeShow.getUrl() + "\", function (data) {\n"
 						+ "            tree = $.fn.zTree.init($(\"#" + treeShow.getId()

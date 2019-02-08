@@ -17,19 +17,19 @@
                             onclick="$.treeTable.expandOrCollapse()">
                         <i class="fa fa-exchange"></i>&nbsp;展开/折叠
                     </button>
-                    <!--/*/  <th:block sec:authorize="hasAuthority('manage:menu:add')">/*/-->
+                    <!--/*/  <th:block sec:authorize="hasAuthority('manage:org:add')">/*/-->
                     <button type="button" class="btn btn-sm  ibtn-info"
                             onclick="$.operate.add()">
                         <i class="fa fa-plus"></i>&nbsp;添加
                     </button>
                     <!--/*/     </th:block>/*/-->
-                    <!--/*/    <th:block sec:authorize="hasAuthority('manage:menu:edit')">/*/-->
+                    <!--/*/    <th:block sec:authorize="hasAuthority('manage:org:edit')">/*/-->
                     <button type="button" class="btn btn-sm bg-orange"
                             onclick="$.operate.edit()">
                         <i class="fa fa-file-text-o"></i>&nbsp;修改
                     </button>
                     <!--/*/     </th:block>/*/-->
-                    <!--/*/      <th:block sec:authorize="hasAuthority('manage:menu:del')">/*/-->
+                    <!--/*/      <th:block sec:authorize="hasAuthority('manage:org:del')">/*/-->
                     <button type="button" class="btn btn-sm  bg-maroon"
                             onclick="$.operate.batRemove()"><i
                             class="fa fa-trash-o"></i>&nbsp;删除

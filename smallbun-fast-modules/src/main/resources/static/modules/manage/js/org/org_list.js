@@ -16,7 +16,7 @@ $(function () {
         columns: [
             {field: 'ck', checkbox: true},
             {field: 'id', visible: false},
-            {field: 'orgName', title: '机构名称', align: 'left'},
+            {field: 'orgName', title: '机构名称', align: 'left',formatter: $.table.view},
             {field: 'orgCode', title: '机构编码', align: 'left'},
             {field: 'orgTypeName', title: '机构类型', align: 'left'},
             {field: 'gradeName', title: '机构级别', align: 'left'},
