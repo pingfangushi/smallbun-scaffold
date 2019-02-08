@@ -963,3 +963,7 @@ ul.clear-list:first-child {
     border: 0 solid !important;
     border-top: 1px solid #ddd !important;
 }
+
+.bootstrap-table .fixed-table-container.fixed-height {
+    border-bottom: 1px solid #dee2e6 !important;
+}
