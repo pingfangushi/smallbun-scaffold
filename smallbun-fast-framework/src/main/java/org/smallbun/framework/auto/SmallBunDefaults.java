@@ -45,6 +45,24 @@ public interface SmallBunDefaults {
 	}
 
 	/**
+	 * 项目信息
+	 */
+	interface Project {
+		/**
+		 * 名称
+		 */
+		String name = "SmallBun-企业级脚手架";
+		/**
+		 * 版本
+		 */
+		String version = "v1.0.0 Alpha";
+		/**
+		 *
+		 */
+		String poweredBy = "http://www.smallbun.org";
+	}
+
+	/**
 	 * 验证码
 	 */
 	interface DefaultKaptcha {

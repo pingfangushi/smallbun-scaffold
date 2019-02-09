@@ -19,8 +19,10 @@
 package org.smallbun.fast;
 
 import lombok.extern.slf4j.Slf4j;
+import org.smallbun.framework.auto.SmallBunProperties;
 import org.smallbun.framework.constant.SystemConstant;
 import org.smallbun.framework.toolkit.DefaultProfileUtil;
+import org.smallbun.framework.toolkit.SpringContextUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
@@ -69,11 +71,10 @@ public class Application {
 		log.info("\n----------------------------------------------------------\n\t"
 						+ "名称:\t'{}' is running! Access URLs:\n\t" + "本地:\t {}://localhost:{}\n\t" + "外部:\t {}://{}:{}\n\t"
 						+ "环境:\t {}\n\t" + "用时:\t {}\n----------------------------------------------------------",
-				env.getProperty("project.name"), protocol, env.getProperty("server.port"), protocol,
-				InetAddress.getLocalHost().getHostAddress(), env.getProperty("server.port"), env.getActiveProfiles(),
-				(end - start) + "ms");
+				((SmallBunProperties) SpringContextUtil.getBean(SmallBunProperties.class)).getProject().getName(),
+				protocol, env.getProperty("server.port"), protocol, InetAddress.getLocalHost().getHostAddress(),
+				env.getProperty("server.port"), env.getActiveProfiles(), (end - start) + "ms");
 	}
-
 
 }
 

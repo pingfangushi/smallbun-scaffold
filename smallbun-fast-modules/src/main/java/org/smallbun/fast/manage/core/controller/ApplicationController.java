@@ -21,8 +21,10 @@ package org.smallbun.fast.manage.core.controller;
 import org.smallbun.fast.manage.menu.service.SysMenuService;
 import org.smallbun.fast.manage.monitor.service.SysMonitorService;
 import org.smallbun.fast.manage.user.util.UserUtil;
+import org.smallbun.framework.auto.SmallBunProperties;
 import org.smallbun.framework.base.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,9 +46,11 @@ import static org.smallbun.framework.security.SecurityConstant.LOGIN;
 @RestController
 public class ApplicationController extends BaseController {
 	@Autowired
-	public ApplicationController(SysMenuService sysMenuService, SysMonitorService monitorService) {
+	public ApplicationController(SysMenuService sysMenuService, SysMonitorService monitorService,
+			SmallBunProperties smallBunProperties) {
 		this.sysMenuService = sysMenuService;
 		this.monitorService = monitorService;
+		this.smallBunProperties = smallBunProperties;
 	}
 
 	/**
@@ -55,9 +59,15 @@ public class ApplicationController extends BaseController {
 	 * @return 登录页面
 	 */
 	@RequestMapping(LOGIN)
-	public ModelAndView login(HttpServletRequest request) {
+	public ModelAndView login(HttpServletRequest request, Model model) {
 		//退出当前用户
 		monitorService.expireUserSession(request.getSession().getId());
+		//演示模式
+		if (smallBunProperties.getDemo().isOpen()) {
+			model.addAttribute("open", smallBunProperties.getDemo().isOpen());
+			model.addAttribute("username", smallBunProperties.getDemo().getUsername());
+			model.addAttribute("password", smallBunProperties.getDemo().getPassword());
+		}
 		return new ModelAndView("login");
 	}
 
@@ -102,6 +112,10 @@ public class ApplicationController extends BaseController {
 	 * 系统监控
 	 */
 	private final SysMonitorService monitorService;
+	/**
+	 * SmallBunProperties
+	 */
+	private final SmallBunProperties smallBunProperties;
 
 
 }

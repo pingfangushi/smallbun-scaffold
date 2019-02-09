@@ -30,6 +30,10 @@
     <div class="login-box">
         <div class="login-logo" th:text="${title}"></div>
         <div class="login-box-body">
+            <!--演示模式-->
+            <th:block th:if="${open}">
+                <p class="text-center" style="margin-bottom:0px;color: red">演示模式</p>
+            </th:block>
             <!--错误消息-->
             <p class="login-box-msg" style="color: red" id="msg"></p>
             <!--表单-->
@@ -38,18 +42,39 @@
                 <div class="form-group username">
                     <label for="username">用户名:</label>
                     <div class="form-group has-feedback username">
-                        <input type="text" class="form-control" autocomplete="off" id="username" name="username"
-                               placeholder="请输入用户名">
-                        <span class="fa fa-user form-control-feedback"></span>
+                        <!--演示模式-->
+                        <th:block th:if="${open}">
+                            <input type="text" class="form-control" th:value="${username}" autocomplete="off"
+                                   id="username" name="username"
+                                   placeholder="请输入用户名">
+                            <span class="fa fa-user form-control-feedback"></span>
+                        </th:block>
+                        <!--非演示模式-->
+                        <th:block th:unless="${open}">
+                            <input type="text" class="form-control" autocomplete="off"
+                                   id="username" name="username"
+                                   placeholder="请输入用户名">
+                            <span class="fa fa-user form-control-feedback"></span>
+                        </th:block>
                     </div>
                 </div>
                 <!--密码-->
                 <div class="form-group password">
                     <label for="password">密码:</label>
                     <div class="form-group has-feedback password">
-                        <input type="password" class="form-control" id="password" name="password" autocomplete="off"
-                               placeholder="请输入密码">
-                        <span class="fa fa-key form-control-feedback"></span>
+                        <!--演示模式-->
+                        <th:block th:if="${open}">
+                            <input type="password" class="form-control" th:value="${password}" id="password"
+                                   name="password" autocomplete="off"
+                                   placeholder="请输入密码">
+                            <span class="fa fa-key form-control-feedback"></span>
+                        </th:block>
+                        <!--非演示模式-->
+                        <th:block th:unless="${open}">
+                            <input type="password" class="form-control" id="password" name="password" autocomplete="off"
+                                   placeholder="请输入密码">
+                            <span class="fa fa-key form-control-feedback"></span>
+                        </th:block>
                     </div>
                 </div>
                 <!--验证码-->

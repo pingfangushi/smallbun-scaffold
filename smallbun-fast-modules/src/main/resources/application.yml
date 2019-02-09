@@ -1,7 +1,3 @@
-project:
-  name: SmallBun-企业级脚手架 #名称
-  version: v1.0.0 #版本
-  powered-by: http://www.smallbun.org
 logging:
   config: classpath:logback-spring.xml  #指定配置文件
 server:
@@ -46,7 +42,9 @@ smallbun:
     text-producer-char-length: 4 #长度
   #演示模式
   demo:
-    open: false
+    open: true #开启演示模式
+    username: admin #演示模式用户名
+    password: 123456 #演示模式密码
 
 #------------------------------------------#
 #                                          #

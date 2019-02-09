@@ -52,6 +52,19 @@ $(function () {
     $.ajaxSetup({
         contentType: "application/x-www-form-urlencoded;charset=utf-8",
         complete: function (XMLHttpRequest, textStatus) {
+            //演示模式
+            if (XMLHttpRequest.responseJSON.status === web_status.DEMO_ERROR) {
+                $.modal.closeLoading();
+                $.modal.alertWarning(XMLHttpRequest.responseJSON.msg);
+            }
+            //请求成功
+            if (XMLHttpRequest.responseJSON.status === web_status.SUCCESS) {
+            }
+            //其他
+            else {
+                $.modal.closeLoading();
+                $.modal.alertError(XMLHttpRequest.responseJSON.msg);
+            }
             if (XMLHttpRequest.responseText != null && XMLHttpRequest.responseText.indexOf("LOGIN-PAGE") > 0) {
                 layer.confirm("您的登录已超时, 请重新登录！", {
                         icon: $.modal.icon(modal_status.FAIL),
@@ -64,6 +77,7 @@ $(function () {
                     }
                 );
             }
+
         }
     });
 });

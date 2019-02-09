@@ -64,6 +64,7 @@
         <script th:src="@{/webjars/iCheck/1.0.2/icheck.min.js}"></script>
         <script th:src="@{/webjars/select2/4.0.5/js/select2.min.js}"></script>
         <script th:src="@{/webjars/pace/1.0.2/pace.min.js}"></script>
+        <script th:src="@{/static/common/plugins/ajax-hook/ajaxhook.min.js}"></script>
         <script th:src="@{/static/common/js/smallbun.js}"></script>
         <script th:src="@{/static/common/js/adminlte.min.js}"></script>
         <script th:src="@{/static/common/js/content-tabs.js}"></script>
@@ -97,8 +98,8 @@
                     ajax: {
                         trackMethods: ['GET', 'POST']
                     }
-                }
-            })
+                };
+            });
         </script>
     </div>
     <!--jquery-validate-->

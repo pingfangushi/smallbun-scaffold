@@ -93,8 +93,6 @@
                 $.post($.table._option.exportUrl, $("#" + currentId).serializeArray(), function (result) {
                     if (result.status === web_status.SUCCESS) {
                         window.location.href = contextPath + "fast/download?fileName=" + result.msg + "&delete=" + true;
-                    } else {
-                        $.modal.alertError(result.msg);
                     }
                     $.modal.loading();
                 });
@@ -106,8 +104,6 @@
                 $.post($.table._option.exportUrl, $("#" + currentId).serializeArray(), function (result) {
                     if (result.status === web_status.SUCCESS) {
                         window.location.href = contextPath + "fast/download?fileName=" + result.msg + "&delete=" + true;
-                    } else {
-                        $.modal.alertError(result.msg);
                     }
                     $.modal.loading();
                 });
@@ -212,7 +208,7 @@
             // 请求获取数据后处理回调函数
             responseHandler: function (res) {
                 //如果不是200代表请求失败或者异常
-                if (res.status === '900001') {
+                if (res.status !== web_status.SUCCESS) {
                     $.modal.alert(res.status + ":" + res.msg, modal_status.FAIL);
                     return [];
                 } else {
@@ -504,8 +500,6 @@
                 if (result.status === web_status.SUCCESS) {
                     $.modal.loading("保存成功,正在刷新数据请稍后……");
                     $.modal.reload();
-                } else {
-                    $.modal.alertError(result.msg);
                 }
                 $.modal.closeLoading();
             },
@@ -695,8 +689,6 @@
                             $.modal.msgSuccess(result.msg);
                             //跳转list页面
                             parent.saveCurrentTabPage(window);
-                        } else {
-                            $.modal.alertError(result.msg);
                         }
                         $.modal.closeLoading();
                     }
@@ -722,8 +714,6 @@
                 if (result.status === web_status.SUCCESS) {
                     $.modal.msgSuccess(result.msg);
                     $.table.refresh();
-                } else {
-                    $.modal.alertError(result.msg);
                 }
                 $.modal.closeLoading();
             }
@@ -1163,8 +1153,6 @@
                                 obj.val(node[options.name]);
                             }
                             ztree.expandAll(options.expand);
-                        } else {
-                            alert(result.msg);
                         }
                     },
                     error: function () {
@@ -1229,7 +1217,8 @@
 /** 消息状态码 */
 web_status = {
     SUCCESS: '200',
-    FAIL: '500'
+    FAIL: '500',
+    DEMO_ERROR: '900001'
 };
 
 /** 弹窗状态码 */

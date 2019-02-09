@@ -29,9 +29,6 @@ function changPassword() {
             data: $('#changPasswordForm').serializeArray(),
             dataType: "json",
             success: function (result) {
-                if (result.status === '900001') {
-                    $.modal.alertError(result.msg)
-                }
                 if (result.status === web_status.SUCCESS) {
                     layer.confirm("修改成功, 请重新登录！", {
                             icon: $.modal.icon(modal_status.SUCCESS),

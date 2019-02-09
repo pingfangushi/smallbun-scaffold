@@ -23,9 +23,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
 import org.apache.commons.text.StringEscapeUtils;
+import org.smallbun.framework.auto.SmallBunProperties;
 import org.smallbun.framework.security.UserUtil;
 import org.smallbun.framework.toolkit.AutoMapperUtil;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -58,21 +59,7 @@ import static org.smallbun.framework.toolkit.ReflectionUtil.getFieldAll;
  */
 public abstract class BaseController<T> {
 	private static final String NULL = "null";
-	/**
-	 * 项目名称
-	 */
-	@Value("${project.name}")
-	private String name;
-	/**
-	 * 版本
-	 */
-	@Value("${project.version}")
-	private String version;
-	/**
-	 * 提供者
-	 */
-	@Value("${project.powered-by}")
-	private String poweredBy;
+
 
 	/**
 	 * 填充model
@@ -81,9 +68,9 @@ public abstract class BaseController<T> {
 	 */
 	@ModelAttribute
 	protected void model(Model model) {
-		model.addAttribute("title", name);
-		model.addAttribute("version", version);
-		model.addAttribute("poweredBy", poweredBy);
+		model.addAttribute("title", smallBunProperties.getProject().getName());
+		model.addAttribute("version", smallBunProperties.getProject().getVersion());
+		model.addAttribute("poweredBy", smallBunProperties.getProject().getPoweredBy());
 	}
 
 	/**
@@ -237,4 +224,10 @@ public abstract class BaseController<T> {
 		}
 		return list;
 	}
+
+	/**
+	 * SmallBunProperties
+	 */
+	@Autowired
+	private SmallBunProperties smallBunProperties;
 }

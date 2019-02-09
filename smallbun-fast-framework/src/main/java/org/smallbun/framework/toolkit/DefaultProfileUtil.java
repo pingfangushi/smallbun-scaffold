@@ -19,6 +19,7 @@
 package org.smallbun.framework.toolkit;
 
 
+import org.smallbun.framework.auto.SmallBunDefaults;
 import org.springframework.boot.SpringApplication;
 import org.springframework.core.env.Environment;
 
@@ -55,6 +56,9 @@ public final class DefaultProfileUtil {
 		 * 请参阅 https://github.com/spring-projects/spring-boot/issues/1219
 		 */
 		defProperties.put(SPRING_PROFILE_DEFAULT, SPRING_PROFILE_DEVELOPMENT);
+		defProperties.put("smallbun.project.name", SmallBunDefaults.Project.name);
+		defProperties.put("smallbun.project.version", SmallBunDefaults.Project.version);
+		defProperties.put("smallbun.project.powered-by", SmallBunDefaults.Project.poweredBy);
 		app.setDefaultProperties(defProperties);
 	}
 

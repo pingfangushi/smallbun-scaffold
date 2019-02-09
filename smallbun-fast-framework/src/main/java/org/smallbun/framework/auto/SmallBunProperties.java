@@ -34,23 +34,63 @@ import static org.smallbun.framework.auto.SmallBunProperties.DEFAULT_PREFIX;
 @ConfigurationProperties(value = DEFAULT_PREFIX)
 public class SmallBunProperties {
 	static final String DEFAULT_PREFIX = "smallbun";
+
+
 	/**
-	 * 名称
+	 * http
 	 */
-	private final String name = "SmallBun-快速开发平台 ";
-	/**
-	 * 版本
-	 */
-	private final String version = "v1.0.0 ";
-	/**
-	 *
-	 */
-	private final String poweredBy = "http://www.smallbun.org";
 	@NestedConfigurationProperty
 	private final Http http = new Http();
+	/**
+	 * 验证码
+	 */
 	@NestedConfigurationProperty
 	private final DefaultKaptcha kaptcha = new DefaultKaptcha();
+	/**
+	 * 演示环境
+	 */
 	private final Demo demo = new Demo();
+
+	private final Project project = new Project();
+
+	public static class Project {
+		/**
+		 * 名称
+		 */
+		String name = SmallBunDefaults.Project.name;
+		/**
+		 * 版本
+		 */
+		String version = SmallBunDefaults.Project.version;
+		/**
+		 *
+		 */
+		String poweredBy = SmallBunDefaults.Project.poweredBy;
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public String getVersion() {
+			return version;
+		}
+
+		public void setVersion(String version) {
+			this.version = version;
+		}
+
+		public String getPoweredBy() {
+			return poweredBy;
+		}
+
+		public void setPoweredBy(String poweredBy) {
+			this.poweredBy = poweredBy;
+		}
+	}
 
 	public static class Http {
 		/**
@@ -173,7 +213,18 @@ public class SmallBunProperties {
 	 * 演示环境
 	 */
 	public static class Demo {
+		/**
+		 * 是否开启
+		 */
 		boolean open = SmallBunDefaults.Demo.OPEN;
+		/**
+		 * 用户名
+		 */
+		String username;
+		/**
+		 * 密码
+		 */
+		String password;
 
 		public boolean isOpen() {
 			return open;
@@ -181,6 +232,22 @@ public class SmallBunProperties {
 
 		public void setOpen(boolean open) {
 			this.open = open;
+		}
+
+		public String getUsername() {
+			return username;
+		}
+
+		public void setUsername(String username) {
+			this.username = username;
+		}
+
+		public String getPassword() {
+			return password;
+		}
+
+		public void setPassword(String password) {
+			this.password = password;
 		}
 	}
 }

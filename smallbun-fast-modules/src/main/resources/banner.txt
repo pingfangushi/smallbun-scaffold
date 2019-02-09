@@ -16,7 +16,7 @@ ${AnsiColor.CYAN}
 ${AnsiColor.BRIGHT_YELLOW}
 ===================================================================================================================
 
-                          ${project.name} ${project.version}  - Powered By ${project.powered-by}
+                          ${smallbun.project.name} ${smallbun.project.version}  - Powered By ${smallbun.project.powered-by}
 
 ===================================================================================================================
 ${AnsiColor.RED}
