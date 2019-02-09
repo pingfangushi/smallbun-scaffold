@@ -1127,8 +1127,13 @@
                 }
                 //为空
                 else {
-                    value.val(options.rootPId);
-                    obj.val($.common.isNotEmpty(options.topName) ? options.topName : '主目录')
+                    if (!options.required && !obj.attr('required') && !obj.hasClass('required')) {
+                        value.val(options.rootPId);
+                        obj.val($.common.isNotEmpty(options.topName) ? options.topName : '主目录')
+                    } else {
+                        obj.attr("required", "required");
+                        obj.val(options.topName)
+                    }
                 }
                 /**
                  * 发送ajax请求

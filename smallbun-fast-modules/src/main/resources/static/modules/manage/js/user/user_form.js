@@ -18,6 +18,7 @@ $(function () {
         name: 'orgName',  //zTree name
         type: 'POST',      //ajax 请求
         expand: true,
+        required: true,
         url: contextPath + 'org/list' //请求地址
     });
 
@@ -101,7 +102,6 @@ $(".form-horizontal").validate({
             }
         },
         email: {
-            required: true,
             remote: {
                 async: false, //同步方法，如果用异步的话，flag永远为false
                 url: contextPath + "user/unique",
