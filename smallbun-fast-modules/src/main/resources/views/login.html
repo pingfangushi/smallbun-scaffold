@@ -27,13 +27,13 @@
 </head>
 <body class="hold-transition login-page" style="overflow: hidden;">
 <div id="LOGIN-PAGE">
+    <!--演示模式-->
+    <th:block th:if="${open}">
+        <p class="bg-success text-center demo">演示模式</p>
+    </th:block>
     <div class="login-box">
         <div class="login-logo" th:text="${title}"></div>
         <div class="login-box-body">
-            <!--演示模式-->
-            <th:block th:if="${open}">
-                <p class="text-center" style="margin-bottom:0px;color: red">演示模式</p>
-            </th:block>
             <!--错误消息-->
             <p class="login-box-msg" style="color: red" id="msg"></p>
             <!--表单-->

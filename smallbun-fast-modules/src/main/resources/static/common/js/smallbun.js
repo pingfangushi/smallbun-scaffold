@@ -52,19 +52,7 @@ $(function () {
     $.ajaxSetup({
         contentType: "application/x-www-form-urlencoded;charset=utf-8",
         complete: function (XMLHttpRequest, textStatus) {
-            //演示模式
-            if (XMLHttpRequest.responseJSON.status === web_status.DEMO_ERROR) {
-                $.modal.closeLoading();
-                $.modal.alertWarning(XMLHttpRequest.responseJSON.msg);
-            }
-            //请求成功
-            if (XMLHttpRequest.responseJSON.status === web_status.SUCCESS) {
-            }
-            //其他
-            else {
-                $.modal.closeLoading();
-                $.modal.alertError(XMLHttpRequest.responseJSON.msg);
-            }
+            //判断登录是否超时
             if (XMLHttpRequest.responseText != null && XMLHttpRequest.responseText.indexOf("LOGIN-PAGE") > 0) {
                 layer.confirm("您的登录已超时, 请重新登录！", {
                         icon: $.modal.icon(modal_status.FAIL),
@@ -76,15 +64,36 @@ $(function () {
                         document.location.href = contextPath + 'login';
                     }
                 );
+                return;
             }
+            //登录不超时，判断状态
+            var status = XMLHttpRequest.responseJSON.status; //状态
+            var msg = XMLHttpRequest.responseJSON.msg;       //消息
 
+            switch (status) {
+                //undefined
+                case undefined:
+                    break;
+                //成功不处理
+                case web_status.SUCCESS:
+                    break;
+                //演示模式
+                case web_status.DEMO_ERROR:
+                    $.modal.closeLoading();
+                    $.modal.alertWarning(msg);
+                    break;
+                //其他
+                default:
+                    $.modal.closeLoading();
+                    $.modal.alertWarning(msg);
+            }
         }
     });
 });
 
 $(function () {
     /**
-     * 轮训selectPage结果页面分页栏
+     * 轮询selectPage结果页面分页栏
      */
     setInterval(function () {
         if ($('.sp_result_area').css("display") === 'block') {

@@ -59,9 +59,6 @@ function updateUserInfo() {
             data: $('#updateUserInfoForm').serializeArray(),
             dataType: "json",
             success: function (result) {
-                if (result.status === '900001') {
-                    $.modal.alertError(result.msg)
-                }
                 if (result.status === web_status.SUCCESS) {
                     $.modal.alertSuccess("更新成功！")
                 }
