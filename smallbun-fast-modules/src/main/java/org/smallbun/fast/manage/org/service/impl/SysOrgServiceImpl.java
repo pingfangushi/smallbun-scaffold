@@ -53,20 +53,4 @@ public class SysOrgServiceImpl extends BaseTreeDataServiceImpl<SysOrgMapper, Sys
 		return baseMapper.findByRoleId(id);
 	}
 
-	/**
-	 * <p>
-	 * TableId 注解存在更新记录，否插入一条记录
-	 * </p>
-	 *
-	 * @param entity 实体对象
-	 * @return boolean
-	 */
-	@Override
-	public boolean saveOrUpdate(SysOrgEntity entity) {
-		//获取父级ids
-		SysOrgEntity parent = baseMapper.selectById(entity.getParentId());
-		//设置ids
-		entity.setParentIds(parent.getParentIds() + "," + parent.getId());
-		return super.saveOrUpdate(entity);
-	}
 }
