@@ -39,7 +39,7 @@ public class BaseTreeDataServiceImpl<M extends BaseMapper<D>, D extends TreeData
 	@Override
 	public boolean removeByIds(Collection<? extends Serializable> idList) {
 		//删除子节点
-		idList.forEach(u -> super.removeById(new LambdaQueryWrapper<D>().eq(D::getParentId, u)));
+		idList.forEach(u -> super.remove(new LambdaQueryWrapper<D>().eq(D::getParentId, u)));
 		return super.removeByIds(idList);
 	}
 
