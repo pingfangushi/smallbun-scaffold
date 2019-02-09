@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static org.smallbun.fast.common.entity.TreeDataEntity.PARENT_DEFAULT;
-
 /**
  * 树service
  *
@@ -55,13 +53,11 @@ public class BaseTreeDataServiceImpl<M extends BaseMapper<D>, D extends TreeData
 	 */
 	@Override
 	public boolean saveOrUpdate(D entity) {
-		if (!PARENT_DEFAULT.equals(String.valueOf(entity.getParentId()))) {
-			//获取父级ids
-			D parent = baseMapper.selectById((Serializable) entity.getParentId());
-			if (!StringUtils.isEmpty(parent)) {
-				//设置ids
-				entity.setParentIds(parent.getParentIds() + "," + parent.getId());
-			}
+		//获取父级ids
+		D parent = baseMapper.selectById((Serializable) entity.getParentId());
+		if (!StringUtils.isEmpty(parent)) {
+			//设置ids
+			entity.setParentIds(parent.getParentIds() + "," + parent.getId());
 		}
 		return super.saveOrUpdate(entity);
 	}
