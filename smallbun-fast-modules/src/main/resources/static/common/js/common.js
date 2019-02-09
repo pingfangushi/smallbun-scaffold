@@ -1121,14 +1121,14 @@
                 if ($.common.isNotEmpty(obj.val())) {
                     value.val(obj.val());
                     //如果是顶级菜单，设置值为主目录
-                    if (obj.val() === '0') {
-                        obj.val('主目录');
+                    if (obj.val() === options.rootPId) {
+                        obj.val($.common.isNotEmpty(options.topName) ? options.topName : '主目录')
                     }
                 }
                 //为空
                 else {
-                    value.val('0');
-                    obj.val('主目录');
+                    value.val(options.rootPId);
+                    obj.val($.common.isNotEmpty(options.topName) ? options.topName : '主目录')
                 }
                 /**
                  * 发送ajax请求

@@ -17,7 +17,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class TreeDataEntity<D, T> extends DataEntity<T> {
-
+	public static final String PARENT_DEFAULT="0";
 	/**
 	 * 父级编号
 	 */

@@ -6,6 +6,7 @@ $(function () {
     $.pop_up_tree.init({
         obj: 'pop-up-org-tree',//显示input name 属性和id属性
         value: 'parentId', //隐藏value name 属性和id属性
+        topName: '组织机构', //顶级显示名称
         idKey: 'id',       //zTree idKey
         pIdKey: 'parentId',//zTree pIdKey
         rootPId: '0',      //zTree rootPId
