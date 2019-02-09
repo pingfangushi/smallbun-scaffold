@@ -44,7 +44,7 @@ smallbun:
   demo:
     open: false #开启演示模式
     username: admin #演示模式用户名
-    password: 123456 #演示模式密码
+    password: admin #演示模式密码
 
 #------------------------------------------#
 #                                          #

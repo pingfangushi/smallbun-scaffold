@@ -51,6 +51,7 @@ import static org.smallbun.framework.security.SecurityConstant.LOGOUT;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+
 	@Autowired
 	public SecurityConfig(AuthenticationSuccessHandler successHandler, AuthenticationFailureHandler failureHandler,
 			LogoutSuccessHandler logoutSuccessHandler, AuthenticationEntryPoint authenticationEntryPoint,
