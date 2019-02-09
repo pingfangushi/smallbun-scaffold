@@ -22,7 +22,7 @@ $(function () {
             {field: 'menuName', title: '名称', sortable: false, width: '200px', align: 'left'},
             {field: 'url', title: '地址', sortable: false, width: '300px', align: 'left'},
             {field: 'sort', title: '排序', sortable: false, width: '60px', align: 'center'},
-            {field: 'permission', title: '权限值',visible: false, width: '300px', sortable: false, align: 'left'},
+            {field: 'permission', title: '权限值',visible: true, width: '300px', sortable: false, align: 'left'},
             {field: 'icon', title: '图标', sortable: false, width: '100px', align: 'center', formatter: 'iconFormatter'},
             {field: 'menuType', title: '类型', sortable: false, width: '100px', align: 'center', formatter: 'typeFormatter'},
             {field: 'menuStatus', title: '状态', sortable: false, width: '100px', align: 'center', formatter: 'statusFormatter'},
