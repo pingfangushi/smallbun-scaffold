@@ -25,6 +25,7 @@ import org.smallbun.fast.common.utils.AutoMapperUtil;
 import org.smallbun.fast.manage.menu.entity.SysMenuEntity;
 import org.smallbun.fast.manage.menu.service.SysMenuService;
 import org.smallbun.fast.manage.menu.vo.SysMenuVO;
+import org.smallbun.framework.annotation.AutoQueryDictValue;
 import org.smallbun.framework.annotation.DemoEnvironment;
 import org.smallbun.framework.annotation.SystemLog;
 import org.smallbun.framework.base.BaseController;
@@ -135,6 +136,7 @@ public class SysMenuController extends BaseController {
 	 * @return AjaxResult
 	 */
 	@RequestMapping(value = "/page")
+	@AutoQueryDictValue
 	public PageableResult page(Page<SysMenuEntity> page, SysMenuVO vo) {
 		return PageableResult.builder()
 				.page(menuService.page(new PageFactory<SysMenuEntity>().defaultPage(page), new QueryWrapper<>(vo)))
@@ -148,6 +150,7 @@ public class SysMenuController extends BaseController {
 	 */
 	@SystemLog(value = "查询所有菜单")
 	@PostMapping(value = "/list")
+	@AutoQueryDictValue
 	public AjaxResult list(SysMenuVO vo) {
 		return AjaxResult.builder().result(excludeZtreeChildrenField(
 				mappingList(menuService.list(new QueryWrapper<SysMenuEntity>(vo).orderByAsc("sort")), new ArrayList<>(),

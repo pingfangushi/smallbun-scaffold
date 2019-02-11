@@ -23,6 +23,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.smallbun.fast.common.entity.TreeDataEntity;
+import org.smallbun.framework.annotation.DictValue;
 
 /**
  * 系统菜单实体类

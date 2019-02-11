@@ -30,4 +30,10 @@ public class SysMenuVO extends SysMenuEntity {
 	public String getNodeName() {
 		return getMenuName() + " " + getPermission();
 	}
+
+	/**
+	 * 菜单状态
+	 */
+	@DictValue(valueField = "menuStatus", typeCode = "MENU_STATUS")
+	private String menuStatusName;
 }

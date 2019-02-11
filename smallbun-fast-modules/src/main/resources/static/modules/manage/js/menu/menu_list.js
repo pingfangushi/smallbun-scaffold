@@ -24,8 +24,8 @@ $(function () {
             {field: 'sort', title: '排序', sortable: false, width: '60px', align: 'center'},
             {field: 'permission', title: '权限值',visible: true, width: '300px', sortable: false, align: 'left'},
             {field: 'icon', title: '图标', sortable: false, width: '100px', align: 'center', formatter: 'iconFormatter'},
-            {field: 'menuType', title: '类型', sortable: false, width: '100px', align: 'center', formatter: 'typeFormatter'},
-            {field: 'menuStatus', title: '状态', sortable: false, width: '100px', align: 'center', formatter: 'statusFormatter'},
+            {field: 'menuTypeName', title: '类型', sortable: false, width: '100px', align: 'center'},
+            {field: 'menuStatusName', title: '状态', sortable: false, width: '100px', align: 'center'},
             {title: '操作', width: 50, align: 'center',visible: true,formatter: function (value, row, index) {
                 var actions = [];
                 actions.push('<div class="btn-group"><button type="button" class="btn ibtn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog"></i>&nbsp;<span class="fa fa-chevron-down"></span></button>'+
@@ -43,21 +43,7 @@ $(function () {
     //@formatter:off
 });
 
-/**
- * 格式化状态
- * @param value
- * @param row
- * @param index
- * @returns {string}
- */
-function statusFormatter(value, row, index) {
-    if (value === '0') {
-        return '<span class="label label-success">正常</span>';
-    }
-    if (value === '1') {
-        return '<span class="label label-danger">锁定</span>';
-    }
-}
+
 
 
 /**
@@ -69,26 +55,6 @@ function statusFormatter(value, row, index) {
  */
 function iconFormatter(value, row, index) {
     return '<span class="' + value + '"></span>';
-}
-
-/**
- *
- * @param value
- * @param row
- * @param index
- * @returns {string}
- */
-function typeFormatter(value, row, index) {
-    if (value === 0) {
-        return '<span class="label label-info">目录</span>';
-    }
-    if (value === 1) {
-        return '<span class="label label-primary">菜单</span>';
-    }
-    if (value === 2) {
-        return '<span class="label label-warning">按钮</span>';
-    }
-    return '';
 }
 /**
  * 添加下级菜单

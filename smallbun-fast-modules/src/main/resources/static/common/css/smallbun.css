@@ -791,12 +791,12 @@ ul.clear-list:first-child {
 /*滑过的颜色*/
 .table-hover > tbody > tr:hover {
     /* background-color: #dff0d8 !important;*/
-    background-color: #e3edf5 !important;
+    background-color: #e6f7ff !important;
 }
 
 /*选中颜色 */
 .selected td {
-    background-color: #e3edf5 !important;
+    background-color: #e6f7ff !important;
 }
 
 /*表格标题颜色*/
