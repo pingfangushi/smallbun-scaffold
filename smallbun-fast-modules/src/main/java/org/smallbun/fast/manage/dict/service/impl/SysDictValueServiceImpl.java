@@ -26,7 +26,6 @@ import static org.smallbun.framework.toolkit.AutoMapperUtil.mapping;
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
-@CacheConfig(cacheNames = "dict")
 public class SysDictValueServiceImpl extends BaseServiceImpl<SysDictValueMapper, SysDictValueEntity>
 		implements SysDictValueService {
 	/**
@@ -61,7 +60,6 @@ public class SysDictValueServiceImpl extends BaseServiceImpl<SysDictValueMapper,
 	 * @return
 	 */
 	@Override
-	@Cacheable(key = "#typeCode")
 	public List<SysDictValueEntity> findByTypeCode(String typeCode) {
 		return baseMapper.findByTypeCode(typeCode);
 	}
@@ -73,7 +71,6 @@ public class SysDictValueServiceImpl extends BaseServiceImpl<SysDictValueMapper,
 	 * @return {@link SysDictValueEntity}
 	 */
 	@Override
-	@Cacheable(key = "T(String).valueOf(#typeCode).concat('-').concat(#dictValue)")
 	public String findLabelByTypeCodeAndValue(String typeCode, String dictValue) {
 		return baseMapper.findLabelByTypeCodeAndValue(typeCode, dictValue);
 	}
