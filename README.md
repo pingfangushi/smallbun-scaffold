@@ -46,7 +46,7 @@
 * E-mail：qinggang.zuo@gmail.com / 2689170096@qq.com
 * Gitee：https://gitee.com/leshalv/smallbun
 * GitHub：https://github.com/leshalv/smallbun
-* QQ交流群： <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=1c8abb26cccf9137f0cf43f4e41ff2b038713fd9b44c1924c0190a4d5ad97239"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="SpringBoot 核心技术 ①" title="SpringBoot 核心技术 ①"></a>
+* QQ交流群： <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=ff149c88bb181e78ec3e4a5b80cb42ecc89032c4e69e4103b0feb8cc0240ccc7"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="SmallBun企业级脚手架①" title="SmallBun企业级脚手架①"></a>
 
 一个人的个人能力再强，也无法战胜一个团队，恳切的希望有兴趣的同学都参与进来共同完善它(^_^)。
 
