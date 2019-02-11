@@ -46,6 +46,13 @@
 # 关于捐赠
 
 # 效果图
-
-
+![首页](https://images.gitee.com/uploads/images/2019/0211/131427_55bd41e9_1407605.png "首页.png")
+![用户管理](https://images.gitee.com/uploads/images/2019/0211/131513_c3405cad_1407605.png "用户管理.png")
+![角色管理](https://images.gitee.com/uploads/images/2019/0211/131532_7fb33aff_1407605.png "角色管理.png")
+![部门管理](https://images.gitee.com/uploads/images/2019/0211/131553_10df6666_1407605.png "部门管理.png")
+![菜单管理](https://images.gitee.com/uploads/images/2019/0211/131605_19a6121e_1407605.png "菜单管理.png")
+![字典管理](https://images.gitee.com/uploads/images/2019/0211/131621_d5eca59c_1407605.png "字典管理.png")
+![个人资料](https://images.gitee.com/uploads/images/2019/0211/131643_b30a56b6_1407605.png "个人中心.png")
+![修改头像](https://images.gitee.com/uploads/images/2019/0211/131655_5fb59966_1407605.png "修改头像.png")
+![在线用户](https://images.gitee.com/uploads/images/2019/0211/131708_d0c55d00_1407605.png "在线用户.png")
 
