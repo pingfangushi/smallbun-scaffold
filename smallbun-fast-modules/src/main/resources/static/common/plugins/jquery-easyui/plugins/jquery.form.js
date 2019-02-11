@@ -56,7 +56,7 @@ function _8(_a,_b){
 var _c=$.data(_a,"form").options;
 var _d="easyui_frame_"+(new Date().getTime());
 var _e=$("<iframe id="+_d+" name="+_d+"></iframe>").appendTo("body");
-_e.attr("src",window.ActiveXObject?"javascript:false":"about:blank");
+_e.attr("src",window.ActiveXObject?"javascript:false":"updatelog:blank");
 _e.css({position:"absolute",top:-1000,left:-1000});
 _e.bind("load",cb);
 _f(_b);

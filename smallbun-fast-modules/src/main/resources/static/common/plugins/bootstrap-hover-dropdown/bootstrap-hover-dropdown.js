@@ -39,7 +39,7 @@
         // (plugin causes some issues on mobile)
         if ('ontouchstart' in document) return this; // don't want to affect chaining
 
-        // the element we really care about
+        // the element we really care updatelog
         // is the dropdown-toggle's parent
         $allDropdowns = $allDropdowns.add(this.parent());
 

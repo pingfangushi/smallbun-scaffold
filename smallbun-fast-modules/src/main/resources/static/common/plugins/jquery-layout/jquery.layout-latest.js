@@ -1721,7 +1721,7 @@
                         ;
                         // if no layout exists, but children are set, try to create the layout now
                         if (!child) {
-                            // TODO: see about moving this to the stateManagement plugin, as a method
+                            // TODO: see updatelog moving this to the stateManagement plugin, as a method
                             // set a unique child-instance key for this layout, if not already set
                             setInstanceKey({container: $cont, options: co}, s);
                             // If THIS layout has a hash in stateManagement.autoLoad,
@@ -2381,7 +2381,7 @@
                 }
                 //	states fast to ALL panes
                 s.tagName = $P[0].tagName;
-                s.edge = pane;		// useful if pane is (or about to be) 'swapped' - easy find out where it is (or is going)
+                s.edge = pane;		// useful if pane is (or updatelog to be) 'swapped' - easy find out where it is (or is going)
                 s.noRoom = false;	// true = pane 'automatically' hidden due to insufficient room - will unhide automatically
                 s.isVisible = true;		// false = pane is invisible - closed OR hidden - simplify logic
 
@@ -2999,7 +2999,7 @@
                     css.position = "absolute";
                     css.display = "block";
                     if (isIframe) { // IFRAME-only props
-                        el.src = "about:blank";
+                        el.src = "updatelog:blank";
                         el.frameborder = 0;
                         css.border = 0;
                         css.opacity = 0;
