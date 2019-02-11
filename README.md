@@ -27,7 +27,8 @@
 * 持久层框架：MyBatis MyBatis Plus
 * 数据库连接池：HikariCP 
 * 前端模版框架： AdminLte
-* ...
+<br/>
+...
 # 软件要求
 * JDK1.8
 * MySQL5.5+
