@@ -54,6 +54,10 @@
         <link rel="stylesheet" th:href="@{/webjars/bootstrap-colorpicker/2.5.1/dist/css/bootstrap-colorpicker.css}"
               type="text/css"/>
     </div>
+    <!--editormd-->
+    <div th:fragment="editormd-css">
+        <link rel="stylesheet" th:href="@{/webjars/editor.md/1.5.0/css/editormd.min.css}" type="text/css"/>
+    </div>
     <!----------------------------------------------------------------------------------->
     <div th:fragment="include-js">
         <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
@@ -138,6 +142,10 @@
     <div th:fragment="laydate-js">
         <script type="text/javascript"
                 th:src="@{/webjars/laydate/dist/laydate.js}"></script>
+    </div>
+    <!--editormd-->
+    <div th:fragment="editormd-js">
+        <script type="text/javascript" th:src="@{/webjars/editor.md/1.5.0/editormd.min.js}"></script>
     </div>
     <!--inputmask-js-->
     <div th:fragment="inputmask-js">

@@ -19,7 +19,7 @@ $(function () {
         type: 'POST',      //ajax 请求
         expand: true,
         required: true,
-        url: contextPath + 'org/list' //请求地址
+        url: contextPath + 'org/list' //请求地址birthday
     });
 
     /**

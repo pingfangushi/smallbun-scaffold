@@ -35,7 +35,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.smallbun.fast.manage.user.util.UserUtil.refreshAll;
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mapping;
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
@@ -149,8 +148,6 @@ public class SysMenuServiceImpl extends BaseTreeDataServiceImpl<SysMenuMapper, S
 	 */
 	@Override
 	public boolean saveOrUpdate(SysMenuEntity entity) {
-		boolean b = super.saveOrUpdate(entity);
-		if (b) { refreshAll(); }
-		return b;
+		return super.saveOrUpdate(entity);
 	}
 }

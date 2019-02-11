@@ -11,5 +11,5 @@ import org.smallbun.fast.common.entity.DataEntity;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class SysAboutEntity extends DataEntity<SysAboutEntity> {
+public class SysAboutEntity extends DataEntity<Long> {
 }

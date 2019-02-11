@@ -24,7 +24,6 @@ import org.smallbun.framework.toolkit.SpringContextUtil;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.util.StringUtils;
@@ -32,7 +31,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpSession;
-import java.util.stream.Collectors;
 
 /**
  * User 工具类
@@ -47,6 +45,7 @@ public class UserUtil {
 	 * @return {@link LoginUserDetails}
 	 */
 	public static LoginUserDetails getLoginUser() {
+		refresh();
 		//获取当前用户信息
 		Object details = SecurityContextHolder.getContext().getAuthentication().getDetails();
 		if (StringUtils.isEmpty(details)) {
@@ -88,31 +87,6 @@ public class UserUtil {
 		//设置setDetails
 		newAuth.setDetails(userDetails);
 		SecurityContextHolder.getContext().setAuthentication(newAuth);
-	}
-
-	/**
-	 * 刷新所有已经登录用户的 LoginUserDetails
-	 *
-	 */
-	public static void refreshAll() {
-		SessionRegistry sessionRegistry = (SessionRegistry) SpringContextUtil.getBean(SessionRegistry.class);
-		for (LoginUserDetails details : sessionRegistry.getAllPrincipals().stream().map(u -> (LoginUserDetails) u)
-				.collect(Collectors.toList())) {
-			//排除不是当前用户sessionId的用户
-			sessionRegistry.getAllSessions(details, true).forEach(u -> {
-				UserDetailsService detailsService = getUserDetailsService();
-				//重新查询载入 LoginUserDetails
-				LoginUserDetails userDetails = (LoginUserDetails) detailsService
-						.loadUserByUsername(((LoginUserDetails) u.getPrincipal()).getUsername());
-				//设置权限
-				UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(u.getPrincipal(),
-						((LoginUserDetails) u.getPrincipal()).getPassword(), userDetails.getAuthorities());
-
-				//设置setDetails
-				newAuth.setDetails(userDetails);
-				SecurityContextHolder.getContext().setAuthentication(newAuth);
-			});
-		}
 	}
 
 	/**

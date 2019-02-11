@@ -225,6 +225,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!--editor.md-->
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>editor.md</artifactId>
+            <version>1.5.0</version>
+        </dependency>
         <!--bootstrap validator-->
         <dependency>
             <groupId>org.webjars</groupId>

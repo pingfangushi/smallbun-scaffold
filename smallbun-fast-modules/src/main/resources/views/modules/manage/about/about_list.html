@@ -1,93 +1,13 @@
 <!DOCTYPE html>
-
+<!--suppress ALL-->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:include="fragments/include :: header('关于我')"></div>
+    <div th:include="fragments/include :: editormd-css"></div>
 </head>
 <body class="list-body">
-
-<section class="content">
-    <div class="row">
-        <div class="col-md-12">
-            <ul class="timeline">
-                <li class="time-label">
-                    <span class="bg-yellow">2018年10月</span>
-                </li>
-                <li>
-                    <i class="fa fa-user bg-aqua"></i>
-                    <div class="timeline-item">
-                        <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-
-                        <h3 class="timeline-header">个性化</h3>
-
-                        <div class="timeline-body">
-                            2018年10月12日，浏览器控制台console输出个性化内容。
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <i class="fa fa-user bg-aqua"></i>
-                    <div class="timeline-item">
-                        <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-
-                        <h3 class="timeline-header">统一异常处理 v1.0</h3>
-
-                        <div class="timeline-body">
-                            2018年10月11日，完成统一异常处理,针对浏览器访问错误展示,及REST请求错误返回。
-                        </div>
-                    </div>
-                </li>
-
-                <li class="time-label">
-                    <span class="bg-fuchsia">2018年9月</span>
-                </li>
-                <li>
-                    <i class="fa fa-user bg-aqua"></i>
-                    <div class="timeline-item">
-                        <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-
-                        <h3 class="timeline-header">UI初版</h3>
-
-                        <div class="timeline-body">
-                            2018年9月30日，完成UI初版,基于AdminLte前端模板。
-                        </div>
-                    </div>
-                </li>
-                <li class="time-label">
-                    <span class="bg-red">2018年4月</span>
-                </li>
-                <li>
-                    <i class="fa fa-user bg-aqua"></i>
-                    <div class="timeline-item">
-                        <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-
-                        <h3 class="timeline-header">搭建项目结构</h3>
-
-                        <div class="timeline-body">
-                            2018年4月20，完成jeedance快速开发平台基本架构搭建。
-                        </div>
-                    </div>
-                </li>
-                <li class="time-label">
-                    <span class="bg-green">2018年3月</span>
-                </li>
-                <li>
-                    <i class="fa fa-user bg-aqua"></i>
-                    <div class="timeline-item">
-                        <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-
-                        <h3 class="timeline-header">平台规划</h3>
-
-                        <div class="timeline-body">
-                            2018年3月21日，着手进行jeedance快速开发平台的规划、技术选型。
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-</section>
 <div th:include="fragments/include :: include-js"></div>
+<div th:include="fragments/include :: editormd-js"></div>
 </body>
 </html>
 
