@@ -10,7 +10,7 @@ spring:
       maximum-pool-size: 15
       minimum-idle: 5
       pool-name: DatebookHikariCP
-    password: zqg@199866
+    password: root
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://cdb-2ipogt4w.cd.tencentcdb.com:10008/jeedance?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/smallbun?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false
     username: root

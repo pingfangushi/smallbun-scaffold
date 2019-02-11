@@ -13,12 +13,6 @@ server:
 spring:
   profiles:
     active: prod
-  session:
-    store-type:  none #session 存储类型
-  redis: #redis
-    host: 47.92.112.34
-    password: chenbaipay
-    port: 6379
   resources:
     chain:
       strategy:
@@ -27,7 +21,7 @@ spring:
           enabled: true
       cache: true
   thymeleaf:
-    cache: false #不进行缓存
+    cache: false #不进行缓存,生产建议打开
     prefix: classpath:views/ #更改模板位置为views
   main:
     allow-bean-definition-overriding: true
