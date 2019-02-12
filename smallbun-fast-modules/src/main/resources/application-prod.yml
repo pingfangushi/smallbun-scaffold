@@ -12,7 +12,7 @@ spring:
       pool-name: DatebookHikariCP
     password: root
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://127.0.0.1:3306/smallbun?serverTimezone=GMT
+    url: jdbc:mysql://127.0.0.1:3306/smallbun?serverTimezone=GMT&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false
     username: root
 
 

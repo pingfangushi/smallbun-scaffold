@@ -42,6 +42,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -57,6 +58,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
@@ -131,7 +133,12 @@ public class WebMvcConfig extends RequestMappingHandlerMapping
 		serializeConfig.put(Long.TYPE, ToStringSerializer.instance);
 		fastJsonConfig.setSerializeConfig(serializeConfig);
 		//设置UTF-8
-		fastConverter.setDefaultCharset(Charset.defaultCharset());
+		fastConverter.setDefaultCharset(Charset.forName("UTF-8"));
+		// 处理中文乱码问题
+		List<MediaType> fastMediaTypes = new ArrayList<>();
+		fastMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
+		fastConverter.setSupportedMediaTypes(fastMediaTypes);
+
 		//3、在convert中添加配置信息
 		fastConverter.setFastJsonConfig(fastJsonConfig);
 		//4、将convert添加到converters中
