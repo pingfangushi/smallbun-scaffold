@@ -29,8 +29,8 @@ import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.smallbun.fast.common.handler.BaseMetaObjectHandler;
-import org.smallbun.framework.injector.DataScopeSqlInjector;
 import org.smallbun.fast.common.interceptor.PrepareInterceptor;
+import org.smallbun.framework.injector.DataScopeLogicSqlInjector;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -50,18 +50,18 @@ public class MybatisPlusConfig {
 	 */
 	@Bean
 	@Profile({"dev", "test", "prod"})
-	public PerformanceInterceptor  performanceInterceptor() {
+	public PerformanceInterceptor performanceInterceptor() {
 		return new PerformanceInterceptor();
 	}
 
 
 	/**
-	 * 配置数据权限过滤
-	 * @return {@link DataScopeSqlInjector}
+	 * 配置数据权限过滤带有逻辑删除
+	 * @return {@link DataScopeLogicSqlInjector}
 	 */
 	@Bean
 	public ISqlInjector dataScopeSqlInjector() {
-		return new DataScopeSqlInjector();
+		return new DataScopeLogicSqlInjector();
 	}
 
 	/**

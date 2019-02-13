@@ -21,34 +21,46 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.smallbun.framework.injector.methods;
+package org.smallbun.framework.injector;
 
-import com.baomidou.mybatisplus.core.metadata.TableInfo;
-import com.baomidou.mybatisplus.extension.injector.AbstractLogicMethod;
-import org.apache.ibatis.mapping.MappedStatement;
-import org.apache.ibatis.mapping.SqlSource;
-import org.smallbun.framework.injector.enums.SqlMethod;
+import com.baomidou.mybatisplus.core.injector.AbstractMethod;
+import com.baomidou.mybatisplus.core.injector.methods.Insert;
+import com.baomidou.mybatisplus.extension.injector.LogicSqlInjector;
+import org.smallbun.framework.injector.methods.*;
+
+import java.util.List;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toList;
 
 /**
- * 数据过滤并且分页
+ * 数据权限过滤
  * @author SanLi
- * Created by 2689170096@qq.com on 2018/11/14 20:47
+ * Created by 2689170096@qq.com on 2018/11/14 20:55
  */
-public class SelectDataScopePage extends AbstractLogicMethod {
-	/**
-	 * 注入自定义 MappedStatement
-	 *
-	 * @param mapperClass mapper 接口
-	 * @param modelClass  mapper 泛型
-	 * @param tableInfo   数据库表反射信息
-	 * @return MappedStatement
-	 */
+public class DataScopeLogicSqlInjector extends LogicSqlInjector {
+
 	@Override
-	public MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
-		SqlMethod sqlMethod = SqlMethod.SELECT_DATA_SCOPE_PAGE;
-		String sql = String.format(sqlMethod.getSql(), sqlSelectColumns(tableInfo, true), tableInfo.getTableName(),
-				sqlWhereEntityWrapper(true, tableInfo));
-		SqlSource sqlSource = languageDriver.createSqlSource(configuration, sql, modelClass);
-		return addSelectMappedStatement(mapperClass, sqlMethod.getMethod(), sqlSource, modelClass, tableInfo);
+	public List<AbstractMethod> getMethodList() {
+		return Stream.of(
+				new Insert(),
+				new DataScopeLogicDelete(),
+				new DataScopeLogicDeleteByMap(),
+				new DataScopeLogicDeleteById(),
+				new DataScopeLogicDeleteBatchByIds(),
+				new DataScopeLogicUpdate(),
+				new DataScopeLogicUpdateById(),
+				new DataScopeLogicSelectById(),
+				new DataScopeLogicSelectBatchByIds(),
+				new DataScopeLogicSelectByMap(),
+				new DataScopeLogicSelectOne(),
+				new DataScopeLogicSelectCount(),
+				new DataScopeLogicSelectMaps(),
+				new DataScopeLogicSelectMapsPage(),
+				new DataScopeLogicSelectObjs(),
+				new DataScopeLogicSelectList(),
+				new DataScopeLogicSelectPage()
+		).collect(toList());
 	}
+
 }
