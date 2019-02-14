@@ -23,6 +23,7 @@
 
 package org.smallbun.fast.manage.notify.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -36,6 +37,7 @@ import org.smallbun.fast.common.entity.DataEntity;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
+@TableName("sys_notify")
 public class SysNotifyEntity extends DataEntity<Long> {
 	/**
 	 * 标题
