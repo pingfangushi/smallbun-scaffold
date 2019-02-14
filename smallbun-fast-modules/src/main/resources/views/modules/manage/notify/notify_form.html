@@ -36,11 +36,81 @@
             <!--隐藏域ID-->
             <input id="id" name="id" type="hidden" th:field="*{id}">
             <h4 class="page-header h4">基本信息</h4>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label"><span
+                                style="color: red;">*</span>标题：</label>
+                        <div class="col-xs-9">
+                            <div class="input-group" style="width: 100%">
+                                <div class="input-group" style="width: 100%">
+                                    <input id="typeName" placeholder="请输入公告标题"
+                                           class="form-control required" th:field="*{title}"
+                                           type="text" required autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label"><span
+                                style="color: red;">*</span>类型：</label>
+                        <div class="col-xs-9">
+                            <div class="input-group" style="width: 100%">
+                                <select name="grade" id="grade" class="form-control select2 required"
+                                        th:with="type=${@smallbun.dict('NOTIFY_GENRE')}">
+                                    <option value="">请选择公告类型</option>
+                                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                                            th:value="${dict.dictValue}" th:field="*{notifyGenre}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label"><span
+                                style="color: red;">*</span>内容：</label>
+                        <div class="col-xs-9">
+                            <div class="input-group" id="content" style="z-index: 1000;width: 100%;height: 150px"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label"><span
+                                style="color: red;">*</span>状态：</label>
+                        <div class="col-xs-9">
+                            <div class="input-group" style="width: 100%">
+                                <div class="input-group" style="width: 100%">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label"><span
+                                style="color: red;">*</span>接收人：</label>
+                        <div class="col-xs-9">
+                            <div class="input-group" style="width: 100%">
+                                <div class="input-group" style="width: 100%">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
 </div>
 </body>
 <div th:include="fragments/include :: include-js"></div>
+<div th:include="fragments/include :: neditor-js"></div>
 <div th:include="fragments/include :: jquery-validate-js"></div>
 <script th:src="@{/static/modules/manage/js/notify/notify_form.js}"></script>
 </html>
