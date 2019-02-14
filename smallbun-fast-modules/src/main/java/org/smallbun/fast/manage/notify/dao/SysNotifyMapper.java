@@ -21,33 +21,20 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.smallbun.fast.manage.dict.service;
+package org.smallbun.fast.manage.notify.dao;
 
-import org.smallbun.fast.manage.dict.entity.SysDictTypeEntity;
-import org.smallbun.fast.manage.dict.vo.SysDictTypeVO;
-import org.smallbun.framework.base.BaseService;
-
-import javax.servlet.http.HttpServletRequest;
+import org.apache.ibatis.annotations.Mapper;
+import org.smallbun.fast.manage.notify.entity.SysNotifyEntity;
+import org.smallbun.framework.base.BaseMapper;
+import org.springframework.stereotype.Repository;
 
 /**
- * 系统字典类型 服务类
+ * 通知通告 Mapper 接口
  * @author SanLi
- * Created by 2689170096@qq.com on 2018/10/2
+ * Created by 2689170096@qq.com on 2019/2/14 19:22
  */
-public interface SysDictTypeService extends BaseService<SysDictTypeEntity> {
+@Mapper
+@Repository
+public interface SysNotifyMapper extends BaseMapper<SysNotifyEntity> {
 
-	/**
-	 * 唯一
-	 * @param dictType dictType
-	 * @return AjaxResult
-	 */
-	@Override
-	Boolean unique(SysDictTypeEntity dictType);
-
-	/**
-	 * model
-	 * @param request
-	 * @return
-	 */
-	SysDictTypeVO model(HttpServletRequest request);
 }

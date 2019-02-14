@@ -21,33 +21,37 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.smallbun.fast.manage.dict.service;
+package org.smallbun.fast.manage.notify.service.impl;
 
-import org.smallbun.fast.manage.dict.entity.SysDictTypeEntity;
-import org.smallbun.fast.manage.dict.vo.SysDictTypeVO;
-import org.smallbun.framework.base.BaseService;
+import org.smallbun.fast.common.utils.AutoMapperUtil;
+import org.smallbun.fast.manage.notify.dao.SysNotifyMapper;
+import org.smallbun.fast.manage.notify.entity.SysNotifyEntity;
+import org.smallbun.fast.manage.notify.service.SysNotifyService;
+import org.smallbun.fast.manage.notify.vo.SysNotifyVO;
+import org.smallbun.framework.base.BaseServiceImpl;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
+
 /**
- * 系统字典类型 服务类
+ * 通知公告实现类
  * @author SanLi
- * Created by 2689170096@qq.com on 2018/10/2
+ * Created by 2689170096@qq.com on 2019/2/14 19:24
  */
-public interface SysDictTypeService extends BaseService<SysDictTypeEntity> {
+@Service
+public class SysNotifyServiceImpl extends BaseServiceImpl<SysNotifyMapper, SysNotifyEntity>
+		implements SysNotifyService {
 
-	/**
-	 * 唯一
-	 * @param dictType dictType
-	 * @return AjaxResult
-	 */
 	@Override
-	Boolean unique(SysDictTypeEntity dictType);
-
-	/**
-	 * model
-	 * @param request
-	 * @return
-	 */
-	SysDictTypeVO model(HttpServletRequest request);
+	public SysNotifyVO model(HttpServletRequest request) {
+		if (!request.getRequestURI().contains(UNIQUE)) {
+			return StringUtils.isEmpty(request.getParameter(ID)) ?
+					new SysNotifyVO() :
+					AutoMapperUtil.mapping(getById(request.getParameter(ID)), new SysNotifyVO());
+		}
+		return new SysNotifyVO();
+	}
 }

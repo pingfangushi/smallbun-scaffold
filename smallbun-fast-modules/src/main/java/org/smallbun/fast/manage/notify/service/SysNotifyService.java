@@ -21,33 +21,20 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.smallbun.fast.manage.dict.service;
+package org.smallbun.fast.manage.notify.service;
 
-import org.smallbun.fast.manage.dict.entity.SysDictTypeEntity;
-import org.smallbun.fast.manage.dict.vo.SysDictTypeVO;
+import org.smallbun.fast.manage.notify.entity.SysNotifyEntity;
+import org.smallbun.fast.manage.notify.vo.SysNotifyVO;
 import org.smallbun.framework.base.BaseService;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * 系统字典类型 服务类
+ * 通知通告 服务类
  * @author SanLi
- * Created by 2689170096@qq.com on 2018/10/2
+ * Created by 2689170096@qq.com on 2019/2/14 19:23
  */
-public interface SysDictTypeService extends BaseService<SysDictTypeEntity> {
+public interface SysNotifyService extends BaseService<SysNotifyEntity> {
 
-	/**
-	 * 唯一
-	 * @param dictType dictType
-	 * @return AjaxResult
-	 */
-	@Override
-	Boolean unique(SysDictTypeEntity dictType);
-
-	/**
-	 * model
-	 * @param request
-	 * @return
-	 */
-	SysDictTypeVO model(HttpServletRequest request);
+	SysNotifyVO model(HttpServletRequest request);
 }

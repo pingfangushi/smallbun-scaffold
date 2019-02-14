@@ -11,7 +11,7 @@
  Target Server Version : 100307
  File Encoding         : 65001
 
- Date: 11/02/2019 20:02:55
+ Date: 14/02/2019 20:09:16
 */
 
 SET NAMES utf8mb4;
@@ -153,7 +153,7 @@ CREATE TABLE `sys_menu`  (
 -- Records of sys_menu
 -- ----------------------------
 INSERT INTO `sys_menu` VALUES (1, 53, NULL, '用户管理', 'fa  fa-users', '', 'user', '1', '', 1, NULL, 0, 0, '2018-07-01 16:02:37', 0, '2019-02-09 19:32:17', 0, NULL);
-INSERT INTO `sys_menu` VALUES (7, 0, '0', '系统管理', 'fa  fa-gears', '#dddddd', '', '0', '', 0, NULL, 0, 0, '2018-07-01 16:02:37', 1, '2019-02-09 19:32:20', 0, '');
+INSERT INTO `sys_menu` VALUES (7, 0, '0', '系统管理', 'fa  fa-gears', '#dddddd', '', '0', '', 2, NULL, 0, 0, '2018-07-01 16:02:37', 1, '2019-02-14 12:01:37', 0, '');
 INSERT INTO `sys_menu` VALUES (8, 7, NULL, '菜单管理', 'fa  fa-cog', '', 'menu', '1', '', 6, NULL, 0, 0, '2018-07-01 16:02:37', 0, '2019-02-09 19:32:17', 0, NULL);
 INSERT INTO `sys_menu` VALUES (9, 8, '0', '查询', '', '#dddddd', '', '2', 'manage:menu:query', 100, NULL, 0, 0, '2018-07-01 16:02:54', 1, '2018-11-01 22:56:39', 0, '');
 INSERT INTO `sys_menu` VALUES (10, 8, NULL, '新增', '', '', '', '2', 'manage:menu:add', 100, NULL, 0, 0, '2018-07-01 16:02:54', 0, '2019-02-07 22:24:43', 0, NULL);
@@ -203,6 +203,50 @@ INSERT INTO `sys_menu` VALUES (1092619492460130305, 42, '0', '三级菜单（二
 INSERT INTO `sys_menu` VALUES (1093810117331148802, 37, '0', '修改', NULL, '#dddddd', NULL, '2', 'manage:dict:edit', 0, NULL, 0, 1, '2019-02-08 03:53:49', 1, '2019-02-08 08:21:22', 0, '');
 INSERT INTO `sys_menu` VALUES (1093811378357035010, 52, '0', '查询', NULL, '#dddddd', NULL, '2', 'manage:org:query', 0, NULL, 0, 1, '2019-02-08 03:58:49', 1, '2019-02-08 03:58:49', 0, '');
 INSERT INTO `sys_menu` VALUES (1093811581130661889, 12, '0', '修改', NULL, '#dddddd', NULL, '2', 'manage:role:edit', 0, NULL, 0, 1, '2019-02-08 03:59:38', 1, '2019-02-08 04:12:14', 0, '');
+INSERT INTO `sys_menu` VALUES (1096016383835123713, 0, '0', '通知公告', 'fa fa-commenting-o', '#dddddd', 'notify', '1', NULL, 0, NULL, 0, 1, '2019-02-14 12:00:43', 1, '2019-02-14 12:02:25', 0, '');
+INSERT INTO `sys_menu` VALUES (1096017410365861889, 1096016383835123713, '0,1096016383835123713', '新增', NULL, '#dddddd', NULL, '2', 'manage:notify:add', 99999, NULL, 0, 1, '2019-02-14 12:04:48', 1, '2019-02-14 12:04:48', 0, '');
+INSERT INTO `sys_menu` VALUES (1096017504527986689, 1096016383835123713, '0,1096016383835123713', '修改', NULL, '#dddddd', NULL, '2', 'manage:notify:edit', 99999, NULL, 0, 1, '2019-02-14 12:05:10', 1, '2019-02-14 12:05:10', 0, '');
+INSERT INTO `sys_menu` VALUES (1096017585767460866, 1096016383835123713, '0,1096016383835123713', '删除', NULL, '#dddddd', NULL, '2', 'manage:notify:del', 99999, NULL, 0, 1, '2019-02-14 12:05:30', 1, '2019-02-14 12:05:30', 0, '');
+INSERT INTO `sys_menu` VALUES (1096017694378962946, 1096016383835123713, '0,1096016383835123713', '查询', NULL, '#dddddd', NULL, '2', 'manage:notify:query', 99999, NULL, 0, 1, '2019-02-14 12:05:56', 1, '2019-02-14 12:05:56', 0, '');
+
+-- ----------------------------
+-- Table structure for sys_notify
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_notify`;
+CREATE TABLE `sys_notify`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `title` varchar(200) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '标题',
+  `content` varchar(2000) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '内容',
+  `annex` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '附件',
+  `notify_genre` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '类型',
+  `notify_status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '状态',
+  `creator` bigint(20) NOT NULL COMMENT '创建者ID',
+  `gmt_create` timestamp(0) NOT NULL DEFAULT current_timestamp() COMMENT '创建时间',
+  `editor` bigint(20) NOT NULL COMMENT '修改者ID',
+  `gmt_modified` timestamp(0) NOT NULL DEFAULT current_timestamp() ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  `is_deleted` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '数据状态:1:删除 0:未删除',
+  `remarks` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '通知通告' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for sys_notify_record
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_notify_record`;
+CREATE TABLE `sys_notify_record`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `notify_id` bigint(20) NULL DEFAULT NULL COMMENT '通知通告',
+  `user_id` bigint(20) NULL DEFAULT NULL COMMENT '接受人',
+  `read_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '0' COMMENT '阅读标记 1未阅读，0阅读',
+  `read_date` datetime(0) NULL DEFAULT NULL COMMENT '阅读时间',
+  `creator` bigint(20) NOT NULL COMMENT '创建者ID',
+  `gmt_create` timestamp(0) NOT NULL DEFAULT current_timestamp() COMMENT '创建时间',
+  `editor` bigint(20) NOT NULL COMMENT '修改者ID',
+  `gmt_modified` timestamp(0) NOT NULL DEFAULT current_timestamp() ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  `is_deleted` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '数据状态:1:删除 0:未删除',
+  `remarks` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '备注',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '通知通告发送记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_org
@@ -274,7 +318,7 @@ CREATE TABLE `sys_role`  (
 -- ----------------------------
 INSERT INTO `sys_role` VALUES (1, '系统管理员', 'SYSTEM', 2, '0', '0', 1, 0, '2018-07-01 15:17:40', 1, '2019-02-08 04:20:32', '0', '');
 INSERT INTO `sys_role` VALUES (2, '系统用户', 'USER', 8, '1', '0', 1, 0, '2018-07-01 15:17:40', 1, '2019-02-09 04:56:07', '0', '');
-INSERT INTO `sys_role` VALUES (1073957301490032642, '超级管理员', 'ROOT', 1, '0', '0', 0, 1, '2018-12-15 09:05:48', 1, '2019-02-09 05:18:23', '0', '');
+INSERT INTO `sys_role` VALUES (1073957301490032642, '超级管理员', 'ROOT', 1, '0', '0', 0, 1, '2018-12-15 09:05:48', 1, '2019-02-14 12:06:17', '0', '');
 INSERT INTO `sys_role` VALUES (1077874980521287682, '开发人员', 'KF', 9, '1', '1', 1, 1, '2018-12-26 04:33:16', 1, '2018-12-26 04:33:16', '0', '');
 INSERT INTO `sys_role` VALUES (1084827767704403970, '开发公司', 'KF', 3, '1', '1', 1, 1, '2019-01-14 09:01:10', 1, '2019-01-14 09:01:10', '1', '');
 
@@ -373,7 +417,6 @@ INSERT INTO `sys_role_menu` VALUES (1073957301490032642, 40);
 INSERT INTO `sys_role_menu` VALUES (1073957301490032642, 41);
 INSERT INTO `sys_role_menu` VALUES (1073957301490032642, 42);
 INSERT INTO `sys_role_menu` VALUES (1073957301490032642, 43);
-INSERT INTO `sys_role_menu` VALUES (1073957301490032642, 45);
 INSERT INTO `sys_role_menu` VALUES (1073957301490032642, 46);
 INSERT INTO `sys_role_menu` VALUES (1073957301490032642, 47);
 INSERT INTO `sys_role_menu` VALUES (1073957301490032642, 48);
@@ -393,7 +436,11 @@ INSERT INTO `sys_role_menu` VALUES (1073957301490032642, 1092619492460130305);
 INSERT INTO `sys_role_menu` VALUES (1073957301490032642, 1093810117331148802);
 INSERT INTO `sys_role_menu` VALUES (1073957301490032642, 1093811378357035010);
 INSERT INTO `sys_role_menu` VALUES (1073957301490032642, 1093811581130661889);
-INSERT INTO `sys_role_menu` VALUES (1073957301490032642, 1094193491006828546);
+INSERT INTO `sys_role_menu` VALUES (1073957301490032642, 1096016383835123713);
+INSERT INTO `sys_role_menu` VALUES (1073957301490032642, 1096017410365861889);
+INSERT INTO `sys_role_menu` VALUES (1073957301490032642, 1096017504527986689);
+INSERT INTO `sys_role_menu` VALUES (1073957301490032642, 1096017585767460866);
+INSERT INTO `sys_role_menu` VALUES (1073957301490032642, 1096017694378962946);
 INSERT INTO `sys_role_menu` VALUES (1076743671619022850, 45);
 INSERT INTO `sys_role_menu` VALUES (1076834908820762626, 20);
 INSERT INTO `sys_role_menu` VALUES (1076834908820762626, 44);
@@ -460,7 +507,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'admin', 'admin', 'admin', '$2a$10$qLpUo87P.NtgkGJE2D9XeO6j//3wWI3URizII87SHAmSp5CLM4S5a', '管理员', 'https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_family.jpg', '', '', '', '2018-05-25', NULL, NULL, NULL, '0:0:0:0:0:0:0:1', '本地', '2019-02-11 11:50:43', '0', '0', '232399', 1, '2018-06-18 10:50:02', 1, '2019-02-11 19:50:43', '0', '');
+INSERT INTO `sys_user` VALUES (1, 'admin', 'admin', 'admin', '$2a$10$qLpUo87P.NtgkGJE2D9XeO6j//3wWI3URizII87SHAmSp5CLM4S5a', '管理员', 'https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_family.jpg', '', '', '', '2018-05-25', NULL, NULL, NULL, '0:0:0:0:0:0:0:1', '本地', '2019-02-14 12:07:29', '0', '0', '232399', 1, '2018-06-18 10:50:02', 1, '2019-02-14 20:07:29', '0', '');
 INSERT INTO `sys_user` VALUES (2, 'user', 'user', 'user', '$2a$10$W7c1gJyPxf9Rtp3/G5WLre6vJomdzaSqEDt2/jJa70A6IHTetRkoO', '管理员', 'https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_colleagues.jpg', '', '', '', '1998-06-15', NULL, NULL, NULL, '0:0:0:0:0:0:0:1', '本地', '2019-02-09 18:59:04', '0', '1', '231112', 1, '2018-06-18 10:50:02', 1, '2019-02-09 18:59:04', '0', '');
 INSERT INTO `sys_user` VALUES (1088787447501930497, '研发', 'SanLi', 'A0001', '000000', NULL, NULL, '', '', '', '1998-06-19', '370983199806225319', NULL, NULL, NULL, NULL, '2019-01-26 19:42:34', '2', '3', '300003', 1, '2019-01-25 07:15:31', 1, '2019-02-09 01:58:51', '0', '');
 

@@ -21,33 +21,46 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.smallbun.fast.manage.dict.service;
+package org.smallbun.fast.manage.notify.entity;
 
-import org.smallbun.fast.manage.dict.entity.SysDictTypeEntity;
-import org.smallbun.fast.manage.dict.vo.SysDictTypeVO;
-import org.smallbun.framework.base.BaseService;
-
-import javax.servlet.http.HttpServletRequest;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+import org.smallbun.fast.common.entity.DataEntity;
 
 /**
- * 系统字典类型 服务类
+ * 通知公告
  * @author SanLi
- * Created by 2689170096@qq.com on 2018/10/2
+ * Created by 2689170096@qq.com on 2019/2/14 19:22
  */
-public interface SysDictTypeService extends BaseService<SysDictTypeEntity> {
+@Data
+@EqualsAndHashCode(callSuper = true)
+@Accessors(chain = true)
+public class SysNotifyEntity extends DataEntity<Long> {
+	/**
+	 * 标题
+	 */
+	private String title;
 
 	/**
-	 * 唯一
-	 * @param dictType dictType
-	 * @return AjaxResult
+	 * 内容
 	 */
-	@Override
-	Boolean unique(SysDictTypeEntity dictType);
+	private String content;
 
 	/**
-	 * model
-	 * @param request
-	 * @return
+	 * 附件
 	 */
-	SysDictTypeVO model(HttpServletRequest request);
+	private String annex;
+
+	/**
+	 * 类型
+	 */
+	private String notifyGenre;
+
+	/**
+	 * 状态
+	 */
+	private String notifyStatus;
+
+
 }

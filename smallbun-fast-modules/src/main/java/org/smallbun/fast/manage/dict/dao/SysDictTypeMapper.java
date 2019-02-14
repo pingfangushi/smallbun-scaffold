@@ -24,12 +24,9 @@
 package org.smallbun.fast.manage.dict.dao;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.smallbun.fast.manage.dict.entity.SysDictTypeEntity;
 import org.smallbun.framework.base.BaseMapper;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  *  系统字典类型 Mapper 接口

@@ -24,7 +24,7 @@
 <!DOCTYPE HTML>
 <html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <div th:include="fragments/include  :: header('字典类型')"></div>
+    <div th:include="fragments/include  :: header('通知公告')"></div>
     <div th:include="fragments/include :: bootstrap-table-css"></div>
 </head>
 <body class="list-body">
@@ -34,28 +34,28 @@
             <div class="ibox">
                 <!--盒子标题-->
                 <div class="ibox-title dashboard-header gray-bg">
-                    <h5>字典列表</h5>
+                    <h5>通知公告</h5>
                     <div class="pull-right">
-                        <!--/*/<th:block sec:authorize="hasAuthority('manage:dict:query')">/*/-->
+                        <!--/*/<th:block sec:authorize="hasAuthority('manage:notify:query')">/*/-->
                         <button class="btn btn-sm ibtn-primary query-a" title="查询" data-toggle="tooltip"
                                 data-placement="left">
                             <i class="fa fa-filter"></i> 查询
                         </button>
                         <!--/*/</th:block>/*/-->
-                        <!--/*/<th:block sec:authorize="hasAuthority('manage:dict:add')">/*/-->
+                        <!--/*/<th:block sec:authorize="hasAuthority('manage:notify:add')">/*/-->
                         <button type="button" class="btn btn-sm ibtn-info" data-toggle="tooltip" data-placement="left"
                                 title="新增"
                                 onclick="$.operate.add()">
                             <i class="fa fa-plus"></i> 新增
                         </button>
                         <!--/*/</th:block>/*/-->
-                        <!--/*/<th:block sec:authorize="hasAuthority('manage:dict:edit')">/*/-->
+                        <!--/*/<th:block sec:authorize="hasAuthority('manage:notify:edit')">/*/-->
                         <button class="btn btn-sm bg-orange" title="修改" data-toggle="tooltip" data-placement="left"
                                 onclick="$.operate.edit()">
                             <i class="fa fa-pencil"></i> 修改
                         </button>
                         <!--/*/</th:block>/*/-->
-                        <!--/*/<th:block sec:authorize="hasAuthority('manage:dict:del')">/*/-->
+                        <!--/*/<th:block sec:authorize="hasAuthority('manage:notify:del')">/*/-->
                         <button class="btn btn-sm bg-maroon" data-toggle="tooltip" data-placement="left" title="删除"
                                 onclick="$.operate.batRemove()"><i
                                 class="fa fa-trash-o"></i> 删除
@@ -77,7 +77,7 @@
                 <!--盒子内容-->
                 <div class="ibox-content-table">
                     <!--查询框-->
-                    <form class="form-inline search search-form" id="search-form"
+                    <form class="form-inline search search-form" id="search-form" th:action="@{/notify/page}"
                           method="post">
                         <div class="form-group">
                             <span>字典名称：</span>
@@ -108,5 +108,5 @@
 </body>
 <div th:include="fragments/include :: include-js"></div>
 <div th:include="fragments/include :: bootstrap-table-js"></div>
-<script th:src="@{/static/modules/manage/js/dict/dict_type_list.js}"></script>
+<script th:src="@{/static/modules/manage/js/notify/notify_list.js}"></script>
 </html>
