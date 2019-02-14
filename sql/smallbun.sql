@@ -11,7 +11,7 @@
  Target Server Version : 100307
  File Encoding         : 65001
 
- Date: 14/02/2019 20:09:16
+ Date: 14/02/2019 21:28:20
 */
 
 SET NAMES utf8mb4;
@@ -53,6 +53,7 @@ INSERT INTO `sys_dict_type` VALUES (1085181767851188225, '菜单类型', 'MENU_T
 INSERT INTO `sys_dict_type` VALUES (1086942198961823745, '菜单状态', 'MENU_STATUS', 1, '2019-01-20 05:03:09', 1, '2019-01-20 05:03:09', 0, '');
 INSERT INTO `sys_dict_type` VALUES (1088414522714132482, '用户状态', 'USER_STATUS', 1, '2019-01-24 06:33:39', 1, '2019-01-24 06:33:39', 0, '');
 INSERT INTO `sys_dict_type` VALUES (1088418616384159745, '用户类型', 'USER_TYPE', 1, '2019-01-24 06:49:55', 1, '2019-01-24 06:49:55', 0, '');
+INSERT INTO `sys_dict_type` VALUES (1096032224433672194, '公告类型', 'NOTIFY_GENRE', 1, '2019-02-14 13:03:40', 1, '2019-02-14 13:03:40', 0, '');
 
 -- ----------------------------
 -- Table structure for sys_dict_value
@@ -121,6 +122,9 @@ INSERT INTO `sys_dict_value` VALUES (1088419001983303682, 1088418616384159745, '
 INSERT INTO `sys_dict_value` VALUES (1088419088570515458, 1088418616384159745, '普通用户', '1', 1, 1, '2019-01-24 06:51:47', 1, '2019-01-24 06:51:47', 0, '');
 INSERT INTO `sys_dict_value` VALUES (1088419214408024066, 1088418616384159745, '部门经理', '2', 2, 1, '2019-01-24 06:52:17', 1, '2019-01-24 06:52:17', 0, '');
 INSERT INTO `sys_dict_value` VALUES (1089130065108729857, 1088418616384159745, '开发人员', '3', 3, 1, '2019-01-26 05:56:57', 1, '2019-01-26 05:56:57', 0, '');
+INSERT INTO `sys_dict_value` VALUES (1096032443070156802, 1096032224433672194, '会议通告', '0', 0, 1, '2019-02-14 13:04:32', 1, '2019-02-14 13:04:32', 0, '');
+INSERT INTO `sys_dict_value` VALUES (1096032491912826881, 1096032224433672194, '奖惩通告', '1', 1, 1, '2019-02-14 13:04:44', 1, '2019-02-14 13:04:44', 0, '');
+INSERT INTO `sys_dict_value` VALUES (1096032559655030786, 1096032224433672194, '活动通告', '2', 2, 1, '2019-02-14 13:05:00', 1, '2019-02-14 13:05:00', 0, '');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -217,7 +221,6 @@ CREATE TABLE `sys_notify`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `title` varchar(200) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '标题',
   `content` varchar(2000) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '内容',
-  `annex` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '附件',
   `notify_genre` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '类型',
   `notify_status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '状态',
   `creator` bigint(20) NOT NULL COMMENT '创建者ID',
@@ -507,7 +510,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'admin', 'admin', 'admin', '$2a$10$qLpUo87P.NtgkGJE2D9XeO6j//3wWI3URizII87SHAmSp5CLM4S5a', '管理员', 'https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_family.jpg', '', '', '', '2018-05-25', NULL, NULL, NULL, '0:0:0:0:0:0:0:1', '本地', '2019-02-14 12:07:29', '0', '0', '232399', 1, '2018-06-18 10:50:02', 1, '2019-02-14 20:07:29', '0', '');
+INSERT INTO `sys_user` VALUES (1, 'admin', 'admin', 'admin', '$2a$10$qLpUo87P.NtgkGJE2D9XeO6j//3wWI3URizII87SHAmSp5CLM4S5a', '管理员', 'https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_family.jpg', '', '', '', '2018-05-25', NULL, NULL, NULL, '0:0:0:0:0:0:0:1', '本地', '2019-02-14 12:29:24', '0', '0', '232399', 1, '2018-06-18 10:50:02', 1, '2019-02-14 20:29:24', '0', '');
 INSERT INTO `sys_user` VALUES (2, 'user', 'user', 'user', '$2a$10$W7c1gJyPxf9Rtp3/G5WLre6vJomdzaSqEDt2/jJa70A6IHTetRkoO', '管理员', 'https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_colleagues.jpg', '', '', '', '1998-06-15', NULL, NULL, NULL, '0:0:0:0:0:0:0:1', '本地', '2019-02-09 18:59:04', '0', '1', '231112', 1, '2018-06-18 10:50:02', 1, '2019-02-09 18:59:04', '0', '');
 INSERT INTO `sys_user` VALUES (1088787447501930497, '研发', 'SanLi', 'A0001', '000000', NULL, NULL, '', '', '', '1998-06-19', '370983199806225319', NULL, NULL, NULL, NULL, '2019-01-26 19:42:34', '2', '3', '300003', 1, '2019-01-25 07:15:31', 1, '2019-02-09 01:58:51', '0', '');
 
