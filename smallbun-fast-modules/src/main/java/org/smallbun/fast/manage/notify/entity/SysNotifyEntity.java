@@ -50,11 +50,6 @@ public class SysNotifyEntity extends DataEntity<Long> {
 	private String content;
 
 	/**
-	 * 附件
-	 */
-	private String annex;
-
-	/**
 	 * 类型
 	 */
 	private String notifyGenre;
