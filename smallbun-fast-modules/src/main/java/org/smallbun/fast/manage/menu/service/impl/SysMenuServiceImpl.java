@@ -39,6 +39,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mapping;
@@ -81,7 +82,6 @@ public class SysMenuServiceImpl extends BaseTreeDataServiceImpl<SysMenuMapper, S
 		//获取当前用户
 		LoginUserDetails user = UserUtil.getLoginUser();
 		//获取用户所属的菜单
-		assert user != null;
 		List<SysMenuEntity> list = user.getMenus();
 		//循环得到目录和菜单
 		final List<SysMenuEntity> permissions = new ArrayList<>();
@@ -99,6 +99,7 @@ public class SysMenuServiceImpl extends BaseTreeDataServiceImpl<SysMenuMapper, S
 			if (!p.getParentId().equals(0L)) {continue;}
 			result.add(p);
 		}
+		result = result.stream().distinct().collect(Collectors.toList());
 		return mappingList(result, new ArrayList<>(), SysMenuVO.class);
 	}
 
