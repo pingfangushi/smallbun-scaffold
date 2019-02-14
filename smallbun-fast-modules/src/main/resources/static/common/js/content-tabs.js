@@ -618,8 +618,8 @@ var addTabs = function (options) {
     //    });
     //    options.obj.css('color', '#fff');
     //}
-    var url = window.location.pathname + "/../";
-    //var url = window.location.protocol + '//' + window.location.host + "/";
+    //var url = window.location.pathname + "/../";
+    var url = window.location.protocol + '//' + window.location.host + "/";
     options.url = url + options.url;
     var id = "tab_" + options.id;
     var title = "", content = "";
