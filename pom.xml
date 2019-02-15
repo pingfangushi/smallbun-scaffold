@@ -615,6 +615,10 @@
                     <excludes>
                         <exclude>**/*.min.js</exclude>
                         <exclude>**/*.min.css</exclude>
+                        <exclude>**/common/plugins/neditor/**/*.js</exclude>
+                        <exclude>**/common/plugins/neditor/**/*.css</exclude>
+                        <exclude>**/common/plugins/neditor/*.js</exclude>
+                        <exclude>**/common/plugins/neditor/*.css</exclude>
                     </excludes>
                 </configuration>
             </plugin>
