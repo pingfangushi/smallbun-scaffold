@@ -68,7 +68,6 @@ public class SysDictTypeController extends BaseController {
 	@ModelAttribute
 	protected SysDictTypeVO model(HttpServletRequest request) {
 		return sysDictTypeService.model(request);
-
 	}
 
 	/**

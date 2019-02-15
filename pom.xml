@@ -52,7 +52,7 @@
         <!--验证码-->
         <kaptcha.version>0.0.9</kaptcha.version>
         <!--mybatis plus-->
-        <mybatisplus.version>3.0.7</mybatisplus.version>
+        <mybatisplus.version>3.0.7.1</mybatisplus.version>
         <!--swagger 文档-->
         <swagger.version>2.9.2</swagger.version>
         <!--easy excel-->
@@ -164,6 +164,15 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatisplus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>${mybatisplus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
         </dependency>
         <!--<dependency>
             <groupId>org.mybatis.caches</groupId>
