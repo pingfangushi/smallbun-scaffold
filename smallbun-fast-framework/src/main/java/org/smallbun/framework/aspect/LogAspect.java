@@ -28,7 +28,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.smallbun.framework.base.ILogLogic;
 import org.smallbun.framework.toolkit.UserAgentUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -49,6 +51,11 @@ import java.util.Arrays;
 @Aspect
 @Component
 public class LogAspect {
+
+	@Autowired
+	public LogAspect(ILogLogic iLogLogic) {
+		this.iLogLogic = iLogLogic;
+	}
 
 	/**
 	 * 配置切面
@@ -107,6 +114,12 @@ public class LogAspect {
 	 */
 	@Around(value = "@annotation(org.smallbun.framework.annotation.LogAnnotation)")
 	public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
+		iLogLogic.operation(joinPoint);
 		return joinPoint.proceed();
 	}
+
+	/**
+	 * 日志逻辑接口
+	 */
+	private final ILogLogic iLogLogic;
 }

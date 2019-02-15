@@ -21,33 +21,20 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.smallbun.fast.manage.log.operate.service.impl;
+package org.smallbun.framework.base;
 
-import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.smallbun.fast.manage.log.operate.dao.SysOperateLogMapper;
-import org.smallbun.fast.manage.log.operate.entity.SysOperateLogEntity;
-import org.smallbun.fast.manage.log.operate.service.SysOperateLogService;
-import org.smallbun.framework.base.BaseServiceImpl;
-import org.smallbun.framework.base.ILogLogic;
-import org.springframework.stereotype.Service;
 
 /**
- * 操作日志记录 服务实现类
+ * 日志逻辑接口，具体子类实现，方便后期扩展
  * @author SanLi
- * Created by 2689170096@qq.com on 2019/2/15 22:03
+ * Created by 2689170096@qq.com on 2019/2/15 21:54
  */
-@Slf4j
-@Service
-public class SysOperateLogServiceImpl extends BaseServiceImpl<SysOperateLogMapper, SysOperateLogEntity>
-		implements SysOperateLogService, ILogLogic {
+public interface ILogLogic {
 
 	/**
 	 * 操作日志逻辑
-	 * @param joinPoint {@link JoinPoint}
+	 * @param joinPoint
 	 */
-	@Override
-	public void operation(JoinPoint joinPoint) {
-		log.debug("操作日志业务记录开始");
-	}
+	void operation(JoinPoint joinPoint);
 }
