@@ -36,16 +36,19 @@ import org.smallbun.framework.base.BaseController;
 import org.smallbun.framework.result.AjaxResult;
 import org.smallbun.framework.result.PageableResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.constraints.NotNull;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 
 /**
@@ -53,6 +56,7 @@ import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
  * @author SanLi
  * Created by 2689170096@qq.com on 2018/10/2
  */
+@Validated
 @RestController
 @RequestMapping("/dict/type")
 public class SysDictTypeController extends BaseController {
@@ -83,6 +87,7 @@ public class SysDictTypeController extends BaseController {
 	 */
 	@SystemLog(value = "")
 	@GetMapping(value = "/form")
+	@PreAuthorize("hasAuthority('manage:dict:add') or hasAuthority('manage:dict:edit')")
 	public ModelAndView form(SysDictTypeVO vo, Model model) {
 		model.addAttribute("dictType", vo);
 		return new ModelAndView("modules/manage/dict/dict_type_form.html");
@@ -96,7 +101,8 @@ public class SysDictTypeController extends BaseController {
 	@SystemLog(value = "")
 	@DemoEnvironment
 	@RequestMapping(value = "/saveOrUpdate")
-	public AjaxResult saveOrUpdate(@Validated SysDictTypeVO vo) {
+	@PreAuthorize("hasAuthority('manage:dict:add') or hasAuthority('manage:dict:edit')")
+	public AjaxResult saveOrUpdate(@Valid SysDictTypeVO vo) {
 		return AjaxResult.builder().result(sysDictTypeService.saveOrUpdate(vo)).build();
 	}
 
@@ -108,7 +114,9 @@ public class SysDictTypeController extends BaseController {
 	@SystemLog(value = "")
 	@DemoEnvironment
 	@PostMapping(value = "/removeById")
-	public AjaxResult removeById(@NotNull @RequestParam(value = "id") String id) {
+	@PreAuthorize("hasAuthority('manage:dict:del')")
+	public AjaxResult removeById(
+			@NotBlank(message = "id不能为空") @RequestParam(value = "id", required = false) String id) {
 		return AjaxResult.builder().result(sysDictTypeService.removeById(id)).build();
 	}
 
@@ -120,7 +128,8 @@ public class SysDictTypeController extends BaseController {
 	@SystemLog(value = "")
 	@DemoEnvironment
 	@PostMapping(value = "/removeByIds")
-	public AjaxResult removeByIds(@NotNull @RequestParam(value = "ids") List<String> ids) {
+	@PreAuthorize("hasAuthority('manage:dict:del')")
+	public AjaxResult removeByIds(@RequestParam(value = "ids", required = false) List<String> ids) {
 		return AjaxResult.builder().result(sysDictTypeService.removeByIds(ids)).build();
 	}
 
@@ -153,7 +162,7 @@ public class SysDictTypeController extends BaseController {
 	 * @param dictType dictType
 	 * @return AjaxResult
 	 */
-	@PostMapping(value = "/unique")
+	@PostMapping(value = UNIQUE)
 	public AjaxResult unique(SysDictTypeVO dictType) {
 		return AjaxResult.builder().result(sysDictTypeService.unique(dictType)).build();
 	}

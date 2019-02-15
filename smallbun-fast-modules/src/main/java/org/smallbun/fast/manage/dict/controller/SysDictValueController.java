@@ -37,15 +37,19 @@ import org.smallbun.framework.base.BaseController;
 import org.smallbun.framework.result.AjaxResult;
 import org.smallbun.framework.result.PageableResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.constraints.NotNull;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 
 /**
@@ -54,6 +58,7 @@ import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
  * Created by 2689170096@qq.com on 2018/10/2
  */
 @RestController
+@Validated
 @RequestMapping("/dict/value")
 public class SysDictValueController extends BaseController {
 
@@ -85,6 +90,7 @@ public class SysDictValueController extends BaseController {
 	 */
 	@SystemLog(value = "")
 	@GetMapping(value = "/form")
+	@PreAuthorize("hasAuthority('manage:dict:add') or hasAuthority('manage:dict:edit')")
 	public ModelAndView form(SysDictValueVO vo, Model model) {
 		model.addAttribute("dictValue", vo);
 		return new ModelAndView("/modules/manage/dict/dict_value_form.html");
@@ -98,7 +104,8 @@ public class SysDictValueController extends BaseController {
 	@SystemLog(value = "")
 	@DemoEnvironment
 	@PostMapping(value = "/saveOrUpdate")
-	public AjaxResult saveOrUpdate(SysDictValueVO vo) {
+	@PreAuthorize("hasAuthority('manage:dict:add') or hasAuthority('manage:dict:edit')")
+	public AjaxResult saveOrUpdate(@Valid SysDictValueVO vo) {
 		return AjaxResult.builder().result(sysDictValueService.saveOrUpdate(vo)).build();
 	}
 
@@ -109,9 +116,10 @@ public class SysDictValueController extends BaseController {
 	 */
 	@SystemLog(value = "")
 	@DemoEnvironment
-
-	@PostMapping(value = "/removeById")
-	public AjaxResult removeById(@NotNull String id) {
+	@GetMapping(value = "/removeById")
+	@PreAuthorize("hasAuthority('manage:dict:del')")
+	public AjaxResult removeById(
+			@NotBlank(message = "id不能为空") @RequestParam(value = "id", required = false) String id) {
 		return AjaxResult.builder().result(sysDictValueService.removeById(id)).build();
 	}
 
@@ -121,8 +129,11 @@ public class SysDictValueController extends BaseController {
 	 * @return AjaxResult
 	 */
 	@SystemLog(value = "")
+	@DemoEnvironment
 	@PostMapping(value = "/removeByIds")
-	public AjaxResult saveOrUpdate(@NotNull @RequestParam(value = "ids") List<String> ids) {
+	@PreAuthorize("hasAuthority('manage:dict:del')")
+	public AjaxResult saveOrUpdate(
+			@NotBlank(message = "id不能为空") @RequestParam(value = "ids", required = false) List<String> ids) {
 		return AjaxResult.builder().result(sysDictValueService.removeByIds(ids)).build();
 	}
 
@@ -155,7 +166,7 @@ public class SysDictValueController extends BaseController {
 	 * @param vo vo
 	 * @return AjaxResult
 	 */
-	@PostMapping(value = "/unique")
+	@PostMapping(value = UNIQUE)
 	public AjaxResult unique(SysDictValueVO vo) {
 		return AjaxResult.builder().result(sysDictValueService.unique(vo)).build();
 	}

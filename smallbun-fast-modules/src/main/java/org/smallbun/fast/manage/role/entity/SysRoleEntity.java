@@ -36,7 +36,7 @@ import org.smallbun.fast.manage.menu.entity.SysMenuEntity;
 import org.smallbun.fast.manage.org.entity.SysOrgEntity;
 import org.smallbun.fast.manage.user.entity.SysUserEntity;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 /**
@@ -54,30 +54,30 @@ public class SysRoleEntity extends DataEntity<Long> {
 	/**
 	 * 角色名称
 	 */
-	@NotEmpty(message = "角色名称不能为空")
+	@NotBlank(message = "角色名称不能为空")
 	@TableField(condition = SqlCondition.LIKE)
 	private String roleName;
 	/**
 	 * 英文名称
 	 */
-	@NotEmpty(message = "英文名称不能为空")
+	@NotBlank(message = "英文名称不能为空")
 	private String enName;
 
 	/**
 	 * 可查看的数据范围(1：所有数据；2：所在公司及以下数据；3：所在公司数据；4：所在部门及以下数据；5：所在部门数据；8：仅本人数据；9：按明细设置)
 	 */
-	@NotEmpty(message = "请选择数据范围")
+	@NotBlank(message = "请选择数据范围")
 	private String dataScope;
 	/**
 	 * 角色类型
 	 */
-	@NotEmpty(message = "请选择角色类型")
+	@NotBlank(message = "请选择角色类型")
 	private String roleType;
 
 	/**
 	 * 是否可用
 	 */
-	@NotEmpty(message = "请选择是否可用")
+	@NotBlank(message = "请选择是否可用")
 	private String useable;
 
 	/**

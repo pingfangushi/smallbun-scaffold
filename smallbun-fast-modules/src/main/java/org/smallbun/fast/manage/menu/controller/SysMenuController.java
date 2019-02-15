@@ -37,13 +37,15 @@ import org.smallbun.framework.base.BaseController;
 import org.smallbun.framework.result.AjaxResult;
 import org.smallbun.framework.result.PageableResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.constraints.NotNull;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,6 +58,7 @@ import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
  * @author SanLi
  * Created by 2689170096@qq.com/SanLi on 2018/4/30
  */
+@Validated
 @RestController
 @RequestMapping(value = "/menu")
 public class SysMenuController extends BaseController {
@@ -83,19 +86,10 @@ public class SysMenuController extends BaseController {
 	 * @return ModelAndView
 	 */
 	@RequestMapping(value = "form")
+	@PreAuthorize("hasAuthority('manage:dict:add') or hasAuthority('manage:dict:edit')")
 	public ModelAndView form(SysMenuVO menu, Model model) {
 		model.addAttribute("menu", menu);
 		return new ModelAndView("/modules/manage/menu/menu_form.html");
-	}
-
-	/**
-	 * 获取当前用户具有的用户菜单
-	 *
-	 * @return AjaxResult
-	 */
-	@PostMapping(value = "/userMenus")
-	public AjaxResult menus() {
-		return AjaxResult.builder().result(menuService.userMenus()).build();
 	}
 
 	/**
@@ -106,7 +100,8 @@ public class SysMenuController extends BaseController {
 	@SystemLog(value = "")
 	@DemoEnvironment
 	@PostMapping(value = "/saveOrUpdate")
-	public AjaxResult saveOrUpdate(@Validated SysMenuVO menu) {
+	@PreAuthorize("hasAuthority('manage:dict:add') or hasAuthority('manage:dict:edit')")
+	public AjaxResult saveOrUpdate(@Valid SysMenuVO menu) {
 		return AjaxResult.builder().result(menuService.saveOrUpdate(menu)).build();
 	}
 
@@ -118,7 +113,9 @@ public class SysMenuController extends BaseController {
 	@SystemLog(value = "")
 	@DemoEnvironment
 	@PostMapping(value = "/removeById")
-	public AjaxResult removeById(@NotNull @RequestParam(value = "id") String id) {
+	@PreAuthorize("hasAuthority('manage:dict:del')")
+	public AjaxResult removeById(
+			@NotBlank(message = "id不能为空") @RequestParam(value = "id", required = false) String id) {
 		return AjaxResult.builder().result(menuService.removeById(id)).build();
 	}
 
@@ -130,7 +127,9 @@ public class SysMenuController extends BaseController {
 	@SystemLog(value = "")
 	@DemoEnvironment
 	@PostMapping(value = "/removeByIds")
-	public AjaxResult saveOrUpdate(@NotNull @RequestParam(value = "ids") List<String> ids) {
+	@PreAuthorize("hasAuthority('manage:dict:del')")
+	public AjaxResult saveOrUpdate(
+			@NotBlank(message = "id不能为空") @RequestParam(value = "ids", required = false) List<String> ids) {
 		return AjaxResult.builder().result(menuService.removeByIds(ids)).build();
 	}
 

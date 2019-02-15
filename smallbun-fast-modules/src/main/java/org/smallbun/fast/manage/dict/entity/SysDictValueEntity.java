@@ -30,6 +30,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.smallbun.fast.common.entity.DataEntity;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * 系统字典数据
  * @author SanLi
@@ -50,15 +52,18 @@ public class SysDictValueEntity extends DataEntity<Long> {
 	/**
 	 * 所属字典类型
 	 */
+	@NotNull(message = "字典类型不能为空")
 	private String dictType;
 	/**
 	 * 标签
 	 */
+	@NotNull(message = "字典标签不能为空")
 	private String dictLabel;
 
 	/**
 	 * 值
 	 */
+	@NotNull(message = "字典值不能为空")
 	private String dictValue;
 
 	/**

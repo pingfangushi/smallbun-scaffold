@@ -36,17 +36,19 @@ import org.smallbun.framework.base.BaseController;
 import org.smallbun.framework.result.AjaxResult;
 import org.smallbun.framework.result.PageableResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 
 /**
@@ -54,6 +56,7 @@ import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
  * @author SanLi
  * Created by 2689170096@qq.com on 2019/2/14 19:23
  */
+@Validated
 @RestController
 @RequestMapping("/notify")
 public class SysNotifyController extends BaseController {
@@ -76,7 +79,7 @@ public class SysNotifyController extends BaseController {
 	 */
 	@SystemLog(value = "")
 	@GetMapping(value = {"", "/"})
-	public ModelAndView dictType() {
+	public ModelAndView list() {
 		return new ModelAndView("modules/manage/notify/notify_list.html");
 	}
 
@@ -85,6 +88,7 @@ public class SysNotifyController extends BaseController {
 	 * @return 地址
 	 */
 	@SystemLog(value = "")
+	@PreAuthorize("hasAuthority('manage:notify:add') or hasAuthority('manage:notify:edit') ")
 	@GetMapping(value = "/form")
 	public ModelAndView form(SysNotifyVO vo, Model model) {
 		model.addAttribute("notify", vo);
@@ -98,8 +102,9 @@ public class SysNotifyController extends BaseController {
 	 */
 	@SystemLog(value = "")
 	@DemoEnvironment
+	@PreAuthorize("hasAuthority('manage:notify:add') or hasAuthority('manage:notify:edit') ")
 	@RequestMapping(value = "/saveOrUpdate")
-	public AjaxResult saveOrUpdate(@Validated SysNotifyVO vo) {
+	public AjaxResult saveOrUpdate(@Valid SysNotifyVO vo) {
 		return AjaxResult.builder().result(sysNotifyService.saveOrUpdate(vo)).build();
 	}
 
@@ -110,8 +115,9 @@ public class SysNotifyController extends BaseController {
 	 */
 	@SystemLog(value = "")
 	@DemoEnvironment
+	@PreAuthorize("hasAuthority('manage:notify:del')")
 	@PostMapping(value = "/removeById")
-	public AjaxResult removeById(@NotNull @RequestParam(value = "id") String id) {
+	public AjaxResult removeById(@NotNull(message = "id不能为空") @RequestParam(value = "id") String id) {
 		return AjaxResult.builder().result(sysNotifyService.removeById(id)).build();
 	}
 
@@ -122,8 +128,9 @@ public class SysNotifyController extends BaseController {
 	 */
 	@SystemLog(value = "")
 	@DemoEnvironment
+	@PreAuthorize("hasAuthority('manage:notify:del')")
 	@PostMapping(value = "/removeByIds")
-	public AjaxResult removeByIds(@NotNull @RequestParam(value = "ids") List<String> ids) {
+	public AjaxResult removeByIds(@NotNull(message = "id不能为空") @RequestParam(value = "ids",required = false) List<String> ids) {
 		return AjaxResult.builder().result(sysNotifyService.removeByIds(ids)).build();
 	}
 
@@ -156,7 +163,7 @@ public class SysNotifyController extends BaseController {
 	 * @param notifyVO dictType
 	 * @return AjaxResult
 	 */
-	@PostMapping(value = "/unique")
+	@PostMapping(value = UNIQUE)
 	public AjaxResult unique(SysNotifyVO notifyVO) {
 		return AjaxResult.builder().result(sysNotifyService.unique(notifyVO)).build();
 	}

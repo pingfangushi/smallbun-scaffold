@@ -37,12 +37,15 @@ import org.smallbun.framework.base.BaseController;
 import org.smallbun.framework.result.AjaxResult;
 import org.smallbun.framework.result.PageableResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +60,7 @@ import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
  * @author SanLi
  * Created by 2689170096@qq.com/SanLi on 2018/5/8
  */
+@Validated
 @RestController
 @RequestMapping(value = "/user")
 public class SysUserController extends BaseController {
@@ -90,6 +94,7 @@ public class SysUserController extends BaseController {
 	 */
 	@SystemLog(value = "")
 	@GetMapping(value = "/form")
+	@PreAuthorize("hasAuthority('manage:user:add') or hasAuthority('manage:user:add')")
 	public ModelAndView form(SysUserVO user, Model model) {
 		model.addAttribute("user", user);
 		return new ModelAndView("modules/manage/user/user_form.html");
@@ -136,7 +141,8 @@ public class SysUserController extends BaseController {
 	@SystemLog(value = "")
 	@DemoEnvironment
 	@PostMapping(value = "/saveOrUpdate")
-	public AjaxResult saveOrUpdate(@Validated SysUserVO user) {
+	@PreAuthorize("hasAuthority('manage:user:add') or hasAuthority('manage:user:add')")
+	public AjaxResult saveOrUpdate(@Valid SysUserVO user) {
 		return AjaxResult.builder().result(sysUserService.saveOrUpdate(user)).build();
 	}
 
@@ -149,7 +155,8 @@ public class SysUserController extends BaseController {
 	@SystemLog(value = "")
 	@DemoEnvironment
 	@PostMapping(value = "/removeById")
-	public AjaxResult removeById(@NotNull @RequestParam(value = "id") String id) {
+	@PreAuthorize("hasAuthority('manage:user:del')")
+	public AjaxResult removeById(@NotNull(message = "id不能为空") @RequestParam(value = "id") String id) {
 		return AjaxResult.builder().result(sysUserService.removeById(id)).build();
 	}
 
@@ -162,7 +169,8 @@ public class SysUserController extends BaseController {
 	@SystemLog(value = "")
 	@DemoEnvironment
 	@PostMapping(value = "/removeByIds")
-	public AjaxResult removeByIds(@NotNull @RequestParam(value = "ids") List<String> id) {
+	@PreAuthorize("hasAuthority('manage:user:del')")
+	public AjaxResult removeByIds(@NotNull(message = "id不能为空") @RequestParam(value = "ids") List<String> id) {
 		return AjaxResult.builder().result(sysUserService.removeByIds(id)).build();
 	}
 
@@ -212,7 +220,10 @@ public class SysUserController extends BaseController {
 	 */
 	@PostMapping(value = "/changPassword")
 	@DemoEnvironment
-	public AjaxResult changePassword(String oldPassword, String newPassword, String confirmPassword) {
+	public AjaxResult changePassword(
+			@NotBlank(message = "原密码不能为空") @RequestParam(value = "oldPassword", required = false) String oldPassword,
+			@NotBlank(message = "新密码不能为空") @RequestParam(value = "newPassword", required = false) String newPassword,
+			@NotBlank(message = "确认密码不能为空") @RequestParam(value = "confirmPassword", required = false) String confirmPassword) {
 		return AjaxResult.builder().result(sysUserService.changePassword(oldPassword, newPassword, confirmPassword))
 				.build();
 	}
@@ -223,7 +234,8 @@ public class SysUserController extends BaseController {
 	 * @return AjaxResult
 	 */
 	@PostMapping(value = "/verifyOldPassword")
-	public AjaxResult verifyOldPassword(@RequestParam(value = "oldPassword") String oldPassword) {
+	public AjaxResult verifyOldPassword(
+			@NotBlank(message = "原密码不能为空") @RequestParam(value = "oldPassword", required = false) String oldPassword) {
 		return AjaxResult.builder().result(sysUserService.verifyOldPassword(oldPassword)).build();
 	}
 
@@ -234,14 +246,17 @@ public class SysUserController extends BaseController {
 	 * @return
 	 */
 	@PostMapping(value = "/updateHeadPortrait")
-	public AjaxResult updateHeadPortrait(@RequestParam("id") String id, @RequestParam("url") String url) {
+	public AjaxResult updateHeadPortrait(
+			@NotBlank(message = "id不能为空") @RequestParam(value = "id", required = false) String id,
+			@NotBlank(message = "头像URL不能为空") @RequestParam(value = "url", required = false) String url) {
 		return AjaxResult.builder().result(sysUserService.updateHeadPortrait(id, url)).build();
 	}
 
 
 	@PostMapping(value = "/settingPassword")
 	@DemoEnvironment
-	public AjaxResult settingPassword(@RequestParam("password") String password) {
+	public AjaxResult settingPassword(
+			@NotBlank(message = "密码不能为空") @RequestParam(value = "password", required = false) String password) {
 		return AjaxResult.builder().result(sysUserService.changPassword(password)).build();
 	}
 

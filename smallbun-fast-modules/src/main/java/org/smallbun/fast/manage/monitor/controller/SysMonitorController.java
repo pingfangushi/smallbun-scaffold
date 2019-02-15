@@ -28,16 +28,21 @@ import org.smallbun.framework.annotation.DemoEnvironment;
 import org.smallbun.framework.base.BaseController;
 import org.smallbun.framework.result.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * 系统监控控制器
  * @author SanLi
  * Created by 2689170096@qq.com on 2019/1/13 13:51
  */
+@Validated
 @RestController
 @RequestMapping(value = "/monitor")
 public class SysMonitorController extends BaseController {
@@ -91,7 +96,8 @@ public class SysMonitorController extends BaseController {
 	 */
 	@DemoEnvironment
 	@PostMapping(value = "/online/user/expireUserSession")
-	public AjaxResult expireUserSession(String sessionId) {
+	public AjaxResult expireUserSession(
+			@NotNull(message = "id不能为空") @RequestParam(value = "sessionId") String sessionId) {
 		monitorService.expireUserSession(sessionId);
 		return AjaxResult.builder().build();
 	}

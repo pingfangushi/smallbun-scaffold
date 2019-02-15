@@ -26,13 +26,11 @@ package org.smallbun.fast.manage.dict.entity;
 import com.baomidou.mybatisplus.annotation.SqlCondition;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.smallbun.fast.common.entity.DataEntity;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 /**
@@ -48,13 +46,13 @@ public class SysDictTypeEntity extends DataEntity<Long> {
 	/**
 	 * 类型名称
 	 */
-	@NotEmpty(message = "类型名称不能为空")
+	@NotBlank(message = "类型名称不能为空")
 	@TableField(condition = SqlCondition.LIKE)
 	private String typeName;
 	/**
 	 * 类型编码
 	 */
-	@NotEmpty(message = "类型编码不能为空")
+	@NotBlank(message = "类型编码不能为空")
 	private String typeCode;
 	/**
 	 * 字典值

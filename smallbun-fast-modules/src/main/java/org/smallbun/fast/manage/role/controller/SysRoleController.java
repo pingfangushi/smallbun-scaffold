@@ -35,16 +35,19 @@ import org.smallbun.framework.annotation.SystemLog;
 import org.smallbun.framework.base.BaseController;
 import org.smallbun.framework.result.AjaxResult;
 import org.smallbun.framework.result.PageableResult;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.constraints.NotNull;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 
 /**
@@ -52,6 +55,7 @@ import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
  * @author SanLi
  * Created by 2689170096@qq.com on 2018/12/9 22:01
  */
+@Validated
 @RestController
 @RequestMapping(value = "/role")
 public class SysRoleController extends BaseController {
@@ -80,6 +84,7 @@ public class SysRoleController extends BaseController {
 	 */
 	@SystemLog(value = "")
 	@GetMapping(value = "/form")
+	@PreAuthorize("hasAuthority('manage:role:add') or hasAuthority('manage:role:edit')")
 	public ModelAndView form(SysRoleVO vo, Model model) {
 		model.addAttribute("role", vo);
 		return new ModelAndView("modules/manage/role/role_form.html");
@@ -93,7 +98,8 @@ public class SysRoleController extends BaseController {
 	@SystemLog(value = "")
 	@DemoEnvironment
 	@RequestMapping(value = "/saveOrUpdate")
-	public AjaxResult saveOrUpdate(@Validated SysRoleVO vo) {
+	@PreAuthorize("hasAuthority('manage:role:add') or hasAuthority('manage:role:edit')")
+	public AjaxResult saveOrUpdate(@Valid SysRoleVO vo) {
 		return AjaxResult.builder().result(sysRoleService.saveOrUpdate(vo)).build();
 	}
 
@@ -104,8 +110,10 @@ public class SysRoleController extends BaseController {
 	 */
 	@SystemLog(value = "")
 	@DemoEnvironment
+	@PreAuthorize("hasAuthority('manage:role:del')")
 	@PostMapping(value = "/removeById")
-	public AjaxResult removeById(@NotNull @RequestParam(value = "id") String id) {
+	public AjaxResult removeById(
+			@NotBlank(message = "id不能为空") @RequestParam(value = "id", required = false) String id) {
 		return AjaxResult.builder().result(sysRoleService.removeById(id)).build();
 	}
 
@@ -116,8 +124,10 @@ public class SysRoleController extends BaseController {
 	 */
 	@SystemLog(value = "")
 	@DemoEnvironment
+	@PreAuthorize("hasAuthority('manage:role:del')")
 	@PostMapping(value = "/removeByIds")
-	public AjaxResult saveOrUpdate(@NotNull @RequestParam(value = "ids") List<String> ids) {
+	public AjaxResult saveOrUpdate(
+			@NotBlank(message = "id不能为空") @RequestParam(value = "ids", required = false) List<String> ids) {
 		return AjaxResult.builder().result(sysRoleService.removeByIds(ids)).build();
 	}
 
@@ -152,7 +162,7 @@ public class SysRoleController extends BaseController {
 	 * @param vo vo
 	 * @return AjaxResult
 	 */
-	@PostMapping(value = "/unique")
+	@PostMapping(value = UNIQUE)
 	public AjaxResult unique(SysRoleVO vo) {
 		return AjaxResult.builder().result(sysRoleService.unique(vo)).build();
 	}

@@ -40,7 +40,7 @@ $(function () {
         columns: [{checkbox: true},
             {field: 'id', visible: false},
             {field: 'title', title: '标题', formatter: $.table.view, sortable: true},
-            {field: 'typeCode', title: '类型', sortable: true},
+            {field: 'notifyGenre', title: '类型', sortable: true},
             {field: 'gmtModified', title: '更新时间', sortable: true},
             {title: '操作',align: 'center', width: 50, visible: true, formatter: function (value, row, index) {
                     var actions = [];
@@ -49,7 +49,6 @@ $(function () {
                                         '<li><a href="#" onclick="$.operate.view(\'' + row.id + '\',\'\')"><i class="fa fa-search-plus"></i>查看</a></li>'+
                                         '<li><a href="#" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>修改</a></li>'+
                                         '<li><a href="#" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-trash"></i>删除</a></li>'+
-                                        '<li><a href="#" onclick="$.modal.openTab(\'sys_dict_type' + row.id + '\', \'字典值\', \'dict/value?sysDictType.id=' + row.id + '\')"><i class="fa fa-plus"></i>字典值</a></li>'+
                                     '</ul>'+
                                 '</div>');
                     return actions.join('');

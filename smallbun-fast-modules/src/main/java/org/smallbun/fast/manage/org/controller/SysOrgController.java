@@ -36,13 +36,15 @@ import org.smallbun.framework.base.BaseController;
 import org.smallbun.framework.result.AjaxResult;
 import org.smallbun.framework.result.PageableResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.constraints.NotNull;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +57,7 @@ import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
  * @author SanLi
  * Created by 2689170096@qq.com on 2018/8/3
  */
+@Validated
 @RestController
 @RequestMapping(value = "/org")
 public class SysOrgController extends BaseController {
@@ -86,7 +89,8 @@ public class SysOrgController extends BaseController {
 	 * @return ModelAndView
 	 */
 	@GetMapping(value = "form")
-	public ModelAndView form(@Validated SysOrgVO org, Model model) {
+	@PreAuthorize("hasAuthority('manage:org:add') or hasAuthority('manage:org:add')")
+	public ModelAndView form(SysOrgVO org, Model model) {
 		model.addAttribute("org", org);
 		return new ModelAndView("/modules/manage/org/org_form.html");
 	}
@@ -99,7 +103,8 @@ public class SysOrgController extends BaseController {
 	 */
 	@DemoEnvironment
 	@PostMapping("/saveOrUpdate")
-	public AjaxResult saveOrUpdate(@Validated SysOrgVO org) {
+	@PreAuthorize("hasAuthority('manage:notify:add') or hasAuthority('manage:notify:add')")
+	public AjaxResult saveOrUpdate(@Valid SysOrgVO org) {
 		return AjaxResult.builder().result(sysOrgService.saveOrUpdate(org)).build();
 	}
 
@@ -111,7 +116,9 @@ public class SysOrgController extends BaseController {
 	 */
 	@DemoEnvironment
 	@PostMapping("/removeById")
-	public AjaxResult removeById(@NotNull Long id) {
+	@PreAuthorize("hasAuthority('manage:org:del')")
+	public AjaxResult removeById(
+			@NotBlank(message = "id不能为空") @RequestParam(value = "id", required = false) String id) {
 		return AjaxResult.builder().result(sysOrgService.removeById(id)).build();
 	}
 
@@ -123,7 +130,9 @@ public class SysOrgController extends BaseController {
 	 */
 	@DemoEnvironment
 	@PostMapping("/removeByIds")
-	public AjaxResult removeByIds(@NotNull @RequestParam(value = "ids") List<String> ids) {
+	@PreAuthorize("hasAuthority('manage:org:del')")
+	public AjaxResult removeByIds(
+			@NotBlank(message = "id不能为空") @RequestParam(value = "ids", required = false) List<String> ids) {
 		return AjaxResult.builder().result(sysOrgService.removeByIds(ids)).build();
 	}
 
