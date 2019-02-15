@@ -23,6 +23,7 @@
 
 package org.smallbun.fast.manage.log.operate.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -41,6 +42,7 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
+@TableName(value = "sys_operate_log")
 public class SysOperateLogEntity extends DataEntity<Long> {
 
 	/**
