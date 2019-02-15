@@ -31,7 +31,7 @@ $(function () {
         exportUrl: contextPath + "/export",
         sortName: "gmtCreate",
         sortOrder: "desc",
-        modalName: "字典",
+        modalName: "公告",
         search: false,
         showExport: false,
         showRefresh: true,
