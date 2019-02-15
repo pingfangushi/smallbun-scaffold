@@ -31,7 +31,7 @@
 <body>
 <div class="i-ibox">
     <div class="ibox-content">
-        <form id="form" class="form-horizontal" th:action="@{/notify/type/saveOrUpdate}" th:object="${notify}"
+        <form id="form" class="form-horizontal" th:action="@{/notify/saveOrUpdate}" th:object="${notify}"
               method="post">
             <!--隐藏域ID-->
             <input id="id" name="id" type="hidden" th:field="*{id}">
@@ -102,7 +102,7 @@
                             <div class="input-group" style="width: 100%">
                                 <div class="input-group" style="width: 100%">
                                     <input readonly="readonly"
-                                           placeholder="请选择接收人" required
+                                           placeholder="请选择接收人"
                                            class="form-control"/>
                                     <span class="input-group-addon">
                                         <i class="fa fa-search"></i>
