@@ -69,12 +69,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12">
+                <div class="col-xs-12" style="display:none;" id="content_row">
                     <div class="form-group">
                         <label class="col-xs-2 control-label"><span
                                 style="color: red;">*</span>内容：</label>
                         <div class="col-xs-9">
-                            <div class="input-group" id="content" style="z-index: 1000;width: 100%;height: 150px"></div>
+                            <div class="input-group" id="content" style="z-index: 1000"></div>
                         </div>
                     </div>
                 </div>
@@ -83,10 +83,13 @@
                         <label class="col-xs-2 control-label"><span
                                 style="color: red;">*</span>状态：</label>
                         <div class="col-xs-9">
-                            <div class="input-group" style="width: 100%">
-                                <div class="input-group" style="width: 100%">
-
-                                </div>
+                            <div class="input-group">
+                                <label class="label-radio" required
+                                       th:each="dict : ${@smallbun.dict('NOTIFY_STATUS')}">
+                                    <input type="radio" class="minimal"
+                                           th:value="${dict.dictValue}" required th:field="*{notifyStatus}">
+                                    <label th:text="${dict.dictLabel}"></label>
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -98,7 +101,12 @@
                         <div class="col-xs-9">
                             <div class="input-group" style="width: 100%">
                                 <div class="input-group" style="width: 100%">
-
+                                    <input readonly="readonly"
+                                           placeholder="请选择接收人" required
+                                           class="form-control"/>
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-search"></i>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -106,6 +114,21 @@
                 </div>
             </div>
         </form>
+    </div>
+    <div class="box-footer">
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-sm ibtn-primary" onclick="doSubmit()" id="btn-submit">
+                    <i class="fa fa-check"></i>
+                    保 存
+                </button>&nbsp;
+                <button type="button" class="btn btn-sm btn-default" id="btn-cancel"
+                        onclick="parent.closeCurrentTabPage(window)">
+                    <i class="fa fa-reply-all"></i>
+                    关 闭
+                </button>
+            </div>
+        </div>
     </div>
 </div>
 </body>
