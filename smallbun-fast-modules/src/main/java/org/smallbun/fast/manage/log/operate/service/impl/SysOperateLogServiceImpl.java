@@ -25,12 +25,19 @@ package org.smallbun.fast.manage.log.operate.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.smallbun.fast.manage.log.operate.dao.SysOperateLogMapper;
 import org.smallbun.fast.manage.log.operate.entity.SysOperateLogEntity;
 import org.smallbun.fast.manage.log.operate.service.SysOperateLogService;
+import org.smallbun.framework.annotation.LogAnnotation;
 import org.smallbun.framework.base.BaseServiceImpl;
 import org.smallbun.framework.base.ILogLogic;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 /**
  * 操作日志记录 服务实现类
@@ -49,5 +56,19 @@ public class SysOperateLogServiceImpl extends BaseServiceImpl<SysOperateLogMappe
 	@Override
 	public void operation(JoinPoint joinPoint) {
 		log.debug("操作日志业务记录开始");
+		SysOperateLogEntity log = new SysOperateLogEntity();
+		MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+		LogAnnotation logAnnotation = methodSignature.getMethod().getDeclaredAnnotation(LogAnnotation.class);
+		HttpServletRequest request = ((ServletRequestAttributes) Objects
+				.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+		//功能类型
+		log.setAction(logAnnotation.action());
+		//请求地址
+		log.setOperateUrl(request.getRequestURL().toString());
+		//标题
+		log.setTitle(logAnnotation.model());
+		//请求参数
+		log.setOperateParam(request.getLocalAddr());
+		this.saveOrUpdate(log);
 	}
 }

@@ -21,30 +21,49 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.smallbun.framework.annotation;
-
-import java.lang.annotation.*;
+package org.smallbun.framework.constant;
 
 /**
- * 日志注解
- *
+ * 操作日志常量
  * @author SanLi
- * Created by 2689170096@qq.com on 2018/10/7
+ * Created by 2689170096@qq.com on 2019/2/15 22:33
  */
-@Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target(value = ElementType.METHOD)
-public @interface LogAnnotation {
+public interface OperateLogActionConstant {
 	/**
-	 * 模块
-	 *
-	 * @return {@link String}
+	 * 新增
 	 */
-	String model();
+	String ADD = "0";
+	/**
+	 * 修改
+	 */
+	String UPDATE = "1";
+	/**
+	 * 添加或修改
+	 */
+	String ADD_UPDATE = "2";
+	/**
+	 * 删除
+	 */
+	String DEL = "3";
+	/**
+	 * 添加form
+	 */
+	String ADD_FORM = "4";
+	/**
+	 * 修改form
+	 */
+	String UPDATE_FORM = "5";
+	/**
+	 * form 添加修改
+	 */
+	String ADD_UPDATE_FORM = "6";
+	/**
+	 * 查询list
+	 */
+	String SELECT_LIST = "7";
 
 	/**
-	 * 操作类型
-	 * @return
+	 * 查询PAGE
 	 */
-	String action();
+	String SELECT_PAGE = "7";
 }

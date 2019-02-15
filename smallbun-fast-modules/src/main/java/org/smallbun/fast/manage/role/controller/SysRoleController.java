@@ -33,6 +33,7 @@ import org.smallbun.framework.annotation.AutoQueryDictValue;
 import org.smallbun.framework.annotation.DemoEnvironment;
 import org.smallbun.framework.annotation.LogAnnotation;
 import org.smallbun.framework.base.BaseController;
+import org.smallbun.framework.constant.OperateLogActionConstant;
 import org.smallbun.framework.result.AjaxResult;
 import org.smallbun.framework.result.PageableResult;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -69,10 +70,9 @@ public class SysRoleController extends BaseController {
 	}
 
 	/**
-	 * form表单
-	 * @return 地址
+	 *
+	 * @return
 	 */
-	@LogAnnotation(value = "")
 	@GetMapping(value = {"", "/"})
 	public ModelAndView role() {
 		return new ModelAndView("modules/manage/role/role_list.html");
@@ -82,7 +82,7 @@ public class SysRoleController extends BaseController {
 	 * form表单
 	 * @return 地址
 	 */
-	@LogAnnotation(value = "")
+	@LogAnnotation(model = "", action = OperateLogActionConstant.ADD_UPDATE_FORM)
 	@GetMapping(value = "/form")
 	@PreAuthorize("hasAuthority('manage:role:add') or hasAuthority('manage:role:edit')")
 	public ModelAndView form(SysRoleVO vo, Model model) {
@@ -95,7 +95,7 @@ public class SysRoleController extends BaseController {
 	 * @param vo 实体对象
 	 * @return AjaxResult
 	 */
-	@LogAnnotation(value = "")
+	@LogAnnotation(model = "", action = OperateLogActionConstant.ADD_UPDATE)
 	@DemoEnvironment
 	@RequestMapping(value = "/saveOrUpdate")
 	@PreAuthorize("hasAuthority('manage:role:add') or hasAuthority('manage:role:edit')")
@@ -108,7 +108,7 @@ public class SysRoleController extends BaseController {
 	 * @param id 主键ID
 	 * @return AjaxResult
 	 */
-	@LogAnnotation(value = "")
+	@LogAnnotation(model = "", action = OperateLogActionConstant.DEL)
 	@DemoEnvironment
 	@PreAuthorize("hasAuthority('manage:role:del')")
 	@PostMapping(value = "/removeById")
@@ -122,7 +122,7 @@ public class SysRoleController extends BaseController {
 	 * @param ids 主键ID集合
 	 * @return AjaxResult
 	 */
-	@LogAnnotation(value = "")
+	@LogAnnotation(model = "", action = OperateLogActionConstant.DEL)
 	@DemoEnvironment
 	@PreAuthorize("hasAuthority('manage:role:del')")
 	@PostMapping(value = "/removeByIds")
@@ -135,7 +135,7 @@ public class SysRoleController extends BaseController {
 	 * 分页查询
 	 * @return PageableResult
 	 */
-	@LogAnnotation(value = "")
+	@LogAnnotation(model = "", action = OperateLogActionConstant.SELECT_PAGE)
 	@AutoQueryDictValue
 	@PostMapping(value = "/page")
 	public PageableResult page(Page<SysRoleEntity> page, SysRoleVO vo) {
@@ -148,7 +148,7 @@ public class SysRoleController extends BaseController {
 	 * 查询全部记录
 	 * @return SysDictTypeEntity
 	 */
-	@LogAnnotation(value = "")
+	@LogAnnotation(model = "", action = OperateLogActionConstant.SELECT_LIST)
 	@AutoQueryDictValue
 	@PostMapping(value = "/list")
 	public AjaxResult list() {

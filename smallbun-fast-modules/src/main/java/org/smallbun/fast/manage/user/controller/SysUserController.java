@@ -34,6 +34,7 @@ import org.smallbun.framework.annotation.AutoQueryDictValue;
 import org.smallbun.framework.annotation.DemoEnvironment;
 import org.smallbun.framework.annotation.LogAnnotation;
 import org.smallbun.framework.base.BaseController;
+import org.smallbun.framework.constant.OperateLogActionConstant;
 import org.smallbun.framework.result.AjaxResult;
 import org.smallbun.framework.result.PageableResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,7 +82,6 @@ public class SysUserController extends BaseController {
 	 *
 	 * @return 地址
 	 */
-	@LogAnnotation(value = "")
 	@RequestMapping(value = {"", "/"})
 	public ModelAndView user() {
 		return new ModelAndView("modules/manage/user/user_list.html");
@@ -92,7 +92,7 @@ public class SysUserController extends BaseController {
 	 *
 	 * @return 地址
 	 */
-	@LogAnnotation(value = "")
+	@LogAnnotation(model = "", action = OperateLogActionConstant.ADD_UPDATE_FORM)
 	@GetMapping(value = "/form")
 	@PreAuthorize("hasAuthority('manage:user:add') or hasAuthority('manage:user:add')")
 	public ModelAndView form(SysUserVO user, Model model) {
@@ -138,7 +138,7 @@ public class SysUserController extends BaseController {
 	 * @param user 类型实体对象
 	 * @return AjaxResult
 	 */
-	@LogAnnotation(value = "")
+	@LogAnnotation(model = "", action = OperateLogActionConstant.ADD_UPDATE)
 	@DemoEnvironment
 	@PostMapping(value = "/saveOrUpdate")
 	@PreAuthorize("hasAuthority('manage:user:add') or hasAuthority('manage:user:add')")
@@ -152,7 +152,7 @@ public class SysUserController extends BaseController {
 	 * @param id 主键ID
 	 * @return AjaxResult
 	 */
-	@LogAnnotation(value = "")
+	@LogAnnotation(model = "", action = OperateLogActionConstant.DEL)
 	@DemoEnvironment
 	@PostMapping(value = "/removeById")
 	@PreAuthorize("hasAuthority('manage:user:del')")
@@ -166,7 +166,7 @@ public class SysUserController extends BaseController {
 	 * @param id 主键ID集合
 	 * @return AjaxResult
 	 */
-	@LogAnnotation(value = "")
+	@LogAnnotation(model = "", action = OperateLogActionConstant.DEL)
 	@DemoEnvironment
 	@PostMapping(value = "/removeByIds")
 	@PreAuthorize("hasAuthority('manage:user:del')")
@@ -183,6 +183,7 @@ public class SysUserController extends BaseController {
 	 */
 	@PostMapping(value = "/page")
 	@AutoQueryDictValue
+	@LogAnnotation(model = "", action = OperateLogActionConstant.SELECT_PAGE)
 	public PageableResult page(Page<SysUserEntity> page, SysUserVO vo) {
 		return PageableResult.builder()
 				.page(pageVOFilling(sysUserService.page(new PageFactory<SysUserEntity>().defaultPage(page), vo),
@@ -196,6 +197,7 @@ public class SysUserController extends BaseController {
 	 */
 	@RequestMapping(value = "/list")
 	@AutoQueryDictValue
+	@LogAnnotation(model = "", action = OperateLogActionConstant.SELECT_LIST)
 	public AjaxResult list(QueryWrapper<SysUserEntity> wrapper) {
 		return AjaxResult.builder()
 				.result(mappingList(sysUserService.list(wrapper), new ArrayList<>(), SysUserVO.class)).build();
