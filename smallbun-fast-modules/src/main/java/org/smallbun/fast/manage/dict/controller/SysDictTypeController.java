@@ -31,7 +31,7 @@ import org.smallbun.fast.manage.dict.entity.SysDictTypeEntity;
 import org.smallbun.fast.manage.dict.service.SysDictTypeService;
 import org.smallbun.fast.manage.dict.vo.SysDictTypeVO;
 import org.smallbun.framework.annotation.DemoEnvironment;
-import org.smallbun.framework.annotation.SystemLog;
+import org.smallbun.framework.annotation.LogAnnotation;
 import org.smallbun.framework.base.BaseController;
 import org.smallbun.framework.result.AjaxResult;
 import org.smallbun.framework.result.PageableResult;
@@ -74,7 +74,7 @@ public class SysDictTypeController extends BaseController {
 	 * form表单
 	 * @return 地址
 	 */
-	@SystemLog(value = "")
+	@LogAnnotation(value = "")
 	@GetMapping(value = {"", "/"})
 	public ModelAndView dictType() {
 		return new ModelAndView("modules/manage/dict/dict_type_list.html");
@@ -84,7 +84,7 @@ public class SysDictTypeController extends BaseController {
 	 * form表单
 	 * @return 地址
 	 */
-	@SystemLog(value = "")
+	@LogAnnotation(value = "")
 	@GetMapping(value = "/form")
 	@PreAuthorize("hasAuthority('manage:dict:add') or hasAuthority('manage:dict:edit')")
 	public ModelAndView form(SysDictTypeVO vo, Model model) {
@@ -97,7 +97,7 @@ public class SysDictTypeController extends BaseController {
 	 * @param vo Vo
 	 * @return AjaxResult
 	 */
-	@SystemLog(value = "")
+	@LogAnnotation(value = "")
 	@DemoEnvironment
 	@RequestMapping(value = "/saveOrUpdate")
 	@PreAuthorize("hasAuthority('manage:dict:add') or hasAuthority('manage:dict:edit')")
@@ -110,7 +110,7 @@ public class SysDictTypeController extends BaseController {
 	 * @param id 主键ID
 	 * @return AjaxResult
 	 */
-	@SystemLog(value = "")
+	@LogAnnotation(value = "")
 	@DemoEnvironment
 	@PostMapping(value = "/removeById")
 	@PreAuthorize("hasAuthority('manage:dict:del')")
@@ -124,7 +124,7 @@ public class SysDictTypeController extends BaseController {
 	 * @param ids 主键ID集合
 	 * @return AjaxResult
 	 */
-	@SystemLog(value = "")
+	@LogAnnotation(value = "")
 	@DemoEnvironment
 	@PostMapping(value = "/removeByIds")
 	@PreAuthorize("hasAuthority('manage:dict:del')")
@@ -136,7 +136,7 @@ public class SysDictTypeController extends BaseController {
 	 * 分页查询
 	 * @return PageableResult
 	 */
-	@SystemLog(value = "")
+	@LogAnnotation(value = "")
 	@PostMapping(value = "/page")
 	public PageableResult page(Page<SysDictTypeEntity> page, SysDictTypeVO vo) {
 		return PageableResult.builder().page(pageVOFilling(
@@ -148,7 +148,7 @@ public class SysDictTypeController extends BaseController {
 	 * 查询全部记录
 	 * @return SysDictTypeEntity
 	 */
-	@SystemLog(value = "")
+	@LogAnnotation(value = "")
 	@PostMapping(value = "/list")
 	public AjaxResult list(SysDictTypeVO vo) {
 		return AjaxResult.builder()

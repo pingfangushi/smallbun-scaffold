@@ -32,7 +32,7 @@ import org.smallbun.fast.manage.user.util.UserUtil;
 import org.smallbun.fast.manage.user.vo.SysUserVO;
 import org.smallbun.framework.annotation.AutoQueryDictValue;
 import org.smallbun.framework.annotation.DemoEnvironment;
-import org.smallbun.framework.annotation.SystemLog;
+import org.smallbun.framework.annotation.LogAnnotation;
 import org.smallbun.framework.base.BaseController;
 import org.smallbun.framework.result.AjaxResult;
 import org.smallbun.framework.result.PageableResult;
@@ -81,7 +81,7 @@ public class SysUserController extends BaseController {
 	 *
 	 * @return 地址
 	 */
-	@SystemLog(value = "")
+	@LogAnnotation(value = "")
 	@RequestMapping(value = {"", "/"})
 	public ModelAndView user() {
 		return new ModelAndView("modules/manage/user/user_list.html");
@@ -92,7 +92,7 @@ public class SysUserController extends BaseController {
 	 *
 	 * @return 地址
 	 */
-	@SystemLog(value = "")
+	@LogAnnotation(value = "")
 	@GetMapping(value = "/form")
 	@PreAuthorize("hasAuthority('manage:user:add') or hasAuthority('manage:user:add')")
 	public ModelAndView form(SysUserVO user, Model model) {
@@ -138,7 +138,7 @@ public class SysUserController extends BaseController {
 	 * @param user 类型实体对象
 	 * @return AjaxResult
 	 */
-	@SystemLog(value = "")
+	@LogAnnotation(value = "")
 	@DemoEnvironment
 	@PostMapping(value = "/saveOrUpdate")
 	@PreAuthorize("hasAuthority('manage:user:add') or hasAuthority('manage:user:add')")
@@ -152,7 +152,7 @@ public class SysUserController extends BaseController {
 	 * @param id 主键ID
 	 * @return AjaxResult
 	 */
-	@SystemLog(value = "")
+	@LogAnnotation(value = "")
 	@DemoEnvironment
 	@PostMapping(value = "/removeById")
 	@PreAuthorize("hasAuthority('manage:user:del')")
@@ -166,7 +166,7 @@ public class SysUserController extends BaseController {
 	 * @param id 主键ID集合
 	 * @return AjaxResult
 	 */
-	@SystemLog(value = "")
+	@LogAnnotation(value = "")
 	@DemoEnvironment
 	@PostMapping(value = "/removeByIds")
 	@PreAuthorize("hasAuthority('manage:user:del')")

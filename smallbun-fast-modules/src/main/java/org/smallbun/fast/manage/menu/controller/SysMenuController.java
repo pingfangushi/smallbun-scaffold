@@ -32,7 +32,7 @@ import org.smallbun.fast.manage.menu.service.SysMenuService;
 import org.smallbun.fast.manage.menu.vo.SysMenuVO;
 import org.smallbun.framework.annotation.AutoQueryDictValue;
 import org.smallbun.framework.annotation.DemoEnvironment;
-import org.smallbun.framework.annotation.SystemLog;
+import org.smallbun.framework.annotation.LogAnnotation;
 import org.smallbun.framework.base.BaseController;
 import org.smallbun.framework.result.AjaxResult;
 import org.smallbun.framework.result.PageableResult;
@@ -97,7 +97,7 @@ public class SysMenuController extends BaseController {
 	 * @param menu 类型实体对象
 	 * @return AjaxResult
 	 */
-	@SystemLog(value = "")
+	@LogAnnotation(value = "")
 	@DemoEnvironment
 	@PostMapping(value = "/saveOrUpdate")
 	@PreAuthorize("hasAuthority('manage:dict:add') or hasAuthority('manage:dict:edit')")
@@ -110,7 +110,7 @@ public class SysMenuController extends BaseController {
 	 * @param id 主键ID
 	 * @return AjaxResult
 	 */
-	@SystemLog(value = "")
+	@LogAnnotation(value = "")
 	@DemoEnvironment
 	@PostMapping(value = "/removeById")
 	@PreAuthorize("hasAuthority('manage:dict:del')")
@@ -124,7 +124,7 @@ public class SysMenuController extends BaseController {
 	 * @param ids 主键ID集合
 	 * @return AjaxResult
 	 */
-	@SystemLog(value = "")
+	@LogAnnotation(value = "")
 	@DemoEnvironment
 	@PostMapping(value = "/removeByIds")
 	@PreAuthorize("hasAuthority('manage:dict:del')")
@@ -152,7 +152,7 @@ public class SysMenuController extends BaseController {
 	 *
 	 * @return AjaxResult
 	 */
-	@SystemLog(value = "查询所有菜单")
+	@LogAnnotation(value = "查询所有菜单")
 	@PostMapping(value = "/list")
 	@AutoQueryDictValue
 	public AjaxResult list(SysMenuVO vo) {

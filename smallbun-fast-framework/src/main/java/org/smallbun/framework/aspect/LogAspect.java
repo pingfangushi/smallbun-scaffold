@@ -26,10 +26,8 @@ package org.smallbun.framework.aspect;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
 import org.smallbun.framework.toolkit.UserAgentUtils;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -103,36 +101,12 @@ public class LogAspect {
 
 
 	/**
-	 * 配置带有@SystemLog注解的切面
-	 */
-	@Pointcut("@annotation(org.smallbun.framework.annotation.SystemLog)")
-	public void logAnnotation() {
-	}
-
-	/**
-	 * SystemLog 日志处理
+	 * LogAnnotation 日志处理
 	 *
 	 * @param joinPoint {@link JoinPoint}
 	 */
-	@Before(value = "logAnnotation()")
-	public void logAnnotationDeBefore(JoinPoint joinPoint) {
-		ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-		assert attributes != null;
-		HttpServletRequest request = attributes.getRequest();
-
+	@Around(value = "@annotation(org.smallbun.framework.annotation.LogAnnotation)")
+	public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
+		return joinPoint.proceed();
 	}
-
-	/**
-	 * 之后操作
-	 *
-	 * @param returnValue {@link Object}
-	 */
-	@AfterReturning(pointcut = "logAnnotation()", returning = "returnValue")
-	public void logAnnotationDoAfterReturning(Object returnValue) {
-		if (StringUtils.isEmpty(returnValue)) {
-			returnValue = "";
-		}
-	}
-
-
 }

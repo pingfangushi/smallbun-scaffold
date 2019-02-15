@@ -31,7 +31,7 @@ import org.smallbun.fast.manage.notify.entity.SysNotifyEntity;
 import org.smallbun.fast.manage.notify.service.SysNotifyService;
 import org.smallbun.fast.manage.notify.vo.SysNotifyVO;
 import org.smallbun.framework.annotation.DemoEnvironment;
-import org.smallbun.framework.annotation.SystemLog;
+import org.smallbun.framework.annotation.LogAnnotation;
 import org.smallbun.framework.base.BaseController;
 import org.smallbun.framework.result.AjaxResult;
 import org.smallbun.framework.result.PageableResult;
@@ -77,7 +77,7 @@ public class SysNotifyController extends BaseController {
 	 * form表单
 	 * @return 地址
 	 */
-	@SystemLog(value = "")
+	@LogAnnotation(value = "")
 	@GetMapping(value = {"", "/"})
 	public ModelAndView list() {
 		return new ModelAndView("modules/manage/notify/notify_list.html");
@@ -87,7 +87,7 @@ public class SysNotifyController extends BaseController {
 	 * form表单
 	 * @return 地址
 	 */
-	@SystemLog(value = "")
+	@LogAnnotation(value = "")
 	@PreAuthorize("hasAuthority('manage:notify:add') or hasAuthority('manage:notify:edit') ")
 	@GetMapping(value = "/form")
 	public ModelAndView form(SysNotifyVO vo, Model model) {
@@ -100,7 +100,7 @@ public class SysNotifyController extends BaseController {
 	 * @param vo Vo
 	 * @return AjaxResult
 	 */
-	@SystemLog(value = "")
+	@LogAnnotation(value = "")
 	@DemoEnvironment
 	@PreAuthorize("hasAuthority('manage:notify:add') or hasAuthority('manage:notify:edit') ")
 	@RequestMapping(value = "/saveOrUpdate")
@@ -113,7 +113,7 @@ public class SysNotifyController extends BaseController {
 	 * @param id 主键ID
 	 * @return AjaxResult
 	 */
-	@SystemLog(value = "")
+	@LogAnnotation(value = "")
 	@DemoEnvironment
 	@PreAuthorize("hasAuthority('manage:notify:del')")
 	@PostMapping(value = "/removeById")
@@ -126,7 +126,7 @@ public class SysNotifyController extends BaseController {
 	 * @param ids 主键ID集合
 	 * @return AjaxResult
 	 */
-	@SystemLog(value = "")
+	@LogAnnotation(value = "")
 	@DemoEnvironment
 	@PreAuthorize("hasAuthority('manage:notify:del')")
 	@PostMapping(value = "/removeByIds")
@@ -138,7 +138,7 @@ public class SysNotifyController extends BaseController {
 	 * 分页查询
 	 * @return PageableResult
 	 */
-	@SystemLog(value = "")
+	@LogAnnotation(value = "")
 	@PostMapping(value = "/page")
 	public PageableResult page(Page<SysNotifyEntity> page, SysNotifyVO vo) {
 		return PageableResult.builder().page(pageVOFilling(
@@ -150,7 +150,7 @@ public class SysNotifyController extends BaseController {
 	 * 查询全部记录
 	 * @return SysDictTypeEntity
 	 */
-	@SystemLog(value = "")
+	@LogAnnotation(value = "")
 	@PostMapping(value = "/list")
 	public AjaxResult list(SysNotifyVO vo) {
 		return AjaxResult.builder()

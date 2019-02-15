@@ -34,7 +34,7 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = ElementType.METHOD)
-public @interface SystemLog {
+public @interface LogAnnotation {
 	/**
 	 * 日志内容名称
 	 *

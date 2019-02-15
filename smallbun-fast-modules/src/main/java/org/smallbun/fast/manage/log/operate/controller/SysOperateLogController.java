@@ -29,15 +29,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p>
  * 操作日志记录 前端控制器
- * </p>
- *
  * @author SanLi
- * @since 2019-02-15
+ * Created by 2689170096@qq.com on 2019/2/15 21:47
  */
 @RestController
 @RequestMapping("/log/operate")
 public class SysOperateLogController extends BaseController {
+
+
+
 
 }
