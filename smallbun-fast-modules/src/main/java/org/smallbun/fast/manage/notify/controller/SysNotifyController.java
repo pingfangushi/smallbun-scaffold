@@ -68,7 +68,7 @@ public class SysNotifyController extends BaseController {
 		this.sysNotifyService = sysNotifyService;
 	}
 
-	@ModelAttribute
+
 	protected SysNotifyVO model(HttpServletRequest request) {
 		return sysNotifyService.model(request);
 
