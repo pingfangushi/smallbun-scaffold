@@ -32,15 +32,8 @@ import java.util.List;
 
 /**
  *
- *
- * @author yuqiyu
- * ===============================
- * Created with IntelliJ IDEA.
- * User：于起宇
- * Date：2017/8/12
- * Time：9:54
- * 简书：http://www.jianshu.com/u/092df3f77bca
- * ================================
+ * @author SanLi
+ * Created by 2689170096@qq.com on 2019/2/16 17:40
  */
 public class ReflectionHelper {
 	/**

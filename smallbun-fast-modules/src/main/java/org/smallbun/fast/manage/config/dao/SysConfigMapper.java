@@ -34,7 +34,7 @@ import org.springframework.stereotype.Repository;
  * Created by 2689170096@qq.com on 2018/8/3
  */
 @Mapper
-@Repository
+
 public interface SysConfigMapper extends BaseMapper<SysConfigEntity> {
 
 }

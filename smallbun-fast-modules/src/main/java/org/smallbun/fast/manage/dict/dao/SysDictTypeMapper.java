@@ -34,7 +34,6 @@ import org.springframework.stereotype.Repository;
  * Created by 2689170096@qq.com on 2018/10/2
  */
 @Mapper
-@Repository
 public interface SysDictTypeMapper extends BaseMapper<SysDictTypeEntity> {
 
 }

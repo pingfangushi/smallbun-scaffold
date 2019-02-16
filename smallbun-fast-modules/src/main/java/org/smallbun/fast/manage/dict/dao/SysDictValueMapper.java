@@ -41,7 +41,6 @@ import java.util.List;
  * Created by 2689170096@qq.com on 2018/10/2
  */
 @Mapper
-@Repository
 public interface SysDictValueMapper extends BaseMapper<SysDictValueEntity> {
 	/**
 	 * 分页查询

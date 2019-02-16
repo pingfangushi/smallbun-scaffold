@@ -23,6 +23,7 @@
 
 package org.smallbun.fast.manage.log.operate.dao;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.smallbun.fast.manage.log.operate.entity.SysOperateLogEntity;
 import org.smallbun.framework.base.BaseMapper;
 
@@ -34,6 +35,7 @@ import org.smallbun.framework.base.BaseMapper;
  * @author SanLi
  * @since 2019-02-15
  */
+@Mapper
 public interface SysOperateLogMapper extends BaseMapper<SysOperateLogEntity> {
 
 }

@@ -37,7 +37,6 @@ import java.util.List;
  * Created by 2689170096@qq.com on 2018/8/3
  */
 @Mapper
-@Repository
 public interface SysOrgMapper extends BaseMapper<SysOrgEntity> {
 	/**
 	 * 根据角色id获取对应可访问数据的部门

@@ -65,5 +65,5 @@ public interface OperateLogActionConstant {
 	/**
 	 * 查询PAGE
 	 */
-	String SELECT_PAGE = "7";
+	String SELECT_PAGE = "8";
 }

@@ -24,6 +24,7 @@
 package org.smallbun.fast;
 
 import lombok.extern.slf4j.Slf4j;
+import org.mybatis.spring.annotation.MapperScan;
 import org.smallbun.framework.auto.SmallBunProperties;
 import org.smallbun.framework.constant.SystemConstant;
 import org.smallbun.framework.toolkit.DefaultProfileUtil;

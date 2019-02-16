@@ -34,7 +34,6 @@ import org.springframework.stereotype.Repository;
  * Created by 2689170096@qq.com on 2019/2/14 19:22
  */
 @Mapper
-@Repository
 public interface SysNotifyMapper extends BaseMapper<SysNotifyEntity> {
 
 }

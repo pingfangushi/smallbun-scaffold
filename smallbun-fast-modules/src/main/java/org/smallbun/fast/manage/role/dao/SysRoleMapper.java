@@ -39,7 +39,6 @@ import java.util.List;
  */
 
 @Mapper
-@Repository
 public interface SysRoleMapper extends BaseMapper<SysRoleEntity> {
 	/**
 	 * 获取全部数据

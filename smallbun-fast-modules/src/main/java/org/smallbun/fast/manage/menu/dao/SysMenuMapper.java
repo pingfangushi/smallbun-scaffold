@@ -40,7 +40,6 @@ import java.util.List;
  * Created by 2689170096@qq.com/SanLi on 2018/4/30
  */
 @Mapper
-@Repository
 public interface SysMenuMapper extends BaseMapper<SysMenuEntity> {
 	/**
 	 * 根据用户ID进行查询所具有的菜单功能权限

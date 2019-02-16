@@ -31,6 +31,7 @@ import org.smallbun.fast.manage.log.operate.dao.SysOperateLogMapper;
 import org.smallbun.fast.manage.log.operate.entity.SysOperateLogEntity;
 import org.smallbun.fast.manage.log.operate.service.SysOperateLogService;
 import org.smallbun.framework.annotation.LogAnnotation;
+import org.smallbun.framework.base.BaseEntity;
 import org.smallbun.framework.base.BaseServiceImpl;
 import org.smallbun.framework.base.ILogLogic;
 import org.smallbun.framework.toolkit.IpUtil;
@@ -40,14 +41,17 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 import static org.smallbun.fast.manage.user.util.UserUtil.getUserId;
 import static org.smallbun.fast.manage.user.util.UserUtil.getUserOrg;
 import static org.smallbun.framework.constant.ExceptionConstant.EX900001;
+import static org.smallbun.framework.constant.OperateLogActionConstant.*;
 import static org.smallbun.framework.constant.SystemConstant.SUCCESS;
 import static org.smallbun.framework.toolkit.AddressUtil.getRealAddressByIP;
+import static org.smallbun.framework.toolkit.ReflectionUtil.getFieldAll;
 
 /**
  * 操作日志记录 服务实现类
@@ -61,8 +65,8 @@ public class SysOperateLogServiceImpl extends BaseServiceImpl<SysOperateLogMappe
 
 	/**
 	 * 操作日志逻辑
-	 * @param joinPoint
-	 * @param e
+	 * @param joinPoint {@link JoinPoint}
+	 * @param e {@link  Exception}
 	 */
 	@Override
 	public void operation(JoinPoint joinPoint, Exception e) {
@@ -75,14 +79,59 @@ public class SysOperateLogServiceImpl extends BaseServiceImpl<SysOperateLogMappe
 				.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
 		//操作时间
 		operateLog.setOperateTime(LocalDateTime.now());
-		//功能类型，这里需要进行一次判断
-		operateLog.setAction(logAnnotation.action());
+		//功能类型，这里需要进行一次判断,如果是添加或修改form，或者添加修改的接口，参数实体类必须继承BaseEntity，根据id判断是新增还是修改
+		if (logAnnotation.action().equals(ADD_UPDATE_FORM) || logAnnotation.action().equals(ADD_UPDATE)) {
+			Object[] args = joinPoint.getArgs();
+			for (Object u : args) {
+				try {
+					if (u instanceof BaseEntity) {
+						Field id = getFieldAll(u, ID);
+						id.setAccessible(true);
+
+						//如果是form页面，为空说明是添加，id不为空是修改
+						if (logAnnotation.action().equals(ADD_UPDATE_FORM)) {
+							if (StringUtils.isEmpty(id.get(u))) {
+								operateLog.setAction(ADD_FORM);
+							} else {
+								operateLog.setAction(UPDATE_FORM);
+							}
+						}
+						//如果不是form页面，为空说明是添加，id不为空是修改
+						if (logAnnotation.action().equals(ADD_UPDATE)) {
+							if (StringUtils.isEmpty(id.get(u))) {
+								operateLog.setAction(ADD);
+							} else {
+								operateLog.setAction(UPDATE);
+							}
+						}
+					}
+				} catch (Exception ignored) { }
+			}
+		} else {
+			operateLog.setAction(logAnnotation.action());
+		}
+		saveOperateLog(joinPoint, e, operateLog, logAnnotation, request);
+		log.debug("操作日志业务记录结束");
+		log.debug("----------------------------------------------------------");
+
+	}
+
+	/**
+	 * 保存
+	 * @param joinPoint {@link  JoinPoint}
+	 * @param e  {@link  Exception}
+	 * @param operateLog {@link  SysOperateLogEntity}
+	 * @param logAnnotation {@link  LogAnnotation}
+	 * @param request {@link  HttpServletRequest}
+	 */
+	private void saveOperateLog(JoinPoint joinPoint, Exception e, SysOperateLogEntity operateLog,
+			LogAnnotation logAnnotation, HttpServletRequest request) {
 		//请求地址
 		operateLog.setOperateUrl(request.getRequestURI());
 		//标题
 		operateLog.setTitle(logAnnotation.model());
 		//请求参数
-		operateLog.setOperateParam(JSON.toJSONString(joinPoint.getArgs()));
+		operateLog.setOperateParam(JSON.toJSONString(request.getParameterMap()));
 		//方法名称
 		operateLog.setMethod(
 				joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()");
@@ -103,8 +152,5 @@ public class SysOperateLogServiceImpl extends BaseServiceImpl<SysOperateLogMappe
 		}
 		//保存
 		this.saveOrUpdate(operateLog);
-		log.debug("操作日志业务记录结束");
-		log.debug("----------------------------------------------------------");
-
 	}
 }

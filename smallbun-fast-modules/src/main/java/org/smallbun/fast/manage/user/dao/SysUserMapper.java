@@ -30,7 +30,6 @@ import org.apache.ibatis.annotations.Param;
 import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.fast.manage.user.vo.SysUserVO;
 import org.smallbun.framework.base.BaseMapper;
-import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.util.List;
@@ -42,7 +41,6 @@ import java.util.List;
  * Created by 2689170096@qq.com/SanLi on 2018/4/30
  */
 @Mapper
-@Repository
 public interface SysUserMapper extends BaseMapper<SysUserEntity> {
 	/**
 	 * 根据用户名获取用户
