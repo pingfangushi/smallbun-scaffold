@@ -11,7 +11,7 @@
  Target Server Version : 100307
  File Encoding         : 65001
 
- Date: 16/02/2019 16:20:52
+ Date: 16/02/2019 18:50:51
 */
 
 SET NAMES utf8mb4;
@@ -53,8 +53,8 @@ INSERT INTO `sys_dict_type` VALUES (1085181767851188225, '菜单类型', 'MENU_T
 INSERT INTO `sys_dict_type` VALUES (1086942198961823745, '菜单状态', 'MENU_STATUS', 1, '2019-01-20 05:03:09', 1, '2019-01-20 05:03:09', 0, '');
 INSERT INTO `sys_dict_type` VALUES (1088414522714132482, '用户状态', 'USER_STATUS', 1, '2019-01-24 06:33:39', 1, '2019-01-24 06:33:39', 0, '');
 INSERT INTO `sys_dict_type` VALUES (1088418616384159745, '用户类型', 'USER_TYPE', 1, '2019-01-24 06:49:55', 1, '2019-01-24 06:49:55', 0, '');
-INSERT INTO `sys_dict_type` VALUES (1096032224433672194, '公告类型', 'NOTIFY_GENRE', 1, '2019-02-14 13:03:40', 1, '2019-02-14 13:03:40', 0, '');
-INSERT INTO `sys_dict_type` VALUES (1096335577848008706, '通知状态', 'NOTIFY_STATUS', 1, '2019-02-15 09:09:05', 1, '2019-02-15 12:40:33', 0, '');
+INSERT INTO `sys_dict_type` VALUES (1096032224433672194, '公告类型', 'NOTIFY_GENRE', 1, '2019-02-14 13:03:40', 1, '2019-02-16 10:27:34', 0, '');
+INSERT INTO `sys_dict_type` VALUES (1096335577848008706, '通知状态', 'NOTIFY_STATUS', 1, '2019-02-15 09:09:05', 1, '2019-02-16 10:31:33', 0, '');
 
 -- ----------------------------
 -- Table structure for sys_dict_value
@@ -263,13 +263,13 @@ CREATE TABLE `sys_operate_log`  (
   `title` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '模块标题',
   `action` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '功能请求',
   `method` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '方法名称',
+  `operate_param` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '请求参数',
   `channel` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '来源渠道（0 后台用户 1 手机端用户 2其它）',
   `open_user` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '操作人员',
   `open_org` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '部门名称',
   `operate_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '请求URL',
   `operate_ip` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '主机地址',
   `operate_location` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '操作地点',
-  `operate_param` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '请求参数',
   `operate_status` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '操作状态',
   `error_msg` varchar(2000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '错误消息',
   `operate_time` datetime(0) NULL DEFAULT NULL COMMENT '操作时间',
@@ -541,7 +541,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'admin', 'admin', 'admin', '$2a$10$qLpUo87P.NtgkGJE2D9XeO6j//3wWI3URizII87SHAmSp5CLM4S5a', '管理员', 'https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_family.jpg', '', '', '', '2018-05-25', NULL, NULL, NULL, '0:0:0:0:0:0:0:1', '本地', '2019-02-16 08:18:57', '0', '0', '232399', 1, '2018-06-18 10:50:02', 1, '2019-02-16 16:18:57', '0', '');
+INSERT INTO `sys_user` VALUES (1, 'admin', 'admin', 'admin', '$2a$10$qLpUo87P.NtgkGJE2D9XeO6j//3wWI3URizII87SHAmSp5CLM4S5a', '管理员', 'https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_family.jpg', '', '', '', '2018-05-25', NULL, NULL, NULL, '0:0:0:0:0:0:0:1', '本地', '2019-02-16 10:42:13', '0', '0', '232399', 1, '2018-06-18 10:50:02', 1, '2019-02-16 18:42:13', '0', '');
 INSERT INTO `sys_user` VALUES (2, 'user', 'user', 'user', '$2a$10$W7c1gJyPxf9Rtp3/G5WLre6vJomdzaSqEDt2/jJa70A6IHTetRkoO', '管理员', 'https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_colleagues.jpg', '', '', '', '1998-06-15', NULL, NULL, NULL, '0:0:0:0:0:0:0:1', '本地', '2019-02-09 18:59:04', '0', '1', '231112', 1, '2018-06-18 10:50:02', 1, '2019-02-09 18:59:04', '0', '');
 INSERT INTO `sys_user` VALUES (1088787447501930497, '研发', 'SanLi', 'A0001', '000000', NULL, NULL, '', '', '', '1998-06-19', '370983199806225319', NULL, NULL, NULL, NULL, '2019-01-26 19:42:34', '2', '3', '300003', 1, '2019-01-25 07:15:31', 1, '2019-02-09 01:58:51', '0', '');
 
