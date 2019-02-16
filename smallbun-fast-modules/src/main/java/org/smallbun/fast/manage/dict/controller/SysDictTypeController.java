@@ -33,7 +33,7 @@ import org.smallbun.fast.manage.dict.vo.SysDictTypeVO;
 import org.smallbun.framework.annotation.DemoEnvironment;
 import org.smallbun.framework.annotation.LogAnnotation;
 import org.smallbun.framework.base.BaseController;
-import org.smallbun.framework.constant.OperateLogActionConstant;
+import org.smallbun.framework.constant.OperateLogConstant;
 import org.smallbun.framework.result.AjaxResult;
 import org.smallbun.framework.result.PageableResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,7 +87,7 @@ public class SysDictTypeController extends BaseController {
 	 * form表单
 	 * @return 地址
 	 */
-	@LogAnnotation(model = "", action = OperateLogActionConstant.ADD_UPDATE_FORM)
+	@LogAnnotation(model = "", action = OperateLogConstant.ADD_UPDATE_FORM)
 	@GetMapping(value = "/form")
 	@PreAuthorize("hasAuthority('manage:dict:add') or hasAuthority('manage:dict:edit')")
 	public ModelAndView form(SysDictTypeVO vo, Model model) {
@@ -100,7 +100,7 @@ public class SysDictTypeController extends BaseController {
 	 * @param vo Vo
 	 * @return AjaxResult
 	 */
-	@LogAnnotation(model = "", action = OperateLogActionConstant.ADD_UPDATE)
+	@LogAnnotation(model = "", action = OperateLogConstant.ADD_UPDATE)
 	@DemoEnvironment
 	@RequestMapping(value = "/saveOrUpdate")
 	@PreAuthorize("hasAuthority('manage:dict:add') or hasAuthority('manage:dict:edit')")
@@ -113,7 +113,7 @@ public class SysDictTypeController extends BaseController {
 	 * @param id 主键ID
 	 * @return AjaxResult
 	 */
-	@LogAnnotation(model = "", action = OperateLogActionConstant.DEL)
+	@LogAnnotation(model = "", action = OperateLogConstant.DEL)
 	@DemoEnvironment
 	@PostMapping(value = "/removeById")
 	@PreAuthorize("hasAuthority('manage:dict:del')")
@@ -127,7 +127,7 @@ public class SysDictTypeController extends BaseController {
 	 * @param ids 主键ID集合
 	 * @return AjaxResult
 	 */
-	@LogAnnotation(model = "", action = OperateLogActionConstant.DEL)
+	@LogAnnotation(model = "", action = OperateLogConstant.DEL)
 	@DemoEnvironment
 	@PostMapping(value = "/removeByIds")
 	@PreAuthorize("hasAuthority('manage:dict:del')")
@@ -139,7 +139,7 @@ public class SysDictTypeController extends BaseController {
 	 * 分页查询
 	 * @return PageableResult
 	 */
-	@LogAnnotation(model = MODEL + "分页查询", action = OperateLogActionConstant.SELECT_PAGE)
+	@LogAnnotation(model = MODEL + "分页查询", action = OperateLogConstant.SELECT_PAGE)
 	@PostMapping(value = "/page")
 	public PageableResult page(Page<SysDictTypeEntity> page, SysDictTypeVO vo) {
 		return PageableResult.builder().page(pageVOFilling(
@@ -151,7 +151,7 @@ public class SysDictTypeController extends BaseController {
 	 * 查询全部记录
 	 * @return SysDictTypeEntity
 	 */
-	@LogAnnotation(model = MODEL + "全部记录", action = OperateLogActionConstant.SELECT_LIST)
+	@LogAnnotation(model = MODEL + "全部记录", action = OperateLogConstant.SELECT_LIST)
 	@PostMapping(value = "/list")
 	public AjaxResult list(SysDictTypeVO vo) {
 		return AjaxResult.builder()

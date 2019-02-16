@@ -21,15 +21,15 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.smallbun.fast.manage.log.operate.service.impl;
+package org.smallbun.fast.manage.log.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.smallbun.fast.manage.log.operate.dao.SysOperateLogMapper;
-import org.smallbun.fast.manage.log.operate.entity.SysOperateLogEntity;
-import org.smallbun.fast.manage.log.operate.service.SysOperateLogService;
+import org.smallbun.fast.manage.log.dao.SysOperateLogMapper;
+import org.smallbun.fast.manage.log.entity.SysOperateLogEntity;
+import org.smallbun.fast.manage.log.service.SysOperateLogService;
 import org.smallbun.framework.annotation.LogAnnotation;
 import org.smallbun.framework.base.BaseEntity;
 import org.smallbun.framework.base.BaseServiceImpl;

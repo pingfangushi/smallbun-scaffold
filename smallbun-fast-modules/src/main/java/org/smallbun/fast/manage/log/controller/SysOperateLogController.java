@@ -21,21 +21,21 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.smallbun.fast.manage.log.operate.dao;
+package org.smallbun.fast.manage.log.controller;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.smallbun.fast.manage.log.operate.entity.SysOperateLogEntity;
-import org.smallbun.framework.base.BaseMapper;
+
+import org.smallbun.framework.base.BaseController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p>
- * 操作日志记录 Mapper 接口
- * </p>
- *
+ * 操作日志记录 前端控制器
  * @author SanLi
- * @since 2019-02-15
+ * Created by 2689170096@qq.com on 2019/2/15 21:47
  */
-@Mapper
-public interface SysOperateLogMapper extends BaseMapper<SysOperateLogEntity> {
+@RestController
+@RequestMapping("/log/operate")
+public class SysOperateLogController extends BaseController {
+
 
 }

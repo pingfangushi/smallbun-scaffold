@@ -21,19 +21,14 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.smallbun.fast.manage.log.operate.service;
+package org.smallbun.fast.manage.log.vo;
 
-import org.smallbun.fast.manage.log.operate.entity.SysOperateLogEntity;
-import org.smallbun.framework.base.BaseService;
+import org.smallbun.fast.manage.log.entity.SysOperateLogEntity;
 
 /**
- * <p>
- * 操作日志记录 服务类
- * </p>
- *
+ * 操作日志VO对象
  * @author SanLi
- * @since 2019-02-15
+ * Created by 2689170096@qq.com on 2019/2/16 18:47
  */
-public interface SysOperateLogService extends BaseService<SysOperateLogEntity> {
-
+public class SysOperateLogVO extends SysOperateLogEntity {
 }

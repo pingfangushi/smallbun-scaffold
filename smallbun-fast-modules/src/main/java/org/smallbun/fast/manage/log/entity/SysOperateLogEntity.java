@@ -21,7 +21,7 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.smallbun.fast.manage.log.operate.entity;
+package org.smallbun.fast.manage.log.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;

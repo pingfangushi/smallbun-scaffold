@@ -21,23 +21,19 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.smallbun.fast.manage.log.operate.controller;
+package org.smallbun.fast.manage.log.service;
 
-
-import org.smallbun.framework.base.BaseController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.smallbun.fast.manage.log.entity.SysOperateLogEntity;
+import org.smallbun.framework.base.BaseService;
 
 /**
- * 操作日志记录 前端控制器
+ * <p>
+ * 操作日志记录 服务类
+ * </p>
+ *
  * @author SanLi
- * Created by 2689170096@qq.com on 2019/2/15 21:47
+ * @since 2019-02-15
  */
-@RestController
-@RequestMapping("/log/operate")
-public class SysOperateLogController extends BaseController {
-
-
-
+public interface SysOperateLogService extends BaseService<SysOperateLogEntity> {
 
 }
