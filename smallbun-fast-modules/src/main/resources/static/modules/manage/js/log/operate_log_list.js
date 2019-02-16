@@ -20,4 +20,29 @@
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
+$(function () {
+    //@formatter:off
+    var options = {
+        url: contextPath + 'log/page',
+        batRemoveUrl: contextPath + "log/removeByIds",
+        exportUrl: contextPath + "/export",
+        sortName: "gmtCreate",
+        sortOrder: "desc",
+        modalName: "日志",
+        search: false,
+        showExport: false,
+        showRefresh: true,
+        showColumns: true,
+        showToggle: true,
+        columns: [{checkbox: true},
+            {field: 'id', visible: false},
+            {field: 'title', title: '标题', formatter: $.table.view, sortable: true},
+            {field: 'operateUrl', title: '请求URL', sortable: true},
+            {field: 'method', title: '方法名称', sortable: true},
+            {field: 'operateParam', title: '请求参数', sortable: true},
+            {field: 'operateStatus', title: '操作状态', sortable: true}
+            ]
+    };
+    $.table.init(options);
+    //@formatter:off
+});

@@ -27,9 +27,12 @@ import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.smallbun.fast.common.utils.AutoMapperUtil;
 import org.smallbun.fast.manage.log.dao.SysOperateLogMapper;
 import org.smallbun.fast.manage.log.entity.SysOperateLogEntity;
 import org.smallbun.fast.manage.log.service.SysOperateLogService;
+import org.smallbun.fast.manage.log.vo.SysOperateLogVO;
+import org.smallbun.fast.manage.notify.vo.SysNotifyVO;
 import org.smallbun.framework.annotation.LogAnnotation;
 import org.smallbun.framework.base.BaseEntity;
 import org.smallbun.framework.base.BaseServiceImpl;
@@ -50,6 +53,7 @@ import static org.smallbun.fast.manage.user.util.UserUtil.getUserOrg;
 import static org.smallbun.framework.constant.ExceptionConstant.EX900001;
 import static org.smallbun.framework.constant.OperateLogConstant.*;
 import static org.smallbun.framework.constant.SystemConstant.SUCCESS;
+import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 import static org.smallbun.framework.toolkit.AddressUtil.getRealAddressByIP;
 import static org.smallbun.framework.toolkit.ReflectionUtil.getFieldAll;
 
@@ -62,6 +66,16 @@ import static org.smallbun.framework.toolkit.ReflectionUtil.getFieldAll;
 @Service
 public class SysOperateLogServiceImpl extends BaseServiceImpl<SysOperateLogMapper, SysOperateLogEntity>
 		implements SysOperateLogService, ILogLogic {
+
+	@Override
+	public SysOperateLogVO model(HttpServletRequest request) {
+		if (!request.getRequestURI().contains(UNIQUE)) {
+			return StringUtils.isEmpty(request.getParameter(ID)) ?
+					new SysOperateLogVO() :
+					AutoMapperUtil.mapping(getById(request.getParameter(ID)), new SysOperateLogVO());
+		}
+		return new SysOperateLogVO();
+	}
 
 	/**
 	 * 操作日志逻辑

@@ -24,7 +24,11 @@
 package org.smallbun.fast.manage.log.service;
 
 import org.smallbun.fast.manage.log.entity.SysOperateLogEntity;
+import org.smallbun.fast.manage.log.vo.SysOperateLogVO;
+import org.smallbun.fast.manage.notify.vo.SysNotifyVO;
 import org.smallbun.framework.base.BaseService;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -35,5 +39,5 @@ import org.smallbun.framework.base.BaseService;
  * @since 2019-02-15
  */
 public interface SysOperateLogService extends BaseService<SysOperateLogEntity> {
-
+    SysOperateLogVO model(HttpServletRequest request);
 }

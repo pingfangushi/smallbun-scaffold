@@ -24,18 +24,89 @@
 package org.smallbun.fast.manage.log.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.smallbun.fast.common.PageFactory;
+import org.smallbun.fast.manage.log.entity.SysOperateLogEntity;
+import org.smallbun.fast.manage.log.service.SysOperateLogService;
+import org.smallbun.fast.manage.log.vo.SysOperateLogVO;
+import org.smallbun.fast.manage.notify.entity.SysNotifyEntity;
+import org.smallbun.fast.manage.notify.vo.SysNotifyVO;
+import org.smallbun.fast.manage.user.service.SysUserService;
+import org.smallbun.fast.manage.user.vo.SysUserVO;
+import org.smallbun.framework.annotation.DemoEnvironment;
+import org.smallbun.framework.annotation.LogAnnotation;
 import org.smallbun.framework.base.BaseController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.smallbun.framework.constant.OperateLogConstant;
+import org.smallbun.framework.result.AjaxResult;
+import org.smallbun.framework.result.PageableResult;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * 操作日志记录 前端控制器
  * @author SanLi
  * Created by 2689170096@qq.com on 2019/2/15 21:47
  */
+@Validated
 @RestController
-@RequestMapping("/log/operate")
+@RequestMapping("/log")
 public class SysOperateLogController extends BaseController {
 
+    private SysOperateLogService  sysOperateLogService;
+
+    @Autowired
+    public SysOperateLogController(SysOperateLogService sysOperateLogService) {
+        this.sysOperateLogService = sysOperateLogService;
+    }
+
+    @ModelAttribute
+    protected SysOperateLogVO model(HttpServletRequest request) {
+        return sysOperateLogService.model(request);
+    }
+
+
+    /**
+     *
+     * @return
+     */
+    @GetMapping(value = {"", "/"})
+    public ModelAndView list() {
+        return new ModelAndView("modules/manage/log/operate_log_list.html");
+    }
+
+    /**
+     * 分页查询
+     * @return PageableResult
+     */
+    @LogAnnotation(model = "操作日志查询", action = OperateLogConstant.SELECT_PAGE)
+    @PostMapping(value = "/page")
+    public PageableResult page(Page<SysOperateLogEntity> page, SysOperateLogVO vo) {
+        return PageableResult.builder().page(pageVOFilling(
+                sysOperateLogService.page(new PageFactory<SysOperateLogEntity>().defaultPage(page), new QueryWrapper<>(vo)),
+                SysOperateLogEntity.class)).build();
+    }
+
+
+    /**
+     * 删除多条记录
+     * @param ids 主键ID集合
+     * @return AjaxResult
+     */
+    @LogAnnotation(model = "删除日志记录", action = OperateLogConstant.DEL)
+    @DemoEnvironment
+    @PreAuthorize("hasAuthority('manage:notify:del')")
+    @PostMapping(value = "/removeByIds")
+    public AjaxResult removeByIds(
+            @NotNull(message = "id不能为空") @RequestParam(value = "ids", required = false) List<String> ids) {
+        return AjaxResult.builder().result(sysOperateLogService.removeByIds(ids)).build();
+    }
 
 }
