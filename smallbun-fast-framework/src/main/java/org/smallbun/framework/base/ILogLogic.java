@@ -35,6 +35,7 @@ public interface ILogLogic {
 	/**
 	 * 操作日志逻辑
 	 * @param joinPoint
+	 * @param e
 	 */
-	void operation(JoinPoint joinPoint);
+	void operation(JoinPoint joinPoint,Exception e);
 }

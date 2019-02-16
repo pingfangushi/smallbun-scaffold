@@ -23,6 +23,7 @@
 
 package org.smallbun.fast.manage.log.operate.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -32,12 +33,20 @@ import org.smallbun.fast.manage.log.operate.service.SysOperateLogService;
 import org.smallbun.framework.annotation.LogAnnotation;
 import org.smallbun.framework.base.BaseServiceImpl;
 import org.smallbun.framework.base.ILogLogic;
+import org.smallbun.framework.toolkit.IpUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.Objects;
+
+import static org.smallbun.fast.manage.user.util.UserUtil.getUserId;
+import static org.smallbun.fast.manage.user.util.UserUtil.getUserOrg;
+import static org.smallbun.framework.constant.ExceptionConstant.EX900001;
+import static org.smallbun.framework.constant.SystemConstant.SUCCESS;
+import static org.smallbun.framework.toolkit.AddressUtil.getRealAddressByIP;
 
 /**
  * 操作日志记录 服务实现类
@@ -51,24 +60,50 @@ public class SysOperateLogServiceImpl extends BaseServiceImpl<SysOperateLogMappe
 
 	/**
 	 * 操作日志逻辑
-	 * @param joinPoint {@link JoinPoint}
+	 * @param joinPoint
+	 * @param e
 	 */
 	@Override
-	public void operation(JoinPoint joinPoint) {
+	public void operation(JoinPoint joinPoint, Exception e) {
+		SysOperateLogEntity operateLog = new SysOperateLogEntity();
+		log.debug("----------------------------------------------------------");
 		log.debug("操作日志业务记录开始");
-		SysOperateLogEntity log = new SysOperateLogEntity();
 		MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
 		LogAnnotation logAnnotation = methodSignature.getMethod().getDeclaredAnnotation(LogAnnotation.class);
 		HttpServletRequest request = ((ServletRequestAttributes) Objects
 				.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
-		//功能类型
-		log.setAction(logAnnotation.action());
+		//操作时间
+		operateLog.setOperateTime(LocalDateTime.now());
+		//功能类型，这里需要进行一次判断
+		operateLog.setAction(logAnnotation.action());
 		//请求地址
-		log.setOperateUrl(request.getRequestURL().toString());
+		operateLog.setOperateUrl(request.getRequestURI());
 		//标题
-		log.setTitle(logAnnotation.model());
+		operateLog.setTitle(logAnnotation.model());
 		//请求参数
-		log.setOperateParam(request.getLocalAddr());
-		this.saveOrUpdate(log);
+		operateLog.setOperateParam(JSON.toJSONString(joinPoint.getArgs()));
+		//方法名称
+		operateLog.setMethod(
+				joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()");
+		//操作用户
+		operateLog.setOpenUser(Objects.requireNonNull(getUserId()).toString());
+		//部门
+		operateLog.setOpenOrg(Objects.requireNonNull(Objects.requireNonNull(getUserOrg()).getId()).toString());
+		//操作IP
+		operateLog.setOperateIp(getRealAddressByIP(IpUtil.getIpAddr(request)));
+		//登录地点
+		operateLog.setOperateLocation(getRealAddressByIP(IpUtil.getIpAddr(request)));
+		//成功
+		operateLog.setOperateStatus(SUCCESS);
+		//异常
+		if (e != null) {
+			operateLog.setErrorMsg(e.toString());
+			operateLog.setOperateStatus(EX900001);
+		}
+		//保存
+		this.saveOrUpdate(operateLog);
+		log.debug("操作日志业务记录结束");
+		log.debug("----------------------------------------------------------");
+
 	}
 }

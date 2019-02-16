@@ -26,7 +26,6 @@ package org.smallbun.framework.aspect;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.smallbun.framework.base.ILogLogic;
 import org.smallbun.framework.toolkit.UserAgentUtils;
@@ -106,16 +105,28 @@ public class LogAspect {
 	 * =================================================================================
 	 */
 
+	@Pointcut("@annotation(org.smallbun.framework.annotation.LogAnnotation)")
+	public void logPointCut() {
+	}
+
+	/**
+	 * 前置通知 用于拦截操作
+	 *
+	 * @param joinPoint 切点
+	 */
+	@AfterReturning(pointcut = "logPointCut()")
+	public void doAfter(JoinPoint joinPoint) {
+		iLogLogic.operation(joinPoint, null);
+	}
 
 	/**
 	 * LogAnnotation 日志处理
 	 *
 	 * @param joinPoint {@link JoinPoint}
 	 */
-	@Around(value = "@annotation(org.smallbun.framework.annotation.LogAnnotation)")
-	public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
-		iLogLogic.operation(joinPoint);
-		return joinPoint.proceed();
+	@AfterThrowing(value = "logPointCut()", throwing = "e")
+	public void doAfter(JoinPoint joinPoint, Exception e) {
+		iLogLogic.operation(joinPoint, e);
 	}
 
 	/**

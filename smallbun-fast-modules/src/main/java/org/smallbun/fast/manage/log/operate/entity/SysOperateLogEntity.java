@@ -89,7 +89,6 @@ public class SysOperateLogEntity extends DataEntity<Long> {
 	 * 操作地点
 	 */
 	private String operateLocation;
-
 	/**
 	 * 请求参数
 	 */

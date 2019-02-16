@@ -30,8 +30,10 @@ package org.smallbun.framework.constant;
  * Created by 2689170096@qq.com/SanLi on 2018/4/30
  */
 public class SystemConstant {
-
-
+	/**
+	 * 成功
+	 */
+	public static final String SUCCESS = "200";
 	/**
 	 * 默认错误处理页面
 	 */

@@ -61,6 +61,9 @@ import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 @RestController
 @RequestMapping("/dict/type")
 public class SysDictTypeController extends BaseController {
+
+	private static final String MODEL = "字典类型";
+
 	@Autowired
 	public SysDictTypeController(SysDictTypeService sysDictTypeService) {
 		this.sysDictTypeService = sysDictTypeService;
@@ -136,7 +139,7 @@ public class SysDictTypeController extends BaseController {
 	 * 分页查询
 	 * @return PageableResult
 	 */
-	@LogAnnotation(model = "", action = OperateLogActionConstant.SELECT_PAGE)
+	@LogAnnotation(model = MODEL + "分页查询", action = OperateLogActionConstant.SELECT_PAGE)
 	@PostMapping(value = "/page")
 	public PageableResult page(Page<SysDictTypeEntity> page, SysDictTypeVO vo) {
 		return PageableResult.builder().page(pageVOFilling(
@@ -148,7 +151,7 @@ public class SysDictTypeController extends BaseController {
 	 * 查询全部记录
 	 * @return SysDictTypeEntity
 	 */
-	@LogAnnotation(model = "", action = OperateLogActionConstant.SELECT_LIST)
+	@LogAnnotation(model = MODEL + "全部记录", action = OperateLogActionConstant.SELECT_LIST)
 	@PostMapping(value = "/list")
 	public AjaxResult list(SysDictTypeVO vo) {
 		return AjaxResult.builder()

@@ -23,6 +23,7 @@
 
 package org.smallbun.fast.manage.user.util;
 
+import org.smallbun.fast.manage.org.entity.SysOrgEntity;
 import org.smallbun.fast.manage.user.details.LoginUserDetails;
 import org.smallbun.fast.manage.user.service.impl.UserDetailsServiceImpl;
 import org.smallbun.framework.toolkit.SpringContextUtil;
@@ -100,5 +101,29 @@ public class UserUtil {
 	 */
 	private static UserDetailsService getUserDetailsService() {
 		return (UserDetailsService) SpringContextUtil.getBean(UserDetailsServiceImpl.class);
+	}
+
+	/**
+	 * 获取  用户ID
+	 * @return
+	 */
+	public static Long getUserId() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			return ((LoginUserDetails) principal).getSysUser().getId();
+		}
+		return null;
+	}
+
+	/**
+	 * 获取用户归属部门
+	 * @return
+	 */
+	public static SysOrgEntity getUserOrg() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			return ((LoginUserDetails) principal).getSysUser().getOrg();
+		}
+		return null;
 	}
 }
