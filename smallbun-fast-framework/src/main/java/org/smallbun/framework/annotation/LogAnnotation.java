@@ -25,6 +25,8 @@ package org.smallbun.framework.annotation;
 
 import java.lang.annotation.*;
 
+import static org.smallbun.framework.constant.OperateLogConstant.MANAGE;
+
 /**
  * 日志注解
  *
@@ -47,4 +49,14 @@ public @interface LogAnnotation {
 	 * @return
 	 */
 	String action();
+
+	/**
+	 * 操作人类别
+	 */
+	String operatorType() default MANAGE;
+
+	/**
+	 * 是否保存请求的参数
+	 */
+	boolean isSaveRequestData() default true;
 }

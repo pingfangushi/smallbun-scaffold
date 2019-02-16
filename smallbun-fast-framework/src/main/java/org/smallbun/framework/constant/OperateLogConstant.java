@@ -28,7 +28,7 @@ package org.smallbun.framework.constant;
  * @author SanLi
  * Created by 2689170096@qq.com on 2019/2/15 22:33
  */
-public interface OperateLogActionConstant {
+public interface OperateLogConstant {
 	/**
 	 * 新增
 	 */
@@ -66,4 +66,21 @@ public interface OperateLogActionConstant {
 	 * 查询PAGE
 	 */
 	String SELECT_PAGE = "8";
+
+
+	//=========================请求设备==========================//
+	/**
+	 * 其它
+	 */
+	String OTHER = "2";
+
+	/**
+	 * 后台用户
+	 */
+	String MANAGE = "0";
+
+	/**
+	 * 手机端用户
+	 */
+	String MOBILE = "1";
 }

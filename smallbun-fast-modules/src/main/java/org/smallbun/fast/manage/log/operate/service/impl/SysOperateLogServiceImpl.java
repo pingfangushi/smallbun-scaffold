@@ -48,7 +48,7 @@ import java.util.Objects;
 import static org.smallbun.fast.manage.user.util.UserUtil.getUserId;
 import static org.smallbun.fast.manage.user.util.UserUtil.getUserOrg;
 import static org.smallbun.framework.constant.ExceptionConstant.EX900001;
-import static org.smallbun.framework.constant.OperateLogActionConstant.*;
+import static org.smallbun.framework.constant.OperateLogConstant.*;
 import static org.smallbun.framework.constant.SystemConstant.SUCCESS;
 import static org.smallbun.framework.toolkit.AddressUtil.getRealAddressByIP;
 import static org.smallbun.framework.toolkit.ReflectionUtil.getFieldAll;
@@ -131,7 +131,11 @@ public class SysOperateLogServiceImpl extends BaseServiceImpl<SysOperateLogMappe
 		//标题
 		operateLog.setTitle(logAnnotation.model());
 		//请求参数
-		operateLog.setOperateParam(JSON.toJSONString(request.getParameterMap()));
+		if (logAnnotation.isSaveRequestData()) {
+			operateLog.setOperateParam(JSON.toJSONString(request.getParameterMap()));
+		}
+		//渠道
+		operateLog.setChannel(logAnnotation.operatorType());
 		//方法名称
 		operateLog.setMethod(
 				joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()");
