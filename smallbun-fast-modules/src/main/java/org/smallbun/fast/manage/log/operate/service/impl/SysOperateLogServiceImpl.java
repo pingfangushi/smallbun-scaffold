@@ -35,6 +35,7 @@ import org.smallbun.framework.base.BaseServiceImpl;
 import org.smallbun.framework.base.ILogLogic;
 import org.smallbun.framework.toolkit.IpUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -96,7 +97,7 @@ public class SysOperateLogServiceImpl extends BaseServiceImpl<SysOperateLogMappe
 		//成功
 		operateLog.setOperateStatus(SUCCESS);
 		//异常
-		if (e != null) {
+		if (!StringUtils.isEmpty(e)) {
 			operateLog.setErrorMsg(e.toString());
 			operateLog.setOperateStatus(EX900001);
 		}
