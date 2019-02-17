@@ -170,7 +170,7 @@ public class SysOperateLogServiceImpl extends BaseServiceImpl<SysOperateLogMappe
 		//部门
 		operateLog.setOperateOrg(Objects.requireNonNull(Objects.requireNonNull(getUserOrg()).getId()).toString());
 		//操作IP
-		operateLog.setOperateIp(getRealAddressByIP(IpUtil.getIpAddr(request)));
+		operateLog.setOperateIp(IpUtil.getIpAddr(request));
 		//登录地点
 		operateLog.setOperateLocation(getRealAddressByIP(IpUtil.getIpAddr(request)));
 		//成功
