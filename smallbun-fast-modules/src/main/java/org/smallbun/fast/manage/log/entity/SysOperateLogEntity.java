@@ -23,11 +23,14 @@
 
 package org.smallbun.fast.manage.log.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.smallbun.fast.common.entity.DataEntity;
+import org.smallbun.fast.manage.org.entity.SysOrgEntity;
+import org.smallbun.fast.manage.user.entity.SysUserEntity;
 
 import java.time.LocalDateTime;
 
@@ -69,11 +72,20 @@ public class SysOperateLogEntity extends DataEntity<Long> {
 	 * 操作人员
 	 */
 	private String openUser;
-
+	/***
+	 * 用户
+	 */
+	@TableField(exist = false)
+	private SysUserEntity user;
 	/**
 	 * 归属部门
 	 */
 	private String openOrg;
+	/***
+	 * 部门
+	 */
+	@TableField(exist = false)
+	private SysOrgEntity org;
 
 	/**
 	 * 请求URL

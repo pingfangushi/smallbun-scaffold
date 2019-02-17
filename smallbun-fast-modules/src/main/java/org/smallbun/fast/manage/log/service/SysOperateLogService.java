@@ -23,10 +23,11 @@
 
 package org.smallbun.fast.manage.log.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.smallbun.fast.manage.log.entity.SysOperateLogEntity;
 import org.smallbun.fast.manage.log.vo.SysOperateLogVO;
-import org.smallbun.fast.manage.notify.vo.SysNotifyVO;
 import org.smallbun.framework.base.BaseService;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -39,5 +40,19 @@ import javax.servlet.http.HttpServletRequest;
  * @since 2019-02-15
  */
 public interface SysOperateLogService extends BaseService<SysOperateLogEntity> {
-    SysOperateLogVO model(HttpServletRequest request);
+	/**
+	 * model
+	 * @param request
+	 * @return
+	 */
+	SysOperateLogVO model(HttpServletRequest request);
+
+	/**
+	 * 分页查询 
+	 * @param page
+	 * @param vo
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	IPage<SysOperateLogEntity> page(IPage<SysOperateLogEntity> page, SysOperateLogVO vo);
 }

@@ -23,12 +23,22 @@
 
 package org.smallbun.fast.manage.log.vo;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.smallbun.fast.manage.log.entity.SysOperateLogEntity;
+import org.smallbun.framework.annotation.DictValue;
 
 /**
  * 操作日志VO对象
  * @author SanLi
  * Created by 2689170096@qq.com on 2019/2/16 18:47
  */
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class SysOperateLogVO extends SysOperateLogEntity {
+	/**
+	 * 来源渠道
+	 */
+	@DictValue(typeCode = "CHANNEL", valueField = "channel")
+	private String channelName;
 }

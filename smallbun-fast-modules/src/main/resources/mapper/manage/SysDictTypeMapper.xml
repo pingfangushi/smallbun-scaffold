@@ -38,7 +38,7 @@
                      select="org.smallbun.fast.manage.user.dao.SysUserMapper.selectById"
                      column="creator"/>
         <!-- 实现延迟加载更新者信息  -->
-        <association property="creator" javaType="org.smallbun.fast.manage.user.entity.SysUserEntity"
+        <association property="editor" javaType="org.smallbun.fast.manage.user.entity.SysUserEntity"
                      select="org.smallbun.fast.manage.user.dao.SysUserMapper.selectById"
                      column="editor"/>
     </resultMap>

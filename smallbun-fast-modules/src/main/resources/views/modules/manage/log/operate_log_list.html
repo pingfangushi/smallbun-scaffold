@@ -36,13 +36,13 @@
                 <div class="ibox-title dashboard-header gray-bg">
                     <h5>操作日志</h5>
                     <div class="pull-right">
-                        <!--/*/<th:block sec:authorize="hasAuthority('manage:notify:query')">/*/-->
+                        <!--/*/<th:block sec:authorize="hasAuthority('manage:log:operate:query')">/*/-->
                         <button class="btn btn-sm ibtn-primary query-a" title="查询" data-toggle="tooltip"
                                 data-placement="left">
                             <i class="fa fa-filter"></i> 查询
                         </button>
                         <!--/*/</th:block>/*/-->
-                        <!--/*/<th:block sec:authorize="hasAuthority('manage:notify:del')">/*/-->
+                        <!--/*/<th:block sec:authorize="hasAuthority('manage:log:operate:del')">/*/-->
                         <button class="btn btn-sm bg-maroon" data-toggle="tooltip" data-placement="left" title="删除"
                                 onclick="$.operate.batRemove()"><i
                                 class="fa fa-trash-o"></i> 删除

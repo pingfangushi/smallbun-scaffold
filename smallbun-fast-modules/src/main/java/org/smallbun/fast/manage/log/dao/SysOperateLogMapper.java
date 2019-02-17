@@ -23,8 +23,11 @@
 
 package org.smallbun.fast.manage.log.dao;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.smallbun.fast.manage.log.entity.SysOperateLogEntity;
+import org.smallbun.fast.manage.log.vo.SysOperateLogVO;
 import org.smallbun.framework.base.BaseMapper;
 
 /**
@@ -37,5 +40,11 @@ import org.smallbun.framework.base.BaseMapper;
  */
 @Mapper
 public interface SysOperateLogMapper extends BaseMapper<SysOperateLogEntity> {
-
+	/**
+	 * 分页查询
+	 * @param page
+	 * @param vo
+	 * @return
+	 */
+	IPage<SysOperateLogEntity> page(IPage<SysOperateLogEntity> page, @Param("vo") SysOperateLogVO vo);
 }

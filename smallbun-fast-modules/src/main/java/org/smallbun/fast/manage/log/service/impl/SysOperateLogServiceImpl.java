@@ -24,6 +24,7 @@
 package org.smallbun.fast.manage.log.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -32,7 +33,6 @@ import org.smallbun.fast.manage.log.dao.SysOperateLogMapper;
 import org.smallbun.fast.manage.log.entity.SysOperateLogEntity;
 import org.smallbun.fast.manage.log.service.SysOperateLogService;
 import org.smallbun.fast.manage.log.vo.SysOperateLogVO;
-import org.smallbun.fast.manage.notify.vo.SysNotifyVO;
 import org.smallbun.framework.annotation.LogAnnotation;
 import org.smallbun.framework.base.BaseEntity;
 import org.smallbun.framework.base.BaseServiceImpl;
@@ -76,6 +76,19 @@ public class SysOperateLogServiceImpl extends BaseServiceImpl<SysOperateLogMappe
 		}
 		return new SysOperateLogVO();
 	}
+
+	/**
+	 * 分页查询
+	 * @param page
+	 * @param vo
+	 * @return
+	 */
+	@Override
+	public IPage<SysOperateLogEntity> page(IPage<SysOperateLogEntity> page, SysOperateLogVO vo) {
+
+	return 	baseMapper.page(page,vo);
+	}
+
 
 	/**
 	 * 操作日志逻辑

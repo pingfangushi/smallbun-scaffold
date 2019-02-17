@@ -24,16 +24,12 @@
 package org.smallbun.fast.manage.log.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.smallbun.fast.common.PageFactory;
 import org.smallbun.fast.manage.log.entity.SysOperateLogEntity;
 import org.smallbun.fast.manage.log.service.SysOperateLogService;
 import org.smallbun.fast.manage.log.vo.SysOperateLogVO;
-import org.smallbun.fast.manage.notify.entity.SysNotifyEntity;
-import org.smallbun.fast.manage.notify.vo.SysNotifyVO;
-import org.smallbun.fast.manage.user.service.SysUserService;
-import org.smallbun.fast.manage.user.vo.SysUserVO;
+import org.smallbun.framework.annotation.AutoQueryDictValue;
 import org.smallbun.framework.annotation.DemoEnvironment;
 import org.smallbun.framework.annotation.LogAnnotation;
 import org.smallbun.framework.base.BaseController;
@@ -57,56 +53,61 @@ import java.util.List;
  */
 @Validated
 @RestController
-@RequestMapping("/log")
+@RequestMapping("/log/operate")
 public class SysOperateLogController extends BaseController {
 
-    private SysOperateLogService  sysOperateLogService;
 
-    @Autowired
-    public SysOperateLogController(SysOperateLogService sysOperateLogService) {
-        this.sysOperateLogService = sysOperateLogService;
-    }
+	@Autowired
+	public SysOperateLogController(SysOperateLogService sysOperateLogService) {
+		this.sysOperateLogService = sysOperateLogService;
+	}
 
-    @ModelAttribute
-    protected SysOperateLogVO model(HttpServletRequest request) {
-        return sysOperateLogService.model(request);
-    }
-
-
-    /**
-     *
-     * @return
-     */
-    @GetMapping(value = {"", "/"})
-    public ModelAndView list() {
-        return new ModelAndView("modules/manage/log/operate_log_list.html");
-    }
-
-    /**
-     * 分页查询
-     * @return PageableResult
-     */
-    @LogAnnotation(model = "操作日志查询", action = OperateLogConstant.SELECT_PAGE)
-    @PostMapping(value = "/page")
-    public PageableResult page(Page<SysOperateLogEntity> page, SysOperateLogVO vo) {
-        return PageableResult.builder().page(pageVOFilling(
-                sysOperateLogService.page(new PageFactory<SysOperateLogEntity>().defaultPage(page), new QueryWrapper<>(vo)),
-                SysOperateLogEntity.class)).build();
-    }
+	@ModelAttribute
+	protected SysOperateLogVO model(HttpServletRequest request) {
+		return sysOperateLogService.model(request);
+	}
 
 
-    /**
-     * 删除多条记录
-     * @param ids 主键ID集合
-     * @return AjaxResult
-     */
-    @LogAnnotation(model = "删除日志记录", action = OperateLogConstant.DEL)
-    @DemoEnvironment
-    @PreAuthorize("hasAuthority('manage:notify:del')")
-    @PostMapping(value = "/removeByIds")
-    public AjaxResult removeByIds(
-            @NotNull(message = "id不能为空") @RequestParam(value = "ids", required = false) List<String> ids) {
-        return AjaxResult.builder().result(sysOperateLogService.removeByIds(ids)).build();
-    }
+	/**
+	 *
+	 * @return
+	 */
+	@GetMapping(value = {"", "/"})
+	public ModelAndView list() {
+		return new ModelAndView("modules/manage/log/operate_log_list.html");
+	}
+
+	/**
+	 * 分页查询
+	 * @return PageableResult
+	 */
+	@LogAnnotation(model = "操作日志查询", action = OperateLogConstant.SELECT_PAGE)
+	@PostMapping(value = "/page")
+	@AutoQueryDictValue
+	public PageableResult page(Page<SysOperateLogEntity> page, SysOperateLogVO vo) {
+		return PageableResult.builder().page(pageVOFilling(
+				sysOperateLogService.page(new PageFactory<SysOperateLogEntity>().defaultPage(page), vo),
+				SysOperateLogEntity.class)).build();
+	}
+
+
+	/**
+	 * 删除多条记录
+	 * @param ids 主键ID集合
+	 * @return AjaxResult
+	 */
+	@LogAnnotation(model = "删除日志记录", action = OperateLogConstant.DEL)
+	@DemoEnvironment
+	@PreAuthorize("hasAuthority('manage:log:operate:del')")
+	@PostMapping(value = "/removeByIds")
+	public AjaxResult removeByIds(
+			@NotNull(message = "id不能为空") @RequestParam(value = "ids", required = false) List<String> ids) {
+		return AjaxResult.builder().result(sysOperateLogService.removeByIds(ids)).build();
+	}
+
+	/**
+	 * 注入 SysOperateLogService
+	 */
+	private SysOperateLogService sysOperateLogService;
 
 }

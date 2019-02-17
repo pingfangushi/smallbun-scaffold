@@ -23,9 +23,9 @@
 $(function () {
     //@formatter:off
     var options = {
-        url: contextPath + 'log/page',
-        batRemoveUrl: contextPath + "log/removeByIds",
-        exportUrl: contextPath + "/export",
+        url: contextPath + 'log/operate/page',
+        batRemoveUrl: contextPath + "log/operate/removeByIds",
+        exportUrl: contextPath + "log/operate/export",
         sortName: "gmtCreate",
         sortOrder: "desc",
         modalName: "日志",
@@ -37,11 +37,14 @@ $(function () {
         columns: [{checkbox: true},
             {field: 'id', visible: false},
             {field: 'title', title: '标题', formatter: $.table.view, sortable: true},
-            {field: 'operateUrl', title: '请求URL', sortable: true},
-            {field: 'method', title: '方法名称', sortable: true},
-            {field: 'operateParam', title: '请求参数', sortable: true},
-            {field: 'operateStatus', title: '操作状态', sortable: true}
-            ]
+            {field: 'openUser', title: '用户'},
+            {field: 'openOrg', title: '部门'},
+            {field: 'operateIp', title: 'IP地址'},
+            {field: 'operateUrl', title: '请求URL'},
+            {field: 'method', title: '方法名称'},
+            {field: 'operateParam', title: '请求参数',visible: false},
+            {field: 'channelName', title: '来源渠道'},
+            {field: 'operateStatus', title: '状态', sortable: true}]
     };
     $.table.init(options);
     //@formatter:off
