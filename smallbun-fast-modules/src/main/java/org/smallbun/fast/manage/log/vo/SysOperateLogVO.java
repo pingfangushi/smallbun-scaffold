@@ -44,6 +44,6 @@ public class SysOperateLogVO extends SysOperateLogEntity {
 	/**
 	 * 功能请求
 	 */
-	@DictValue(typeCode = "ACTION", valueField = "action")
+	@DictValue(typeCode = "REQUEST_ACTION", valueField = "action")
 	private String actionName;
 }

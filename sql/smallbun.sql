@@ -11,7 +11,7 @@
  Target Server Version : 100307
  File Encoding         : 65001
 
- Date: 17/02/2019 20:55:51
+ Date: 17/02/2019 20:58:01
 */
 
 SET NAMES utf8mb4;
@@ -449,6 +449,7 @@ INSERT INTO `sys_operate_log` VALUES (1097117227812933634, '字典类型全部�
 INSERT INTO `sys_operate_log` VALUES (1097117250466369538, '', '1', 'org.smallbun.fast.manage.dict.controller.SysDictValueController.saveOrUpdate()', '{\"id\":[\"\"],\"dictType_text\":[\"请求功能(REQUEST_ACTION)\"],\"dictType\":[\"1097116460209164290\"],\"dictLabel\":[\"查询PAGE\"],\"dictValue\":[\"8\"],\"sort\":[\"8\"],\"remarks\":[\"\"]}', '0', '1', '232399', '/dict/value/saveOrUpdate', '本地', '本地', '200', '', '2019-02-17 12:55:10', 1, '2019-02-17 12:55:10', 1, '2019-02-17 12:55:10', '0', NULL);
 INSERT INTO `sys_operate_log` VALUES (1097117258653650946, '', '8', 'org.smallbun.fast.manage.dict.controller.SysDictValueController.page()', '{\"sysDictType.id\":[\"1097116460209164290\"],\"pageSize\":[\"20\"],\"pageNum\":[\"1\"],\"orderByColumn\":[\"gmtCreate\"],\"isAsc\":[\"desc\"]}', '0', '1', '232399', '/dict/value/page', '本地', '本地', '200', '', '2019-02-17 12:55:12', 1, '2019-02-17 12:55:12', 1, '2019-02-17 12:55:12', '0', NULL);
 INSERT INTO `sys_operate_log` VALUES (1097117296406581250, '操作日志查询', '8', 'org.smallbun.fast.manage.log.controller.SysOperateLogController.page()', '{\"size\":[\"20\"],\"current\":[\"1\"],\"orderByColumn\":[\"gmtCreate\"],\"isAsc\":[\"desc\"]}', '0', '1', '232399', '/log/operate/page', '本地', '本地', '200', '', '2019-02-17 12:55:21', 1, '2019-02-17 12:55:21', 1, '2019-02-17 12:55:21', '0', NULL);
+INSERT INTO `sys_operate_log` VALUES (1097117693640818690, '操作日志查询', '8', 'org.smallbun.fast.manage.log.controller.SysOperateLogController.page()', '{\"size\":[\"20\"],\"current\":[\"1\"],\"orderByColumn\":[\"gmtCreate\"],\"isAsc\":[\"desc\"]}', '0', '1', '232399', '/log/operate/page', '本地', '本地', '200', '', '2019-02-17 12:56:55', 1, '2019-02-17 12:56:56', 1, '2019-02-17 12:56:56', '0', NULL);
 
 -- ----------------------------
 -- Table structure for sys_org
@@ -712,7 +713,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'admin', 'admin', 'admin', '$2a$10$qLpUo87P.NtgkGJE2D9XeO6j//3wWI3URizII87SHAmSp5CLM4S5a', '管理员', 'https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_family.jpg', '', '', '', '2018-05-25', NULL, NULL, NULL, '0:0:0:0:0:0:0:1', '本地', '2019-02-17 12:38:23', '0', '0', '232399', 1, '2018-06-18 10:50:02', 1, '2019-02-17 20:38:23', '0', '');
+INSERT INTO `sys_user` VALUES (1, 'admin', 'admin', 'admin', '$2a$10$qLpUo87P.NtgkGJE2D9XeO6j//3wWI3URizII87SHAmSp5CLM4S5a', '管理员', 'https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_family.jpg', '', '', '', '2018-05-25', NULL, NULL, NULL, '0:0:0:0:0:0:0:1', '本地', '2019-02-17 12:56:45', '0', '0', '232399', 1, '2018-06-18 10:50:02', 1, '2019-02-17 20:56:45', '0', '');
 INSERT INTO `sys_user` VALUES (2, 'user', 'user', 'user', '$2a$10$W7c1gJyPxf9Rtp3/G5WLre6vJomdzaSqEDt2/jJa70A6IHTetRkoO', '管理员', 'https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_colleagues.jpg', '', '', '', '1998-06-15', NULL, NULL, NULL, '0:0:0:0:0:0:0:1', '本地', '2019-02-09 18:59:04', '0', '1', '231112', 1, '2018-06-18 10:50:02', 1, '2019-02-09 18:59:04', '0', '');
 INSERT INTO `sys_user` VALUES (1088787447501930497, '研发', 'SanLi', 'A0001', '000000', NULL, NULL, '', '', '', '1998-06-19', '370983199806225319', NULL, NULL, NULL, NULL, '2019-01-26 19:42:34', '2', '3', '300003', 1, '2019-01-25 07:15:31', 1, '2019-02-09 01:58:51', '0', '');
 
