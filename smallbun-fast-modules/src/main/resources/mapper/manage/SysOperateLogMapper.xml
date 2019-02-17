@@ -15,5 +15,8 @@
     <!--分页查询-->
     <select id="page" resultMap="resultMap">
       select * from sys_operate_log where is_deleted=#{vo.isDeleted}
+        <if test="!@org.springframework.util.ObjectUtils@isEmpty(vo.title)">
+            and title like CONCAT(CONCAT('%',#{vo.title}),'%')
+        </if>
     </select>
 </mapper>
