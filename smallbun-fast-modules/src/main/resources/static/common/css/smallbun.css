@@ -954,10 +954,10 @@ ul.clear-list:first-child {
     border: 0 solid !important;
 }
 
-.bootstrap-table .table > thead > tr > th {
+/*.bootstrap-table .table > thead > tr > th {
     vertical-align: bottom !important;
     border-bottom: 0 solid !important;
-}
+}*/
 
 .table-bordered {
     border: 0 solid !important;

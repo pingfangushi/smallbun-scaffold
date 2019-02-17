@@ -71,7 +71,7 @@ public class SysOperateLogEntity extends DataEntity<Long> {
 	/**
 	 * 操作人员
 	 */
-	private String openUser;
+	private String operateUser;
 	/***
 	 * 用户
 	 */
@@ -80,7 +80,7 @@ public class SysOperateLogEntity extends DataEntity<Long> {
 	/**
 	 * 归属部门
 	 */
-	private String openOrg;
+	private String operateOrg;
 	/***
 	 * 部门
 	 */

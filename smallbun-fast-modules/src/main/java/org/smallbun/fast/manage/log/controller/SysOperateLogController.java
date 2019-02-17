@@ -73,7 +73,7 @@ public class SysOperateLogController extends BaseController {
 	 * @return
 	 */
 	@GetMapping(value = {"", "/"})
-	public ModelAndView list() {
+	public ModelAndView operate() {
 		return new ModelAndView("modules/manage/log/operate_log_list.html");
 	}
 
@@ -87,7 +87,7 @@ public class SysOperateLogController extends BaseController {
 	public PageableResult page(Page<SysOperateLogEntity> page, SysOperateLogVO vo) {
 		return PageableResult.builder().page(pageVOFilling(
 				sysOperateLogService.page(new PageFactory<SysOperateLogEntity>().defaultPage(page), vo),
-				SysOperateLogEntity.class)).build();
+				SysOperateLogVO.class)).build();
 	}
 
 

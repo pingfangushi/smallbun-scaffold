@@ -85,8 +85,7 @@ public class SysOperateLogServiceImpl extends BaseServiceImpl<SysOperateLogMappe
 	 */
 	@Override
 	public IPage<SysOperateLogEntity> page(IPage<SysOperateLogEntity> page, SysOperateLogVO vo) {
-
-	return 	baseMapper.page(page,vo);
+		return baseMapper.page(page, vo);
 	}
 
 
@@ -167,9 +166,9 @@ public class SysOperateLogServiceImpl extends BaseServiceImpl<SysOperateLogMappe
 		operateLog.setMethod(
 				joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()");
 		//操作用户
-		operateLog.setOpenUser(Objects.requireNonNull(getUserId()).toString());
+		operateLog.setOperateUser(Objects.requireNonNull(getUserId()).toString());
 		//部门
-		operateLog.setOpenOrg(Objects.requireNonNull(Objects.requireNonNull(getUserOrg()).getId()).toString());
+		operateLog.setOperateOrg(Objects.requireNonNull(Objects.requireNonNull(getUserOrg()).getId()).toString());
 		//操作IP
 		operateLog.setOperateIp(getRealAddressByIP(IpUtil.getIpAddr(request)));
 		//登录地点
