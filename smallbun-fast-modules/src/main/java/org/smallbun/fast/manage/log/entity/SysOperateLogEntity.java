@@ -23,6 +23,7 @@
 
 package org.smallbun.fast.manage.log.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -119,5 +120,6 @@ public class SysOperateLogEntity extends DataEntity<Long> {
 	/**
 	 * 操作时间
 	 */
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime operateTime;
 }

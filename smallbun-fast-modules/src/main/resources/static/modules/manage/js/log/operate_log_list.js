@@ -41,11 +41,13 @@ $(function () {
             {field: 'user.username', title: '用户'},
             {field: 'org.orgName', title: '部门'},
             {field: 'operateIp', title: 'IP地址'},
+            {field: 'operateLocation', title: '地点'},
             {field: 'operateUrl', title: '请求URL'},
             {field: 'method', title: '方法名称'},
             {field: 'operateParam', title: '请求参数',visible: false},
             {field: 'channelName', title: '来源渠道'},
             {field: 'operateStatus', title: '状态', sortable: true},
+            {field: 'operateTime', title: '操作时间', sortable: true},
             {field: 'error_msg', title: '错误',visible: false}]
     };
     $.table.init(options);
