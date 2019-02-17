@@ -26,7 +26,7 @@ $(function () {
         url: contextPath + 'log/operate/page',
         batRemoveUrl: contextPath + "log/operate/removeByIds",
         exportUrl: contextPath + "log/operate/export",
-        sortName: "gmtCreate",
+        sortName: "operateTime",
         sortOrder: "desc",
         modalName: "操作日志",
         search: false,
