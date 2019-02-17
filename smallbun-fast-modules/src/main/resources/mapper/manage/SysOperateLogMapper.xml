@@ -7,9 +7,9 @@
         <!-- 实现延迟加载操作用户信息  -->
         <association property="user" javaType="org.smallbun.fast.manage.user.entity.SysUserEntity"
                      select="org.smallbun.fast.manage.user.dao.SysUserMapper.selectById"
-                     column="creator"/>
+                     column="oper_user"/>
         <!-- 实现延迟加载部门信息 -->
-        <association property="org" column="open_org" fetchType="eager"
+        <association property="org" column="oper_org" fetchType="eager"
                      select="org.smallbun.fast.manage.org.dao.SysOrgMapper.selectById"/>
     </resultMap>
     <!--分页查询-->
