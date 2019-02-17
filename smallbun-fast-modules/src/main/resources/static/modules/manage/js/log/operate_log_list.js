@@ -36,7 +36,7 @@ $(function () {
         showToggle: true,
         columns: [{checkbox: true},
             {field: 'id', visible: false},
-            {field: 'title', title: '标题', formatter: $.table.view, sortable: true},
+            {field: 'title', title: '标题', sortable: true},
             {field: 'user.username', title: '用户'},
             {field: 'org.orgName', title: '部门'},
             {field: 'operateIp', title: 'IP地址'},
