@@ -45,7 +45,8 @@ $(function () {
             {field: 'method', title: '方法名称'},
             {field: 'operateParam', title: '请求参数',visible: false},
             {field: 'channelName', title: '来源渠道'},
-            {field: 'operateStatus', title: '状态', sortable: true}]
+            {field: 'operateStatus', title: '状态', sortable: true},
+            {field: 'error_msg', title: '错误',visible: false}]
     };
     $.table.init(options);
     //@formatter:off
