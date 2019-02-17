@@ -46,17 +46,17 @@ public interface OperateLogConstant {
 	 */
 	String DEL = "3";
 	/**
-	 * 添加form
+	 * 打开form
 	 */
-	String ADD_FORM = "4";
+	String OPEN_FORM = "4";
 	/**
-	 * 修改form
+	 * 查看form
 	 */
-	String UPDATE_FORM = "5";
+	String VIEW_FORM = "5";
 	/**
-	 * form 添加修改
+	 * form 添加或查看
 	 */
-	String ADD_UPDATE_FORM = "6";
+	String OPEN_VIEW_FORM = "6";
 	/**
 	 * 查询list
 	 */

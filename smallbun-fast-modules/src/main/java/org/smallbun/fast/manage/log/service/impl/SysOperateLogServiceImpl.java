@@ -106,7 +106,7 @@ public class SysOperateLogServiceImpl extends BaseServiceImpl<SysOperateLogMappe
 		//操作时间
 		operateLog.setOperateTime(LocalDateTime.now());
 		//功能类型，这里需要进行一次判断,如果是添加或修改form，或者添加修改的接口，参数实体类必须继承BaseEntity，根据id判断是新增还是修改
-		if (logAnnotation.action().equals(ADD_UPDATE_FORM) || logAnnotation.action().equals(ADD_UPDATE)) {
+		if (logAnnotation.action().equals(OPEN_VIEW_FORM) || logAnnotation.action().equals(ADD_UPDATE)) {
 			Object[] args = joinPoint.getArgs();
 			for (Object u : args) {
 				try {
@@ -114,15 +114,15 @@ public class SysOperateLogServiceImpl extends BaseServiceImpl<SysOperateLogMappe
 						Field id = getFieldAll(u, ID);
 						id.setAccessible(true);
 
-						//如果是form页面，为空说明是添加，id不为空是修改
-						if (logAnnotation.action().equals(ADD_UPDATE_FORM)) {
+						//如果是form页面，为空说明是打开，id不为空是查看
+						if (logAnnotation.action().equals(OPEN_VIEW_FORM)) {
 							if (StringUtils.isEmpty(id.get(u))) {
-								operateLog.setAction(ADD_FORM);
+								operateLog.setAction(OPEN_FORM);
 							} else {
-								operateLog.setAction(UPDATE_FORM);
+								operateLog.setAction(VIEW_FORM);
 							}
 						}
-						//如果不是form页面，为空说明是添加，id不为空是修改
+						//如果不是form页面，为空说明是打开，id不为空是查看
 						if (logAnnotation.action().equals(ADD_UPDATE)) {
 							if (StringUtils.isEmpty(id.get(u))) {
 								operateLog.setAction(ADD);

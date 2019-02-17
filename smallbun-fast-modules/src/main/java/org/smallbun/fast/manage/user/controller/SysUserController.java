@@ -92,7 +92,7 @@ public class SysUserController extends BaseController {
 	 *
 	 * @return 地址
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.ADD_UPDATE_FORM)
+	@LogAnnotation(model = "", action = OperateLogConstant.OPEN_VIEW_FORM)
 	@GetMapping(value = "/form")
 	@PreAuthorize("hasAuthority('manage:user:add') or hasAuthority('manage:user:add')")
 	public ModelAndView form(SysUserVO user, Model model) {

@@ -82,7 +82,7 @@ public class SysRoleController extends BaseController {
 	 * form表单
 	 * @return 地址
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.ADD_UPDATE_FORM)
+	@LogAnnotation(model = "", action = OperateLogConstant.OPEN_VIEW_FORM)
 	@GetMapping(value = "/form")
 	@PreAuthorize("hasAuthority('manage:role:add') or hasAuthority('manage:role:edit')")
 	public ModelAndView form(SysRoleVO vo, Model model) {

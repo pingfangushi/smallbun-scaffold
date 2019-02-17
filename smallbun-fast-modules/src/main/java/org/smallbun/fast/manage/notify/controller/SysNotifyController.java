@@ -87,7 +87,7 @@ public class SysNotifyController extends BaseController {
 	 * form表单
 	 * @return 地址
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.ADD_UPDATE_FORM)
+	@LogAnnotation(model = "", action = OperateLogConstant.OPEN_VIEW_FORM)
 	@PreAuthorize("hasAuthority('manage:notify:add') or hasAuthority('manage:notify:edit') ")
 	@GetMapping(value = "/form")
 	public ModelAndView form(SysNotifyVO vo, Model model) {
