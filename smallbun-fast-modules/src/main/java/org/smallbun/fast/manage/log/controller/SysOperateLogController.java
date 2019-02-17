@@ -56,6 +56,7 @@ import java.util.List;
 @RequestMapping("/log/operate")
 public class SysOperateLogController extends BaseController {
 
+	private static final String MODEL = "操作日志";
 
 	@Autowired
 	public SysOperateLogController(SysOperateLogService sysOperateLogService) {
@@ -69,7 +70,7 @@ public class SysOperateLogController extends BaseController {
 
 
 	/**
-	 *
+	 * 返回list页面
 	 * @return
 	 */
 	@GetMapping(value = {"", "/"})
@@ -81,7 +82,7 @@ public class SysOperateLogController extends BaseController {
 	 * 分页查询
 	 * @return PageableResult
 	 */
-	@LogAnnotation(model = "操作日志查询", action = OperateLogConstant.SELECT_PAGE)
+	@LogAnnotation(model = MODEL + "查询", action = OperateLogConstant.SELECT_PAGE)
 	@PostMapping(value = "/page")
 	@AutoQueryDictValue
 	public PageableResult page(Page<SysOperateLogEntity> page, SysOperateLogVO vo) {
@@ -96,7 +97,7 @@ public class SysOperateLogController extends BaseController {
 	 * @param ids 主键ID集合
 	 * @return AjaxResult
 	 */
-	@LogAnnotation(model = "删除日志记录", action = OperateLogConstant.DEL)
+	@LogAnnotation(model = "删除" + MODEL, action = OperateLogConstant.DEL)
 	@DemoEnvironment
 	@PreAuthorize("hasAuthority('manage:log:operate:del')")
 	@PostMapping(value = "/removeByIds")
