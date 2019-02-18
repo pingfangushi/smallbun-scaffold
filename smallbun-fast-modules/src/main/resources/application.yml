@@ -39,6 +39,10 @@ smallbun:
     open: false #开启演示模式
     username: admin #演示模式用户名
     password: admin #演示模式密码
+  #用户配置
+  user:
+    #默认注册密码,默认123456 请使用new BCryptPasswordEncoder().encode(password)生成密码串
+    register-default-password: '$2a$10$SkPLa0RwRFrjyv1YterZtucAtjrPgYXi6zGXbjmEpolt10AcKZBqW'
 
 #------------------------------------------#
 #                                          #

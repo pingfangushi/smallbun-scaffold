@@ -58,6 +58,8 @@ public class SmallBunProperties {
 
 	private final Project project = new Project();
 
+	private final User user=new User();
+
 	public static class Project {
 		/**
 		 * 名称
@@ -135,6 +137,8 @@ public class SmallBunProperties {
 			}
 		}
 	}
+
+
 
 	/**
 	 * 验证码
@@ -253,6 +257,24 @@ public class SmallBunProperties {
 
 		public void setPassword(String password) {
 			this.password = password;
+		}
+	}
+
+	/**
+	 * 用户相关
+	 */
+	public static class User {
+		/**
+		 * 默认密码
+		 */
+		String registerDefaultPassword = SmallBunDefaults.User.REGISTER_DEFAULT_PASSWORD;
+
+		public String getRegisterDefaultPassword() {
+			return registerDefaultPassword;
+		}
+
+		public void setRegisterDefaultPassword(String registerDefaultPassword) {
+			this.registerDefaultPassword = registerDefaultPassword;
 		}
 	}
 }

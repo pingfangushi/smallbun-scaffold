@@ -111,5 +111,15 @@ public interface SmallBunDefaults {
 	interface Demo {
 		boolean OPEN = false;
 	}
+
+	/***
+	 * 用户相关
+	 */
+	interface User {
+		/**
+		 * 注册默认密码
+		 */
+		String REGISTER_DEFAULT_PASSWORD = "$2a$10$SkPLa0RwRFrjyv1YterZtucAtjrPgYXi6zGXbjmEpolt10AcKZBqW";
+	}
 }
 

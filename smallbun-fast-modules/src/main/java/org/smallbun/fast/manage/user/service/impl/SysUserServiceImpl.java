@@ -33,6 +33,7 @@ import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.fast.manage.user.service.SysUserService;
 import org.smallbun.fast.manage.user.util.UserUtil;
 import org.smallbun.fast.manage.user.vo.SysUserVO;
+import org.smallbun.framework.auto.SmallBunProperties;
 import org.smallbun.framework.base.BaseServiceImpl;
 import org.smallbun.framework.exception.BusinessExecption;
 import org.smallbun.framework.security.LoggedUser;
@@ -70,8 +71,9 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 
 
 	@Autowired
-	public SysUserServiceImpl(SysRoleService sysRoleService) {
+	public SysUserServiceImpl(SysRoleService sysRoleService, SmallBunProperties smallBunProperties) {
 		this.sysRoleService = sysRoleService;
+		this.smallBunProperties = smallBunProperties;
 	}
 
 	/**
@@ -107,6 +109,10 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 	@Override
 	public boolean saveOrUpdate(SysUserVO vo) {
 		boolean flag;
+		//如果没有密码，使用默认密码
+		if (StringUtils.isEmpty(vo.getPassword())) {
+			vo.setPassword(smallBunProperties.getUser().getRegisterDefaultPassword());
+		}
 		flag = super.saveOrUpdate(vo);
 		if (flag) {
 			//根据用户删除关联,保存用户和角色
@@ -236,4 +242,5 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 	 */
 	private final SysRoleService sysRoleService;
 
+	private final SmallBunProperties smallBunProperties;
 }
