@@ -105,6 +105,8 @@ function loadOrg(){
  * @returns {rows} 返回选中的工号
  */
 function selectUsers(){
-    var  rows = $.table.selectColumns('username');
-    return rows;
+    var select_user = new Map();
+    select_user.set('userName',$.table.selectColumns('username') );
+    select_user.set('userId',$.table.selectFirstColumns())
+    return select_user;
 }

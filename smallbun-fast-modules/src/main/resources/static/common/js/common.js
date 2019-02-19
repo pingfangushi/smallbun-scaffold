@@ -535,7 +535,8 @@
                         //调用选择方法
                         var result  = iframeWin.contentWindow.selectUsers();
                         //将返回的值赋给input
-                        $(input).val(result);
+                        $(input).val(result.get('userName'));
+                        $($(input).attr('idObj')).val(result.get('userId'))
                         //关闭
                         layer.close(index);
                     }
