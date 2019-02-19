@@ -54,7 +54,7 @@ public class ApplicationContextHelper implements ApplicationContextAware {
 	 * @return Object
 	 */
 	public static <T> T getBean(Class<T> aClass) {
-		return ApplicationContextHelper.applicationContext.getBean(Objects.requireNonNull(aClass));
+		return applicationContext.getBean(Objects.requireNonNull(aClass));
 	}
 
 	/**
@@ -64,6 +64,6 @@ public class ApplicationContextHelper implements ApplicationContextAware {
 	 * @return Object
 	 */
 	public static Object getBean(String aClass) {
-		return ApplicationContextHelper.applicationContext.getBean(aClass);
+		return applicationContext.getBean(aClass);
 	}
 }
