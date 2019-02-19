@@ -515,6 +515,50 @@
             }
         },
         /**
+         * 选择公共方法处理
+         */
+        select:{
+            selectUser:function(input,callback){
+                //如果input是SPAN类型
+                if(input.tagName == 'SPAN'){
+                    input = $(input).prev();
+                }
+                //如果是移动端，就使用自适应大小弹窗
+                if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
+                    width = 'auto';
+                    height = 'auto';
+                }
+                if ($.common.isEmpty(callback)) {
+                    callback = function (index, layero) {
+                        var body = top.layer.getChildFrame('body', index);
+                        var iframeWin = layero.find('iframe')[0]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                        //调用选择方法
+                        var result  = iframeWin.contentWindow.selectUsers();
+                        //将返回的值赋给input
+                        $(input).val(result);
+                        //关闭
+                        layer.close(index);
+                    }
+                }
+                var index = layer.open({
+                    type: 2,
+                    area: [500 + 'px', 500 + 'px'],
+                    fix: false,
+                    //不固定
+                    maxmin: true,
+                    shade: 0.3,
+                    title: '选择用户',
+                    content: contextPath+'user/selecctUser',
+                    btn: ['确定', '关闭'],
+                    yes: callback,
+                    cancel: function (index) {
+
+                    }
+                });
+                layer.full(index);
+            }
+        },
+        /**
          * 操作封装处理
          */
         operate: {

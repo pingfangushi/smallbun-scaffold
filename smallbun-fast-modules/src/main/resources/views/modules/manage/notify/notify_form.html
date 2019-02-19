@@ -101,10 +101,10 @@
                         <div class="col-xs-9">
                             <div class="input-group" style="width: 100%">
                                 <div class="input-group" style="width: 100%">
-                                    <input readonly="readonly"
-                                           placeholder="请选择接收人"
-                                           class="form-control"/>
-                                    <span class="input-group-addon">
+                                    <input readonly="readonly" name="receiver" onclick="$.select.selectUser(this)"
+                                                                          placeholder="请选择接收人"
+                                                                          class="form-control"/>
+                                    <span class="input-group-addon" onclick="$.select.selectUser(this)">
                                         <i class="fa fa-search"></i>
                                     </span>
                                 </div>

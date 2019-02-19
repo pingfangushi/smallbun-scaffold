@@ -87,6 +87,16 @@ public class SysUserController extends BaseController {
 		return new ModelAndView("modules/manage/user/user_list.html");
 	}
 
+
+	/**
+	 * 选择用户页面
+	 * @return 地址
+	 */
+	@RequestMapping(value = "/selecctUser")
+	public ModelAndView selecctUser() {
+		return new ModelAndView("modules/manage/common/user_list.html");
+	}
+
 	/**
 	 * form表单
 	 *

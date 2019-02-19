@@ -38,6 +38,7 @@ $(function () {
         showToggle: true,
         columns: [{checkbox: true},
             {field: 'id', visible: false},
+            {field: 'jobNumber', title: '工号',visible: false},
             {field: 'username', title: '用户名',formatter:$.table.emptyProcessing},
             {field: 'fullName', title: '姓名',formatter:$.table.emptyProcessing},
             {field: 'phone', title: '手机',formatter:$.table.emptyProcessing},
@@ -109,4 +110,16 @@ function loadOrg(){
         //展开
         orgTree.expandAll(true);
     }, null, null, "正在加载，请稍后...");
+
+}
+
+/**
+ * 选择用户并返回工号
+ * @author sw
+ * @date 2019年2月19日16:24:50
+ * @returns {rows} 返回选中的工号
+ */
+function selectUsers(){
+    var  rows = $.table.selectColumns('jobNumber');
+    return rows;
 }
