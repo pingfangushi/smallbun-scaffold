@@ -548,7 +548,7 @@
                     maxmin: true,
                     shade: 0.3,
                     title: '选择用户',
-                    content: contextPath+'user/selecctUser',
+                    content: contextPath+'user/selectUser',
                     btn: ['确定', '关闭'],
                     yes: callback,
                     cancel: function (index) {

@@ -25,13 +25,7 @@ $(function () {
     //@formatter:off
     var options = {
         url: contextPath + 'user/page',
-        createUrl: contextPath +"user/form",
-        updateUrl: contextPath +"user/form{id}",
-        removeUrl: contextPath + "user/removeById",
-        batRemoveUrl: contextPath + "user/removeByIds",
-        exportUrl: contextPath + "user/export",
         sortOrder: "desc",
-        modalName: "用户",
         search: false,
         showRefresh: true,
         showColumns: true,
@@ -45,16 +39,7 @@ $(function () {
             {field: 'telephone', title: '电话',formatter:$.table.emptyProcessing},
             {field: 'email', title: '邮箱', visible: true,formatter:$.table.emptyProcessing},
             {field: 'org.orgName', title: '部门',formatter:$.table.emptyProcessing},
-            {field: 'userStatusName', title: '状态', align: 'center'},
-            {title: '操作', align: 'center', visible: true, formatter: function (value, row, index) {var actions = [];actions.push('<div class="btn-group"><button type="button" class="btn ibtn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog"></i>&nbsp;<span class="fa fa-chevron-down"></span></button>' +
-               '<ul class="dropdown-menu" role="menu">' +
-               '<li><a href="#" onclick="$.operate.editTab(\'' + row.id + '\')"><i class="fa fa-edit"></i>修改</a></li>' +
-               '<li><a href="#" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-trash"></i>删除</a></li>' +
-               '<li><a href="#" onclick="$.modal.open(\'设置密码\', contextPath+\'user/settingPassword/view\',800,300)"><i class="fa fa-key"></i>设置密码</a></li>' +
-               '</ul>' +
-               '</div>');
-            return actions.join('');
-            }}]
+            {field: 'userStatusName', title: '状态', align: 'center'}]
     };
     $.table.init(options);
      //@formatter:off
@@ -111,4 +96,15 @@ function loadOrg(){
         orgTree.expandAll(true);
     }, null, null, "正在加载，请稍后...");
 
+}
+
+/**
+ * 选择用户并返回用户名
+ * @author sw,SanLi
+ * @date 2019年2月19日16:24:50
+ * @returns {rows} 返回选中的工号
+ */
+function selectUsers(){
+    var  rows = $.table.selectColumns('username');
+    return rows;
 }

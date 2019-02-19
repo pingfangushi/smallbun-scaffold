@@ -66,6 +66,7 @@ import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 @RequestMapping(value = "/user")
 public class SysUserController extends BaseController {
 
+	private static final String PREFIX = "modules/manage/user/";
 
 	@Autowired
 	public SysUserController(SysUserService sysUserService) {
@@ -84,7 +85,7 @@ public class SysUserController extends BaseController {
 	 */
 	@RequestMapping(value = {"", "/"})
 	public ModelAndView user() {
-		return new ModelAndView("modules/manage/user/user_list.html");
+		return new ModelAndView(PREFIX + "user_list.html");
 	}
 
 
@@ -92,9 +93,9 @@ public class SysUserController extends BaseController {
 	 * 选择用户页面
 	 * @return 地址
 	 */
-	@RequestMapping(value = "/selecctUser")
-	public ModelAndView selecctUser() {
-		return new ModelAndView("modules/manage/common/user_list.html");
+	@RequestMapping(value = "/selectUser")
+	public ModelAndView selectUser() {
+		return new ModelAndView(PREFIX + "select_user_list.html");
 	}
 
 	/**
@@ -107,7 +108,7 @@ public class SysUserController extends BaseController {
 	@PreAuthorize("hasAuthority('manage:user:add') or hasAuthority('manage:user:add')")
 	public ModelAndView form(SysUserVO user, Model model) {
 		model.addAttribute("user", user);
-		return new ModelAndView("modules/manage/user/user_form.html");
+		return new ModelAndView(PREFIX + "user_form.html");
 	}
 
 	/**
@@ -119,7 +120,7 @@ public class SysUserController extends BaseController {
 	public ModelAndView profile(Model model) {
 		//查询个人信息
 		model.addAttribute("user", Objects.requireNonNull(UserUtil.getLoginUser()).getSysUser());
-		return new ModelAndView("modules/manage/user/profile.html");
+		return new ModelAndView(PREFIX + "profile.html");
 	}
 
 	/**
@@ -129,7 +130,7 @@ public class SysUserController extends BaseController {
 	@GetMapping(value = "/settingPassword/view")
 	public ModelAndView settingPassword(Model model) {
 		model.addAttribute("username", Objects.requireNonNull(UserUtil.getLoginUser()).getUsername());
-		return new ModelAndView("modules/manage/user/setting_password.html");
+		return new ModelAndView(PREFIX + "setting_password.html");
 	}
 
 	/**
