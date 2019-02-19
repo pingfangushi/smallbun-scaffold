@@ -53,7 +53,7 @@ public class ApplicationContextHelper implements ApplicationContextAware {
 	 * @param aClass Class
 	 * @return Object
 	 */
-	public static Object getBean(Class aClass) {
+	public static <T> T getBean(Class<T> aClass) {
 		return ApplicationContextHelper.applicationContext.getBean(Objects.requireNonNull(aClass));
 	}
 
