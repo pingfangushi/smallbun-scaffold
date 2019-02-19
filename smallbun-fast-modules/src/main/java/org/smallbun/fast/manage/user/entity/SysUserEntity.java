@@ -130,6 +130,7 @@ public class SysUserEntity extends DataEntity<Long> {
 	/**
 	 * 身份证号
 	 */
+	@TableField(strategy = IGNORED)
 	private String idCard;
 	/**
 	 * 用户角色集合
