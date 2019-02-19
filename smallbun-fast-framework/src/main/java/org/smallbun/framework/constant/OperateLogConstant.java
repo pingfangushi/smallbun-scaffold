@@ -83,4 +83,14 @@ public interface OperateLogConstant {
 	 * 手机端用户
 	 */
 	String MOBILE = "1";
+
+	//=========================MODEL解释==========================//
+
+
+	String DEL_MODEL = "删除";
+	String ADD_MODEL = "添加";
+	String UPDATE_MODEL = "修改";
+	String SELECT_PAGE_MODEL = "分页查询";
+	String SELECT_LIST_MODEL = "查询全部";
+
 }

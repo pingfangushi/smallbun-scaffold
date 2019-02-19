@@ -52,6 +52,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static org.smallbun.framework.constant.OperateLogConstant.*;
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 
@@ -67,6 +68,7 @@ import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 public class SysUserController extends BaseController {
 
 	private static final String PREFIX = "modules/manage/user/";
+	private static final String MODEL = "用户模块";
 
 	@Autowired
 	public SysUserController(SysUserService sysUserService) {
@@ -90,20 +92,11 @@ public class SysUserController extends BaseController {
 
 
 	/**
-	 * 选择用户页面
-	 * @return 地址
-	 */
-	@RequestMapping(value = "/selectUser")
-	public ModelAndView selectUser() {
-		return new ModelAndView(PREFIX + "select_user_list.html");
-	}
-
-	/**
 	 * form表单
 	 *
 	 * @return 地址
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.OPEN_VIEW_FORM)
+	@LogAnnotation(model = MODEL + "", action = OperateLogConstant.OPEN_VIEW_FORM)
 	@GetMapping(value = "/form")
 	@PreAuthorize("hasAuthority('manage:user:add') or hasAuthority('manage:user:add')")
 	public ModelAndView form(SysUserVO user, Model model) {
@@ -131,6 +124,15 @@ public class SysUserController extends BaseController {
 	public ModelAndView settingPassword(Model model) {
 		model.addAttribute("username", Objects.requireNonNull(UserUtil.getLoginUser()).getUsername());
 		return new ModelAndView(PREFIX + "setting_password.html");
+	}
+
+	/**
+	 * 选择用户页面
+	 * @return 地址
+	 */
+	@RequestMapping(value = "/selectUser")
+	public ModelAndView selectUser() {
+		return new ModelAndView(PREFIX + "select_user_list.html");
 	}
 
 	/**
@@ -163,8 +165,8 @@ public class SysUserController extends BaseController {
 	 * @param id 主键ID
 	 * @return AjaxResult
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.DEL)
 	@DemoEnvironment
+	@LogAnnotation(model = DEL_MODEL + MODEL, action = OperateLogConstant.DEL)
 	@PostMapping(value = "/removeById")
 	@PreAuthorize("hasAuthority('manage:user:del')")
 	public AjaxResult removeById(@NotNull(message = "id不能为空") @RequestParam(value = "id") String id) {
@@ -177,10 +179,10 @@ public class SysUserController extends BaseController {
 	 * @param id 主键ID集合
 	 * @return AjaxResult
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.DEL)
 	@DemoEnvironment
 	@PostMapping(value = "/removeByIds")
 	@PreAuthorize("hasAuthority('manage:user:del')")
+	@LogAnnotation(model = DEL_MODEL + MODEL, action = OperateLogConstant.DEL)
 	public AjaxResult removeByIds(@NotNull(message = "id不能为空") @RequestParam(value = "ids") List<String> id) {
 		return AjaxResult.builder().result(sysUserService.removeByIds(id)).build();
 	}
@@ -194,7 +196,7 @@ public class SysUserController extends BaseController {
 	 */
 	@PostMapping(value = "/page")
 	@AutoQueryDictValue
-	@LogAnnotation(model = "", action = OperateLogConstant.SELECT_PAGE)
+	@LogAnnotation(model = MODEL + SELECT_PAGE_MODEL, action = OperateLogConstant.SELECT_PAGE)
 	public PageableResult page(Page<SysUserEntity> page, SysUserVO vo) {
 		return PageableResult.builder()
 				.page(pageVOFilling(sysUserService.page(new PageFactory<SysUserEntity>().defaultPage(page), vo),
@@ -208,7 +210,7 @@ public class SysUserController extends BaseController {
 	 */
 	@RequestMapping(value = "/list")
 	@AutoQueryDictValue
-	@LogAnnotation(model = "", action = OperateLogConstant.SELECT_LIST)
+	@LogAnnotation(model = MODEL + SELECT_LIST_MODEL, action = OperateLogConstant.SELECT_PAGE)
 	public AjaxResult list(QueryWrapper<SysUserEntity> wrapper) {
 		return AjaxResult.builder()
 				.result(mappingList(sysUserService.list(wrapper), new ArrayList<>(), SysUserVO.class)).build();
