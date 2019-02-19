@@ -62,6 +62,10 @@ import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 @RequestMapping("/notify")
 public class SysNotifyController extends BaseController {
 
+	private static final String MODEL = "通知公告";
+
+	private static final String NOTIFY_URL = "modules/manage/notify/";
+
 
 	@Autowired
 	public SysNotifyController(SysNotifyService sysNotifyService) {
@@ -69,9 +73,9 @@ public class SysNotifyController extends BaseController {
 	}
 
 
+	@ModelAttribute
 	protected SysNotifyVO model(HttpServletRequest request) {
 		return sysNotifyService.model(request);
-
 	}
 
 	/**
@@ -80,7 +84,7 @@ public class SysNotifyController extends BaseController {
 	 */
 	@GetMapping(value = {"", "/"})
 	public ModelAndView list() {
-		return new ModelAndView("modules/manage/notify/notify_list.html");
+		return new ModelAndView(NOTIFY_URL+"notify_list.html");
 	}
 
 	/**
@@ -92,7 +96,7 @@ public class SysNotifyController extends BaseController {
 	@GetMapping(value = "/form")
 	public ModelAndView form(SysNotifyVO vo, Model model) {
 		model.addAttribute("notify", vo);
-		return new ModelAndView("modules/manage/notify/notify_form.html");
+		return new ModelAndView(NOTIFY_URL+"notify_form.html");
 	}
 
 	/**

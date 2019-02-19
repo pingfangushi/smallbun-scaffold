@@ -58,6 +58,8 @@ public class SysOperateLogController extends BaseController {
 
 	private static final String MODEL = "操作日志";
 
+	private static final String LOG_URL = "modules/manage/log/";
+
 	@Autowired
 	public SysOperateLogController(SysOperateLogService sysOperateLogService) {
 		this.sysOperateLogService = sysOperateLogService;
@@ -75,7 +77,7 @@ public class SysOperateLogController extends BaseController {
 	 */
 	@GetMapping(value = {"", "/"})
 	public ModelAndView operate() {
-		return new ModelAndView("modules/manage/log/operate_log_list.html");
+		return new ModelAndView(LOG_URL+"operate_log_list.html");
 	}
 
 	/**

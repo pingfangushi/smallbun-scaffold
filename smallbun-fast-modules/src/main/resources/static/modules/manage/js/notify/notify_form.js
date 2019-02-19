@@ -118,8 +118,7 @@ function doSubmit() {
     // 手动触发校验代码
     if ($('.form-horizontal').valid()) {
         var data =  $('.form-horizontal').serializeArray();
-        //追加富文本数据
-        data["content"]  = editor.getContent();
+        data.push({name:'content',value: editor.getContent()});
         $.operate.saveCurrentTabPage($('.form-horizontal').attr('action'),data);
     }
 }
