@@ -23,7 +23,14 @@
 
 package org.smallbun.fast.manage.notify.vo;
 
+import lombok.Data;
 import org.smallbun.fast.manage.notify.entity.SysNotifyEntity;
 
+@Data
 public class SysNotifyVO extends SysNotifyEntity {
+    /** 接收人 id */
+    private String receiverId;
+
+    /** 接受人 name */
+    private String receiverName;
 }
