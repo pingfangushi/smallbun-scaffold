@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost
+ Source Server         : 127.0.0.1
  Source Server Type    : MySQL
- Source Server Version : 100307
- Source Host           : localhost:3306
+ Source Server Version : 50561
+ Source Host           : 127.0.0.1:3306
  Source Schema         : smallbun
 
  Target Server Type    : MySQL
- Target Server Version : 100307
+ Target Server Version : 50561
  File Encoding         : 65001
 
- Date: 18/02/2019 19:20:16
+ Date: 21/02/2019 15:41:36
 */
 
 SET NAMES utf8mb4;
@@ -22,18 +22,18 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict_type`;
 CREATE TABLE `sys_dict_type`  (
-  `id` bigint(50) NOT NULL COMMENT '主键ID',
+  `id` bigint(20) NOT NULL COMMENT '主键ID',
   `type_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '类型名称',
   `type_code` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '类型编码',
   `creator` bigint(20) NOT NULL COMMENT '创建者',
-  `gmt_create` timestamp(0) NOT NULL DEFAULT current_timestamp() COMMENT '添加时间',
+  `gmt_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '添加时间',
   `editor` bigint(20) NOT NULL COMMENT '更新者',
-  `gmt_modified` timestamp(0) NOT NULL DEFAULT current_timestamp() ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  `gmt_modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
   `is_deleted` int(11) NOT NULL DEFAULT 0 COMMENT '数据状态:1:删除 0:未删除',
   `remarks` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `sys_dict_type_id_uindex`(`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统字典类型' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统字典类型' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sys_dict_type
@@ -69,13 +69,13 @@ CREATE TABLE `sys_dict_value`  (
   `dict_value` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '字典值',
   `sort` int(11) NOT NULL COMMENT '排序',
   `creator` bigint(20) NOT NULL COMMENT '创建者',
-  `gmt_create` timestamp(0) NOT NULL DEFAULT current_timestamp() COMMENT '添加时间',
+  `gmt_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '添加时间',
   `editor` bigint(20) NOT NULL COMMENT '更新者',
-  `gmt_modified` timestamp(0) NOT NULL DEFAULT current_timestamp() ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  `gmt_modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
   `is_deleted` int(11) NOT NULL DEFAULT 0 COMMENT '数据状态:1:删除 0:未删除',
   `remarks` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统字典数据' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统字典数据' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sys_dict_value
@@ -161,14 +161,14 @@ CREATE TABLE `sys_menu`  (
   `target` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '菜单目标',
   `menu_status` int(11) NULL DEFAULT NULL COMMENT '菜单状态 0可用1不可用',
   `creator` bigint(20) NOT NULL COMMENT '创建者',
-  `gmt_create` timestamp(0) NOT NULL DEFAULT current_timestamp() COMMENT '添加时间',
+  `gmt_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '添加时间',
   `editor` bigint(20) NOT NULL COMMENT '更新者',
-  `gmt_modified` timestamp(0) NOT NULL DEFAULT current_timestamp() ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  `gmt_modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
   `is_deleted` int(11) NOT NULL DEFAULT 0 COMMENT '数据状态:1:删除 0:未删除',
   `remarks` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `sys_menu_id_uindex`(`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -244,13 +244,13 @@ CREATE TABLE `sys_notify`  (
   `notify_genre` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '类型',
   `notify_status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '状态',
   `creator` bigint(20) NOT NULL COMMENT '创建者ID',
-  `gmt_create` timestamp(0) NOT NULL DEFAULT current_timestamp() COMMENT '创建时间',
+  `gmt_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   `editor` bigint(20) NOT NULL COMMENT '修改者ID',
-  `gmt_modified` timestamp(0) NOT NULL DEFAULT current_timestamp() ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  `gmt_modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
   `is_deleted` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '数据状态:1:删除 0:未删除',
   `remarks` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '通知通告' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '通知通告' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for sys_notify_record
@@ -261,15 +261,15 @@ CREATE TABLE `sys_notify_record`  (
   `notify_id` bigint(20) NULL DEFAULT NULL COMMENT '通知通告',
   `user_id` bigint(20) NULL DEFAULT NULL COMMENT '接受人',
   `read_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '0' COMMENT '阅读标记 1未阅读，0阅读',
-  `read_date` datetime(0) NULL DEFAULT NULL COMMENT '阅读时间',
+  `read_date` datetime NULL DEFAULT NULL COMMENT '阅读时间',
   `creator` bigint(20) NOT NULL COMMENT '创建者ID',
-  `gmt_create` timestamp(0) NOT NULL DEFAULT current_timestamp() COMMENT '创建时间',
+  `gmt_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   `editor` bigint(20) NOT NULL COMMENT '修改者ID',
-  `gmt_modified` timestamp(0) NOT NULL DEFAULT current_timestamp() ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  `gmt_modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
   `is_deleted` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '数据状态:1:删除 0:未删除',
   `remarks` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '通知通告发送记录' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '通知通告发送记录' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for sys_operate_log
@@ -289,15 +289,15 @@ CREATE TABLE `sys_operate_log`  (
   `operate_location` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '操作地点',
   `operate_status` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '操作状态',
   `error_msg` varchar(2000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '错误消息',
-  `operate_time` datetime(0) NULL DEFAULT NULL COMMENT '操作时间',
+  `operate_time` datetime NULL DEFAULT NULL COMMENT '操作时间',
   `creator` bigint(20) NOT NULL COMMENT '创建者ID',
-  `gmt_create` timestamp(0) NOT NULL DEFAULT current_timestamp() COMMENT '创建时间',
+  `gmt_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   `editor` bigint(20) NOT NULL COMMENT '修改者ID',
-  `gmt_modified` timestamp(0) NOT NULL DEFAULT current_timestamp() ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  `gmt_modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
   `is_deleted` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '数据状态:1:删除 0:未删除',
   `remarks` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '操作日志记录' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '操作日志记录' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sys_operate_log
@@ -513,6 +513,11 @@ INSERT INTO `sys_operate_log` VALUES (1097454575755034625, '', '5', 'org.smallbu
 INSERT INTO `sys_operate_log` VALUES (1097454803803537410, '', '1', 'org.smallbun.fast.manage.user.controller.SysUserController.saveOrUpdate()', '{\"id\":[\"1088787447501930497\"],\"orgId\":[\"300003\"],\"fullName\":[\"研发\"],\"jobNumber\":[\"A0001\"],\"telephone\":[\"\"],\"birthday\":[\"1998-06-19\"],\"email\":[\"\"],\"idCard\":[\"\"],\"username\":[\"SanLi\"],\"phone\":[\"\"],\"userType\":[\"3\"],\"userStatus\":[\"2\"],\"remarks\":[\"\"],\"roleVOS[0].id\":[\"1077874980521287682\"]}', '0', '1', '232399', '/user/saveOrUpdate', '127.0.0.1', '本地', '200', '', '2019-02-18 11:16:29', 1, '2019-02-18 11:16:29', 1, '2019-02-18 11:16:29', '0', NULL);
 INSERT INTO `sys_operate_log` VALUES (1097454807138009089, '', '8', 'org.smallbun.fast.manage.user.controller.SysUserController.page()', '{\"size\":[\"20\"],\"current\":[\"1\"],\"orderByColumn\":[\"\"],\"isAsc\":[\"desc\"]}', '0', '1', '232399', '/user/page', '127.0.0.1', '本地', '200', '', '2019-02-18 11:16:30', 1, '2019-02-18 11:16:30', 1, '2019-02-18 11:16:30', '0', NULL);
 INSERT INTO `sys_operate_log` VALUES (1097455100298887169, '', '5', 'org.smallbun.fast.manage.user.controller.SysUserController.form()', '{\"id\":[\"2\"]}', '0', '1', '232399', '/user/form', '127.0.0.1', '本地', '200', '', '2019-02-18 11:17:40', 1, '2019-02-18 11:17:40', 1, '2019-02-18 11:17:40', '0', NULL);
+INSERT INTO `sys_operate_log` VALUES (1098487737666969601, '', '8', 'org.smallbun.fast.manage.notify.controller.SysNotifyController.page()', '{\"size\":[\"20\"],\"current\":[\"1\"],\"orderByColumn\":[\"gmtCreate\"],\"isAsc\":[\"desc\"]}', '0', '1', '232399', '/notify/page', '127.0.0.1', '本地', '200', '', '2019-02-21 07:41:00', 1, '2019-02-21 07:41:00', 1, '2019-02-21 07:41:00', '0', NULL);
+INSERT INTO `sys_operate_log` VALUES (1098487748479885314, '用户模块分页查询', '8', 'org.smallbun.fast.manage.user.controller.SysUserController.page()', '{\"size\":[\"20\"],\"current\":[\"1\"],\"orderByColumn\":[\"\"],\"isAsc\":[\"desc\"]}', '0', '1', '232399', '/user/page', '127.0.0.1', '本地', '200', '', '2019-02-21 07:41:02', 1, '2019-02-21 07:41:02', 1, '2019-02-21 07:41:02', '0', NULL);
+INSERT INTO `sys_operate_log` VALUES (1098487762702770177, '', '8', 'org.smallbun.fast.manage.role.controller.SysRoleController.page()', '{\"size\":[\"20\"],\"current\":[\"1\"],\"orderByColumn\":[\"gmtCreate\"],\"isAsc\":[\"desc\"]}', '0', '1', '232399', '/role/page', '127.0.0.1', '本地', '200', '', '2019-02-21 07:41:06', 1, '2019-02-21 07:41:06', 1, '2019-02-21 07:41:06', '0', NULL);
+INSERT INTO `sys_operate_log` VALUES (1098487785968574465, '查询所有菜单', '8', 'org.smallbun.fast.manage.menu.controller.SysMenuController.list()', '{}', '0', '1', '232399', '/menu/list', '127.0.0.1', '本地', '200', '', '2019-02-21 07:41:11', 1, '2019-02-21 07:41:11', 1, '2019-02-21 07:41:11', '0', NULL);
+INSERT INTO `sys_operate_log` VALUES (1098487795514810370, '字典类型分页查询', '8', 'org.smallbun.fast.manage.dict.controller.SysDictTypeController.page()', '{\"size\":[\"20\"],\"current\":[\"1\"],\"orderByColumn\":[\"gmtCreate\"],\"isAsc\":[\"desc\"]}', '0', '1', '232399', '/dict/type/page', '127.0.0.1', '本地', '200', '', '2019-02-21 07:41:14', 1, '2019-02-21 07:41:14', 1, '2019-02-21 07:41:14', '0', NULL);
 
 -- ----------------------------
 -- Table structure for sys_org
@@ -537,16 +542,16 @@ CREATE TABLE `sys_org`  (
   `email` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮箱',
   `useable` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否可用',
   `creator` bigint(20) NOT NULL COMMENT '创建者',
-  `gmt_create` timestamp(0) NOT NULL DEFAULT current_timestamp() COMMENT '创建时间',
+  `gmt_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   `editor` bigint(20) NOT NULL COMMENT '更新者',
-  `gmt_modified` timestamp(0) NOT NULL DEFAULT current_timestamp() ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  `gmt_modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
   `is_deleted` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '是否删除 0：未删除 1：删除',
   `remarks` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `sys_office_parent_id`(`parent_id`) USING BTREE,
   INDEX `sys_office_del_flag`(`is_deleted`) USING BTREE,
   INDEX `sys_office_type`(`org_type`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '机构表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '机构表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sys_org
@@ -571,13 +576,13 @@ CREATE TABLE `sys_role`  (
   `useable` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否可用',
   `sys_data` bigint(255) NULL DEFAULT NULL COMMENT '系统数据',
   `creator` bigint(20) NOT NULL COMMENT '创建者ID',
-  `gmt_create` timestamp(0) NOT NULL DEFAULT current_timestamp() COMMENT '创建时间',
+  `gmt_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   `editor` bigint(20) NOT NULL COMMENT '修改者ID',
-  `gmt_modified` timestamp(0) NOT NULL DEFAULT current_timestamp() ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  `gmt_modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
   `is_deleted` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '数据状态:1:删除 0:未删除',
   `remarks` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1084827767704403971 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1084827767704403971 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sys_role
@@ -596,7 +601,7 @@ CREATE TABLE `sys_role_menu`  (
   `role_id` bigint(20) NOT NULL COMMENT '角色ID',
   `menu_id` bigint(20) NOT NULL COMMENT '关联菜单ID',
   PRIMARY KEY (`role_id`, `menu_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色-菜单' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色-菜单' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sys_role_menu
@@ -729,15 +734,7 @@ CREATE TABLE `sys_role_org`  (
   `role_id` bigint(20) NULL DEFAULT NULL COMMENT '角色',
   `org_id` bigint(20) NULL DEFAULT NULL COMMENT '组织',
   UNIQUE INDEX `sys_role_org_pk`(`role_id`, `org_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色-组织' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_role_org
--- ----------------------------
-INSERT INTO `sys_role_org` VALUES (1076834908820762626, 1);
-INSERT INTO `sys_role_org` VALUES (1076834908820762626, 300003);
-INSERT INTO `sys_role_org` VALUES (1077874980521287682, 1);
-INSERT INTO `sys_role_org` VALUES (1077874980521287682, 300003);
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色-组织' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -760,23 +757,23 @@ CREATE TABLE `sys_user`  (
   `qr_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '二维码',
   `last_login_ip` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '上次登录ip',
   `last_login_address` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '上次登录地址',
-  `last_login_time` timestamp(0) NOT NULL DEFAULT current_timestamp() ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '最后登录日期',
+  `last_login_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后登录日期',
   `user_status` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户状态  0：正常   1：禁用 2：锁定',
   `user_type` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户类型',
   `org_id` mediumtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '用户归属组织',
   `creator` bigint(20) NOT NULL COMMENT '创建者ID',
-  `gmt_create` timestamp(0) NOT NULL DEFAULT current_timestamp() COMMENT '创建时间',
+  `gmt_create` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
   `editor` bigint(20) NOT NULL COMMENT '修改者ID',
-  `gmt_modified` timestamp(0) NOT NULL DEFAULT current_timestamp() ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
+  `gmt_modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
   `is_deleted` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '数据状态: 0：正常 1：删除',
   `remarks` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`, `gmt_modified`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1088787447501930498 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1088787447501930498 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'admin', 'admin', 'admin', '$2a$10$qLpUo87P.NtgkGJE2D9XeO6j//3wWI3URizII87SHAmSp5CLM4S5a', '管理员', 'https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_family.jpg', '', '', '', '2018-05-25', NULL, NULL, NULL, '0:0:0:0:0:0:0:1', '本地', '2019-02-18 11:14:47', '0', '0', '232399', 1, '2018-06-18 10:50:02', 1, '2019-02-18 19:14:47', '0', '');
+INSERT INTO `sys_user` VALUES (1, 'admin', 'admin', 'admin', '$2a$10$qLpUo87P.NtgkGJE2D9XeO6j//3wWI3URizII87SHAmSp5CLM4S5a', '管理员', 'https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_family.jpg', '', '', '', '2018-05-25', NULL, NULL, NULL, '0:0:0:0:0:0:0:1', '本地', '2019-02-21 07:40:54', '0', '0', '232399', 1, '2018-06-18 10:50:02', 1, '2019-02-18 19:14:47', '0', '');
 INSERT INTO `sys_user` VALUES (2, 'user', 'user', 'user', '$2a$10$W7c1gJyPxf9Rtp3/G5WLre6vJomdzaSqEDt2/jJa70A6IHTetRkoO', '管理员', 'https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_colleagues.jpg', '', '', '', '1998-06-15', NULL, NULL, NULL, '0:0:0:0:0:0:0:1', '本地', '2019-02-09 18:59:04', '0', '1', '231112', 1, '2018-06-18 10:50:02', 1, '2019-02-09 18:59:04', '0', '');
 INSERT INTO `sys_user` VALUES (1088787447501930497, '研发', 'SanLi', 'A0001', '$2a$10$SkPLa0RwRFrjyv1YterZtucAtjrPgYXi6zGXbjmEpolt10AcKZBqW', NULL, NULL, '', '', '', '1998-06-18', '370983199806225319', NULL, NULL, NULL, NULL, '2019-01-26 19:42:34', '2', '3', '300003', 1, '2019-01-25 07:15:31', 1, '2019-02-18 11:16:24', '0', '');
 
@@ -788,7 +785,7 @@ CREATE TABLE `sys_user_role`  (
   `user_id` bigint(20) NOT NULL COMMENT '用户ID',
   `role_id` bigint(20) NOT NULL COMMENT '角色ID',
   PRIMARY KEY (`user_id`, `role_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户-角色' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户-角色' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sys_user_role
