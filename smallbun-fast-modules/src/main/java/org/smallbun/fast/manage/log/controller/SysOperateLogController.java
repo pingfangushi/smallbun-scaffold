@@ -46,6 +46,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+import static org.smallbun.framework.constant.ERROR_MSG_CONSTANT.ID_NOT_BLANK_MSG;
+import static org.smallbun.framework.constant.OperateLogConstant.DEL_MODEL;
+import static org.smallbun.framework.constant.OperateLogConstant.SELECT_PAGE;
+
 /**
  * 操作日志记录 前端控制器
  * @author SanLi
@@ -56,9 +60,15 @@ import java.util.List;
 @RequestMapping("/log/operate")
 public class SysOperateLogController extends BaseController {
 
+	/**
+	 * 模块名称
+	 */
 	private static final String MODEL = "操作日志";
 
-	private static final String LOG_URL = "modules/manage/log/";
+	/**
+	 * HTML页面路径前缀
+	 */
+	private static final String HTML_PREFIX = "modules/manage/log/";
 
 	@Autowired
 	public SysOperateLogController(SysOperateLogService sysOperateLogService) {
@@ -73,20 +83,20 @@ public class SysOperateLogController extends BaseController {
 
 	/**
 	 * 返回list页面
-	 * @return
+	 * @return {@link ModelAndView}
 	 */
 	@GetMapping(value = {"", "/"})
 	public ModelAndView operate() {
-		return new ModelAndView(LOG_URL+"operate_log_list.html");
+		return new ModelAndView(HTML_PREFIX + "operate_log_list.html");
 	}
 
 	/**
 	 * 分页查询
 	 * @return PageableResult
 	 */
-	@LogAnnotation(model = MODEL + "查询", action = OperateLogConstant.SELECT_PAGE)
-	@PostMapping(value = "/page")
 	@AutoQueryDictValue
+	@PostMapping(value = "/page")
+	@LogAnnotation(model = MODEL + SELECT_PAGE, action = OperateLogConstant.SELECT_PAGE)
 	public PageableResult page(Page<SysOperateLogEntity> page, SysOperateLogVO vo) {
 		return PageableResult.builder().page(pageVOFilling(
 				sysOperateLogService.page(new PageFactory<SysOperateLogEntity>().defaultPage(page), vo),
@@ -99,12 +109,12 @@ public class SysOperateLogController extends BaseController {
 	 * @param ids 主键ID集合
 	 * @return AjaxResult
 	 */
-	@LogAnnotation(model = "删除" + MODEL, action = OperateLogConstant.DEL)
 	@DemoEnvironment
-	@PreAuthorize("hasAuthority('manage:log:operate:del')")
 	@PostMapping(value = "/removeByIds")
+	@PreAuthorize("hasAuthority('manage:log:operate:del')")
+	@LogAnnotation(model = DEL_MODEL + MODEL, action = OperateLogConstant.DEL)
 	public AjaxResult removeByIds(
-			@NotNull(message = "id不能为空") @RequestParam(value = "ids", required = false) List<String> ids) {
+			@NotNull(message = ID_NOT_BLANK_MSG) @RequestParam(value = "ids", required = false) List<String> ids) {
 		return AjaxResult.builder().result(sysOperateLogService.removeByIds(ids)).build();
 	}
 

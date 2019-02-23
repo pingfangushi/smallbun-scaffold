@@ -37,6 +37,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.constraints.NotNull;
 
+import static org.smallbun.framework.constant.ERROR_MSG_CONSTANT.ID_NOT_BLANK_MSG;
+
 /**
  * 系统监控控制器
  * @author SanLi
@@ -97,7 +99,7 @@ public class SysMonitorController extends BaseController {
 	@DemoEnvironment
 	@PostMapping(value = "/online/user/expireUserSession")
 	public AjaxResult expireUserSession(
-			@NotNull(message = "id不能为空") @RequestParam(value = "sessionId") String sessionId) {
+			@NotNull(message = ID_NOT_BLANK_MSG) @RequestParam(value = "sessionId") String sessionId) {
 		monitorService.expireUserSession(sessionId);
 		return AjaxResult.builder().build();
 	}

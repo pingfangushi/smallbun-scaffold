@@ -50,6 +50,7 @@ import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.smallbun.framework.constant.ERROR_MSG_CONSTANT.ID_NOT_BLANK_MSG;
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 
@@ -118,7 +119,7 @@ public class SysDictValueController extends BaseController {
 	@GetMapping(value = "/removeById")
 	@PreAuthorize("hasAuthority('manage:dict:del')")
 	public AjaxResult removeById(
-			@NotBlank(message = "id不能为空") @RequestParam(value = "id", required = false) String id) {
+			@NotBlank(message = ID_NOT_BLANK_MSG) @RequestParam(value = "id", required = false) String id) {
 		return AjaxResult.builder().result(sysDictValueService.removeById(id)).build();
 	}
 
@@ -132,7 +133,7 @@ public class SysDictValueController extends BaseController {
 	@PostMapping(value = "/removeByIds")
 	@PreAuthorize("hasAuthority('manage:dict:del')")
 	public AjaxResult saveOrUpdate(
-			@NotBlank(message = "id不能为空") @RequestParam(value = "ids", required = false) List<String> ids) {
+			@NotBlank(message = ID_NOT_BLANK_MSG) @RequestParam(value = "ids", required = false) List<String> ids) {
 		return AjaxResult.builder().result(sysDictValueService.removeByIds(ids)).build();
 	}
 

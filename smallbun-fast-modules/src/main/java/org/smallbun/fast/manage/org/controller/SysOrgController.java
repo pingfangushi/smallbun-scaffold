@@ -48,6 +48,7 @@ import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.smallbun.framework.constant.ERROR_MSG_CONSTANT.ID_NOT_BLANK_MSG;
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 
@@ -61,6 +62,16 @@ import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 @RestController
 @RequestMapping(value = "/org")
 public class SysOrgController extends BaseController {
+	/**
+	 * HTML页面路径前缀
+	 */
+	private static final String HTML_PREFIX = "modules/manage/org/";
+	/**
+	 * 模块名称
+	 */
+	private static final String MODEL = "系统日志模块";
+
+
 	@Autowired
 	public SysOrgController(SysOrgService sysOrgService) {
 		this.sysOrgService = sysOrgService;
@@ -74,11 +85,11 @@ public class SysOrgController extends BaseController {
 	/**
 	 * 列表页面
 	 *
-	 * @return ModelAndView
+	 * @return {@link ModelAndView}
 	 */
 	@GetMapping(value = {"/", ""})
 	public ModelAndView org() {
-		return new ModelAndView("/modules/manage/org/org_list.html");
+		return new ModelAndView(HTML_PREFIX + "org_list.html");
 	}
 
 	/**
@@ -86,20 +97,20 @@ public class SysOrgController extends BaseController {
 	 *
 	 * @param org   SysOrgEntity
 	 * @param model Model
-	 * @return ModelAndView
+	 * @return {@link ModelAndView}
 	 */
 	@GetMapping(value = "form")
 	@PreAuthorize("hasAuthority('manage:org:add') or hasAuthority('manage:org:add')")
 	public ModelAndView form(SysOrgVO org, Model model) {
 		model.addAttribute("org", org);
-		return new ModelAndView("/modules/manage/org/org_form.html");
+		return new ModelAndView(HTML_PREFIX + "org_form.html");
 	}
 
 	/**
 	 * 添加一条记录
 	 *
 	 * @param org 实体类对象
-	 * @return AjaxResult
+	 * @return {@link AjaxResult}
 	 */
 	@DemoEnvironment
 	@PostMapping("/saveOrUpdate")
@@ -112,13 +123,13 @@ public class SysOrgController extends BaseController {
 	 * 根据ID删除一条记录
 	 *
 	 * @param id 主键ID
-	 * @return AjaxResult
+	 * @return  {@link AjaxResult}
 	 */
 	@DemoEnvironment
 	@PostMapping("/removeById")
 	@PreAuthorize("hasAuthority('manage:org:del')")
 	public AjaxResult removeById(
-			@NotBlank(message = "id不能为空") @RequestParam(value = "id", required = false) String id) {
+			@NotBlank(message = ID_NOT_BLANK_MSG) @RequestParam(value = "id", required = false) String id) {
 		return AjaxResult.builder().result(sysOrgService.removeById(id)).build();
 	}
 
@@ -126,13 +137,13 @@ public class SysOrgController extends BaseController {
 	 * 批量删除一条记录
 	 *
 	 * @param ids ID列表
-	 * @return AjaxResult
+	 * @return  {@link AjaxResult}
 	 */
 	@DemoEnvironment
 	@PostMapping("/removeByIds")
 	@PreAuthorize("hasAuthority('manage:org:del')")
 	public AjaxResult removeByIds(
-			@NotBlank(message = "id不能为空") @RequestParam(value = "ids", required = false) List<String> ids) {
+			@NotBlank(message = ID_NOT_BLANK_MSG) @RequestParam(value = "ids", required = false) List<String> ids) {
 		return AjaxResult.builder().result(sysOrgService.removeByIds(ids)).build();
 	}
 
@@ -140,7 +151,7 @@ public class SysOrgController extends BaseController {
 	 * 分页查询
 	 *
 	 * @param page page
-	 * @return PageableResult
+	 * @return   {@link PageableResult}
 	 */
 	@PostMapping(value = "/page")
 	@AutoQueryDictValue
@@ -155,8 +166,8 @@ public class SysOrgController extends BaseController {
 	 *
 	 * @return AjaxResult
 	 */
-	@PostMapping(value = "/list")
 	@AutoQueryDictValue
+	@PostMapping(value = "/list")
 	public AjaxResult list() {
 		return AjaxResult.builder().result(excludeZtreeChildrenField(
 				mappingList(sysOrgService.list(new QueryWrapper<>()), new ArrayList<SysOrgVO>(), SysOrgVO.class)))

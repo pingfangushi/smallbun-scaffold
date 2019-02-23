@@ -47,11 +47,11 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static org.smallbun.framework.constant.ERROR_MSG_CONSTANT.ID_NOT_BLANK_MSG;
 import static org.smallbun.framework.constant.OperateLogConstant.*;
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
@@ -66,8 +66,13 @@ import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 @RestController
 @RequestMapping(value = "/user")
 public class SysUserController extends BaseController {
-
-	private static final String PREFIX = "modules/manage/user/";
+	/**
+	 * HTML页面路径前缀
+	 */
+	private static final String HTML_PREFIX = "modules/manage/user/";
+	/**
+	 * 模块名称
+	 */
 	private static final String MODEL = "用户模块";
 
 	@Autowired
@@ -83,47 +88,47 @@ public class SysUserController extends BaseController {
 	/**
 	 * 列表页面
 	 *
-	 * @return 地址
+	 * @return {@link ModelAndView}
 	 */
 	@RequestMapping(value = {"", "/"})
-	public ModelAndView user() {
-		return new ModelAndView(PREFIX + "user_list.html");
+	public ModelAndView list() {
+		return new ModelAndView(HTML_PREFIX + "user_list.html");
 	}
 
 
 	/**
 	 * form表单
 	 *
-	 * @return 地址
+	 * @return {@link ModelAndView}
 	 */
-	@LogAnnotation(model = MODEL + "", action = OperateLogConstant.OPEN_VIEW_FORM)
 	@GetMapping(value = "/form")
 	@PreAuthorize("hasAuthority('manage:user:add') or hasAuthority('manage:user:add')")
+	@LogAnnotation(model = MODEL, action = OperateLogConstant.OPEN_VIEW_FORM)
 	public ModelAndView form(SysUserVO user, Model model) {
 		model.addAttribute("user", user);
-		return new ModelAndView(PREFIX + "user_form.html");
+		return new ModelAndView(HTML_PREFIX + "user_form.html");
 	}
 
 	/**
 	 * 个人资料页面
 	 *
-	 * @return ModelAndView
+	 * @return {@link ModelAndView}
 	 */
 	@GetMapping(value = "/profile")
 	public ModelAndView profile(Model model) {
 		//查询个人信息
 		model.addAttribute("user", Objects.requireNonNull(UserUtil.getLoginUser()).getSysUser());
-		return new ModelAndView(PREFIX + "profile.html");
+		return new ModelAndView(HTML_PREFIX + "profile.html");
 	}
 
 	/**
 	 * 重置密码视图
-	 * @return
+	 * @return {@link ModelAndView}
 	 */
 	@GetMapping(value = "/settingPassword/view")
 	public ModelAndView settingPassword(Model model) {
 		model.addAttribute("username", Objects.requireNonNull(UserUtil.getLoginUser()).getUsername());
-		return new ModelAndView(PREFIX + "setting_password.html");
+		return new ModelAndView(HTML_PREFIX + "setting_password.html");
 	}
 
 	/**
@@ -132,13 +137,13 @@ public class SysUserController extends BaseController {
 	 */
 	@RequestMapping(value = "/selectUser")
 	public ModelAndView selectUser() {
-		return new ModelAndView(PREFIX + "select_user_list.html");
+		return new ModelAndView(HTML_PREFIX + "select_user_list.html");
 	}
 
 	/**
 	 * 获取当前用户个人信息
 	 *
-	 * @return AjaxResult
+	 * @return {@link AjaxResult}
 	 */
 	@GetMapping(value = "/info")
 	public AjaxResult info() {
@@ -149,12 +154,12 @@ public class SysUserController extends BaseController {
 	 * 保存或更新
 	 *
 	 * @param user 类型实体对象
-	 * @return AjaxResult
+	 * @return  {@link AjaxResult}
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.ADD_UPDATE)
 	@DemoEnvironment
 	@PostMapping(value = "/saveOrUpdate")
 	@PreAuthorize("hasAuthority('manage:user:add') or hasAuthority('manage:user:add')")
+	@LogAnnotation(model = MODEL, action = OperateLogConstant.ADD_UPDATE)
 	public AjaxResult saveOrUpdate(@Valid SysUserVO user) {
 		return AjaxResult.builder().result(sysUserService.saveOrUpdate(user)).build();
 	}
@@ -163,13 +168,13 @@ public class SysUserController extends BaseController {
 	 * 删除单条记录
 	 *
 	 * @param id 主键ID
-	 * @return AjaxResult
+	 * @return  {@link AjaxResult}
 	 */
 	@DemoEnvironment
-	@LogAnnotation(model = DEL_MODEL + MODEL, action = OperateLogConstant.DEL)
 	@PostMapping(value = "/removeById")
 	@PreAuthorize("hasAuthority('manage:user:del')")
-	public AjaxResult removeById(@NotNull(message = "id不能为空") @RequestParam(value = "id") String id) {
+	@LogAnnotation(model = DEL_MODEL + MODEL, action = OperateLogConstant.DEL)
+	public AjaxResult removeById(@NotBlank(message = ID_NOT_BLANK_MSG) @RequestParam(value = "id") String id) {
 		return AjaxResult.builder().result(sysUserService.removeById(id)).build();
 	}
 
@@ -177,25 +182,25 @@ public class SysUserController extends BaseController {
 	 * 删除多条记录
 	 *
 	 * @param id 主键ID集合
-	 * @return AjaxResult
+	 * @return  {@link AjaxResult}
 	 */
 	@DemoEnvironment
 	@PostMapping(value = "/removeByIds")
 	@PreAuthorize("hasAuthority('manage:user:del')")
 	@LogAnnotation(model = DEL_MODEL + MODEL, action = OperateLogConstant.DEL)
-	public AjaxResult removeByIds(@NotNull(message = "id不能为空") @RequestParam(value = "ids") List<String> id) {
+	public AjaxResult removeByIds(@NotBlank(message = ID_NOT_BLANK_MSG) @RequestParam(value = "ids") List<String> id) {
 		return AjaxResult.builder().result(sysUserService.removeByIds(id)).build();
 	}
 
 
 	/**
 	 * 分页查询
-	 * @param page
-	 * @param vo
-	 * @return
+	 * @param page {@link Page}
+	 * @param vo {@link SysUserVO}
+	 * @return  {@link PageableResult}
 	 */
-	@PostMapping(value = "/page")
 	@AutoQueryDictValue
+	@PostMapping(value = "/page")
 	@LogAnnotation(model = MODEL + SELECT_PAGE_MODEL, action = OperateLogConstant.SELECT_PAGE)
 	public PageableResult page(Page<SysUserEntity> page, SysUserVO vo) {
 		return PageableResult.builder()
@@ -208,8 +213,8 @@ public class SysUserController extends BaseController {
 	 *
 	 * @return AjaxResult
 	 */
-	@RequestMapping(value = "/list")
 	@AutoQueryDictValue
+	@RequestMapping(value = "/list")
 	@LogAnnotation(model = MODEL + SELECT_LIST_MODEL, action = OperateLogConstant.SELECT_PAGE)
 	public AjaxResult list(QueryWrapper<SysUserEntity> wrapper) {
 		return AjaxResult.builder()
@@ -233,8 +238,8 @@ public class SysUserController extends BaseController {
 	 * @param confirmPassword confirmPassword
 	 * @return AjaxResult
 	 */
-	@PostMapping(value = "/changPassword")
 	@DemoEnvironment
+	@PostMapping(value = "/changPassword")
 	public AjaxResult changePassword(
 			@NotBlank(message = "原密码不能为空") @RequestParam(value = "oldPassword", required = false) String oldPassword,
 			@NotBlank(message = "新密码不能为空") @RequestParam(value = "newPassword", required = false) String newPassword,
@@ -262,14 +267,18 @@ public class SysUserController extends BaseController {
 	 */
 	@PostMapping(value = "/updateHeadPortrait")
 	public AjaxResult updateHeadPortrait(
-			@NotBlank(message = "id不能为空") @RequestParam(value = "id", required = false) String id,
+			@NotBlank(message = ID_NOT_BLANK_MSG) @RequestParam(value = "id", required = false) String id,
 			@NotBlank(message = "头像URL不能为空") @RequestParam(value = "url", required = false) String url) {
 		return AjaxResult.builder().result(sysUserService.updateHeadPortrait(id, url)).build();
 	}
 
-
-	@PostMapping(value = "/settingPassword")
+	/**
+	 * 设置密码
+	 * @param password
+	 * @return
+	 */
 	@DemoEnvironment
+	@PostMapping(value = "/settingPassword")
 	public AjaxResult settingPassword(
 			@NotBlank(message = "密码不能为空") @RequestParam(value = "password", required = false) String password) {
 		return AjaxResult.builder().result(sysUserService.changPassword(password)).build();

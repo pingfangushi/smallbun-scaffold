@@ -49,6 +49,9 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.smallbun.framework.constant.ERROR_MSG_CONSTANT.ID_NOT_BLANK_MSG;
+import static org.smallbun.framework.constant.OperateLogConstant.SELECT_LIST;
+import static org.smallbun.framework.constant.OperateLogConstant.SELECT_PAGE;
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 
@@ -61,10 +64,15 @@ import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 @RestController
 @RequestMapping("/notify")
 public class SysNotifyController extends BaseController {
-
+	/**
+	 * 模块名称
+	 */
 	private static final String MODEL = "通知公告";
 
-	private static final String NOTIFY_URL = "modules/manage/notify/";
+	/**
+	 * HTML页面路径前缀
+	 */
+	private static final String HTML_PREFIX = "modules/manage/notify/";
 
 
 	@Autowired
@@ -79,35 +87,36 @@ public class SysNotifyController extends BaseController {
 	}
 
 	/**
-	 *
-	 * @return
+	 * list页面
+	 * @return {@link ModelAndView}
 	 */
 	@GetMapping(value = {"", "/"})
 	public ModelAndView list() {
-		return new ModelAndView(NOTIFY_URL+"notify_list.html");
+		return new ModelAndView(HTML_PREFIX + "notify_list.html");
 	}
 
 	/**
 	 * form表单
-	 * @return 地址
+	 * @return {@link ModelAndView}
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.OPEN_VIEW_FORM)
-	@PreAuthorize("hasAuthority('manage:notify:add') or hasAuthority('manage:notify:edit') ")
+
 	@GetMapping(value = "/form")
+	@PreAuthorize("hasAuthority('manage:notify:add') or hasAuthority('manage:notify:edit') ")
+	@LogAnnotation(model = MODEL, action = OperateLogConstant.OPEN_VIEW_FORM)
 	public ModelAndView form(SysNotifyVO vo, Model model) {
 		model.addAttribute("notify", vo);
-		return new ModelAndView(NOTIFY_URL+"notify_form.html");
+		return new ModelAndView(HTML_PREFIX + "notify_form.html");
 	}
 
 	/**
 	 * 保存或更新
 	 * @param vo Vo
-	 * @return AjaxResult
+	 * @return {@link AjaxResult}
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.ADD_UPDATE)
 	@DemoEnvironment
-	@PreAuthorize("hasAuthority('manage:notify:add') or hasAuthority('manage:notify:edit') ")
 	@RequestMapping(value = "/saveOrUpdate")
+	@PreAuthorize("hasAuthority('manage:notify:add') or hasAuthority('manage:notify:edit') ")
+	@LogAnnotation(model = "", action = OperateLogConstant.ADD_UPDATE)
 	public AjaxResult saveOrUpdate(@Valid SysNotifyVO vo) {
 		return AjaxResult.builder().result(sysNotifyService.saveOrUpdate(vo)).build();
 	}
@@ -115,36 +124,36 @@ public class SysNotifyController extends BaseController {
 	/**
 	 * 删除单条记录
 	 * @param id 主键ID
-	 * @return AjaxResult
+	 * @return {@link AjaxResult}
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.DEL)
 	@DemoEnvironment
-	@PreAuthorize("hasAuthority('manage:notify:del')")
 	@PostMapping(value = "/removeById")
-	public AjaxResult removeById(@NotNull(message = "id不能为空") @RequestParam(value = "id") String id) {
+	@PreAuthorize("hasAuthority('manage:notify:del')")
+	@LogAnnotation(model = "", action = OperateLogConstant.DEL)
+	public AjaxResult removeById(@NotNull(message = ID_NOT_BLANK_MSG) @RequestParam(value = "id") String id) {
 		return AjaxResult.builder().result(sysNotifyService.removeById(id)).build();
 	}
 
 	/**
 	 * 删除多条记录
 	 * @param ids 主键ID集合
-	 * @return AjaxResult
+	 * @return {@link AjaxResult}
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.DEL)
 	@DemoEnvironment
-	@PreAuthorize("hasAuthority('manage:notify:del')")
 	@PostMapping(value = "/removeByIds")
+	@PreAuthorize("hasAuthority('manage:notify:del')")
+	@LogAnnotation(model = "", action = OperateLogConstant.DEL)
 	public AjaxResult removeByIds(
-			@NotNull(message = "id不能为空") @RequestParam(value = "ids", required = false) List<String> ids) {
+			@NotNull(message = ID_NOT_BLANK_MSG) @RequestParam(value = "ids", required = false) List<String> ids) {
 		return AjaxResult.builder().result(sysNotifyService.removeByIds(ids)).build();
 	}
 
 	/**
 	 * 分页查询
-	 * @return PageableResult
+	 * @return {@link PageableResult}
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.SELECT_PAGE)
 	@PostMapping(value = "/page")
+	@LogAnnotation(model = MODEL + SELECT_PAGE, action = OperateLogConstant.SELECT_PAGE)
 	public PageableResult page(Page<SysNotifyEntity> page, SysNotifyVO vo) {
 		return PageableResult.builder().page(pageVOFilling(
 				sysNotifyService.page(new PageFactory<SysNotifyEntity>().defaultPage(page), new QueryWrapper<>(vo)),
@@ -153,10 +162,10 @@ public class SysNotifyController extends BaseController {
 
 	/**
 	 * 查询全部记录
-	 * @return SysDictTypeEntity
+	 * @return {@link AjaxResult}
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.SELECT_LIST)
 	@PostMapping(value = "/list")
+	@LogAnnotation(model = MODEL + SELECT_LIST, action = OperateLogConstant.SELECT_LIST)
 	public AjaxResult list(SysNotifyVO vo) {
 		return AjaxResult.builder()
 				.result(mappingList(sysNotifyService.list(new QueryWrapper<>(vo)), new ArrayList<SysNotifyVO>(),
@@ -166,7 +175,7 @@ public class SysNotifyController extends BaseController {
 	/**
 	 * 唯一
 	 * @param notifyVO dictType
-	 * @return AjaxResult
+	 * @return {@link AjaxResult}
 	 */
 	@PostMapping(value = UNIQUE)
 	public AjaxResult unique(SysNotifyVO notifyVO) {

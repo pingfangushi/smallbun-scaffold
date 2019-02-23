@@ -48,6 +48,8 @@ import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.smallbun.framework.constant.ERROR_MSG_CONSTANT.ID_NOT_BLANK_MSG;
+import static org.smallbun.framework.constant.OperateLogConstant.*;
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 
@@ -60,6 +62,15 @@ import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 @RestController
 @RequestMapping(value = "/role")
 public class SysRoleController extends BaseController {
+	/**
+	 * HTML页面路径前缀
+	 */
+	private static final String HTML_PREFIX = "modules/manage/role/";
+	/**
+	 * 模块名称
+	 */
+	private static final String MODEL = "角色模块";
+
 	public SysRoleController(SysRoleService sysRoleService) {
 		this.sysRoleService = sysRoleService;
 	}
@@ -70,24 +81,24 @@ public class SysRoleController extends BaseController {
 	}
 
 	/**
-	 *
-	 * @return
+	 * 返回list页面
+	 * @return {@link ModelAndView}
 	 */
 	@GetMapping(value = {"", "/"})
-	public ModelAndView role() {
-		return new ModelAndView("modules/manage/role/role_list.html");
+	public ModelAndView list() {
+		return new ModelAndView(HTML_PREFIX + "role_list.html");
 	}
 
 	/**
 	 * form表单
 	 * @return 地址
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.OPEN_VIEW_FORM)
 	@GetMapping(value = "/form")
 	@PreAuthorize("hasAuthority('manage:role:add') or hasAuthority('manage:role:edit')")
+	@LogAnnotation(model = MODEL, action = OperateLogConstant.OPEN_VIEW_FORM)
 	public ModelAndView form(SysRoleVO vo, Model model) {
 		model.addAttribute("role", vo);
-		return new ModelAndView("modules/manage/role/role_form.html");
+		return new ModelAndView(HTML_PREFIX + "role_form.html");
 	}
 
 	/**
@@ -95,10 +106,10 @@ public class SysRoleController extends BaseController {
 	 * @param vo 实体对象
 	 * @return AjaxResult
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.ADD_UPDATE)
 	@DemoEnvironment
 	@RequestMapping(value = "/saveOrUpdate")
 	@PreAuthorize("hasAuthority('manage:role:add') or hasAuthority('manage:role:edit')")
+	@LogAnnotation(model = MODEL, action = OperateLogConstant.ADD_UPDATE)
 	public AjaxResult saveOrUpdate(@Valid SysRoleVO vo) {
 		return AjaxResult.builder().result(sysRoleService.saveOrUpdate(vo)).build();
 	}
@@ -108,12 +119,12 @@ public class SysRoleController extends BaseController {
 	 * @param id 主键ID
 	 * @return AjaxResult
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.DEL)
 	@DemoEnvironment
-	@PreAuthorize("hasAuthority('manage:role:del')")
 	@PostMapping(value = "/removeById")
+	@PreAuthorize("hasAuthority('manage:role:del')")
+	@LogAnnotation(model = DEL_MODEL + MODEL, action = OperateLogConstant.DEL)
 	public AjaxResult removeById(
-			@NotBlank(message = "id不能为空") @RequestParam(value = "id", required = false) String id) {
+			@NotBlank(message = ID_NOT_BLANK_MSG) @RequestParam(value = "id", required = false) String id) {
 		return AjaxResult.builder().result(sysRoleService.removeById(id)).build();
 	}
 
@@ -122,12 +133,12 @@ public class SysRoleController extends BaseController {
 	 * @param ids 主键ID集合
 	 * @return AjaxResult
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.DEL)
 	@DemoEnvironment
-	@PreAuthorize("hasAuthority('manage:role:del')")
 	@PostMapping(value = "/removeByIds")
+	@PreAuthorize("hasAuthority('manage:role:del')")
+	@LogAnnotation(model = DEL_MODEL + MODEL, action = OperateLogConstant.DEL)
 	public AjaxResult saveOrUpdate(
-			@NotBlank(message = "id不能为空") @RequestParam(value = "ids", required = false) List<String> ids) {
+			@NotBlank(message = ID_NOT_BLANK_MSG) @RequestParam(value = "ids", required = false) List<String> ids) {
 		return AjaxResult.builder().result(sysRoleService.removeByIds(ids)).build();
 	}
 
@@ -135,9 +146,9 @@ public class SysRoleController extends BaseController {
 	 * 分页查询
 	 * @return PageableResult
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.SELECT_PAGE)
 	@AutoQueryDictValue
 	@PostMapping(value = "/page")
+	@LogAnnotation(model = MODEL + SELECT_PAGE_MODEL, action = OperateLogConstant.SELECT_PAGE)
 	public PageableResult page(Page<SysRoleEntity> page, SysRoleVO vo) {
 		return PageableResult.builder().page(pageVOFilling(
 				sysRoleService.page(new PageFactory<SysRoleEntity>().defaultPage(page), new QueryWrapper<>(vo)),
@@ -148,12 +159,12 @@ public class SysRoleController extends BaseController {
 	 * 查询全部记录
 	 * @return SysDictTypeEntity
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.SELECT_LIST)
 	@AutoQueryDictValue
 	@PostMapping(value = "/list")
-	public AjaxResult list() {
+	@LogAnnotation(model = MODEL + SELECT_LIST_MODEL, action = OperateLogConstant.SELECT_LIST)
+	public AjaxResult list(SysRoleVO vo) {
 		return AjaxResult.builder()
-				.result(mappingList(sysRoleService.list(new QueryWrapper<>()), new ArrayList<>(), SysRoleVO.class))
+				.result(mappingList(sysRoleService.list(new QueryWrapper<>(vo)), new ArrayList<>(), SysRoleVO.class))
 				.build();
 	}
 
