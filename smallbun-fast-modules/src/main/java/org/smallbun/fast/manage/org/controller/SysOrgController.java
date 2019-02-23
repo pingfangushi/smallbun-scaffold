@@ -103,6 +103,7 @@ public class SysOrgController extends BaseController {
 	 */
 	@GetMapping(value = "form")
 	@PreAuthorize("hasAuthority('manage:org:add') or hasAuthority('manage:org:add')")
+	@LogAnnotation(model = MODEL, action = ADD_UPDATE)
 	public ModelAndView form(SysOrgVO org, Model model) {
 		model.addAttribute("org", org);
 		return new ModelAndView(HTML_PREFIX + "org_form.html");
