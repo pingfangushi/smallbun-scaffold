@@ -32,6 +32,7 @@ import org.smallbun.fast.manage.org.service.SysOrgService;
 import org.smallbun.fast.manage.org.vo.SysOrgVO;
 import org.smallbun.framework.annotation.AutoQueryDictValue;
 import org.smallbun.framework.annotation.DemoEnvironment;
+import org.smallbun.framework.annotation.LogAnnotation;
 import org.smallbun.framework.base.BaseController;
 import org.smallbun.framework.result.AjaxResult;
 import org.smallbun.framework.result.PageableResult;
@@ -49,6 +50,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.smallbun.framework.constant.ERROR_MSG_CONSTANT.ID_NOT_BLANK_MSG;
+import static org.smallbun.framework.constant.OperateLogConstant.*;
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 
@@ -69,7 +71,7 @@ public class SysOrgController extends BaseController {
 	/**
 	 * 模块名称
 	 */
-	private static final String MODEL = "系统日志模块";
+	private static final String MODEL = "组织机构模块";
 
 
 	@Autowired
@@ -115,6 +117,7 @@ public class SysOrgController extends BaseController {
 	@DemoEnvironment
 	@PostMapping("/saveOrUpdate")
 	@PreAuthorize("hasAuthority('manage:notify:add') or hasAuthority('manage:notify:add')")
+	@LogAnnotation(model = MODEL, action = ADD_UPDATE)
 	public AjaxResult saveOrUpdate(@Valid SysOrgVO org) {
 		return AjaxResult.builder().result(sysOrgService.saveOrUpdate(org)).build();
 	}
@@ -128,6 +131,7 @@ public class SysOrgController extends BaseController {
 	@DemoEnvironment
 	@PostMapping("/removeById")
 	@PreAuthorize("hasAuthority('manage:org:del')")
+	@LogAnnotation(model = DEL_MODEL + MODEL, action = DEL)
 	public AjaxResult removeById(
 			@NotBlank(message = ID_NOT_BLANK_MSG) @RequestParam(value = "id", required = false) String id) {
 		return AjaxResult.builder().result(sysOrgService.removeById(id)).build();
@@ -142,6 +146,7 @@ public class SysOrgController extends BaseController {
 	@DemoEnvironment
 	@PostMapping("/removeByIds")
 	@PreAuthorize("hasAuthority('manage:org:del')")
+	@LogAnnotation(model = DEL_MODEL + MODEL, action = DEL)
 	public AjaxResult removeByIds(
 			@NotBlank(message = ID_NOT_BLANK_MSG) @RequestParam(value = "ids", required = false) List<String> ids) {
 		return AjaxResult.builder().result(sysOrgService.removeByIds(ids)).build();
@@ -153,8 +158,9 @@ public class SysOrgController extends BaseController {
 	 * @param page page
 	 * @return   {@link PageableResult}
 	 */
-	@PostMapping(value = "/page")
 	@AutoQueryDictValue
+	@PostMapping(value = "/page")
+	@LogAnnotation(model = MODEL + SELECT_PAGE_MODEL, action = SELECT_PAGE)
 	public PageableResult page(Page<SysOrgEntity> page, SysOrgVO vo) {
 		return PageableResult.builder().page(pageVOFilling(
 				sysOrgService.page(new PageFactory<SysOrgEntity>().defaultPage(page), new QueryWrapper<>(vo)),
@@ -168,6 +174,7 @@ public class SysOrgController extends BaseController {
 	 */
 	@AutoQueryDictValue
 	@PostMapping(value = "/list")
+	@LogAnnotation(model = MODEL + SELECT_LIST_MODEL, action = SELECT_LIST)
 	public AjaxResult list() {
 		return AjaxResult.builder().result(excludeZtreeChildrenField(
 				mappingList(sysOrgService.list(new QueryWrapper<>()), new ArrayList<SysOrgVO>(), SysOrgVO.class)))

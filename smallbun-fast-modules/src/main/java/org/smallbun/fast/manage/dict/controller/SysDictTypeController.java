@@ -50,6 +50,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.smallbun.framework.constant.ERROR_MSG_CONSTANT.ID_NOT_BLANK_MSG;
+import static org.smallbun.framework.constant.OperateLogConstant.*;
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 
@@ -63,7 +64,14 @@ import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 @RequestMapping("/dict/type")
 public class SysDictTypeController extends BaseController {
 
+	/**
+	 * 模块名称
+	 */
 	private static final String MODEL = "字典类型";
+	/**
+	 * HTML页面路径前缀
+	 */
+	private static final String HTML_PREFIX = "modules/manage/dict/";
 
 	@Autowired
 	public SysDictTypeController(SysDictTypeService sysDictTypeService) {
@@ -76,24 +84,24 @@ public class SysDictTypeController extends BaseController {
 	}
 
 	/**
-	 *
-	 * @return
+	 * list页面
+	 * @return {@link ModelAndView}
 	 */
 	@GetMapping(value = {"", "/"})
-	public ModelAndView dictType() {
-		return new ModelAndView("modules/manage/dict/dict_type_list.html");
+	public ModelAndView list() {
+		return new ModelAndView(HTML_PREFIX + "dict_type_list.html");
 	}
 
 	/**
 	 * form表单
 	 * @return 地址
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.OPEN_VIEW_FORM)
 	@GetMapping(value = "/form")
 	@PreAuthorize("hasAuthority('manage:dict:add') or hasAuthority('manage:dict:edit')")
+	@LogAnnotation(model = MODEL, action = OperateLogConstant.OPEN_VIEW_FORM)
 	public ModelAndView form(SysDictTypeVO vo, Model model) {
 		model.addAttribute("dictType", vo);
-		return new ModelAndView("modules/manage/dict/dict_type_form.html");
+		return new ModelAndView(HTML_PREFIX + "dict_type_form.html");
 	}
 
 	/**
@@ -101,10 +109,10 @@ public class SysDictTypeController extends BaseController {
 	 * @param vo Vo
 	 * @return AjaxResult
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.ADD_UPDATE)
 	@DemoEnvironment
 	@RequestMapping(value = "/saveOrUpdate")
 	@PreAuthorize("hasAuthority('manage:dict:add') or hasAuthority('manage:dict:edit')")
+	@LogAnnotation(model = MODEL, action = OperateLogConstant.ADD_UPDATE)
 	public AjaxResult saveOrUpdate(@Valid SysDictTypeVO vo) {
 		return AjaxResult.builder().result(sysDictTypeService.saveOrUpdate(vo)).build();
 	}
@@ -114,10 +122,10 @@ public class SysDictTypeController extends BaseController {
 	 * @param id 主键ID
 	 * @return AjaxResult
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.DEL)
 	@DemoEnvironment
 	@PostMapping(value = "/removeById")
 	@PreAuthorize("hasAuthority('manage:dict:del')")
+	@LogAnnotation(model = DEL_MODEL + MODEL, action = OperateLogConstant.DEL)
 	public AjaxResult removeById(
 			@NotBlank(message = ID_NOT_BLANK_MSG) @RequestParam(value = "id", required = false) String id) {
 		return AjaxResult.builder().result(sysDictTypeService.removeById(id)).build();
@@ -128,10 +136,10 @@ public class SysDictTypeController extends BaseController {
 	 * @param ids 主键ID集合
 	 * @return AjaxResult
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.DEL)
 	@DemoEnvironment
 	@PostMapping(value = "/removeByIds")
 	@PreAuthorize("hasAuthority('manage:dict:del')")
+	@LogAnnotation(model = DEL_MODEL + MODEL, action = OperateLogConstant.DEL)
 	public AjaxResult removeByIds(@RequestParam(value = "ids", required = false) List<String> ids) {
 		return AjaxResult.builder().result(sysDictTypeService.removeByIds(ids)).build();
 	}
@@ -140,8 +148,8 @@ public class SysDictTypeController extends BaseController {
 	 * 分页查询
 	 * @return PageableResult
 	 */
-	@LogAnnotation(model = MODEL + "分页查询", action = OperateLogConstant.SELECT_PAGE)
 	@PostMapping(value = "/page")
+	@LogAnnotation(model = MODEL + SELECT_PAGE_MODEL, action = OperateLogConstant.SELECT_PAGE)
 	public PageableResult page(Page<SysDictTypeEntity> page, SysDictTypeVO vo) {
 		return PageableResult.builder().page(pageVOFilling(
 				sysDictTypeService.page(new PageFactory<SysDictTypeEntity>().defaultPage(page), new QueryWrapper<>(vo)),
@@ -152,7 +160,7 @@ public class SysDictTypeController extends BaseController {
 	 * 查询全部记录
 	 * @return SysDictTypeEntity
 	 */
-	@LogAnnotation(model = MODEL + "全部记录", action = OperateLogConstant.SELECT_LIST)
+	@LogAnnotation(model = MODEL + SELECT_LIST_MODEL, action = OperateLogConstant.SELECT_LIST)
 	@PostMapping(value = "/list")
 	public AjaxResult list(SysDictTypeVO vo) {
 		return AjaxResult.builder()

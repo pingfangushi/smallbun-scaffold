@@ -48,7 +48,7 @@ import java.util.List;
 
 import static org.smallbun.framework.constant.ERROR_MSG_CONSTANT.ID_NOT_BLANK_MSG;
 import static org.smallbun.framework.constant.OperateLogConstant.DEL_MODEL;
-import static org.smallbun.framework.constant.OperateLogConstant.SELECT_PAGE;
+import static org.smallbun.framework.constant.OperateLogConstant.SELECT_PAGE_MODEL;
 
 /**
  * 操作日志记录 前端控制器
@@ -96,7 +96,7 @@ public class SysOperateLogController extends BaseController {
 	 */
 	@AutoQueryDictValue
 	@PostMapping(value = "/page")
-	@LogAnnotation(model = MODEL + SELECT_PAGE, action = OperateLogConstant.SELECT_PAGE)
+	@LogAnnotation(model = MODEL + SELECT_PAGE_MODEL, action = OperateLogConstant.SELECT_PAGE)
 	public PageableResult page(Page<SysOperateLogEntity> page, SysOperateLogVO vo) {
 		return PageableResult.builder().page(pageVOFilling(
 				sysOperateLogService.page(new PageFactory<SysOperateLogEntity>().defaultPage(page), vo),

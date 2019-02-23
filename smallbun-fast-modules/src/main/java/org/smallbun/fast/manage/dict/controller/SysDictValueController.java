@@ -51,6 +51,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.smallbun.framework.constant.ERROR_MSG_CONSTANT.ID_NOT_BLANK_MSG;
+import static org.smallbun.framework.constant.OperateLogConstant.*;
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 
@@ -64,6 +65,14 @@ import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 @RequestMapping("/dict/value")
 public class SysDictValueController extends BaseController {
 
+	/**
+	 * 模块名称
+	 */
+	private static final String MODEL = "字典类型";
+	/**
+	 * HTML页面路径前缀
+	 */
+	private static final String HTML_PREFIX = "/modules/manage/dict/";
 
 	@Autowired
 	public SysDictValueController(SysDictValueService sysDictValueService) {
@@ -76,24 +85,25 @@ public class SysDictValueController extends BaseController {
 	}
 
 	/**
-	 * @return
+	 * 返回list页面
+	 * @return {@link ModelAndView}
 	 */
 	@GetMapping(value = {"", "/"})
-	public ModelAndView dictType(SysDictValueVO vo, Model model) {
+	public ModelAndView list(SysDictValueVO vo, Model model) {
 		model.addAttribute("vo", vo);
-		return new ModelAndView("/modules/manage/dict/dict_value_list.html");
+		return new ModelAndView(HTML_PREFIX + "dict_value_list.html");
 	}
 
 	/**
 	 * form表单
 	 * @return 地址
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.OPEN_VIEW_FORM)
 	@GetMapping(value = "/form")
 	@PreAuthorize("hasAuthority('manage:dict:add') or hasAuthority('manage:dict:edit')")
+	@LogAnnotation(model = MODEL, action = OperateLogConstant.OPEN_VIEW_FORM)
 	public ModelAndView form(SysDictValueVO vo, Model model) {
 		model.addAttribute("dictValue", vo);
-		return new ModelAndView("/modules/manage/dict/dict_value_form.html");
+		return new ModelAndView(HTML_PREFIX + "dict_value_form.html");
 	}
 
 	/**
@@ -101,10 +111,10 @@ public class SysDictValueController extends BaseController {
 	 * @param vo 类型实体对象
 	 * @return AjaxResult
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.ADD_UPDATE)
 	@DemoEnvironment
 	@PostMapping(value = "/saveOrUpdate")
 	@PreAuthorize("hasAuthority('manage:dict:add') or hasAuthority('manage:dict:edit')")
+	@LogAnnotation(model = MODEL, action = OperateLogConstant.ADD_UPDATE)
 	public AjaxResult saveOrUpdate(@Valid SysDictValueVO vo) {
 		return AjaxResult.builder().result(sysDictValueService.saveOrUpdate(vo)).build();
 	}
@@ -114,10 +124,10 @@ public class SysDictValueController extends BaseController {
 	 * @param id 主键ID
 	 * @return AjaxResult
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.DEL)
 	@DemoEnvironment
 	@GetMapping(value = "/removeById")
 	@PreAuthorize("hasAuthority('manage:dict:del')")
+	@LogAnnotation(model = DEL_MODEL + MODEL, action = OperateLogConstant.DEL)
 	public AjaxResult removeById(
 			@NotBlank(message = ID_NOT_BLANK_MSG) @RequestParam(value = "id", required = false) String id) {
 		return AjaxResult.builder().result(sysDictValueService.removeById(id)).build();
@@ -128,10 +138,10 @@ public class SysDictValueController extends BaseController {
 	 * @param ids 主键ID集合
 	 * @return AjaxResult
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.DEL)
 	@DemoEnvironment
 	@PostMapping(value = "/removeByIds")
 	@PreAuthorize("hasAuthority('manage:dict:del')")
+	@LogAnnotation(model = DEL_MODEL + MODEL, action = OperateLogConstant.DEL)
 	public AjaxResult saveOrUpdate(
 			@NotBlank(message = ID_NOT_BLANK_MSG) @RequestParam(value = "ids", required = false) List<String> ids) {
 		return AjaxResult.builder().result(sysDictValueService.removeByIds(ids)).build();
@@ -141,8 +151,8 @@ public class SysDictValueController extends BaseController {
 	 * 分页查询
 	 * @return PageableResult
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.SELECT_PAGE)
 	@PostMapping(value = "/page")
+	@LogAnnotation(model = MODEL + SELECT_PAGE_MODEL, action = OperateLogConstant.SELECT_PAGE)
 	public PageableResult page(Page<SysDictValueEntity> page, SysDictValueVO vo) {
 		return PageableResult.builder().page(pageVOFilling(
 				sysDictValueService.page(new PageFactory<SysDictValueEntity>().defaultPage(page), vo),
@@ -153,8 +163,8 @@ public class SysDictValueController extends BaseController {
 	 * 查询全部
 	 * @return AjaxResult
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.SELECT_LIST)
 	@PostMapping(value = "/list")
+	@LogAnnotation(model = MODEL + SELECT_LIST_MODEL, action = OperateLogConstant.SELECT_LIST)
 	public AjaxResult list(SysDictValueVO vo) {
 		return AjaxResult.builder()
 				.result(mappingList(sysDictValueService.list(new QueryWrapper<>(vo)), new ArrayList<SysDictTypeVO>(),

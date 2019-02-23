@@ -51,6 +51,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.smallbun.framework.constant.ERROR_MSG_CONSTANT.ID_NOT_BLANK_MSG;
+import static org.smallbun.framework.constant.OperateLogConstant.*;
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 
@@ -64,6 +65,17 @@ import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 @RestController
 @RequestMapping(value = "/menu")
 public class SysMenuController extends BaseController {
+
+	/**
+	 * 模块名称
+	 */
+	private static final String MODEL = "字典类型";
+	/**
+	 * HTML页面路径前缀
+	 */
+	private static final String HTML_PREFIX = "/modules/manage/menu/";
+
+
 	@Autowired
 	public SysMenuController(SysMenuService menuService) {
 		this.menuService = menuService;
@@ -80,7 +92,7 @@ public class SysMenuController extends BaseController {
 	 */
 	@RequestMapping(value = {"/", ""})
 	public ModelAndView menu() {
-		return new ModelAndView("/modules/manage/menu/menu_list.html");
+		return new ModelAndView(HTML_PREFIX + "menu_list.html");
 	}
 
 	/**
@@ -91,7 +103,7 @@ public class SysMenuController extends BaseController {
 	@PreAuthorize("hasAuthority('manage:dict:add') or hasAuthority('manage:dict:edit')")
 	public ModelAndView form(SysMenuVO menu, Model model) {
 		model.addAttribute("menu", menu);
-		return new ModelAndView("/modules/manage/menu/menu_form.html");
+		return new ModelAndView(HTML_PREFIX + "menu_form.html");
 	}
 
 	/**
@@ -99,10 +111,10 @@ public class SysMenuController extends BaseController {
 	 * @param menu 类型实体对象
 	 * @return AjaxResult
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.ADD_UPDATE)
 	@DemoEnvironment
 	@PostMapping(value = "/saveOrUpdate")
 	@PreAuthorize("hasAuthority('manage:dict:add') or hasAuthority('manage:dict:edit')")
+	@LogAnnotation(model = MODEL, action = OperateLogConstant.ADD_UPDATE)
 	public AjaxResult saveOrUpdate(@Valid SysMenuVO menu) {
 		return AjaxResult.builder().result(menuService.saveOrUpdate(menu)).build();
 	}
@@ -112,10 +124,10 @@ public class SysMenuController extends BaseController {
 	 * @param id 主键ID
 	 * @return AjaxResult
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.DEL)
 	@DemoEnvironment
 	@PostMapping(value = "/removeById")
 	@PreAuthorize("hasAuthority('manage:dict:del')")
+	@LogAnnotation(model = DEL_MODEL + MODEL, action = OperateLogConstant.DEL)
 	public AjaxResult removeById(
 			@NotBlank(message = ID_NOT_BLANK_MSG) @RequestParam(value = "id", required = false) String id) {
 		return AjaxResult.builder().result(menuService.removeById(id)).build();
@@ -126,11 +138,11 @@ public class SysMenuController extends BaseController {
 	 * @param ids 主键ID集合
 	 * @return AjaxResult
 	 */
-	@LogAnnotation(model = "", action = OperateLogConstant.DEL)
 	@DemoEnvironment
 	@PostMapping(value = "/removeByIds")
 	@PreAuthorize("hasAuthority('manage:dict:del')")
-	public AjaxResult saveOrUpdate(
+	@LogAnnotation(model = DEL_MODEL + MODEL, action = OperateLogConstant.DEL)
+	public AjaxResult removeByIds(
 			@NotBlank(message = ID_NOT_BLANK_MSG) @RequestParam(value = "ids", required = false) List<String> ids) {
 		return AjaxResult.builder().result(menuService.removeByIds(ids)).build();
 	}
@@ -141,8 +153,9 @@ public class SysMenuController extends BaseController {
 	 *
 	 * @return AjaxResult
 	 */
-	@RequestMapping(value = "/page")
 	@AutoQueryDictValue
+	@RequestMapping(value = "/page")
+	@LogAnnotation(model = MODEL + SELECT_PAGE_MODEL, action = OperateLogConstant.SELECT_PAGE)
 	public PageableResult page(Page<SysMenuEntity> page, SysMenuVO vo) {
 		return PageableResult.builder()
 				.page(menuService.page(new PageFactory<SysMenuEntity>().defaultPage(page), new QueryWrapper<>(vo)))
@@ -154,9 +167,9 @@ public class SysMenuController extends BaseController {
 	 *
 	 * @return AjaxResult
 	 */
-	@LogAnnotation(model = "查询所有菜单", action = OperateLogConstant.SELECT_PAGE)
-	@PostMapping(value = "/list")
 	@AutoQueryDictValue
+	@PostMapping(value = "/list")
+	@LogAnnotation(model = MODEL + SELECT_LIST_MODEL, action = OperateLogConstant.SELECT_PAGE)
 	public AjaxResult list(SysMenuVO vo) {
 		return AjaxResult.builder().result(excludeZtreeChildrenField(
 				mappingList(menuService.list(new QueryWrapper<SysMenuEntity>(vo).orderByAsc("sort")), new ArrayList<>(),

@@ -25,7 +25,9 @@ package org.smallbun.fast.manage.monitor.controller;
 
 import org.smallbun.fast.manage.monitor.service.SysMonitorService;
 import org.smallbun.framework.annotation.DemoEnvironment;
+import org.smallbun.framework.annotation.LogAnnotation;
 import org.smallbun.framework.base.BaseController;
+import org.smallbun.framework.constant.OperateLogConstant;
 import org.smallbun.framework.result.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -38,6 +40,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.constraints.NotNull;
 
 import static org.smallbun.framework.constant.ERROR_MSG_CONSTANT.ID_NOT_BLANK_MSG;
+import static org.smallbun.framework.constant.OperateLogConstant.SELECT_LIST_MODEL;
 
 /**
  * 系统监控控制器
@@ -48,6 +51,15 @@ import static org.smallbun.framework.constant.ERROR_MSG_CONSTANT.ID_NOT_BLANK_MS
 @RestController
 @RequestMapping(value = "/monitor")
 public class SysMonitorController extends BaseController {
+	/**
+	 * 模块名称
+	 */
+	private static final String MODEL = "在线用户";
+	/**
+	 * HTML页面路径前缀
+	 */
+	private static final String HTML_PREFIX = "modules/manage/monitor/";
+
 	@Autowired
 	public SysMonitorController(SysMonitorService monitorService) {
 		this.monitorService = monitorService;
@@ -68,7 +80,7 @@ public class SysMonitorController extends BaseController {
 	 */
 	@RequestMapping(value = "/online/user/view")
 	public ModelAndView onlineView() {
-		return new ModelAndView("modules/manage/monitor/online_user.html");
+		return new ModelAndView(HTML_PREFIX + "online_user.html");
 	}
 
 	/**
@@ -76,6 +88,7 @@ public class SysMonitorController extends BaseController {
 	 * @return {@link AjaxResult}
 	 */
 	@RequestMapping(value = "/online/user/list")
+	@LogAnnotation(model = MODEL + SELECT_LIST_MODEL, action = OperateLogConstant.DEL)
 	public AjaxResult online() {
 		return AjaxResult.builder().result(monitorService.getUsersFromSessionRegistry()).build();
 	}
@@ -86,6 +99,7 @@ public class SysMonitorController extends BaseController {
 	 */
 	@DemoEnvironment
 	@PostMapping(value = "/online/user/expireUserSessions")
+	@LogAnnotation(model = MODEL + "下线所有用户，当前用户除外", action = OperateLogConstant.DEL)
 	public AjaxResult expireUserSessions() {
 		monitorService.expireUserSessions();
 		return AjaxResult.builder().build();
@@ -98,6 +112,7 @@ public class SysMonitorController extends BaseController {
 	 */
 	@DemoEnvironment
 	@PostMapping(value = "/online/user/expireUserSession")
+	@LogAnnotation(model = MODEL + "下线指定用户", action = OperateLogConstant.DEL)
 	public AjaxResult expireUserSession(
 			@NotNull(message = ID_NOT_BLANK_MSG) @RequestParam(value = "sessionId") String sessionId) {
 		monitorService.expireUserSession(sessionId);
