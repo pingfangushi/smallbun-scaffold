@@ -54,4 +54,14 @@ public class SysNotifyServiceImpl extends BaseServiceImpl<SysNotifyMapper, SysNo
 		}
 		return new SysNotifyVO();
 	}
+
+	/**
+	 * 自定义更新或删除
+	 * @param entity
+	 * @return
+	 */
+	@Override
+	public boolean saveOrUpdate(SysNotifyEntity entity) {
+		return super.saveOrUpdate(entity);
+	}
 }

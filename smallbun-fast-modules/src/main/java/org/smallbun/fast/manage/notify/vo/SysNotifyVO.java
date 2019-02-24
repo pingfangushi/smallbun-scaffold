@@ -26,6 +26,9 @@ package org.smallbun.fast.manage.notify.vo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.smallbun.fast.manage.notify.entity.SysNotifyEntity;
+import org.smallbun.fast.manage.user.entity.SysUserEntity;
+
+import java.util.List;
 
 /**
  * 通知公告VO对象
@@ -35,9 +38,8 @@ import org.smallbun.fast.manage.notify.entity.SysNotifyEntity;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class SysNotifyVO extends SysNotifyEntity {
-	/** 接收人 id */
-	private String receiverId;
-
-	/** 接受人 name */
-	private String receiverName;
+	/**
+	 * 接收人集合
+	 */
+	private List<SysUserEntity> receiverUser;
 }

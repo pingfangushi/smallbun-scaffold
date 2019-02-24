@@ -35,6 +35,10 @@ import javax.servlet.http.HttpServletRequest;
  * Created by 2689170096@qq.com on 2019/2/14 19:23
  */
 public interface SysNotifyService extends BaseService<SysNotifyEntity> {
-
+	/**
+	 * model
+	 * @param request
+	 * @return
+	 */
 	SysNotifyVO model(HttpServletRequest request);
 }
