@@ -46,7 +46,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-import static org.smallbun.framework.constant.ERROR_MSG_CONSTANT.ID_NOT_BLANK_MSG;
+import static org.smallbun.framework.constant.ErrorMsgConstant.ID_NOT_BLANK_MSG;
 import static org.smallbun.framework.constant.OperateLogConstant.DEL_MODEL;
 import static org.smallbun.framework.constant.OperateLogConstant.SELECT_PAGE_MODEL;
 

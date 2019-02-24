@@ -49,7 +49,7 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.smallbun.framework.constant.ERROR_MSG_CONSTANT.ID_NOT_BLANK_MSG;
+import static org.smallbun.framework.constant.ErrorMsgConstant.ID_NOT_BLANK_MSG;
 import static org.smallbun.framework.constant.OperateLogConstant.SELECT_LIST;
 import static org.smallbun.framework.constant.OperateLogConstant.SELECT_PAGE;
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;

@@ -24,13 +24,20 @@
 package org.smallbun.fast.manage.notify.vo;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.smallbun.fast.manage.notify.entity.SysNotifyEntity;
 
+/**
+ * 通知公告VO对象
+ * @author SanLi
+ * Created by 2689170096@qq.com on 2019/2/21 22:33
+ */
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class SysNotifyVO extends SysNotifyEntity {
-    /** 接收人 id */
-    private String receiverId;
+	/** 接收人 id */
+	private String receiverId;
 
-    /** 接受人 name */
-    private String receiverName;
+	/** 接受人 name */
+	private String receiverName;
 }
