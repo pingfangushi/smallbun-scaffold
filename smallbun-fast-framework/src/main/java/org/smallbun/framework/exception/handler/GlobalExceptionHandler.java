@@ -25,6 +25,8 @@ package org.smallbun.framework.exception.handler;
 
 import org.smallbun.framework.constant.SystemConstant;
 import org.smallbun.framework.result.AjaxResult;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -79,32 +81,44 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(value = Exception.class)
 	public Object defaultErrorHandler(HttpServletRequest req, Exception e) {
-		//使用HttpServletRequest中的header检测请求是否为ajax, 如果是ajax则返回json, 如果为非ajax则返回view(即ModelAndView)
-		String contentTypeHeader = req.getHeader("Content-Type");
-		String acceptHeader = req.getHeader("Accept");
-		String xRequestedWith = req.getHeader("X-Requested-With");
-		boolean b = (contentTypeHeader != null && contentTypeHeader.contains(APPLICATION_JSON)) || (acceptHeader != null
-				&& acceptHeader.contains(APPLICATION_JSON)) || XML_HTTP_REQUEST.equalsIgnoreCase(xRequestedWith);
-		if (b) {
-			//返回Ajax错误
+		//返回Ajax错误
+		if (isAjaxReq(req)) {
 			return AjaxResult.builder().msg(e.getMessage()).status(EX900001).build();
 		}
 		//非Ajax ,返回ModelAndView
 		else {
-			ModelAndView modelAndView = new ModelAndView();
-			modelAndView.addObject(EXCEPTION, e);
-			modelAndView.addObject(URL, req.getRequestURL());
-			modelAndView.addObject(MESSAGE, e.getMessage());
-			modelAndView.addObject(STACK_TRACE, e.getStackTrace());
+			ModelAndView modelAndView = getModelAndView(req, e);
 			modelAndView.setViewName(SystemConstant.DEFAULT_ERROR_VIEW);
 			return modelAndView;
 		}
 	}
 
 	/**
+	 * 没有访问权限
+	 * @param req  {@link HttpServletRequest}
+	 * @param e  {@link AccessDeniedException}
+	 * @return {@link Object}
+	 */
+	@ExceptionHandler(value = AccessDeniedException.class)
+	public Object methodAccessDeniedException(HttpServletRequest req, AccessDeniedException e) {
+		//403
+		if (isAjaxReq(req)) {
+			return AjaxResult.builder().msg(e.getMessage()).status(String.valueOf(HttpStatus.FORBIDDEN.value()))
+					.build();
+		}
+		//非Ajax ,返回ModelAndView
+		else {
+			ModelAndView modelAndView = getModelAndView(req, e);
+			modelAndView.setViewName(SystemConstant.NO_ACCESS);
+			return modelAndView;
+		}
+	}
+
+
+	/**
 	 * 参数验证异常
-	 * @param exception
-	 * @return
+	 * @param exception {@link MethodArgumentNotValidException}
+	 * @return {@link Object}
 	 */
 	@ExceptionHandler(value = MethodArgumentNotValidException.class)
 	public Object methodArgumentNotValidHandler(MethodArgumentNotValidException exception) {
@@ -115,5 +129,37 @@ public class GlobalExceptionHandler {
 		}
 		return AjaxResult.builder().msg(buffer.toString());
 	}
+
+
+	/**
+	 * 范围ModelAndView
+	 * @param req {@link HttpServletRequest}
+	 * @param e {@link Exception}
+	 * @return {@link Object}
+	 */
+	private ModelAndView getModelAndView(HttpServletRequest req, Exception e) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject(EXCEPTION, e);
+		modelAndView.addObject(URL, req.getRequestURL());
+		modelAndView.addObject(MESSAGE, e.getMessage());
+		modelAndView.addObject(STACK_TRACE, e.getStackTrace());
+		return modelAndView;
+	}
+
+	/**
+	 * 是否是ajax请求
+	 * @param req {@link HttpServletRequest}
+	 * @return  {@link Boolean}
+	 */
+	private boolean isAjaxReq(HttpServletRequest req) {
+		//解析原错误信息，封装后返回，此处返回非法的字段名称，原始值，错误信息
+		//使用HttpServletRequest中的header检测请求是否为ajax, 如果是ajax则返回json, 如果为非ajax则返回view(即ModelAndView)
+		String contentTypeHeader = req.getHeader("Content-Type");
+		String acceptHeader = req.getHeader("Accept");
+		String xRequestedWith = req.getHeader("X-Requested-With");
+		return (contentTypeHeader != null && contentTypeHeader.contains(APPLICATION_JSON)) || (acceptHeader != null
+				&& acceptHeader.contains(APPLICATION_JSON)) || XML_HTTP_REQUEST.equalsIgnoreCase(xRequestedWith);
+	}
+
 
 }

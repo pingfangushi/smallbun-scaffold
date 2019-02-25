@@ -38,17 +38,18 @@ public class DataScopeLogicUpdateById extends AbstractDataScopeLogicMethod {
 		String sql;
 		boolean logicDelete = tableInfo.isLogicDelete();
 		SqlMethod sqlMethod = SqlMethod.UPDATE_BY_ID;
-		StringBuilder append = new StringBuilder("<if test=\"et instanceof java.util.Map\">").append("<if test=\"et.")
-				.append(OptimisticLockerInterceptor.MP_OPTLOCK_VERSION_ORIGINAL).append("!=null\">")
-				.append(" AND ${et.").append(OptimisticLockerInterceptor.MP_OPTLOCK_VERSION_COLUMN).append("}=#{et.")
-				.append(OptimisticLockerInterceptor.MP_OPTLOCK_VERSION_ORIGINAL).append(StringPool.RIGHT_BRACE)
+		StringBuilder append = new StringBuilder("<if test=\"et instanceof java.util.Map\">")
+				.append("<if test=\"et.").append(OptimisticLockerInterceptor.MP_OPTLOCK_VERSION_ORIGINAL).append("!=null\">")
+				.append(" AND ${et.").append(OptimisticLockerInterceptor.MP_OPTLOCK_VERSION_COLUMN)
+				.append("}=#{et.").append(OptimisticLockerInterceptor.MP_OPTLOCK_VERSION_ORIGINAL).append(StringPool.RIGHT_BRACE)
 				.append("</if></if>");
 		if (logicDelete) {
 			append.append(tableInfo.getLogicDeleteSql(true, false));
 		}
 		sql = String.format(sqlMethod.getSql(), tableInfo.getTableName(),
-				sqlSet(logicDelete, false, tableInfo, ENTITY, ENTITY_DOT), tableInfo.getKeyColumn(),
-				ENTITY_DOT + tableInfo.getKeyProperty(), append);
+				sqlSet(logicDelete, false, tableInfo, false, ENTITY, ENTITY_DOT),
+				tableInfo.getKeyColumn(), ENTITY_DOT + tableInfo.getKeyProperty(),
+				append);
 		SqlSource sqlSource = languageDriver.createSqlSource(configuration, sql, modelClass);
 		return addUpdateMappedStatement(mapperClass, modelClass, sqlMethod.getMethod(), sqlSource);
 	}

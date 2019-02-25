@@ -38,6 +38,11 @@ public class SystemConstant {
 	 * 默认错误处理页面
 	 */
 	public static final String DEFAULT_ERROR_VIEW = "/error/500";
+
+	/**
+	 * 没有访问权限
+	 */
+	public static final String NO_ACCESS = "/error/403";
 	/**
 	 * 系统错误默认提示
 	 */
