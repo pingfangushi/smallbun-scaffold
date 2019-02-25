@@ -73,6 +73,8 @@
         <json-lib.version>2.4</json-lib.version>
         <!--httpclient-->
         <httpclient.version>4.5.6</httpclient.version>
+        <!--oshi-->
+        <oshi.version>3.9.1</oshi.version>
     </properties>
     <dependencies>
         <dependency>
@@ -158,6 +160,16 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <!-- 获取系统信息 -->
+        <dependency>
+            <groupId>com.github.oshi</groupId>
+            <artifactId>oshi-core</artifactId>
+            <version>${oshi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
         </dependency>
         <!--mybatis-plus-->
         <dependency>

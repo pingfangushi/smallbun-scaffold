@@ -60,7 +60,7 @@ public interface SmallBunDefaults {
 		/**
 		 * 版本
 		 */
-		String version = "v1.0.0 Alpha";
+		String version = "v1.0.1 Alpha";
 		/**
 		 *
 		 */

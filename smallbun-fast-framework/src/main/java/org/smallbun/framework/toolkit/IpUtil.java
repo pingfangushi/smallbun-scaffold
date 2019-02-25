@@ -24,6 +24,8 @@
 package org.smallbun.framework.toolkit;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import static sun.net.util.IPAddressUtil.textToNumericFormatV4;
 
@@ -100,5 +102,25 @@ public class IpUtil {
 		}
 
 		return "0:0:0:0:0:0:0:1".equals(ip) ? "127.0.0.1" : ip;
+	}
+
+	/**
+	 *获取主机名
+	 * @return
+	 */
+	public static String getHostName() {
+		try {
+			return InetAddress.getLocalHost().getHostName();
+		} catch (UnknownHostException e) {
+		}
+		return "未知";
+	}
+
+	public static String getHostIp() {
+		try {
+			return InetAddress.getLocalHost().getHostAddress();
+		} catch (UnknownHostException e) {
+		}
+		return "127.0.0.1";
 	}
 }

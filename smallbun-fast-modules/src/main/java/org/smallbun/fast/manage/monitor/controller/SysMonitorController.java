@@ -23,6 +23,7 @@
 
 package org.smallbun.fast.manage.monitor.controller;
 
+import org.smallbun.fast.manage.monitor.service.ServerInfoService;
 import org.smallbun.fast.manage.monitor.service.SysMonitorService;
 import org.smallbun.framework.annotation.DemoEnvironment;
 import org.smallbun.framework.annotation.LogAnnotation;
@@ -30,11 +31,9 @@ import org.smallbun.framework.base.BaseController;
 import org.smallbun.framework.constant.OperateLogConstant;
 import org.smallbun.framework.result.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.constraints.NotNull;
@@ -117,6 +116,18 @@ public class SysMonitorController extends BaseController {
 			@NotNull(message = ID_NOT_BLANK_MSG) @RequestParam(value = "sessionId") String sessionId) {
 		monitorService.expireUserSession(sessionId);
 		return AjaxResult.builder().build();
+	}
+
+	/**
+	 * 服务器监控
+	 * @return {@link ModelAndView}
+	 */
+	@GetMapping(value = "service/view")
+	public ModelAndView service(Model model) {
+		ServerInfoService server = new ServerInfoService();
+		server.copyTo();
+		model.addAttribute("server", server);
+		return new ModelAndView(HTML_PREFIX + "server_info.html");
 	}
 
 	/**
