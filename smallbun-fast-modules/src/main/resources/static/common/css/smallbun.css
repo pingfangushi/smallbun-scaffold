@@ -815,39 +815,39 @@ ul.clear-list:first-child {
 
 /*验证 start*/
 .input-group.has-error .form-control, .input-group.has-error .input-group-addon {
-    border-color: #ea2e49;
+    border-color: #F5222D;
     box-shadow: none;
 }
 
 .has-error .form-control {
-    border-color: #ea2e49;
+    border-color: #F5222D;
 }
 
 .has-error .form-control:focus {
-    border-color: #ea2e49;
+    border-color: #F5222D;
     -webkit-box-shadow: none;
 }
 
 .error {
-    color: #ea2e49;
+    color: #F5222D;
 }
 
 .input-group.has-error .input-group-btn .btn-default {
     color: #444;
-    border-color: #ea2e49;
+    border-color: #F5222D;
 }
 
 .form-control.has-error {
-    border: 1px solid #ea2e49;
+    border: 1px solid #F5222D;
 }
 
 .has-error .select2-selection {
-    border: 1px solid #ea2e49;
+    border: 1px solid #F5222D;
 }
 
 .input-group.panel-noscroll.has-error .textbox {
     box-shadow: none;
-    border-color: #ea2e49;
+    border-color: #F5222D;
 }
 
 .label-radio {
@@ -925,7 +925,7 @@ ul.clear-list:first-child {
 }
 
 .timeline > li > .timeline-item > .timeline-header {
-    color: #6284f3;
+    color: #1890ff;
     font-weight: 600;
 }
 

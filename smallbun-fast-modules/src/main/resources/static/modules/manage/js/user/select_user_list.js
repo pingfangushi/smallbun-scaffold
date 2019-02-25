@@ -48,10 +48,10 @@ $(function () {
      * 日期
      */
     laydate.render({
-        elem: '#birthdayStart', theme: '#6284f3', max: new Date().toLocaleDateString()
+        elem: '#birthdayStart', theme: '#1890ff', max: new Date().toLocaleDateString()
     });
     laydate.render({
-        elem: '#birthdayEnd', theme: '#6284f3', max: new Date().toLocaleDateString()
+        elem: '#birthdayEnd', theme: '#1890ff', max: new Date().toLocaleDateString()
     });
 });
 /**

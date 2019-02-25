@@ -49,7 +49,7 @@ $(function () {
      * 日期
      */
     laydate.render({
-        elem: '#birthday', theme: '#6284f3', max: new Date().toLocaleDateString()
+        elem: '#birthday', theme: '#1890ff', max: new Date().toLocaleDateString()
     });
 });
 /**

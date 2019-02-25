@@ -980,22 +980,22 @@
 
 .textbox .textbox-text:focus {
     font-size: 14px;
-    border-color: #6284f3;
+    border-color: #1890ff;
     box-shadow: none;
 }
 
 .textbox.easyui-fluid.combo:focus {
-    border-color: #6284f3;
+    border-color: #1890ff;
     box-shadow: none;
 }
 
 .input-group.panel-noscroll:focus {
-    border-color: #6284f3;
+    border-color: #1890ff;
     box-shadow: none;
 }
 
 .textbox:focus {
-    border-color: #6284f3;
+    border-color: #1890ff;
     box-shadow: none;
 }
 
@@ -1141,10 +1141,10 @@
 }
 
 .textbox-focused {
-    border-color: #6284f3;
-    -moz-box-shadow: 0 0 3px 0 #6284f3;
-    -webkit-box-shadow: 0 0 3px 0 #6284f3;
-    box-shadow: 0 0 3px 0 #6284f3;
+    border-color: #1890ff;
+    -moz-box-shadow: 0 0 3px 0 #1890ff;
+    -webkit-box-shadow: 0 0 3px 0 #1890ff;
+    box-shadow: 0 0 3px 0 #1890ff;
 }
 
 .textbox-invalid {

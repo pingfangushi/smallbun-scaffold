@@ -26,7 +26,7 @@
  */
 laydate.render({
     elem: '#releaseDate',
-    theme: '#6284f3',
+    theme: '#1890ff',
     max: new Date().toLocaleDateString(),
     value: new Date()
 });
