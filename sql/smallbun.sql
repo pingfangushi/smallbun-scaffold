@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2019-02-25 10:44:25
+Date: 2019-02-25 11:42:28
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -171,13 +171,13 @@ CREATE TABLE `sys_menu` (
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-INSERT INTO `sys_menu` VALUES ('1', '53', null, '用户管理', 'fa  fa-users', '', 'user', '1', '', '1', null, '0', '0', '2018-07-01 16:02:37', '0', '2019-02-09 19:32:17', '0', null);
+INSERT INTO `sys_menu` VALUES ('1', '53', '0,53', '用户管理', 'fa  fa-users', '#dddddd', 'user', '1', 'manage:user:index', '1', null, '0', '0', '2018-07-01 16:02:37', '1', '2019-02-25 03:40:52', '0', '');
 INSERT INTO `sys_menu` VALUES ('7', '0', '0', '系统管理', 'fa  fa-gears', '#dddddd', '', '0', '', '2', null, '0', '0', '2018-07-01 16:02:37', '1', '2019-02-14 12:01:37', '0', '');
 INSERT INTO `sys_menu` VALUES ('8', '7', '0,7', '菜单管理', 'fa  fa-cog', '#dddddd', 'menu', '1', 'manage:menu:index', '6', null, '0', '0', '2018-07-01 16:02:37', '1', '2019-02-25 01:58:32', '0', '');
 INSERT INTO `sys_menu` VALUES ('9', '8', '0', '查询', '', '#dddddd', '', '2', 'manage:menu:query', '100', null, '0', '0', '2018-07-01 16:02:54', '1', '2018-11-01 22:56:39', '0', '');
 INSERT INTO `sys_menu` VALUES ('10', '8', null, '新增', '', '', '', '2', 'manage:menu:add', '100', null, '0', '0', '2018-07-01 16:02:54', '0', '2019-02-07 22:24:43', '0', null);
 INSERT INTO `sys_menu` VALUES ('11', '8', null, '删除', '', '', '', '2', 'manage:menu:del', '100', null, '0', '0', '2018-07-01 16:02:54', '0', '2019-02-07 22:24:44', '0', null);
-INSERT INTO `sys_menu` VALUES ('12', '53', null, '角色管理', 'fa fa-user-secret', '', 'role', '1', '', '7', null, '0', '0', '2018-07-01 16:02:54', '0', '2019-02-09 19:32:18', '0', null);
+INSERT INTO `sys_menu` VALUES ('12', '53', '0,53', '角色管理', 'fa fa-user-secret', '#dddddd', 'role', '1', 'manage:role:index', '7', null, '0', '0', '2018-07-01 16:02:54', '1', '2019-02-25 03:41:14', '0', '');
 INSERT INTO `sys_menu` VALUES ('13', '12', null, '查询', '', '', '', '2', 'manage:role:query', '100', null, '0', '0', '2018-07-01 16:02:54', '0', '2019-02-07 22:24:45', '0', null);
 INSERT INTO `sys_menu` VALUES ('14', '12', null, '新增', '', '', '', '2', 'manage:role:add', '100', null, '0', '0', '2018-07-01 16:02:54', '0', '2019-02-07 22:24:44', '0', null);
 INSERT INTO `sys_menu` VALUES ('15', '12', null, '删除', '', '', '', '2', 'manage:role:del', '100', null, '0', '0', '2018-07-01 16:02:54', '0', '2019-02-07 22:24:44', '0', null);
@@ -209,7 +209,7 @@ INSERT INTO `sys_menu` VALUES ('48', '1', null, '新增', '', '', '', '2', 'mana
 INSERT INTO `sys_menu` VALUES ('49', '1', null, '删除', '', '', '', '2', 'manage:user:del', '100', null, '0', '0', '2018-07-01 16:02:54', '0', '2019-02-07 22:25:14', '0', null);
 INSERT INTO `sys_menu` VALUES ('50', '1', '0', '修改', '', '#dddddd', '', '2', 'manage:user:edit', '10', null, '0', '0', '2018-07-01 16:02:54', '1', '2018-11-01 22:55:59', '0', '');
 INSERT INTO `sys_menu` VALUES ('51', '44', null, '表单配置', 'fa  fa-file-pdf-o', '', 'modules/gen/list.html', '1', '', '100', null, '0', '0', '2018-07-01 16:02:54', '0', '2019-02-09 19:32:20', '0', null);
-INSERT INTO `sys_menu` VALUES ('52', '53', null, '部门管理', 'fa  fa-file-code-o', '', 'org', '0', '', '5', null, '0', '0', '2018-07-01 16:02:37', '0', '2019-02-09 19:32:19', '0', null);
+INSERT INTO `sys_menu` VALUES ('52', '53', '0,53', '部门管理', 'fa  fa-file-code-o', '#dddddd', 'org', '0', 'manage:org:index', '5', null, '0', '0', '2018-07-01 16:02:37', '1', '2019-02-25 03:41:03', '0', '');
 INSERT INTO `sys_menu` VALUES ('53', '0', '0', '组织架构', 'fa  fa-sitemap', '#dddddd', '', '0', '', '2', null, '0', '0', '2018-07-01 16:02:37', '1', '2019-02-09 19:32:19', '0', '');
 INSERT INTO `sys_menu` VALUES ('54', '19', null, '在线用户', 'fa   fa-users', '', 'monitor/online/user/view', '1', '', '101', null, '0', '0', '2019-01-11 12:22:32', '0', '2019-02-09 19:32:18', '0', null);
 INSERT INTO `sys_menu` VALUES ('1086992901067558913', '52', '0', '新增', null, '#dddddd', null, '2', 'manage:org:add', '0', null, '0', '1', '2019-01-20 08:24:38', '1', '2019-01-20 08:24:38', '0', '');
@@ -567,7 +567,7 @@ CREATE TABLE `sys_user` (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', 'admin', 'admin', 'admin', '$2a$10$K26/8HAGoW0jFe7Tofr8e.hT7/P42ZQLuHMlenOsGkl.m9Zt6Vpby', '管理员', 'https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_family.jpg', '15621346836', '', '2689170096@qq.com', '2018-05-24', '', null, null, '0:0:0:0:0:0:0:1', '本地', '2019-02-25 02:41:57', '0', '0', '232399', '1', '2018-06-18 10:50:02', '1', '2019-02-23 09:38:53', '0', '');
+INSERT INTO `sys_user` VALUES ('1', 'admin', 'admin', 'admin', '$2a$10$K26/8HAGoW0jFe7Tofr8e.hT7/P42ZQLuHMlenOsGkl.m9Zt6Vpby', '管理员', 'https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_family.jpg', '15621346836', '', '2689170096@qq.com', '2018-05-24', '', null, null, '0:0:0:0:0:0:0:1', '本地', '2019-02-25 03:39:54', '0', '0', '232399', '1', '2018-06-18 10:50:02', '1', '2019-02-23 09:38:53', '0', '');
 INSERT INTO `sys_user` VALUES ('2', 'user', 'user', 'user', '$2a$10$W7c1gJyPxf9Rtp3/G5WLre6vJomdzaSqEDt2/jJa70A6IHTetRkoO', '管理员', 'https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_colleagues.jpg', '', '', '', '1998-06-15', null, null, null, '0:0:0:0:0:0:0:1', '本地', '2019-02-25 02:37:31', '0', '1', '231112', '1', '2018-06-18 10:50:02', '1', '2019-02-09 18:59:04', '0', '');
 
 -- ----------------------------
