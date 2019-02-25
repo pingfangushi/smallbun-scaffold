@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 127.0.0.1
-Source Server Version : 50505
-Source Host           : localhost:3306
+Source Server         : 腾讯云
+Source Server Version : 50718
+Source Host           : cdb-2ipogt4w.cd.tencentcdb.com:10008
 Source Database       : smallbun
 
 Target Server Type    : MYSQL
-Target Server Version : 50505
+Target Server Version : 50718
 File Encoding         : 65001
 
-Date: 2019-02-25 14:24:25
+Date: 2019-02-25 15:54:19
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -24,10 +24,10 @@ CREATE TABLE `sys_dict_type` (
   `type_name` varchar(100) DEFAULT NULL COMMENT '类型名称',
   `type_code` varchar(100) DEFAULT NULL COMMENT '类型编码',
   `creator` bigint(20) NOT NULL COMMENT '创建者',
-  `gmt_create` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '添加时间',
+  `gmt_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `editor` bigint(20) NOT NULL COMMENT '更新者',
-  `gmt_modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
-  `is_deleted` int(11) NOT NULL DEFAULT 0 COMMENT '数据状态:1:删除 0:未删除',
+  `gmt_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `is_deleted` int(11) NOT NULL DEFAULT '0' COMMENT '数据状态:1:删除 0:未删除',
   `remarks` varchar(120) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `sys_dict_type_id_uindex` (`id`) USING BTREE
@@ -67,10 +67,10 @@ CREATE TABLE `sys_dict_value` (
   `dict_value` varchar(100) DEFAULT NULL COMMENT '字典值',
   `sort` int(11) NOT NULL COMMENT '排序',
   `creator` bigint(20) NOT NULL COMMENT '创建者',
-  `gmt_create` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '添加时间',
+  `gmt_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `editor` bigint(20) NOT NULL COMMENT '更新者',
-  `gmt_modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
-  `is_deleted` int(11) NOT NULL DEFAULT 0 COMMENT '数据状态:1:删除 0:未删除',
+  `gmt_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `is_deleted` int(11) NOT NULL DEFAULT '0' COMMENT '数据状态:1:删除 0:未删除',
   `remarks` varchar(120) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='系统字典数据';
@@ -159,10 +159,10 @@ CREATE TABLE `sys_menu` (
   `target` varchar(20) DEFAULT NULL COMMENT '菜单目标',
   `menu_status` int(11) DEFAULT NULL COMMENT '菜单状态 0可用1不可用',
   `creator` bigint(20) NOT NULL COMMENT '创建者',
-  `gmt_create` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '添加时间',
+  `gmt_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `editor` bigint(20) NOT NULL COMMENT '更新者',
-  `gmt_modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
-  `is_deleted` int(11) NOT NULL DEFAULT 0 COMMENT '数据状态:1:删除 0:未删除',
+  `gmt_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `is_deleted` int(11) NOT NULL DEFAULT '0' COMMENT '数据状态:1:删除 0:未删除',
   `remarks` varchar(120) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `sys_menu_id_uindex` (`id`) USING BTREE
@@ -237,18 +237,19 @@ INSERT INTO `sys_menu` VALUES ('1099913077537189889', '19', 'null,19', '系统�
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_notify`;
 CREATE TABLE `sys_notify` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `id` bigint(20) NOT NULL COMMENT '主键ID',
   `title` varchar(200) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '标题',
   `content` varchar(2000) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '内容',
   `notify_genre` char(1) DEFAULT NULL COMMENT '类型',
   `notify_status` char(1) DEFAULT NULL COMMENT '状态',
   `creator` bigint(20) NOT NULL COMMENT '创建者ID',
-  `gmt_create` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '创建时间',
+  `gmt_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `editor` bigint(20) NOT NULL COMMENT '修改者ID',
-  `gmt_modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
+  `gmt_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `is_deleted` char(1) NOT NULL COMMENT '数据状态:1:删除 0:未删除',
   `remarks` varchar(100) DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `sys_notify_id_uindex` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='通知通告';
 
 -- ----------------------------
@@ -260,17 +261,17 @@ CREATE TABLE `sys_notify` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_notify_record`;
 CREATE TABLE `sys_notify_record` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `id` bigint(20) NOT NULL COMMENT '主键ID',
   `notify_id` bigint(20) DEFAULT NULL COMMENT '通知通告',
   `user_id` bigint(20) DEFAULT NULL COMMENT '接受人',
   `read_flag` char(1) DEFAULT '0' COMMENT '阅读标记 1未阅读，0阅读',
   `read_date` datetime DEFAULT NULL COMMENT '阅读时间',
   `creator` bigint(20) NOT NULL COMMENT '创建者ID',
-  `gmt_create` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '创建时间',
+  `gmt_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `editor` bigint(20) NOT NULL COMMENT '修改者ID',
-  `gmt_modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
+  `gmt_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `is_deleted` char(1) NOT NULL COMMENT '数据状态:1:删除 0:未删除',
-  `remarks` longtext DEFAULT NULL COMMENT '备注',
+  `remarks` longtext COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='通知通告发送记录';
 
@@ -287,7 +288,7 @@ CREATE TABLE `sys_operate_log` (
   `title` varchar(50) DEFAULT '' COMMENT '模块标题',
   `action` varchar(100) DEFAULT '' COMMENT '功能请求',
   `method` varchar(100) DEFAULT '' COMMENT '方法名称',
-  `operate_param` longtext DEFAULT NULL COMMENT '请求参数',
+  `operate_param` longtext COMMENT '请求参数',
   `channel` char(1) DEFAULT '' COMMENT '来源渠道（0 后台用户 1 手机端用户 2其它）',
   `operate_user` varchar(50) DEFAULT '' COMMENT '操作人员',
   `operate_org` varchar(50) DEFAULT '' COMMENT '部门名称',
@@ -298,12 +299,13 @@ CREATE TABLE `sys_operate_log` (
   `error_msg` varchar(2000) DEFAULT '' COMMENT '错误消息',
   `operate_time` datetime DEFAULT NULL COMMENT '操作时间',
   `creator` bigint(20) NOT NULL COMMENT '创建者ID',
-  `gmt_create` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '创建时间',
+  `gmt_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `editor` bigint(20) NOT NULL COMMENT '修改者ID',
-  `gmt_modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
+  `gmt_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `is_deleted` char(1) NOT NULL COMMENT '数据状态:1:删除 0:未删除',
   `remarks` varchar(100) DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `sys_operate_log_id_uindex` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='操作日志记录';
 
 -- ----------------------------
@@ -333,9 +335,9 @@ CREATE TABLE `sys_org` (
   `email` varchar(200) DEFAULT NULL COMMENT '邮箱',
   `useable` varchar(64) DEFAULT NULL COMMENT '是否可用',
   `creator` bigint(20) NOT NULL COMMENT '创建者',
-  `gmt_create` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '创建时间',
+  `gmt_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `editor` bigint(20) NOT NULL COMMENT '更新者',
-  `gmt_modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
+  `gmt_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `is_deleted` char(1) NOT NULL DEFAULT '0' COMMENT '是否删除 0：未删除 1：删除',
   `remarks` varchar(255) DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`) USING BTREE,
@@ -359,7 +361,7 @@ INSERT INTO `sys_org` VALUES ('465723', '1', '0,1', '招商部', 'A005', '1', '1
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `id` bigint(20) NOT NULL COMMENT '主键ID',
   `role_name` varchar(100) DEFAULT NULL COMMENT '角色名称',
   `en_name` varchar(255) DEFAULT NULL COMMENT '英文名称',
   `data_scope` int(11) DEFAULT NULL COMMENT '数据范围',
@@ -367,13 +369,14 @@ CREATE TABLE `sys_role` (
   `useable` varchar(100) DEFAULT NULL COMMENT '是否可用',
   `sys_data` bigint(255) DEFAULT NULL COMMENT '系统数据',
   `creator` bigint(20) NOT NULL COMMENT '创建者ID',
-  `gmt_create` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '创建时间',
+  `gmt_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `editor` bigint(20) NOT NULL COMMENT '修改者ID',
-  `gmt_modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
+  `gmt_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `is_deleted` char(1) NOT NULL COMMENT '数据状态:1:删除 0:未删除',
   `remarks` varchar(100) DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1084827767704403971 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='角色表';
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `sys_role_id_uindex` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='角色表';
 
 -- ----------------------------
 -- Records of sys_role
@@ -535,7 +538,7 @@ CREATE TABLE `sys_role_org` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) NOT NULL,
   `full_name` varchar(255) NOT NULL COMMENT '姓名',
   `username` varchar(50) NOT NULL COMMENT '用户名',
   `job_number` varchar(20) DEFAULT NULL COMMENT '工号',
@@ -551,18 +554,19 @@ CREATE TABLE `sys_user` (
   `qr_code` varchar(255) DEFAULT NULL COMMENT '二维码',
   `last_login_ip` varchar(20) DEFAULT NULL COMMENT '上次登录ip',
   `last_login_address` varchar(50) DEFAULT NULL COMMENT '上次登录地址',
-  `last_login_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '最后登录日期',
+  `last_login_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后登录日期',
   `user_status` varchar(10) NOT NULL COMMENT '用户状态  0：正常   1：禁用 2：锁定',
   `user_type` varchar(10) DEFAULT NULL COMMENT '用户类型',
-  `org_id` mediumtext DEFAULT NULL COMMENT '用户归属组织',
+  `org_id` mediumtext COMMENT '用户归属组织',
   `creator` bigint(20) NOT NULL COMMENT '创建者ID',
-  `gmt_create` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `gmt_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `editor` bigint(20) NOT NULL COMMENT '修改者ID',
-  `gmt_modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+  `gmt_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   `is_deleted` char(1) NOT NULL COMMENT '数据状态: 0：正常 1：删除',
   `remarks` varchar(255) DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`id`,`gmt_modified`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1088787447501930498 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='用户表';
+  PRIMARY KEY (`id`,`gmt_modified`) USING BTREE,
+  UNIQUE KEY `sys_user_id_uindex` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='用户表';
 
 -- ----------------------------
 -- Records of sys_user
