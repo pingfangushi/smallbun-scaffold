@@ -179,6 +179,7 @@ public class ServerInfoService {
  *
  * @author wangchl
  */
+@Data
 class CpuInfo {
 
 	/**
@@ -211,53 +212,31 @@ class CpuInfo {
 	 */
 	private double free;
 
-	public int getCpuNum() {
-		return cpuNum;
-	}
-
-	public void setCpuNum(int cpuNum) {
-		this.cpuNum = cpuNum;
-	}
 
 	public double getTotal() {
 		return ArithUtil.round(ArithUtil.mul(total, 100), 2);
 	}
 
-	public void setTotal(double total) {
-		this.total = total;
-	}
 
 	public double getSys() {
 		return ArithUtil.round(ArithUtil.mul(sys / total, 100), 2);
 	}
 
-	public void setSys(double sys) {
-		this.sys = sys;
-	}
 
 	public double getUsed() {
 		return ArithUtil.round(ArithUtil.mul(used / total, 100), 2);
 	}
 
-	public void setUsed(double used) {
-		this.used = used;
-	}
 
 	public double getWait() {
 		return ArithUtil.round(ArithUtil.mul(wait / total, 100), 2);
 	}
 
-	public void setWait(double wait) {
-		this.wait = wait;
-	}
 
 	public double getFree() {
 		return ArithUtil.round(ArithUtil.mul(free / total, 100), 2);
 	}
 
-	public void setFree(double free) {
-		this.free = free;
-	}
 }
 
 /**
@@ -265,6 +244,7 @@ class CpuInfo {
  *
  * @author wangchl
  */
+@Data
 class JvmInfo {
 
 	/**
@@ -329,22 +309,6 @@ class JvmInfo {
 	 */
 	public String getName() {
 		return ManagementFactory.getRuntimeMXBean().getVmName();
-	}
-
-	public String getVersion() {
-		return version;
-	}
-
-	public void setVersion(String version) {
-		this.version = version;
-	}
-
-	public String getHome() {
-		return home;
-	}
-
-	public void setHome(String home) {
-		this.home = home;
 	}
 
 	/**
@@ -417,6 +381,7 @@ class MemInfo {
  *
  * @author wangchl
  */
+@Data
 class SysFileInfo {
 
 	/**
@@ -453,62 +418,6 @@ class SysFileInfo {
 	 * 资源的使用率
 	 */
 	private double usage;
-
-	public String getDirName() {
-		return dirName;
-	}
-
-	public void setDirName(String dirName) {
-		this.dirName = dirName;
-	}
-
-	public String getSysTypeName() {
-		return sysTypeName;
-	}
-
-	public void setSysTypeName(String sysTypeName) {
-		this.sysTypeName = sysTypeName;
-	}
-
-	public String getTypeName() {
-		return typeName;
-	}
-
-	public void setTypeName(String typeName) {
-		this.typeName = typeName;
-	}
-
-	public String getTotal() {
-		return total;
-	}
-
-	public void setTotal(String total) {
-		this.total = total;
-	}
-
-	public String getFree() {
-		return free;
-	}
-
-	public void setFree(String free) {
-		this.free = free;
-	}
-
-	public String getUsed() {
-		return used;
-	}
-
-	public void setUsed(String used) {
-		this.used = used;
-	}
-
-	public double getUsage() {
-		return usage;
-	}
-
-	public void setUsage(double usage) {
-		this.usage = usage;
-	}
 }
 
 /**
@@ -516,6 +425,7 @@ class SysFileInfo {
  *
  * @author wangchl
  */
+@Data
 class SysInfo {
 
 	/**
@@ -542,44 +452,4 @@ class SysInfo {
 	 * 系统架构
 	 */
 	private String osArch;
-
-	public String getComputerName() {
-		return computerName;
-	}
-
-	public void setComputerName(String computerName) {
-		this.computerName = computerName;
-	}
-
-	public String getComputerIp() {
-		return computerIp;
-	}
-
-	public void setComputerIp(String computerIp) {
-		this.computerIp = computerIp;
-	}
-
-	public String getUserDir() {
-		return userDir;
-	}
-
-	public void setUserDir(String userDir) {
-		this.userDir = userDir;
-	}
-
-	public String getOsName() {
-		return osName;
-	}
-
-	public void setOsName(String osName) {
-		this.osName = osName;
-	}
-
-	public String getOsArch() {
-		return osArch;
-	}
-
-	public void setOsArch(String osArch) {
-		this.osArch = osArch;
-	}
 }
