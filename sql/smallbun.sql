@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2019-02-25 11:42:28
+Date: 2019-02-25 14:24:25
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -230,6 +230,7 @@ INSERT INTO `sys_menu` VALUES ('1096017694378962946', '1096016383835123713', '0,
 INSERT INTO `sys_menu` VALUES ('1096724847318376449', '19', 'null,19', '操作日志', 'fa fa-file-text-o', '#dddddd', 'log/operate', '1', '', '99999', null, '0', '1', '2019-02-16 10:55:54', '1', '2019-02-16 10:55:54', '0', '');
 INSERT INTO `sys_menu` VALUES ('1097107526685589506', '1089503626952478722', '0,1089503626952478722', '删除', null, '#dddddd', null, '2', 'manage:log:operate:del', '9999', null, '0', '1', '2019-02-17 12:16:32', '1', '2019-02-17 12:16:32', '0', '');
 INSERT INTO `sys_menu` VALUES ('1097107978806394881', '1089503626952478722', '0,1089503626952478722', '查询', null, '#dddddd', null, '2', 'manage:log:operate:query', '9999', null, '0', '1', '2019-02-17 12:18:20', '1', '2019-02-17 12:18:20', '0', '');
+INSERT INTO `sys_menu` VALUES ('1099913077537189889', '19', 'null,19', '系统信息', 'fa fa-linux', '#dddddd', 'monitor/service/view', '1', '', '9999', null, '0', '1', '2019-02-25 06:04:47', '1', '2019-02-25 06:17:12', '0', '');
 
 -- ----------------------------
 -- Table structure for `sys_notify`
@@ -379,7 +380,7 @@ CREATE TABLE `sys_role` (
 -- ----------------------------
 INSERT INTO `sys_role` VALUES ('1', '系统管理员', 'SYSTEM', '2', '0', '0', '1', '0', '2018-07-01 15:17:40', '1', '2019-02-08 04:20:32', '0', '');
 INSERT INTO `sys_role` VALUES ('2', '系统用户', 'USER', '8', '1', '0', '1', '0', '2018-07-01 15:17:40', '1', '2019-02-09 04:56:07', '0', '');
-INSERT INTO `sys_role` VALUES ('1073957301490032642', '超级管理员', 'ROOT', '1', '0', '0', '0', '1', '2018-12-15 09:05:48', '1', '2019-02-17 12:18:38', '0', '');
+INSERT INTO `sys_role` VALUES ('1073957301490032642', '超级管理员', 'ROOT', '1', '0', '0', '0', '1', '2018-12-15 09:05:48', '1', '2019-02-25 06:05:07', '0', '');
 INSERT INTO `sys_role` VALUES ('1077874980521287682', '开发人员', 'KF', '9', '1', '1', '1', '1', '2018-12-26 04:33:16', '1', '2018-12-26 04:33:16', '0', '');
 INSERT INTO `sys_role` VALUES ('1084827767704403970', '开发公司', 'KF', '3', '1', '1', '1', '1', '2019-01-14 09:01:10', '1', '2019-01-14 09:01:10', '1', '');
 
@@ -466,7 +467,6 @@ INSERT INTO `sys_role_menu` VALUES ('1073957301490032642', '17');
 INSERT INTO `sys_role_menu` VALUES ('1073957301490032642', '18');
 INSERT INTO `sys_role_menu` VALUES ('1073957301490032642', '19');
 INSERT INTO `sys_role_menu` VALUES ('1073957301490032642', '20');
-INSERT INTO `sys_role_menu` VALUES ('1073957301490032642', '26');
 INSERT INTO `sys_role_menu` VALUES ('1073957301490032642', '28');
 INSERT INTO `sys_role_menu` VALUES ('1073957301490032642', '29');
 INSERT INTO `sys_role_menu` VALUES ('1073957301490032642', '31');
@@ -497,7 +497,6 @@ INSERT INTO `sys_role_menu` VALUES ('1073957301490032642', '1092619492460130305'
 INSERT INTO `sys_role_menu` VALUES ('1073957301490032642', '1093810117331148802');
 INSERT INTO `sys_role_menu` VALUES ('1073957301490032642', '1093811378357035010');
 INSERT INTO `sys_role_menu` VALUES ('1073957301490032642', '1093811581130661889');
-INSERT INTO `sys_role_menu` VALUES ('1073957301490032642', '1096016383835123713');
 INSERT INTO `sys_role_menu` VALUES ('1073957301490032642', '1096017410365861889');
 INSERT INTO `sys_role_menu` VALUES ('1073957301490032642', '1096017504527986689');
 INSERT INTO `sys_role_menu` VALUES ('1073957301490032642', '1096017585767460866');
@@ -505,6 +504,7 @@ INSERT INTO `sys_role_menu` VALUES ('1073957301490032642', '1096017694378962946'
 INSERT INTO `sys_role_menu` VALUES ('1073957301490032642', '1096724847318376449');
 INSERT INTO `sys_role_menu` VALUES ('1073957301490032642', '1097107526685589506');
 INSERT INTO `sys_role_menu` VALUES ('1073957301490032642', '1097107978806394881');
+INSERT INTO `sys_role_menu` VALUES ('1073957301490032642', '1099913077537189889');
 INSERT INTO `sys_role_menu` VALUES ('1076743671619022850', '45');
 INSERT INTO `sys_role_menu` VALUES ('1076834908820762626', '20');
 INSERT INTO `sys_role_menu` VALUES ('1076834908820762626', '44');
@@ -567,7 +567,7 @@ CREATE TABLE `sys_user` (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', 'admin', 'admin', 'admin', '$2a$10$K26/8HAGoW0jFe7Tofr8e.hT7/P42ZQLuHMlenOsGkl.m9Zt6Vpby', '管理员', 'https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_family.jpg', '15621346836', '', '2689170096@qq.com', '2018-05-24', '', null, null, '0:0:0:0:0:0:0:1', '本地', '2019-02-25 03:39:54', '0', '0', '232399', '1', '2018-06-18 10:50:02', '1', '2019-02-23 09:38:53', '0', '');
+INSERT INTO `sys_user` VALUES ('1', 'admin', 'admin', 'admin', '$2a$10$K26/8HAGoW0jFe7Tofr8e.hT7/P42ZQLuHMlenOsGkl.m9Zt6Vpby', '管理员', 'https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_family.jpg', '15621346836', '', '2689170096@qq.com', '2018-05-24', '', null, null, '0:0:0:0:0:0:0:1', '本地', '2019-02-25 06:05:17', '0', '0', '232399', '1', '2018-06-18 10:50:02', '1', '2019-02-23 09:38:53', '0', '');
 INSERT INTO `sys_user` VALUES ('2', 'user', 'user', 'user', '$2a$10$W7c1gJyPxf9Rtp3/G5WLre6vJomdzaSqEDt2/jJa70A6IHTetRkoO', '管理员', 'https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_colleagues.jpg', '', '', '', '1998-06-15', null, null, null, '0:0:0:0:0:0:0:1', '本地', '2019-02-25 02:37:31', '0', '1', '231112', '1', '2018-06-18 10:50:02', '1', '2019-02-09 18:59:04', '0', '');
 
 -- ----------------------------
