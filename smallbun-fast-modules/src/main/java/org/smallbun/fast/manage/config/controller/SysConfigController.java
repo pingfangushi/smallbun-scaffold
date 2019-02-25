@@ -44,7 +44,9 @@ public class SysConfigController extends BaseController {
 		this.sysConfigService = sysConfigService;
 	}
 
-
+	/**
+	 * 注入config Service业务逻辑接口
+	 */
 	private final SysConfigService sysConfigService;
 
 }

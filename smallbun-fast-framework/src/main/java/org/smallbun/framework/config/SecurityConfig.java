@@ -28,6 +28,7 @@ import org.smallbun.framework.security.SecurityCaptchaFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -53,7 +54,7 @@ import static org.smallbun.framework.security.SecurityConstant.LOGOUT;
  * Created by 2689170096@qq.com on 2018/4/29
  */
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true)
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
@@ -125,6 +126,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return new SessionRegistryImpl();
 	}
 
+	@Bean
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
 
 	/**
 	 * 注入登录成功处理器

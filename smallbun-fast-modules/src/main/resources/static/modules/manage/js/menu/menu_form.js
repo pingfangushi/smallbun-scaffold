@@ -103,7 +103,6 @@ function btnExtracted (){
      $("input[name='icon']").parent().parent().parent().hide();
      $("input[name='url']").parent().parent().parent().hide();
      $("input[name='target']").parent().parent().parent().hide();
-     $("input[name='permission']").parent().parent().parent().show();
 
      //添加required
      $("input[name='icon']").attr('readonly', "true");
@@ -124,7 +123,6 @@ function menuExtracted (){
      $("input[name='icon']").parent().parent().parent().show();
      $("input[name='url']").parent().parent().parent().show();
      $("input[name='target']").parent().parent().parent().show();
-     $("input[name='permission']").parent().parent().parent().hide();
 
      //移除required
      $("input[name='icon']").removeAttr('readonly');

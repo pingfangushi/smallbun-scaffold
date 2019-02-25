@@ -91,6 +91,7 @@ public class SysNotifyController extends BaseController {
 	 * @return {@link ModelAndView}
 	 */
 	@GetMapping(value = {"", "/"})
+	@PreAuthorize("hasAuthority('manage:notify:index')")
 	public ModelAndView list() {
 		return new ModelAndView(HTML_PREFIX + "notify_list.html");
 	}

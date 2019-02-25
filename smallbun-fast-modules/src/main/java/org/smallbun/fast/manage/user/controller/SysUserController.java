@@ -91,6 +91,7 @@ public class SysUserController extends BaseController {
 	 * @return {@link ModelAndView}
 	 */
 	@RequestMapping(value = {"", "/"})
+	@PreAuthorize("hasAuthority('manage:user:index')")
 	public ModelAndView list() {
 		return new ModelAndView(HTML_PREFIX + "user_list.html");
 	}

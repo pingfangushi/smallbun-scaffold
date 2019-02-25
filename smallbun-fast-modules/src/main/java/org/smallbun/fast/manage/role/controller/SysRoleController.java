@@ -85,6 +85,7 @@ public class SysRoleController extends BaseController {
 	 * @return {@link ModelAndView}
 	 */
 	@GetMapping(value = {"", "/"})
+	@PreAuthorize("hasAuthority('manage:role:index')")
 	public ModelAndView list() {
 		return new ModelAndView(HTML_PREFIX + "role_list.html");
 	}

@@ -92,6 +92,7 @@ public class SysMenuController extends BaseController {
 	 * @return ModelAndView
 	 */
 	@RequestMapping(value = {"/", ""})
+	@PreAuthorize("hasAuthority('manage:menu:index')")
 	public ModelAndView menu() {
 		return new ModelAndView(HTML_PREFIX + "menu_list.html");
 	}

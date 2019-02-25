@@ -89,6 +89,7 @@ public class SysDictValueController extends BaseController {
 	 * @return {@link ModelAndView}
 	 */
 	@GetMapping(value = {"", "/"})
+	@PreAuthorize("hasAuthority('manage:dict:index')")
 	public ModelAndView list(SysDictValueVO vo, Model model) {
 		model.addAttribute("vo", vo);
 		return new ModelAndView(HTML_PREFIX + "dict_value_list.html");

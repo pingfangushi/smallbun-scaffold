@@ -90,6 +90,7 @@ public class SysOrgController extends BaseController {
 	 * @return {@link ModelAndView}
 	 */
 	@GetMapping(value = {"/", ""})
+	@PreAuthorize("hasAuthority('manage:org:index')")
 	public ModelAndView org() {
 		return new ModelAndView(HTML_PREFIX + "org_list.html");
 	}

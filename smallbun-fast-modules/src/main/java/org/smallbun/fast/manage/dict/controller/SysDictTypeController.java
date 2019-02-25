@@ -88,6 +88,7 @@ public class SysDictTypeController extends BaseController {
 	 * @return {@link ModelAndView}
 	 */
 	@GetMapping(value = {"", "/"})
+	@PreAuthorize("hasAuthority('manage:dict:index')")
 	public ModelAndView list() {
 		return new ModelAndView(HTML_PREFIX + "dict_type_list.html");
 	}

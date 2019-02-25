@@ -86,6 +86,7 @@ public class SysOperateLogController extends BaseController {
 	 * @return {@link ModelAndView}
 	 */
 	@GetMapping(value = {"", "/"})
+	@PreAuthorize("hasAuthority('manage:log:operate:index')")
 	public ModelAndView operate() {
 		return new ModelAndView(HTML_PREFIX + "operate_log_list.html");
 	}
