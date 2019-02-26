@@ -100,8 +100,8 @@
                                 style="color: red;">*</span>接收人：</label>
                         <div class="col-xs-9">
                             <div class="input-group" style="width: 100%">
-                                <div class="input-group" style="width: 100%">
-                                    <input readonly="readonly"  idObj="#receiverId" th:field="*{receiverName}" onclick="$.select.selectUser(this)"
+                                <div class="input-group" style="width: 100%"> <!--th:field="*{receiverName}"-->
+                                    <input readonly="readonly"  idObj="#receiverId" onclick="$.select.selectUser(this)"
                                                                           placeholder="请选择接收人"
                                                                           class="form-control"/>
                                     <span class="input-group-addon" onclick="$.select.selectUser(this)">

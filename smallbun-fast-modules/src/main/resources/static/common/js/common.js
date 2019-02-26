@@ -518,15 +518,21 @@
          * 选择公共方法处理
          */
         select:{
-            selectUser:function(input,callback){
+            selectUser:function(input,callback,width,height){
                 //如果input是SPAN类型
-                if(input.tagName == 'SPAN'){
+                if(input.tagName === 'SPAN'){
                     input = $(input).prev();
                 }
                 //如果是移动端，就使用自适应大小弹窗
                 if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
                     width = 'auto';
                     height = 'auto';
+                }
+                if ($.common.isEmpty(width)) {
+                    width = ($(window).width() - 200);
+                }
+                if ($.common.isEmpty(height)) {
+                    height = ($(window).height() - 50);
                 }
                 if ($.common.isEmpty(callback)) {
                     callback = function (index, layero) {
@@ -536,17 +542,17 @@
                         var result  = iframeWin.contentWindow.selectUsers();
                         //将返回的值赋给input
                         $(input).val(result.get('userName'));
-                        $($(input).attr('idObj')).val(result.get('userId'))
+                        $($(input).attr('idObj')).val(result.get('userId'));
                         //关闭
                         layer.close(index);
                     }
                 }
                 var index = layer.open({
                     type: 2,
-                    area: [500 + 'px', 500 + 'px'],
+                    area: [width + 'px', height + 'px'],
                     fix: false,
                     //不固定
-                    maxmin: true,
+                    maxmin: false,
                     shade: 0.3,
                     title: '选择用户',
                     content: contextPath+'user/selectUser',
@@ -556,7 +562,7 @@
 
                     }
                 });
-                layer.full(index);
+                //layer.full(index);
             }
         },
         /**
