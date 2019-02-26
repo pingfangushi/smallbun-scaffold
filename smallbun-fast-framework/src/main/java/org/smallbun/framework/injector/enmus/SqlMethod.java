@@ -25,7 +25,7 @@ public enum SqlMethod {
 	/**
 	 *
  	 */
-	SELECT_DATA_SCOPE_PAGE("SelectDataScopePage", "查询满足条件所有数据进行过滤（并翻页）", "<script>\nSELECT %s FROM %s %s\n</script>");
+	SELECT_DATA_SCOPE_PAGE("selectPage", "查询满足条件所有数据进行过滤（并翻页）", "<script>\nSELECT %s FROM %s %s\n</script>");
 	/**
 	 *
 	 */
