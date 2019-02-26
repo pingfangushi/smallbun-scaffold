@@ -54,7 +54,7 @@ public class MybatisPlusConfig {
 	 * @return {@link PerformanceInterceptor}
 	 */
 	@Bean
-	@Profile({"dev", "test", "prod"})
+	@Profile({"dev", "test"})
 	public PerformanceInterceptor performanceInterceptor() {
 		return new PerformanceInterceptor();
 	}
