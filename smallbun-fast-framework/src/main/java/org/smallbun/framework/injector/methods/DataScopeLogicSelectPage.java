@@ -15,11 +15,13 @@
  */
 package org.smallbun.framework.injector.methods;
 
-import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlSource;
 import org.smallbun.framework.injector.AbstractDataScopeLogicMethod;
+import org.smallbun.framework.injector.enmus.SqlMethod;
+
+import static org.smallbun.framework.injector.enmus.SqlMethod.SELECT_DATA_SCOPE_PAGE;
 
 /**
  * <p>
@@ -33,9 +35,18 @@ public class DataScopeLogicSelectPage extends AbstractDataScopeLogicMethod {
 
 	@Override
 	public MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
-		SqlMethod sqlMethod = SqlMethod.SELECT_PAGE;
+		SqlMethod sqlMethod = SELECT_DATA_SCOPE_PAGE;
+		System.err.println("sqlMethod.getSql():" + sqlMethod.getSql());
+		System.err.println("sqlSelectColumns(tableInfo, true):" + sqlSelectColumns(tableInfo, true));
+		System.err.println("tableInfo.getTableName():" + tableInfo.getTableName());
+		System.err.println("sqlWhereEntityWrapper(true, tableInfo):" + sqlWhereEntityWrapper(true, tableInfo));
+
+
 		String sql = String.format(sqlMethod.getSql(), sqlSelectColumns(tableInfo, true), tableInfo.getTableName(),
 				sqlWhereEntityWrapper(true, tableInfo));
+
+
+		System.err.println("根据条件分页SQL语句:" + sql);
 		SqlSource sqlSource = languageDriver.createSqlSource(configuration, sql, modelClass);
 		return addSelectMappedStatement(mapperClass, sqlMethod.getMethod(), sqlSource, modelClass, tableInfo);
 	}
