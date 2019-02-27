@@ -24,8 +24,8 @@ package org.smallbun.framework.injector.enmus;
 public enum SqlMethod {/**
  *
  */
-SELECT_DATA_SCOPE_PAGE("selectPage", "查询满足条件所有数据进行过滤（并翻页）",
-				"<script>\nSELECT %s FROM %s LEFT JOIN SYS_USER su on a.CREATOR=su.id  %s\n</script>");
+SELECT_DATA_SCOPE_PAGE("selectPage", "查询满足条件所有数据进行过滤（并翻页）", "<script>\nSELECT %s FROM %s "
+				+ "\n<when test=\"1=1\">LEFT JOIN SYS_USER su on a.CREATOR=su.id  </when> %s\n</script>");
 	/**
 	 *
 	 */
