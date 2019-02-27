@@ -36,17 +36,8 @@ public class DataScopeLogicSelectPage extends AbstractDataScopeLogicMethod {
 	@Override
 	public MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
 		SqlMethod sqlMethod = SELECT_DATA_SCOPE_PAGE;
-		System.err.println("sqlMethod.getSql():" + sqlMethod.getSql());
-		System.err.println("sqlSelectColumns(tableInfo, true):" + sqlSelectColumns(tableInfo, true));
-		System.err.println("tableInfo.getTableName():" + tableInfo.getTableName());
-		System.err.println("sqlWhereEntityWrapper(true, tableInfo):" + sqlWhereEntityWrapper(true, tableInfo));
-
-
-		String sql = String.format(sqlMethod.getSql(), sqlSelectColumns(tableInfo, true), tableInfo.getTableName(),
-				sqlWhereEntityWrapper(true, tableInfo));
-
-
-		System.err.println("根据条件分页SQL语句:" + sql);
+		String sql = String.format(sqlMethod.getSql(), sqlSelectColumns(tableInfo, true),
+				tableInfo.getTableName().concat(SPACE).concat(ALIAS), sqlWhereEntityWrapper(true, tableInfo));
 		SqlSource sqlSource = languageDriver.createSqlSource(configuration, sql, modelClass);
 		return addSelectMappedStatement(mapperClass, sqlMethod.getMethod(), sqlSource, modelClass, tableInfo);
 	}

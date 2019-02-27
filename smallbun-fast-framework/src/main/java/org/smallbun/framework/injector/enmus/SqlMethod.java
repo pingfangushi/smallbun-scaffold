@@ -21,15 +21,15 @@ package org.smallbun.framework.injector.enmus;
  * @author hubin
  * @since 2016-01-23
  */
-public enum SqlMethod {
-	/**
-	 *
- 	 */
-	SELECT_DATA_SCOPE_PAGE("selectPage", "查询满足条件所有数据进行过滤（并翻页）", "<script>\nSELECT %s FROM %s %s\n</script>");
+public enum SqlMethod {/**
+ *
+ */
+SELECT_DATA_SCOPE_PAGE("selectPage", "查询满足条件所有数据进行过滤（并翻页）",
+				"<script>\nSELECT %s FROM %s LEFT JOIN SYS_USER su on a.CREATOR=su.id  %s\n</script>");
 	/**
 	 *
 	 */
-    private final String method;
+	private final String method;
 	/**
 	 *
 	 */
@@ -37,7 +37,7 @@ public enum SqlMethod {
 	/**
 	 *
 	 */
-    private final String sql;
+	private final String sql;
 
 	/**
 	 *
@@ -45,22 +45,22 @@ public enum SqlMethod {
 	 * @param desc
 	 * @param sql
 	 */
-    SqlMethod(String method, String desc, String sql) {
-        this.method = method;
-        this.desc = desc;
-        this.sql = sql;
-    }
+	SqlMethod(String method, String desc, String sql) {
+		this.method = method;
+		this.desc = desc;
+		this.sql = sql;
+	}
 
-    public String getMethod() {
-        return method;
-    }
+	public String getMethod() {
+		return method;
+	}
 
-    public String getDesc() {
-        return desc;
-    }
+	public String getDesc() {
+		return desc;
+	}
 
-    public String getSql() {
-        return sql;
-    }
+	public String getSql() {
+		return sql;
+	}
 
 }

@@ -36,9 +36,11 @@ public class DataScopeLogicSelectById extends AbstractDataScopeLogicMethod {
 	public MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
 		SqlMethod sqlMethod = SqlMethod.LOGIC_SELECT_BY_ID;
 		SqlSource sqlSource = new RawSqlSource(configuration,
-				String.format(sqlMethod.getSql(), sqlSelectColumns(tableInfo, false), tableInfo.getTableName(),
-						tableInfo.getKeyColumn(), tableInfo.getKeyProperty(), tableInfo.getLogicDeleteSql(true, false)),
-				Object.class);
+				String.format(sqlMethod.getSql(), sqlSelectColumns(tableInfo, false),
+						tableInfo.getTableName().concat(SPACE).concat(ALIAS),
+						ALIAS.concat(DOT).concat(tableInfo.getKeyColumn()),
+						ALIAS.concat(DOT).concat(tableInfo.getKeyProperty()),
+						super.getLogicDeleteSql(tableInfo, true, false)), Object.class);
 		return addSelectMappedStatement(mapperClass, sqlMethod.getMethod(), sqlSource, modelClass, tableInfo);
 	}
 }

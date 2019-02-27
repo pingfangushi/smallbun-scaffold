@@ -30,7 +30,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
+import static com.baomidou.mybatisplus.core.toolkit.StringPool.DOT;
 import static com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline;
+import static org.smallbun.framework.injector.AbstractDataScopeLogicMethod.ALIAS;
 
 /**
  * BootStrap Table默认的分页参数创建
@@ -53,10 +55,10 @@ public class PageFactory<T> {
 		//asc或desc(升序或降序)
 		String order = request.getParameter("orderByColumn");
 		if (DESC.equals(isAsc)) {
-			page.setDesc(camelToUnderline(order));
+			page.setDesc(ALIAS.concat(DOT.concat(camelToUnderline(order))));
 		}
 		if (ASC.equals(isAsc)) {
-			page.setAsc(camelToUnderline(order));
+			page.setAsc(ALIAS.concat(DOT.concat(camelToUnderline(order))));
 		}
 		return page;
 	}
