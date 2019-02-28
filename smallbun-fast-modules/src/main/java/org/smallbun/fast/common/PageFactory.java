@@ -24,15 +24,14 @@
 package org.smallbun.fast.common;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
-import static com.baomidou.mybatisplus.core.toolkit.StringPool.DOT;
 import static com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline;
-import static org.smallbun.framework.injector.AbstractDataScopeLogicMethod.ALIAS;
 
 /**
  * BootStrap Table默认的分页参数创建
@@ -40,31 +39,9 @@ import static org.smallbun.framework.injector.AbstractDataScopeLogicMethod.ALIAS
  * Created by 2689170096@qq.com on 2019/2/7 21:11
  */
 public class PageFactory<T> {
-	public static final String DESC = "desc";
-	public static final String ASC = "asc";
-	private Page<T> page;
 
-	/**
-	 *
-	 * @param page {@link Page}
-	 * @return  {@link PageFactory<T>}
-	 */
-	/*public PageFactory<T> defaultPage(Page<T> page) {
-		HttpServletRequest request = ((ServletRequestAttributes) Objects
-				.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
-		//排序字段名称
-		String isAsc = request.getParameter("isAsc");
-		//asc或desc(升序或降序)
-		String order = request.getParameter("orderByColumn");
-		if (DESC.equals(isAsc)) {
-			page.setDesc(ALIAS.concat(DOT.concat(camelToUnderline(order))));
-		}
-		if (ASC.equals(isAsc)) {
-			page.setAsc(ALIAS.concat(DOT.concat(camelToUnderline(order))));
-		}
-		this.page = page;
-		return this;
-	}*/
+	private static final String DESC = "desc";
+	private static final String ASC = "asc";
 
 	/**
 	 *
@@ -79,18 +56,15 @@ public class PageFactory<T> {
 		//asc或desc(升序或降序)
 		String order = request.getParameter("orderByColumn");
 		if (DESC.equals(isAsc)) {
-			page.setDesc(ALIAS.concat(DOT.concat(camelToUnderline(order))));
+			if (!StringUtils.isEmpty(order)) {
+				page.setDesc(camelToUnderline(order));
+			}
 		}
 		if (ASC.equals(isAsc)) {
-			page.setAsc(ALIAS.concat(DOT.concat(camelToUnderline(order))));
+			if (!StringUtils.isEmpty(order)) {
+				page.setAsc(camelToUnderline(order));
+			}
 		}
 		return page;
 	}
-	/**
-	 * 设置权限
-	 * @return {@link Page<T>}
-	 */
-	//public Page<T> permission() {
-	//	return page;
-	//}
 }
