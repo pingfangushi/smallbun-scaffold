@@ -42,10 +42,34 @@ import static org.smallbun.framework.injector.AbstractDataScopeLogicMethod.ALIAS
 public class PageFactory<T> {
 	public static final String DESC = "desc";
 	public static final String ASC = "asc";
+	private Page<T> page;
 
 	/**
-	 * @param page
-	 * @return
+	 *
+	 * @param page {@link Page}
+	 * @return  {@link PageFactory<T>}
+	 */
+	/*public PageFactory<T> defaultPage(Page<T> page) {
+		HttpServletRequest request = ((ServletRequestAttributes) Objects
+				.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+		//排序字段名称
+		String isAsc = request.getParameter("isAsc");
+		//asc或desc(升序或降序)
+		String order = request.getParameter("orderByColumn");
+		if (DESC.equals(isAsc)) {
+			page.setDesc(ALIAS.concat(DOT.concat(camelToUnderline(order))));
+		}
+		if (ASC.equals(isAsc)) {
+			page.setAsc(ALIAS.concat(DOT.concat(camelToUnderline(order))));
+		}
+		this.page = page;
+		return this;
+	}*/
+
+	/**
+	 *
+	 * @param page {@link Page}
+	 * @return  {@link PageFactory<T>}
 	 */
 	public Page<T> defaultPage(Page<T> page) {
 		HttpServletRequest request = ((ServletRequestAttributes) Objects
@@ -62,4 +86,11 @@ public class PageFactory<T> {
 		}
 		return page;
 	}
+	/**
+	 * 设置权限
+	 * @return {@link Page<T>}
+	 */
+	//public Page<T> permission() {
+	//	return page;
+	//}
 }

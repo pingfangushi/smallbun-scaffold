@@ -26,6 +26,7 @@ package org.smallbun.framework.injector;
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.injector.methods.Insert;
 import com.baomidou.mybatisplus.extension.injector.LogicSqlInjector;
+import com.baomidou.mybatisplus.extension.injector.methods.*;
 import org.smallbun.framework.injector.methods.*;
 
 import java.util.List;
@@ -43,21 +44,25 @@ public class DataScopeLogicSqlInjector extends LogicSqlInjector {
 	@Override
 	public List<AbstractMethod> getMethodList() {
 		return Stream.of(
+
 				new Insert(),
-				new DataScopeLogicDelete(),
-				new DataScopeLogicDeleteByMap(),
-				new DataScopeLogicDeleteById(),
-				new DataScopeLogicDeleteBatchByIds(),
-				new DataScopeLogicUpdate(),
-				new DataScopeLogicUpdateById(),
-				new DataScopeLogicSelectById(),
-				new DataScopeLogicSelectBatchByIds(),
+				new LogicDelete(),
+				new LogicDeleteByMap(),
+				new LogicDeleteById(),
+				new LogicDeleteBatchByIds(),
+				new LogicUpdate(),
+				new LogicUpdateById(),
+				new LogicSelectOne(),
+				new LogicSelectObjs(),
+				new LogicSelectById(),
+
+
+
+				new LogicSelectBatchByIds(),
 				new DataScopeLogicSelectByMap(),
-				new DataScopeLogicSelectOne(),
 				new DataScopeLogicSelectCount(),
 				new DataScopeLogicSelectMaps(),
 				new DataScopeLogicSelectMapsPage(),
-				new DataScopeLogicSelectObjs(),
 				new DataScopeLogicSelectList(),
 				new DataScopeLogicSelectPage()
 		).collect(toList());

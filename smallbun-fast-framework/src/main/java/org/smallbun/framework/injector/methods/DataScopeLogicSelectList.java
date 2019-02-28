@@ -15,11 +15,13 @@
  */
 package org.smallbun.framework.injector.methods;
 
-import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlSource;
 import org.smallbun.framework.injector.AbstractDataScopeLogicMethod;
+import org.smallbun.framework.injector.enmus.SqlMethod;
+
+import static org.smallbun.framework.injector.enmus.SqlMethod.SELECT_DATA_SCOPE_LIST;
 
 /**
  * <p>
@@ -33,10 +35,13 @@ public class DataScopeLogicSelectList extends AbstractDataScopeLogicMethod {
 
 	@Override
 	public MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
-		SqlMethod sqlMethod = SqlMethod.SELECT_LIST;
-		String sql = String.format(sqlMethod.getSql(), sqlSelectColumns(tableInfo, true), tableInfo.getTableName(),
+		SqlMethod sqlMethod = SELECT_DATA_SCOPE_LIST;
+		String sql = String.format(sqlMethod.getSql(), sqlSelectColumns(tableInfo, true),
+				tableInfo.getTableName().concat(SPACE).concat(ALIAS), getPermissionConnection(),
 				sqlWhereEntityWrapper(true, tableInfo));
 		SqlSource sqlSource = languageDriver.createSqlSource(configuration, sql, modelClass);
-		return addSelectMappedStatement(mapperClass, sqlMethod.getMethod(), sqlSource, modelClass, tableInfo);
+		return addSelectMappedStatement(mapperClass, sqlMethod.getMethod(), sqlSource, modelClass,
+				tableInfo);
+
 	}
 }

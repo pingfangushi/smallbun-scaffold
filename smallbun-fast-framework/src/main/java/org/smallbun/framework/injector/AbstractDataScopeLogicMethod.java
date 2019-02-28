@@ -25,7 +25,9 @@ import com.baomidou.mybatisplus.core.toolkit.sql.SqlScriptUtils;
 
 import java.util.Arrays;
 
+import static com.baomidou.mybatisplus.core.toolkit.sql.SqlScriptUtils.convertWhere;
 import static java.util.stream.Collectors.joining;
+import static org.smallbun.framework.toolkit.SqlScriptUtil.convertWhen;
 
 /**
  * <p>
@@ -40,6 +42,11 @@ public abstract class AbstractDataScopeLogicMethod extends AbstractMethod {
 	 * 别名
 	 */
 	public static final String ALIAS = "a";
+
+	/**
+	 * 用户权限类型
+	 */
+	public static final String ENTITY_PERMISSION_TYPE = WRAPPER_ENTITY + DOT + "permissionType";
 
 	public AbstractDataScopeLogicMethod() {
 		// TO DO NOTHING
@@ -63,6 +70,7 @@ public abstract class AbstractDataScopeLogicMethod extends AbstractMethod {
 	protected String sqlWhereEntityWrapper(boolean newLine, TableInfo table) {
 		if (table.isLogicDelete()) {
 			String sqlScript = getAllSqlWhere(table);
+			//SQL
 			sqlScript = SqlScriptUtils.convertIf(sqlScript, String.format("%s != null", WRAPPER_ENTITY), true);
 			sqlScript += (NEWLINE + getLogicDeleteSql(table, true, false) + NEWLINE);
 			String normalSqlScript = SqlScriptUtils.convertIf(String.format("AND ${%s}", WRAPPER_SQLSEGMENT),
@@ -73,9 +81,18 @@ public abstract class AbstractDataScopeLogicMethod extends AbstractMethod {
 					String.format("%s != null and %s != '' and %s", WRAPPER_SQLSEGMENT, WRAPPER_SQLSEGMENT,
 							WRAPPER_EMPTYOFNORMAL), true);
 			sqlScript += normalSqlScript;
+			/**
+			 * 权限(逻辑删除)
+			 */
+			String permissionSqlScript = NEWLINE.concat(SqlScriptUtils
+					.convertIf("", String.format("%s != null and %s != ''", WRAPPER_SQLSEGMENT, WRAPPER_SQLSEGMENT),
+							true));
+			sqlScript += permissionSqlScript;
+			System.err.println("=======" + sqlScript);
 			sqlScript = SqlScriptUtils.convertChoose(String.format("%s != null", WRAPPER), sqlScript,
 					getLogicDeleteSql(table, false, false));
-			sqlScript = SqlScriptUtils.convertWhere(sqlScript);
+			//生成where脚本标签
+			sqlScript = convertWhere(sqlScript);
 			return newLine ? NEWLINE + sqlScript : sqlScript;
 		}
 		// 正常逻辑
@@ -90,7 +107,7 @@ public abstract class AbstractDataScopeLogicMethod extends AbstractMethod {
 			sqlScript = SqlScriptUtils.convertForeach(sqlScript, "cm", "k", "v", "AND");
 			sqlScript = SqlScriptUtils.convertIf(sqlScript, "cm != null and !cm.isEmpty", true);
 			sqlScript += (NEWLINE + table.getLogicDeleteSql(true, false));
-			sqlScript = SqlScriptUtils.convertWhere(sqlScript);
+			sqlScript = convertWhere(sqlScript);
 			return sqlScript;
 		}
 		return super.sqlWhereByMap(table);
@@ -178,8 +195,8 @@ public abstract class AbstractDataScopeLogicMethod extends AbstractMethod {
 	public String getLogicDeleteSql(TableInfo tableInfo, boolean startWithAnd, boolean deleteValue) {
 		if (tableInfo.isLogicDelete()) {
 			TableFieldInfo field = tableInfo.getFieldList().stream().filter(TableFieldInfo::isLogicDelete).findFirst()
-					.orElseThrow(() -> ExceptionUtils
-							.mpe("can't find the logicFiled from table {%s}", tableInfo.getTableName()));
+					.orElseThrow(() -> ExceptionUtils.mpe("can't find the logicFiled from table {%s}",
+							tableInfo.getTableName().concat(SPACE).concat(ALIAS)));
 			String formatStr = field.isCharSequence() ? "'%s'" : "%s";
 			String logicDeleteSql = field.getColumn() + EQUALS + String
 					.format(formatStr, deleteValue ? field.getLogicDeleteValue() : field.getLogicNotDeleteValue());
@@ -191,5 +208,16 @@ public abstract class AbstractDataScopeLogicMethod extends AbstractMethod {
 			return logicDeleteSql;
 		}
 		return EMPTY;
+	}
+
+	/**
+	 * 获取权限连接SQL 片段
+	 * @return {@link String}
+	 */
+	protected String getPermissionConnection() {
+		//返回权限条件连接
+		return convertWhen(
+				"LEFT JOIN SYS_USER su on a.CREATOR=su.ID" + NEWLINE + "LEFT JOIN SYS_ORG so on so.ID = su.ORG_ID",
+				String.format("%s != null and %s != ''", ENTITY_PERMISSION_TYPE, ENTITY_PERMISSION_TYPE), true);
 	}
 }

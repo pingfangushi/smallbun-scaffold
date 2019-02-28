@@ -52,7 +52,7 @@ public class BaseMetaObjectHandler implements MetaObjectHandler {
 	 */
 	private static final String IS_DELETED = "isDeleted";
 	/**
-	 * 创建时间
+	 * 创建人
 	 */
 	private static final String CREATOR = "creator";
 	/**

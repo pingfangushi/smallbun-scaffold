@@ -50,10 +50,11 @@ import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.smallbun.framework.constant.ErrorMsgConstant.ID_NOT_BLANK_MSG;
+import static com.baomidou.mybatisplus.core.toolkit.StringPool.DOT;
 import static org.smallbun.framework.constant.ErrorMsgConstant.ID_NOT_BLANK_MSG;
 import static org.smallbun.framework.constant.OperateLogConstant.*;
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
+import static org.smallbun.framework.injector.AbstractDataScopeLogicMethod.ALIAS;
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 
 /**
@@ -174,8 +175,8 @@ public class SysMenuController extends BaseController {
 	@LogAnnotation(model = MODEL + SELECT_LIST_MODEL, action = OperateLogConstant.SELECT_PAGE)
 	public AjaxResult list(SysMenuVO vo) {
 		return AjaxResult.builder().result(excludeZtreeChildrenField(
-				mappingList(menuService.list(new QueryWrapper<SysMenuEntity>(vo).orderByAsc("sort")), new ArrayList<>(),
-						SysMenuVO.class))).build();
+				mappingList(menuService.list(new QueryWrapper<SysMenuEntity>(vo).orderByAsc(ALIAS + DOT + "sort")),
+						new ArrayList<>(), SysMenuVO.class))).build();
 	}
 
 
@@ -186,7 +187,7 @@ public class SysMenuController extends BaseController {
 	@PostMapping(value = "/tree")
 	public AjaxResult tree() {
 		return AjaxResult.builder().result(AutoMapperUtil
-				.mappingTreeList(menuService.tree(new QueryWrapper<SysMenuEntity>().orderByAsc("sort")),
+				.mappingTreeList(menuService.tree(new QueryWrapper<SysMenuEntity>().orderByAsc(ALIAS + DOT + "sort")),
 						new ArrayList<>(), SysMenuVO.class)).build();
 	}
 

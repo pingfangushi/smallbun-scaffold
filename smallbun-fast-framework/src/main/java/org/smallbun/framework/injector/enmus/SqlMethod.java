@@ -21,11 +21,19 @@ package org.smallbun.framework.injector.enmus;
  * @author hubin
  * @since 2016-01-23
  */
-public enum SqlMethod {/**
- *
- */
-SELECT_DATA_SCOPE_PAGE("selectPage", "查询满足条件所有数据进行过滤（并翻页）", "<script>\nSELECT %s FROM %s "
-				+ "\n<when test=\"1=1\">LEFT JOIN SYS_USER su on a.CREATOR=su.id  </when> %s\n</script>");
+public enum SqlMethod {
+	
+	/**
+	 * 查询
+	 */
+	SELECT_DATA_SCOPE_BY_MAP("selectByMap", "根据columnMap 查询一条数据", "<script>\nSELECT %s FROM %s %s  %s\n</script>"),
+	SELECT_DATA_SCOPE_COUNT("selectCount", "查询满足条件总记录数", "<script>\nSELECT COUNT(%s) FROM %s %s\n</script>"),
+	SELECT_DATA_SCOPE_LIST("selectList", "查询满足条件所有数据", "<script>\nSELECT %s FROM %s %s  %s\n</script>"),
+	SELECT_DATA_SCOPE_PAGE("selectPage", "查询满足条件所有数据进行过滤（并翻页）", "<script>\nSELECT %s FROM %s  %s  %s\n</script>"),
+	SELECT_DATA_SCOPE_MAPS("selectMaps", "查询满足条件所有数据", "<script>\nSELECT %s FROM %s %s  %s\n</script>"),
+	SELECT_DATA_SCOPE_MAPS_PAGE("selectMapsPage", "查询满足条件所有数据（并翻页）", "<script>\nSELECT %s FROM %s %s  %s\n</script>"),
+	SELECT_DATA_SCOPE_OBJS("selectObjs", "查询满足条件所有数据", "<script>\nSELECT %s FROM %s %s  %s\n</script>");
+
 	/**
 	 *
 	 */

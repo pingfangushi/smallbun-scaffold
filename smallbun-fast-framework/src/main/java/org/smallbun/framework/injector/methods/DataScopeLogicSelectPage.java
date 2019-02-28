@@ -36,9 +36,13 @@ public class DataScopeLogicSelectPage extends AbstractDataScopeLogicMethod {
 	@Override
 	public MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
 		SqlMethod sqlMethod = SELECT_DATA_SCOPE_PAGE;
+		//格式化
 		String sql = String.format(sqlMethod.getSql(), sqlSelectColumns(tableInfo, true),
-				tableInfo.getTableName().concat(SPACE).concat(ALIAS), sqlWhereEntityWrapper(true, tableInfo));
+				tableInfo.getTableName().concat(SPACE).concat(ALIAS), getPermissionConnection(),
+				sqlWhereEntityWrapper(true, tableInfo));
 		SqlSource sqlSource = languageDriver.createSqlSource(configuration, sql, modelClass);
 		return addSelectMappedStatement(mapperClass, sqlMethod.getMethod(), sqlSource, modelClass, tableInfo);
 	}
+
+
 }

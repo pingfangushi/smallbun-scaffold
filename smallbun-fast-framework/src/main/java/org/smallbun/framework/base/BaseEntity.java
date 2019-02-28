@@ -29,6 +29,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import lombok.Data;
+import org.smallbun.framework.permission.constant.DataScopeConstant;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -70,5 +71,11 @@ public abstract class BaseEntity<T> implements Serializable {
 	@TableField(value = "remarks", fill = FieldFill.INSERT_UPDATE)
 	private String remarks;
 
+	/**
+	 * 权限类型 参阅 {@link DataScopeConstant} 常量
+	 */
+	@JSONField(serialize = false)
+	@TableField(exist = false)
+	private String permissionType;
 
 }
