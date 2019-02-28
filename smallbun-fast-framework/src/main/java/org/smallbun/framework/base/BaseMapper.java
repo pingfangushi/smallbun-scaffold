@@ -41,15 +41,4 @@ public interface BaseMapper<T> extends com.baomidou.mybatisplus.core.mapper.Base
 	 * @return {@link IPage }
 	 */
 	IPage<T> selectDataScopePage(IPage<T> page, @Param(Constants.WRAPPER) Wrapper<T> queryWrapper);
-
-	/**
-	 * <p>
-	 * 根据 entity 条件，查询全部记录（并翻页）
-	 * </p>
-	 *  @param page         分页查询条件（可以为 RowBounds.DEFAULT）
-	 * @param queryWrapper 实体对象封装操作类（可以为 null）
-	 * @return {@link IPage}
-	 */
-	@Override
-	IPage<T> selectPage(IPage<T> page, @Param(Constants.WRAPPER) Wrapper<T> queryWrapper);
 }

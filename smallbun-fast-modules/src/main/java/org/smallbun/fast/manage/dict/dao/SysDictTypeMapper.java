@@ -23,10 +23,14 @@
 
 package org.smallbun.fast.manage.dict.dao;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Constants;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.smallbun.fast.manage.dict.entity.SysDictTypeEntity;
 import org.smallbun.framework.base.BaseMapper;
-import org.springframework.stereotype.Repository;
+import org.smallbun.framework.permission.annotation.DataScopeFilter;
 
 /**
  *  系统字典类型 Mapper 接口
@@ -35,5 +39,15 @@ import org.springframework.stereotype.Repository;
  */
 @Mapper
 public interface SysDictTypeMapper extends BaseMapper<SysDictTypeEntity> {
-
+	/**
+	 * 分页查询，数据权限过滤
+	 * @param page
+	 * @param queryWrapper
+	 * @return
+	 */
+	@Override
+	@DataScopeFilter
+	@SuppressWarnings("MybatisMapperMethodInspection")
+	IPage<SysDictTypeEntity> selectPage(IPage<SysDictTypeEntity> page,
+			@Param(Constants.WRAPPER) Wrapper<SysDictTypeEntity> queryWrapper);
 }

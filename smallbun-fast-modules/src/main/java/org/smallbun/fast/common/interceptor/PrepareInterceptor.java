@@ -24,12 +24,16 @@
 package org.smallbun.fast.common.interceptor;
 
 
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.PluginUtils;
 import com.google.common.collect.Lists;
+import net.sf.jsqlparser.JSQLParserException;
+import net.sf.jsqlparser.parser.CCJSqlParserManager;
+import net.sf.jsqlparser.statement.select.*;
+import net.sf.jsqlparser.statement.values.ValuesStatement;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.executor.statement.RoutingStatementHandler;
 import org.apache.ibatis.executor.statement.StatementHandler;
-import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.reflection.MetaObject;
@@ -41,13 +45,14 @@ import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.fast.manage.user.util.UserUtil;
 import org.smallbun.framework.permission.annotation.DataScopeFilter;
 import org.smallbun.framework.permission.util.PermissionUtil;
-import org.smallbun.framework.toolkit.ReflectUtil;
 
+import java.io.StringReader;
 import java.sql.Connection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
 
+import static com.baomidou.mybatisplus.core.toolkit.PluginUtils.DELEGATE_BOUNDSQL_SQL;
 import static org.smallbun.framework.permission.constant.DataScopeConstant.*;
 import static org.smallbun.framework.toolkit.StringUtil.SPLIT_DEFAULT;
 
@@ -82,11 +87,9 @@ public class PrepareInterceptor implements Interceptor {
 			if (Objects.isNull(filterPermission)) {
 				return invocation.proceed();
 			}
-			//获取的实际SQL字符串
-			BoundSql boundSql = (BoundSql) metaObject.getValue("delegate.boundSql");
 			//根据当前用户的数据范围拼接SQL语句
-			ReflectUtil.setFieldValue(boundSql, "sql", permissionSql(boundSql.getSql()));
-
+			metaObject.setValue(DELEGATE_BOUNDSQL_SQL,
+					permissionSql((String) metaObject.getValue(DELEGATE_BOUNDSQL_SQL)));
 		}
 		log.info("------------------------数据权限过滤结束------------------------");
 		return invocation.proceed();
@@ -100,6 +103,37 @@ public class PrepareInterceptor implements Interceptor {
 	 * Created by 2689170096@qq.com on  2018/11/14 -10:26
 	 */
 	private String permissionSql(String sql) {
+		try {
+			CCJSqlParserManager parserManager = new CCJSqlParserManager();
+			Select select = (Select) parserManager.parse(new StringReader(sql));
+			select.getSelectBody().accept(new SelectVisitor() {
+				@Override
+				public void visit(PlainSelect plainSelect) {
+					List<Join> joins = plainSelect.getJoins();
+					//为空说明没有进行任何关联，拼接关联关系
+					if (!joins.isEmpty()) {
+
+					}
+				}
+
+				@Override
+				public void visit(SetOperationList setOpList) {
+
+				}
+
+				@Override
+				public void visit(WithItem withItem) {
+
+				}
+
+				@Override
+				public void visit(ValuesStatement aThis) {
+
+				}
+			});
+		} catch (JSQLParserException e) {
+			e.printStackTrace();
+		}
 		return dataScopeFilter().toString();
 	}
 

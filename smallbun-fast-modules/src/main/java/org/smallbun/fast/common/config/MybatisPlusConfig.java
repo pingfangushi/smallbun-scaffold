@@ -25,15 +25,21 @@ package org.smallbun.fast.common.config;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.core.injector.ISqlInjector;
+import com.baomidou.mybatisplus.core.parser.ISqlParser;
 import com.baomidou.mybatisplus.extension.injector.LogicSqlInjector;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
+import org.smallbun.fast.common.DataPermissionSqlParser;
 import org.smallbun.fast.common.handler.BaseMetaObjectHandler;
+import org.smallbun.fast.common.interceptor.PrepareInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 配置mybatis plus
@@ -69,7 +75,13 @@ public class MybatisPlusConfig {
 	 */
 	@Bean
 	public PaginationInterceptor paginationInterceptor() {
-		return new PaginationInterceptor();
+		PaginationInterceptor interceptor = new PaginationInterceptor();
+		List<ISqlParser> sqlParserList = new ArrayList<>();
+		//数据权限解析
+		sqlParserList.add(new DataPermissionSqlParser());
+		interceptor.setSqlParserList(sqlParserList);
+
+		return interceptor;
 	}
 
 
@@ -82,4 +94,12 @@ public class MybatisPlusConfig {
 		return new BaseMetaObjectHandler();
 	}
 
+	/**
+	 * 数据权限过滤
+	 * @return
+	 */
+	@Bean
+	public PrepareInterceptor prepareInterceptor() {
+		return new PrepareInterceptor();
+	}
 }
