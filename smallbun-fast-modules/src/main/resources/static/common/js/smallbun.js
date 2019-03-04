@@ -66,26 +66,28 @@ $(function () {
                 );
                 return;
             }
-            //登录不超时，判断状态
-            var status = XMLHttpRequest.responseJSON.status; //状态
-            var msg = XMLHttpRequest.responseJSON.msg;       //消息
+            try { //登录不超时，判断状态
+                var status = XMLHttpRequest.responseJSON.status; //状态
+                var msg = XMLHttpRequest.responseJSON.msg;       //消息
 
-            switch (status) {
-                //undefined
-                case undefined:
-                    break;
-                //成功不处理
-                case web_status.SUCCESS:
-                    break;
-                //演示模式
-                case web_status.DEMO_ERROR:
-                    $.modal.closeLoading();
-                    $.modal.alertWarning(msg);
-                    break;
-                //其他
-                default:
-                    $.modal.closeLoading();
-                    $.modal.alertWarning(msg);
+                switch (status) {
+                    //undefined
+                    case undefined:
+                        break;
+                    //成功不处理
+                    case web_status.SUCCESS:
+                        break;
+                    //演示模式
+                    case web_status.DEMO_ERROR:
+                        $.modal.closeLoading();
+                        $.modal.alertWarning(msg);
+                        break;
+                    //其他
+                    default:
+                        $.modal.closeLoading();
+                        $.modal.alertWarning(msg);
+                }
+            } catch (e) {
             }
         }
     });

@@ -90,12 +90,12 @@
             exportExcel: function (formId) {
                 var currentId = $.common.isEmpty(formId) ? $('form').attr('id') : formId;
                 $.modal.loading("正在导出数据，请稍后...");
-                $.post($.table._option.exportUrl, $("#" + currentId).serializeArray(), function (result) {
-                    if (result.status === web_status.SUCCESS) {
-                        window.location.href = contextPath + "fast/download?fileName=" + result.msg + "&delete=" + true;
-                    }
-                    $.modal.loading();
-                });
+                //+ $("#" + currentId).serializeArray()
+                var $form = $('<form method="GET"></form>');
+                $form.attr('action', $.table._option.exportUrl);
+                $form.appendTo($('body'));
+                $form.submit();
+                $.modal.closeLoading();
             },
             // 导入
             importExcel: function (formId) {
@@ -768,18 +768,8 @@
                 }
                 $.modal.closeLoading();
             },
-            export: function () {
-                $.modal.loading("正在处理中，请稍后...");
-                var config = {
-                    url: $.table._option.exportUrl,
-                    type: "post",
-                    dataType: "json",
-                    data: data,
-                    success: function (result) {
-                        $.modal.saveSuccess(result);
-                    }
-                };
-                $.ajax(config)
+            exportExcel: function () {
+                $.table.exportExcel();
             }
         },
         /**

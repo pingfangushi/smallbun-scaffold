@@ -39,6 +39,7 @@ import org.springframework.util.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
@@ -53,37 +54,51 @@ import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeMapper, SysDictTypeEntity>
-        implements SysDictTypeService {
+		implements SysDictTypeService {
 
-    /**
-     * model
-     *
-     * @param request
-     * @return
-     */
-    @Override
-    public SysDictTypeVO model(HttpServletRequest request) {
-        if (!request.getRequestURI().contains(UNIQUE)) {
-            return StringUtils.isEmpty(request.getParameter(ID)) ?
-                    new SysDictTypeVO() :
-                    AutoMapperUtil.mapping(getById(request.getParameter(ID)), new SysDictTypeVO());
-        }
-        return new SysDictTypeVO();
-    }
+	/**
+	 * model
+	 *
+	 * @param request
+	 * @return
+	 */
+	@Override
+	public SysDictTypeVO model(HttpServletRequest request) {
+		if (!request.getRequestURI().contains(UNIQUE)) {
+			return StringUtils.isEmpty(request.getParameter(ID)) ?
+					new SysDictTypeVO() :
+					AutoMapperUtil.mapping(getById(request.getParameter(ID)), new SysDictTypeVO());
+		}
+		return new SysDictTypeVO();
+	}
 
-    /**
-     * 导出
-     *
-     * @param vo                  {@link SysDictTypeVO}
-     * @param httpServletResponse {@link HttpServletResponse}
-     * @throws IOException
-     */
-    @Override
-    public void export(SysDictTypeVO vo, HttpServletResponse httpServletResponse) throws IOException {
-        ExcelExportUtil.exportExcel(new ExportParams("字典类型", "字典类型"),
-                SysDictTypeEntity.class, mappingList(list(new QueryWrapper<>(vo)), new ArrayList<SysDictTypeVO>(),
-                        SysDictTypeVO.class)).write(httpServletResponse.getOutputStream());
-    }
+	/**
+	 * 导出
+	 *
+	 * @param vo                  {@link SysDictTypeVO}
+	 * @param response {@link HttpServletResponse}
+	 * @throws IOException
+	 */
+	@Override
+	public void export(SysDictTypeVO vo, HttpServletResponse response) throws IOException {
+		// 设置excel的文件名称
+		String excelName = "字典类型" + System.currentTimeMillis();
+		// 重置响应对象
+		response.reset();
+		// 指定下载的文件名--设置响应头
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + new String(excelName.getBytes("gb2312"), StandardCharsets.ISO_8859_1)
+						+ ".xls");
+		// 设置响应头
+		response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+		response.setHeader("Pragma", "no-cache");
+		response.setHeader("Cache-Control", "no-cache");
+		response.setDateHeader("Expires", 0);
+		//导出
+		ExcelExportUtil.exportExcel(new ExportParams("字典类型", "字典类型"), SysDictTypeEntity.class,
+				mappingList(list(new QueryWrapper<>(vo)), new ArrayList<SysDictTypeVO>(), SysDictTypeVO.class))
+				.write(response.getOutputStream());
+	}
 
 
 }

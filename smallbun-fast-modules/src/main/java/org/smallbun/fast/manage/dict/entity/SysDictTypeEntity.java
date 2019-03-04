@@ -23,6 +23,7 @@
 
 package org.smallbun.fast.manage.dict.entity;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.baomidou.mybatisplus.annotation.SqlCondition;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -48,11 +49,13 @@ public class SysDictTypeEntity extends DataEntity<Long> {
 	 */
 	@NotBlank(message = "类型名称不能为空")
 	@TableField(condition = SqlCondition.LIKE)
+	@Excel(name = "类型名称", isImportField = "true")
 	private String typeName;
 	/**
 	 * 类型编码
 	 */
 	@NotBlank(message = "类型编码不能为空")
+	@Excel(name = "类型编码", orderNum = "1", isImportField = "true")
 	private String typeCode;
 	/**
 	 * 字典值
