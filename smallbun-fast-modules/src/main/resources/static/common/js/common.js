@@ -517,10 +517,10 @@
         /**
          * 选择公共方法处理
          */
-        select:{
-            selectUser:function(input,callback,width,height){
+        select: {
+            selectUser: function (input, callback, width, height) {
                 //如果input是SPAN类型
-                if(input.tagName === 'SPAN'){
+                if (input.tagName === 'SPAN') {
                     input = $(input).prev();
                 }
                 //如果是移动端，就使用自适应大小弹窗
@@ -539,7 +539,7 @@
                         var body = top.layer.getChildFrame('body', index);
                         var iframeWin = layero.find('iframe')[0]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
                         //调用选择方法
-                        var result  = iframeWin.contentWindow.selectUsers();
+                        var result = iframeWin.contentWindow.selectUsers();
                         //将返回的值赋给input
                         $(input).val(result.get('userName'));
                         $($(input).attr('idObj')).val(result.get('userId'));
@@ -555,7 +555,7 @@
                     maxmin: false,
                     shade: 0.3,
                     title: '选择用户',
-                    content: contextPath+'user/selectUser',
+                    content: contextPath + 'user/selectUser',
                     btn: ['确定', '关闭'],
                     yes: callback,
                     cancel: function (index) {
@@ -767,6 +767,19 @@
                     $.table.refresh();
                 }
                 $.modal.closeLoading();
+            },
+            export: function () {
+                $.modal.loading("正在处理中，请稍后...");
+                var config = {
+                    url: $.table._option.exportUrl,
+                    type: "post",
+                    dataType: "json",
+                    data: data,
+                    success: function (result) {
+                        $.modal.saveSuccess(result);
+                    }
+                };
+                $.ajax(config)
             }
         },
         /**
