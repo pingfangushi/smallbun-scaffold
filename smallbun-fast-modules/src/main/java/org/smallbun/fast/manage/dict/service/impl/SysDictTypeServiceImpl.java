@@ -23,6 +23,9 @@
 
 package org.smallbun.fast.manage.dict.service.impl;
 
+import cn.afterturn.easypoi.excel.ExcelExportUtil;
+import cn.afterturn.easypoi.excel.entity.ExportParams;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.smallbun.fast.manage.dict.dao.SysDictTypeMapper;
 import org.smallbun.fast.manage.dict.entity.SysDictTypeEntity;
 import org.smallbun.fast.manage.dict.service.SysDictTypeService;
@@ -34,33 +37,53 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
+import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 
 /**
  * 系统字典类型 服务实现类
+ *
  * @author SanLi
  * Created by 2689170096@qq.com on 2018/10/2
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeMapper, SysDictTypeEntity>
-		implements SysDictTypeService {
+        implements SysDictTypeService {
 
-	/**
-	 * model
-	 * @param request
-	 * @return
-	 */
-	@Override
-	public SysDictTypeVO model(HttpServletRequest request) {
-		if (!request.getRequestURI().contains(UNIQUE)) {
-			return StringUtils.isEmpty(request.getParameter(ID)) ?
-					new SysDictTypeVO() :
-					AutoMapperUtil.mapping(getById(request.getParameter(ID)), new SysDictTypeVO());
-		}
-		return new SysDictTypeVO();
-	}
+    /**
+     * model
+     *
+     * @param request
+     * @return
+     */
+    @Override
+    public SysDictTypeVO model(HttpServletRequest request) {
+        if (!request.getRequestURI().contains(UNIQUE)) {
+            return StringUtils.isEmpty(request.getParameter(ID)) ?
+                    new SysDictTypeVO() :
+                    AutoMapperUtil.mapping(getById(request.getParameter(ID)), new SysDictTypeVO());
+        }
+        return new SysDictTypeVO();
+    }
+
+    /**
+     * 导出
+     *
+     * @param vo                  {@link SysDictTypeVO}
+     * @param httpServletResponse {@link HttpServletResponse}
+     * @throws IOException
+     */
+    @Override
+    public void export(SysDictTypeVO vo, HttpServletResponse httpServletResponse) throws IOException {
+        ExcelExportUtil.exportExcel(new ExportParams("字典类型", "字典类型"),
+                SysDictTypeEntity.class, mappingList(list(new QueryWrapper<>(vo)), new ArrayList<SysDictTypeVO>(),
+                        SysDictTypeVO.class)).write(httpServletResponse.getOutputStream());
+    }
 
 
 }

@@ -55,8 +55,6 @@
         <mybatisplus.version>3.1.0</mybatisplus.version>
         <!--swagger 文档-->
         <swagger.version>2.9.2</swagger.version>
-        <!--easy excel-->
-        <easyexcel.version>1.1.1</easyexcel.version>
         <!--commons.text-->
         <commons.text.version>1.6</commons.text.version>
         <!--guava-->
@@ -77,10 +75,6 @@
         <oshi.version>3.9.1</oshi.version>
     </properties>
     <dependencies>
-        <dependency>
-            <groupId>org.yaml</groupId>
-            <artifactId>snakeyaml</artifactId>
-        </dependency>
         <!--web-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -199,6 +193,11 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${google.guava.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.afterturn</groupId>
+            <artifactId>easypoi-spring-boot-starter</artifactId>
+            <version>4.0.0</version>
         </dependency>
         <!-- httpclient -->
         <dependency>
