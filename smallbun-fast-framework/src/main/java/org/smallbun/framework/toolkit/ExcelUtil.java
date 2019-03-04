@@ -21,46 +21,39 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.smallbun.fast.manage.dict.entity;
+package org.smallbun.framework.toolkit;
 
-import cn.afterturn.easypoi.excel.annotation.Excel;
-import com.baomidou.mybatisplus.annotation.SqlCondition;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Getter;
-import lombok.Setter;
-import org.smallbun.fast.common.entity.DataEntity;
+import org.apache.poi.ss.usermodel.Workbook;
 
-import javax.validation.constraints.NotBlank;
-import java.util.List;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 /**
- * 系统字典类型
+ *工具类
  * @author SanLi
- * Created by 2689170096@qq.com on 2018/10/2
+ * Created by 2689170096@qq.com on 2019/3/4 20:23
  */
-@Getter
-@Setter
-@TableName("sys_dict_type")
-public class SysDictTypeEntity extends DataEntity<Long> {
+public class ExcelUtil {
+	public static void export(String fileName, Workbook workbook, HttpServletResponse response) {
+		// 设置excel的文件名称
+		String excelName = fileName + System.currentTimeMillis();
+		// 重置响应对象
+		response.reset();
+		// 指定下载的文件名--设置响应头
+		try {
+			response.setHeader("Content-Disposition",
+					"attachment;filename=" + new String(excelName.getBytes("gb2312"), StandardCharsets.ISO_8859_1)
+							+ ".xls");
+			// 设置响应头
+			response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+			response.setHeader("Pragma", "no-cache");
+			response.setHeader("Cache-Control", "no-cache");
+			response.setDateHeader("Expires", 0);
+			workbook.write(response.getOutputStream());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-	/**
-	 * 类型名称
-	 */
-	@NotBlank(message = "类型名称不能为空")
-	@TableField(condition = SqlCondition.LIKE)
-	@Excel(name = "类型名称", isImportField = "true")
-	private String typeName;
-	/**
-	 * 类型编码
-	 */
-	@NotBlank(message = "类型编码不能为空")
-	@Excel(name = "类型编码", orderNum = "1", width = 30, isImportField = "true")
-	private String typeCode;
-	/**
-	 * 字典值
-	 */
-	@TableField(exist = false)
-	private List<SysDictValueEntity> dictValue;
-
+	}
 }

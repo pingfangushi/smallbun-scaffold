@@ -90,11 +90,7 @@
             exportExcel: function (formId) {
                 var currentId = $.common.isEmpty(formId) ? $('form').attr('id') : formId;
                 $.modal.loading("正在导出数据，请稍后...");
-                //+ $("#" + currentId).serializeArray()
-                var $form = $('<form method="GET"></form>');
-                $form.attr('action', $.table._option.exportUrl);
-                $form.appendTo($('body'));
-                $form.submit();
+                window.location.href = $.table._option.exportUrl + "?" + $("#" + currentId).serialize();
                 $.modal.closeLoading();
             },
             // 导入

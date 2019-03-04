@@ -26,20 +26,20 @@ package org.smallbun.fast.manage.dict.service.impl;
 import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.smallbun.fast.manage.dict.dao.SysDictTypeMapper;
 import org.smallbun.fast.manage.dict.entity.SysDictTypeEntity;
 import org.smallbun.fast.manage.dict.service.SysDictTypeService;
 import org.smallbun.fast.manage.dict.vo.SysDictTypeVO;
 import org.smallbun.framework.base.BaseServiceImpl;
 import org.smallbun.framework.toolkit.AutoMapperUtil;
+import org.smallbun.framework.toolkit.ExcelUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
@@ -77,28 +77,12 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeMapper, S
 	 *
 	 * @param vo                  {@link SysDictTypeVO}
 	 * @param response {@link HttpServletResponse}
-	 * @throws IOException
 	 */
 	@Override
-	public void export(SysDictTypeVO vo, HttpServletResponse response) throws IOException {
-		// 设置excel的文件名称
-		String excelName = "字典类型" + System.currentTimeMillis();
-		// 重置响应对象
-		response.reset();
-		// 指定下载的文件名--设置响应头
-		response.setHeader("Content-Disposition",
-				"attachment;filename=" + new String(excelName.getBytes("gb2312"), StandardCharsets.ISO_8859_1)
-						+ ".xls");
-		// 设置响应头
-		response.setContentType("application/vnd.ms-excel;charset=UTF-8");
-		response.setHeader("Pragma", "no-cache");
-		response.setHeader("Cache-Control", "no-cache");
-		response.setDateHeader("Expires", 0);
+	public void export(SysDictTypeVO vo, HttpServletResponse response) {
 		//导出
-		ExcelExportUtil.exportExcel(new ExportParams("字典类型", "字典类型"), SysDictTypeEntity.class,
-				mappingList(list(new QueryWrapper<>(vo)), new ArrayList<SysDictTypeVO>(), SysDictTypeVO.class))
-				.write(response.getOutputStream());
+		Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("字典类型", "字典类型"), SysDictTypeEntity.class,
+				mappingList(list(new QueryWrapper<>(vo)), new ArrayList<SysDictTypeVO>(), SysDictTypeVO.class));
+		ExcelUtil.export("字典类型", workbook, response);
 	}
-
-
 }
