@@ -61,6 +61,7 @@
                                 class="fa fa-trash-o"></i> 删除
                         </button>
                         <!--/*/</th:block>/*/-->
+                        <!--/*/<th:block sec:authorize="hasAuthority('manage:dict:import') || hasAuthority('manage:dict:export')">/*/-->
                         <div class="btn-group">
                             <button type="button" class="btn ibtn-white btn-sm dropdown-toggle" data-toggle="dropdown"
                                     aria-expanded="false" data-placement="left"
@@ -68,10 +69,16 @@
                                 更多操作<span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a href="javascript:" onclick="$.operate.exportExcel()"><i class="glyphicon glyphicon-export"></i> 导出</a></li>
+                                <!--/*/<th:block sec:authorize="hasAuthority('manage:dict:import')">/*/-->
+                                <li><a href="javascript:" onclick="$.operate.exportExcel()"><i
+                                        class="glyphicon glyphicon-export"></i> 导出</a></li>
+                                <!--/*/</th:block>/*/-->
+                                <!--/*/<th:block sec:authorize="hasAuthority('manage:dict:export')">/*/-->
                                 <li><a href="javascript:"><i class="glyphicon glyphicon-import"></i> 导入</a></li>
+                                <!--/*/</th:block>/*/-->
                             </ul>
                         </div>
+                        <!--/*/</th:block>/*/-->
                     </div>
                 </div>
                 <!--盒子内容-->
