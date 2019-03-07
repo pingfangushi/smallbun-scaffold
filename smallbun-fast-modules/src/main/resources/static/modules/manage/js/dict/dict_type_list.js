@@ -29,6 +29,7 @@ $(function () {
         removeUrl: contextPath + "dict/type/removeById",
         batRemoveUrl: contextPath + "dict/type/removeByIds",
         exportUrl: contextPath + "dict/type/export",
+        importTemUrl: contextPath + "dict/type/import template download",
         sortName: "gmtCreate",
         sortOrder: "desc",
         modalName: "字典",
