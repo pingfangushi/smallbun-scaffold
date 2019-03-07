@@ -23,7 +23,7 @@
 
 //实例化编辑器
 //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
-var editor = UE.getEditor('content', {
+var editor = UE.getEditor('editor', {
     autoHeight: false,
     initialFrameHeight: 200,
     initialFrameWidth: '100%',
@@ -107,8 +107,12 @@ var editor = UE.getEditor('content', {
     ]
 });
 //加载完成展示
-editor.addListener('ready', function (editor) {
+editor.addListener('ready', function () {
+
     $('#content_row').show();
+});
+editor.ready(function () {
+    editor.setContent('<div style="width:100%;height:100%;">' + $("#content").val() + '</div>');
 });
 
 /**

@@ -35,6 +35,7 @@ import org.smallbun.framework.base.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.util.HtmlUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -77,6 +78,8 @@ public class SysNotifyServiceImpl extends BaseServiceImpl<SysNotifyMapper, SysNo
 	 */
 	@Override
 	public boolean saveOrUpdate(SysNotifyVO vo) {
+		//转义
+		vo.setContent(HtmlUtils.htmlUnescape(vo.getContent()));
 		//保存任务
 		boolean saveOrUpdate = super.saveOrUpdate(vo);
 		if (saveOrUpdate) {
