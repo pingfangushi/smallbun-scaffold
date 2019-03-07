@@ -21,31 +21,23 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.smallbun.fast.manage.notify.service;
+package org.smallbun.fast.manage.role.service;
 
-import org.smallbun.fast.manage.notify.entity.SysNotifyEntity;
-import org.smallbun.fast.manage.notify.vo.SysNotifyVO;
+import org.smallbun.fast.manage.notify.entity.SysNotifyRecordEntity;
 import org.smallbun.framework.base.BaseService;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
- * 通知通告 服务类
+ * <p>
+ * 通知通告发送记录 服务类
+ * </p>
+ *
  * @author SanLi
- * Created by 2689170096@qq.com on 2019/2/14 19:23
+ * @since 2019-03-07
  */
-public interface SysNotifyService extends BaseService<SysNotifyEntity> {
+public interface SysNotifyRecordService extends BaseService<SysNotifyRecordEntity> {
 	/**
-	 * model
-	 * @param request
-	 * @return
+	 * 根据通知公告id删除记录
+	 * @param id
 	 */
-	SysNotifyVO model(HttpServletRequest request);
-
-	/**
-	 * 保存或更新
-	 * @param vo
-	 * @return
-	 */
-	boolean saveOrUpdate(SysNotifyVO vo);
+	void delByNotifyId(String id);
 }

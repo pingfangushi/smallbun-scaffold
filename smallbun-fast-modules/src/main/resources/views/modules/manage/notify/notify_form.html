@@ -74,7 +74,7 @@
                         <label class="col-xs-2 control-label"><span
                                 style="color: red;">*</span>内容：</label>
                         <div class="col-xs-9">
-                            <div class="input-group" id="content"  style="z-index: 1000"></div>
+                            <div class="input-group" id="content" style="z-index: 1000"></div>
                         </div>
                     </div>
                 </div>
@@ -101,13 +101,13 @@
                         <div class="col-xs-9">
                             <div class="input-group" style="width: 100%">
                                 <div class="input-group" style="width: 100%"> <!--th:field="*{receiverName}"-->
-                                    <input readonly="readonly"  idObj="#receiverId" onclick="$.select.selectUser(this)"
-                                                                          placeholder="请选择接收人"
-                                                                          class="form-control"/>
+                                    <input readonly="readonly" idObj="#user_ids" onclick="$.select.selectUser(this)"
+                                           placeholder="请选择接收人"
+                                           class="form-control"/>
                                     <span class="input-group-addon" onclick="$.select.selectUser(this)">
                                         <i class="fa fa-search"></i>
                                     </span>
-                                    <input type="hidden" id="receiverId" name="receiverId">
+                                    <input type="hidden" id="user_ids">
                                 </div>
                             </div>
                         </div>
@@ -139,7 +139,7 @@
 <script th:src="@{/static/modules/manage/js/notify/notify_form.js}"></script>
 <script th:inline="javascript">
     var content = [[${notify.content}]];
-    if(content !=null) {
+    if (content != null) {
         editor.ready(function () {
             editor.setContent(content);
         });

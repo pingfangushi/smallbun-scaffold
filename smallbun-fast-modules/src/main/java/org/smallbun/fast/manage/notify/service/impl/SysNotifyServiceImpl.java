@@ -23,16 +23,21 @@
 
 package org.smallbun.fast.manage.notify.service.impl;
 
+import com.google.common.collect.Lists;
 import org.smallbun.fast.common.utils.AutoMapperUtil;
 import org.smallbun.fast.manage.notify.dao.SysNotifyMapper;
 import org.smallbun.fast.manage.notify.entity.SysNotifyEntity;
+import org.smallbun.fast.manage.notify.entity.SysNotifyRecordEntity;
 import org.smallbun.fast.manage.notify.service.SysNotifyService;
 import org.smallbun.fast.manage.notify.vo.SysNotifyVO;
+import org.smallbun.fast.manage.role.service.SysNotifyRecordService;
 import org.smallbun.framework.base.BaseServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 
@@ -45,6 +50,16 @@ import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 public class SysNotifyServiceImpl extends BaseServiceImpl<SysNotifyMapper, SysNotifyEntity>
 		implements SysNotifyService {
 
+	@Autowired
+	public SysNotifyServiceImpl(SysNotifyRecordService notifyRecordService) {
+		this.notifyRecordService = notifyRecordService;
+	}
+
+	/**
+	 * model
+	 * @param request
+	 * @return
+	 */
 	@Override
 	public SysNotifyVO model(HttpServletRequest request) {
 		if (!request.getRequestURI().contains(UNIQUE)) {
@@ -56,12 +71,32 @@ public class SysNotifyServiceImpl extends BaseServiceImpl<SysNotifyMapper, SysNo
 	}
 
 	/**
-	 * 自定义更新或删除
-	 * @param entity
+	 * 自定义更新
+	 * @param vo
 	 * @return
 	 */
 	@Override
-	public boolean saveOrUpdate(SysNotifyEntity entity) {
-		return super.saveOrUpdate(entity);
+	public boolean saveOrUpdate(SysNotifyVO vo) {
+		//保存任务
+		boolean saveOrUpdate = super.saveOrUpdate(vo);
+		if (saveOrUpdate) {
+			List<SysNotifyRecordEntity> recordEntities = Lists.newArrayList();
+			vo.getReceiverUser().forEach(u -> {
+				SysNotifyRecordEntity entity = new SysNotifyRecordEntity();
+				entity.setNotifyId(vo.getId().toString());
+				entity.setUserId(u.getId().toString());
+				recordEntities.add(entity);
+			});
+			//根据任务id删除
+			notifyRecordService.delByNotifyId(vo.getId().toString());
+			//批量保存
+			saveOrUpdate = notifyRecordService.saveBatch(recordEntities);
+		}
+		return saveOrUpdate;
 	}
+
+	/**
+	 * 注入公告和用户关联service
+	 */
+	private final SysNotifyRecordService notifyRecordService;
 }

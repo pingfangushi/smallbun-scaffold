@@ -58,6 +58,4 @@ public class SysNotifyEntity extends DataEntity<Long> {
 	 * 状态
 	 */
 	private String notifyStatus;
-
-
 }

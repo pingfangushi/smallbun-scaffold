@@ -117,8 +117,15 @@ editor.addListener('ready', function (editor) {
 function doSubmit() {
     // 手动触发校验代码
     if ($('.form-horizontal').valid()) {
-        var data =  $('.form-horizontal').serializeArray();
-        data.push({name:'content',value: editor.getContent()});
-        $.operate.saveCurrentTabPage($('.form-horizontal').attr('action'),data);
+        var data = $('.form-horizontal').serializeArray();
+        //接受用户
+        var ids = $('#user_ids').val().split(',');
+        for (var i = 0; i < ids.length; i++) {
+            data.push({name: 'receiverUser[' + i + '].id', value: ids[i]});
+        }
+        //富文本内容
+        data.push({name: 'content', value: editor.getContent()});
+        //提交保存
+        $.operate.saveCurrentTabPage($('.form-horizontal').attr('action'), data);
     }
 }

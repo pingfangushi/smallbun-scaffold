@@ -24,9 +24,12 @@
 package org.smallbun.fast.manage.notify.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.smallbun.fast.manage.notify.entity.SysNotifyEntity;
+import org.smallbun.fast.manage.notify.entity.SysNotifyRecordEntity;
 import org.smallbun.framework.base.BaseMapper;
-import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * 通知通告 Mapper 接口
@@ -35,5 +38,10 @@ import org.springframework.stereotype.Repository;
  */
 @Mapper
 public interface SysNotifyMapper extends BaseMapper<SysNotifyEntity> {
-
+	/**
+	 * 批量添加
+	 * @param recordEntities
+	 * @return
+	 */
+	boolean batchInsertNotifyUser(@Param("p") List<SysNotifyRecordEntity> recordEntities);
 }
