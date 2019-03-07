@@ -38,8 +38,9 @@ import org.springframework.util.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mapping;
@@ -54,106 +55,108 @@ import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class SysMenuServiceImpl extends BaseTreeDataServiceImpl<SysMenuMapper, SysMenuEntity>
-		implements SysMenuService {
+        implements SysMenuService {
 
 
-	/**
-	 * model
-	 * @param request
-	 * @return
-	 */
-	@Override
-	public SysMenuVO model(HttpServletRequest request) {
-		if (!request.getRequestURI().contains(UNIQUE)) {
-			return StringUtils.isEmpty(request.getParameter(ID)) ?
-					new SysMenuVO() :
-					mapping(getById(request.getParameter(ID)), new SysMenuVO());
-		}
-		return new SysMenuVO();
-	}
+    /**
+     * model
+     *
+     * @param request
+     * @return
+     */
+    @Override
+    public SysMenuVO model(HttpServletRequest request) {
+        if (!request.getRequestURI().contains(UNIQUE)) {
+            return StringUtils.isEmpty(request.getParameter(ID)) ?
+                    new SysMenuVO() :
+                    mapping(getById(request.getParameter(ID)), new SysMenuVO());
+        }
+        return new SysMenuVO();
+    }
 
-	/**
-	 * 获取当前用户具有的用户菜单
-	 *
-	 * @return List<SysMenuEntity>
-	 */
-	@Override
-	public List<SysMenuVO> userMenus() {
-		//获取当前用户
-		LoginUserDetails user = UserUtil.getLoginUser();
-		//获取用户所属的菜单
-		List<SysMenuEntity> list = user.getMenus();
-		//循环得到目录和菜单
-		final List<SysMenuEntity> permissions = new ArrayList<>();
-		for (SysMenuEntity l : list) {
-			if (l.getMenuType().equals(0) | l.getMenuType().equals(1)) {
-				permissions.add(l);
-			}
-		}
-		//设置子菜单
-		setChildren(permissions);
-		//过滤菜单，拿到所有的父菜单
-		List<SysMenuEntity> result = new ArrayList<>();
-		for (SysMenuEntity p : permissions) {
-			//判断是否是目录
-			if (!p.getParentId().equals(0L)) {continue;}
-			result.add(p);
-		}
-		result = result.stream().distinct().collect(Collectors.toList());
-		return mappingList(result, new ArrayList<>(), SysMenuVO.class);
-	}
+    /**
+     * 获取当前用户具有的用户菜单
+     *
+     * @return List<SysMenuEntity>
+     */
+    @Override
+    public List<SysMenuVO> userMenus() {
+        //获取当前用户
+        LoginUserDetails user = UserUtil.getLoginUser();
+        //获取用户所属的菜单
+        Set<SysMenuEntity> list = new HashSet<>(user.getMenus());
+        //循环得到目录和菜单
+        Set<SysMenuEntity> permissions = new HashSet<>();
+        for (SysMenuEntity l : list) {
+            if (l.getMenuType().equals(0) | l.getMenuType().equals(1)) {
+                permissions.add(l);
+            }
+        }
+        //设置子菜单
+        setChildren(permissions);
+        //过滤菜单，拿到所有的父菜单
+        List<SysMenuEntity> result = new ArrayList<>();
+        for (SysMenuEntity p : permissions) {
+            //判断是否是目录
+            if (!p.getParentId().equals(0L)) {
+                continue;
+            }
+            result.add(p);
+        }
+        return mappingList(result, new ArrayList<>(), SysMenuVO.class);
+    }
 
-	/**
-	 * 根据用户ID进行查询所具有的菜单功能权限
-	 *
-	 * @param userId {@link Long} 用户ID
-	 * @return {@link SysMenuEntity}
-	 */
-	@Override
-	public List<SysMenuEntity> findByUserId(Serializable userId) {
-		return baseMapper.findByUserId(userId);
-	}
+    /**
+     * 根据用户ID进行查询所具有的菜单功能权限
+     *
+     * @param userId {@link Long} 用户ID
+     * @return {@link SysMenuEntity}
+     */
+    @Override
+    public List<SysMenuEntity> findByUserId(Serializable userId) {
+        return baseMapper.findByUserId(userId);
+    }
 
-	/**
-	 * 根据角色ID进行查询所具有的菜单功能权限
-	 *
-	 * @param roleId {@link Long} 角色ID
-	 * @return {@link SysMenuEntity}
-	 */
-	@Override
-	public List<SysMenuEntity> findByRoleId(Serializable roleId) {
-		return baseMapper.findByRoleId(roleId);
-	}
-
-
-	/**
-	 * 设置子菜单
-	 *
-	 * @param permissions permissions
-	 */
-	private void setChildren(List<SysMenuEntity> permissions) {
-		permissions.parallelStream().forEach((SysMenuEntity per) -> {
-			List<SysMenuEntity> child = new ArrayList<>();
-			for (SysMenuEntity p : permissions) {
-				if (p.getParentId().equals(per.getId())) {
-					child.add(p);
-				}
-			}
-			per.setChildren(child);
-		});
-	}
+    /**
+     * 根据角色ID进行查询所具有的菜单功能权限
+     *
+     * @param roleId {@link Long} 角色ID
+     * @return {@link SysMenuEntity}
+     */
+    @Override
+    public List<SysMenuEntity> findByRoleId(Serializable roleId) {
+        return baseMapper.findByRoleId(roleId);
+    }
 
 
-	/**
-	 * <p>
-	 * TableId 注解存在更新记录，否插入一条记录
-	 * </p>
-	 *
-	 * @param entity 实体对象
-	 * @return boolean
-	 */
-	@Override
-	public boolean saveOrUpdate(SysMenuEntity entity) {
-		return super.saveOrUpdate(entity);
-	}
+    /**
+     * 设置子菜单
+     *
+     * @param permissions permissions
+     */
+    private void setChildren(Set<SysMenuEntity> permissions) {
+        permissions.parallelStream().forEach((SysMenuEntity per) -> {
+            List<SysMenuEntity> child = new ArrayList<>();
+            for (SysMenuEntity p : permissions) {
+                if (p.getParentId().equals(per.getId())) {
+                    child.add(p);
+                }
+            }
+            per.setChildren(child);
+        });
+    }
+
+
+    /**
+     * <p>
+     * TableId 注解存在更新记录，否插入一条记录
+     * </p>
+     *
+     * @param entity 实体对象
+     * @return boolean
+     */
+    @Override
+    public boolean saveOrUpdate(SysMenuEntity entity) {
+        return super.saveOrUpdate(entity);
+    }
 }
