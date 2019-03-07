@@ -104,6 +104,10 @@
                     $.modal.loading();
                 });
             },
+            // 下载导入模板
+            importExcelTemplate: function (formId) {
+                window.location.href = $.table._option.exportUrl + "?" + $("#" + currentId).serialize();
+            },
             // 刷新
             refresh: function () {
                 $table.bootstrapTable('refresh', {
@@ -189,6 +193,16 @@
                                 $table.bootstrapTable('resetWidth');
                             }
                         });
+                    },
+                    onPostBody: function () {
+                        $table.treegrid({
+                            treeColumn: 1,
+                            expanderExpandedClass: 'treegrid-expander glyphicon glyphicon-chevron-down',
+                            expanderCollapsedClass: 'treegrid-expander glyphicon glyphicon-chevron-right',
+                            onChange: function () {
+                                $table.bootstrapTable('resetWidth')
+                            }
+                        })
                     }
                 });
             },
@@ -764,8 +778,13 @@
                 }
                 $.modal.closeLoading();
             },
+            //导出
             exportExcel: function () {
                 $.table.exportExcel();
+            },
+            //导入
+            importExcel: function () {
+                $.import.init($(".glyphicon-import"));
             }
         },
         /**
@@ -1264,6 +1283,52 @@
                         }
                     });
                 }
+            }
+        },
+        /**
+         * 导入
+         */
+        import: {
+            init: function () {
+                /**
+                 * 弹出框
+                 */
+                var width = '400px';
+                var height = '230px';
+                //如果是移动端，就使用自适应大小弹窗
+                if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
+                    width = 'auto';
+                    height = 'auto';
+                }
+                /**
+                 * 弹出layer
+                 */
+                layer.open({
+                    type: 1,
+                    title: "导入" + $.table._option.modalName + "数据",
+                    area: [width, height],
+                    shade: 0,
+                    shadeClose: false,
+                    content: '<form id="importForm" enctype="multipart/form-data" class="layui-layer-wrap" style="margin-top: 20px;">' +
+                        '<div class="col-xs-offset-1">' +
+                        '<input type="file" id="file" name="file">' +
+                        '<div style="margin-top:10px">' +
+                        '<input type="checkbox" id="updateSupport" name="updateSupport" title="如果登录账户已经存在，更新这条数据。">是否更新已经存在的' + $.table._option.modalName + '数据' +
+                        ' &nbsp;<a onclick="$.table.importExcelTemplate()" class="btn btn-default btn-xs"><i class="fa fa-file-excel-o"></i>下载模板</a>' +
+                        '</div>' +
+                        '<font color="red" class="pull-left" style="margin-top:10px">' +
+                        '提示：仅允许导入“xls”或“xlsx”格式文件！' +
+                        '</font>' +
+                        '</div>' +
+                        '</form>', //弹框内容
+                    success: function (layero, index) {
+                        layer.iframeAuto(index);
+                    },
+                    btn: ['确定', '取消'],
+                    btn1: function (index) {
+
+                    }
+                });
             }
         }
 
