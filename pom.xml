@@ -504,7 +504,7 @@
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>bootstrap-table</artifactId>
-            <version>1.13.5</version>
+            <version>1.14.1</version>
         </dependency>
         <!--inputmask-->
         <dependency>
