@@ -80,6 +80,7 @@ public class SysNotifyServiceImpl extends BaseServiceImpl<SysNotifyMapper, SysNo
 		//保存任务
 		boolean saveOrUpdate = super.saveOrUpdate(vo);
 		if (saveOrUpdate) {
+			//封装 List<SysNotifyRecordEntity>
 			List<SysNotifyRecordEntity> recordEntities = Lists.newArrayList();
 			vo.getReceiverUser().forEach(u -> {
 				SysNotifyRecordEntity entity = new SysNotifyRecordEntity();
