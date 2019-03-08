@@ -41,6 +41,8 @@ import org.smallbun.framework.constant.OperateLogConstant;
 import org.smallbun.framework.result.AjaxResult;
 import org.smallbun.framework.result.PageableResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
@@ -56,6 +58,7 @@ import java.util.List;
 import static org.smallbun.framework.constant.ErrorMsgConstant.ID_NOT_BLANK_MSG;
 import static org.smallbun.framework.constant.OperateLogConstant.SELECT_LIST;
 import static org.smallbun.framework.constant.OperateLogConstant.SELECT_PAGE;
+import static org.smallbun.framework.constant.SystemConstant.TOPIC;
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 import static org.smallbun.framework.toolkit.AutoMapperUtil.mappingList;
 
@@ -210,6 +213,18 @@ public class SysNotifyController extends BaseController {
     public ModelAndView content(SysNotifyVO notifyVO, Model model) {
         model.addAttribute("content", notifyVO.getContent());
         return new ModelAndView(HTML_PREFIX + "notify_content.html");
+    }
+
+    /**
+     * 个人通知
+     *
+     * @return
+     * @throws Exception
+     */
+    @SendTo(TOPIC)
+    @MessageMapping("/personalNotice")
+    public String personalNotice() throws Exception {
+        return "您有一条新消息";
     }
 
     /**
