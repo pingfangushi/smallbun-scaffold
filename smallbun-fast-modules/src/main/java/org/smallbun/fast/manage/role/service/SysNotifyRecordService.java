@@ -24,7 +24,10 @@
 package org.smallbun.fast.manage.role.service;
 
 import org.smallbun.fast.manage.notify.entity.SysNotifyRecordEntity;
+import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.framework.base.BaseService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -35,9 +38,18 @@ import org.smallbun.framework.base.BaseService;
  * @since 2019-03-07
  */
 public interface SysNotifyRecordService extends BaseService<SysNotifyRecordEntity> {
-	/**
-	 * 根据通知公告id删除记录
-	 * @param id
-	 */
-	void delByNotifyId(String id);
+    /**
+     * 根据通知公告id删除记录
+     *
+     * @param id
+     */
+    void delByNotifyId(String id);
+
+    /**
+     * 根据通知公告获取用户
+     *
+     * @param id
+     * @return
+     */
+    List<SysUserEntity> findUserByNotifyId(Long id);
 }

@@ -28,24 +28,37 @@ import org.smallbun.fast.manage.notify.vo.SysNotifyVO;
 import org.smallbun.framework.base.BaseService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
 
 /**
  * 通知通告 服务类
+ *
  * @author SanLi
  * Created by 2689170096@qq.com on 2019/2/14 19:23
  */
 public interface SysNotifyService extends BaseService<SysNotifyEntity> {
-	/**
-	 * model
-	 * @param request
-	 * @return
-	 */
-	SysNotifyVO model(HttpServletRequest request);
+    /**
+     * model
+     *
+     * @param request
+     * @return
+     */
+    SysNotifyVO model(HttpServletRequest request);
 
-	/**
-	 * 保存或更新
-	 * @param vo
-	 * @return
-	 */
-	boolean saveOrUpdate(SysNotifyVO vo);
+    /**
+     * 保存或更新
+     *
+     * @param vo
+     * @return
+     */
+    boolean saveOrUpdate(SysNotifyVO vo);
+
+    /**
+     * 根据id获取一条记录
+     *
+     * @param id
+     * @return
+     */
+    SysNotifyVO getById(Serializable id);
+
 }

@@ -23,7 +23,10 @@
 
 package org.smallbun.fast.manage.notify.entity;
 
+import com.baomidou.mybatisplus.annotation.SqlCondition;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.core.enums.SqlLike;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -42,6 +45,7 @@ public class SysNotifyEntity extends DataEntity<Long> {
 	/**
 	 * 标题
 	 */
+    @TableField(condition = SqlCondition.LIKE)
 	private String title;
 
 	/**

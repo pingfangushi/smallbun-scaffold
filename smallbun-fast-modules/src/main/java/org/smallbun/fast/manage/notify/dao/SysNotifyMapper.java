@@ -23,6 +23,7 @@
 
 package org.smallbun.fast.manage.notify.dao;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.smallbun.fast.manage.notify.entity.SysNotifyEntity;
@@ -44,4 +45,5 @@ public interface SysNotifyMapper extends BaseMapper<SysNotifyEntity> {
 	 * @return
 	 */
 	boolean batchInsertNotifyUser(@Param("p") List<SysNotifyRecordEntity> recordEntities);
+
 }

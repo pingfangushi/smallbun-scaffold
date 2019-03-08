@@ -26,20 +26,39 @@ package org.smallbun.fast.manage.notify.vo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.smallbun.fast.manage.notify.entity.SysNotifyEntity;
+import org.smallbun.fast.manage.notify.entity.SysNotifyRecordEntity;
 import org.smallbun.fast.manage.user.entity.SysUserEntity;
+import org.smallbun.framework.annotation.DictValue;
 
 import java.util.List;
 
 /**
  * 通知公告VO对象
+ *
  * @author SanLi
  * Created by 2689170096@qq.com on 2019/2/21 22:33
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class SysNotifyVO extends SysNotifyEntity {
-	/**
-	 * 接收人集合
-	 */
-	private List<SysUserEntity> receiverUser;
+    /**
+     * 接收人集合
+     */
+    private List<SysUserEntity> receiverUser;
+    /**
+     * 通知公告-接收人关联
+     */
+    private List<SysNotifyRecordEntity> record;
+
+    /**
+     * 类型
+     */
+    @DictValue(typeCode = "NOTIFY_GENRE", valueField = "notifyGenre")
+    private String notifyGenreName;
+
+    /**
+     * 状态
+     */
+    @DictValue(typeCode = "NOTIFY_STATUS", valueField = "notifyStatus")
+    private String notifyStatusName;
 }

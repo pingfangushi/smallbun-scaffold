@@ -26,8 +26,11 @@ package org.smallbun.fast.manage.role.service.impl;
 import org.smallbun.fast.manage.notify.dao.SysNotifyRecordMapper;
 import org.smallbun.fast.manage.notify.entity.SysNotifyRecordEntity;
 import org.smallbun.fast.manage.role.service.SysNotifyRecordService;
+import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.framework.base.BaseServiceImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -49,4 +52,15 @@ public class SysNotifyRecordServiceImpl extends BaseServiceImpl<SysNotifyRecordM
 	public void delByNotifyId(String id) {
 		baseMapper.delByNotifyId(id);
 	}
+
+    /**
+     * 根据通知公告获取用户
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public List<SysUserEntity> findUserByNotifyId(Long id) {
+        return baseMapper.findUserByNotifyId(id);
+    }
 }

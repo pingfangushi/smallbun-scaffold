@@ -38,69 +38,87 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.util.HtmlUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
 import java.util.List;
 
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
 
 /**
  * 通知公告实现类
+ *
  * @author SanLi
  * Created by 2689170096@qq.com on 2019/2/14 19:24
  */
 @Service
 public class SysNotifyServiceImpl extends BaseServiceImpl<SysNotifyMapper, SysNotifyEntity>
-		implements SysNotifyService {
+    implements SysNotifyService {
 
-	@Autowired
-	public SysNotifyServiceImpl(SysNotifyRecordService notifyRecordService) {
-		this.notifyRecordService = notifyRecordService;
-	}
+    @Autowired
+    public SysNotifyServiceImpl(SysNotifyRecordService notifyRecordService) {
+        this.notifyRecordService = notifyRecordService;
+    }
 
-	/**
-	 * model
-	 * @param request
-	 * @return
-	 */
-	@Override
-	public SysNotifyVO model(HttpServletRequest request) {
-		if (!request.getRequestURI().contains(UNIQUE)) {
-			return StringUtils.isEmpty(request.getParameter(ID)) ?
-					new SysNotifyVO() :
-					AutoMapperUtil.mapping(getById(request.getParameter(ID)), new SysNotifyVO());
-		}
-		return new SysNotifyVO();
-	}
+    /**
+     * model
+     *
+     * @param request
+     * @return
+     */
+    @Override
+    public SysNotifyVO model(HttpServletRequest request) {
+        if (!request.getRequestURI().contains(UNIQUE)) {
+            return StringUtils.isEmpty(request.getParameter(ID)) ?
+                new SysNotifyVO() :
+                getById(request.getParameter(ID));
+        }
+        return new SysNotifyVO();
+    }
 
-	/**
-	 * 自定义更新
-	 * @param vo
-	 * @return
-	 */
-	@Override
-	public boolean saveOrUpdate(SysNotifyVO vo) {
-		//转义
-		vo.setContent(HtmlUtils.htmlUnescape(vo.getContent()));
-		//保存任务
-		boolean saveOrUpdate = super.saveOrUpdate(vo);
-		if (saveOrUpdate) {
-			//封装 List<SysNotifyRecordEntity>
-			List<SysNotifyRecordEntity> recordEntities = Lists.newArrayList();
-			vo.getReceiverUser().forEach(u -> {
-				SysNotifyRecordEntity entity = new SysNotifyRecordEntity();
-				entity.setNotifyId(vo.getId().toString());
-				entity.setUserId(u.getId().toString());
-				recordEntities.add(entity);
-			});
-			//根据任务id删除
-			notifyRecordService.delByNotifyId(vo.getId().toString());
-			//批量保存
-			saveOrUpdate = notifyRecordService.saveBatch(recordEntities);
-		}
-		return saveOrUpdate;
-	}
+    /**
+     * 根据id获取一条记录
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public SysNotifyVO getById(Serializable id) {
+        SysNotifyVO vo = AutoMapperUtil.mapping(super.getById(id), new SysNotifyVO());
+        vo.setReceiverUser(notifyRecordService.findUserByNotifyId(vo.getId()));
+        return vo;
+    }
 
-	/**
-	 * 注入公告和用户关联service
-	 */
-	private final SysNotifyRecordService notifyRecordService;
+    /**
+     * 自定义更新
+     *
+     * @param vo
+     * @return
+     */
+    @Override
+    public boolean saveOrUpdate(SysNotifyVO vo) {
+        //转义
+        vo.setContent(HtmlUtils.htmlUnescape(vo.getContent()));
+        //保存任务
+        boolean saveOrUpdate = super.saveOrUpdate(vo);
+        if (saveOrUpdate) {
+            //封装 List<SysNotifyRecordEntity>
+            List<SysNotifyRecordEntity> recordEntities = Lists.newArrayList();
+            vo.getReceiverUser().forEach(u -> {
+                SysNotifyRecordEntity entity = new SysNotifyRecordEntity();
+                entity.setNotifyId(vo.getId().toString());
+                entity.setUserId(u.getId().toString());
+                recordEntities.add(entity);
+            });
+            //根据任务id删除
+            notifyRecordService.delByNotifyId(vo.getId().toString());
+            //批量保存
+            saveOrUpdate = notifyRecordService.saveBatch(recordEntities);
+        }
+        return saveOrUpdate;
+    }
+
+
+    /**
+     * 注入公告和用户关联service
+     */
+    private final SysNotifyRecordService notifyRecordService;
 }

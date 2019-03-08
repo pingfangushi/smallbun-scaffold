@@ -26,7 +26,10 @@ package org.smallbun.fast.manage.notify.dao;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.smallbun.fast.manage.notify.entity.SysNotifyRecordEntity;
+import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.framework.base.BaseMapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -38,9 +41,18 @@ import org.smallbun.framework.base.BaseMapper;
  */
 @Mapper
 public interface SysNotifyRecordMapper extends BaseMapper<SysNotifyRecordEntity> {
-	/**
-	 * 根据通知id批量删除
-	 * @param id
-	 */
-	void delByNotifyId(@Param("id") String id);
+    /**
+     * 根据通知id批量删除
+     *
+     * @param id
+     */
+    void delByNotifyId(@Param("id") String id);
+
+    /**
+     * 根据通知公告获取用户
+     *
+     * @param id
+     * @return
+     */
+    List<SysUserEntity> findUserByNotifyId(Long id);
 }

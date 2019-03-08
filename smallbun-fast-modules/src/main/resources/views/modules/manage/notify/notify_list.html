@@ -58,20 +58,9 @@
                         <!--/*/<th:block sec:authorize="hasAuthority('manage:notify:del')">/*/-->
                         <button class="btn btn-sm bg-maroon" data-toggle="tooltip" data-placement="left" title="删除"
                                 onclick="$.operate.batRemove()"><i
-                                class="fa fa-trash-o"></i> 删除
+                            class="fa fa-trash-o"></i> 删除
                         </button>
                         <!--/*/</th:block>/*/-->
-                        <div class="btn-group">
-                            <button type="button" class="btn ibtn-white btn-sm dropdown-toggle" data-toggle="dropdown"
-                                    aria-expanded="false" data-placement="left"
-                                    title="更多操作">
-                                更多操作<span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="javascript:"><i class="glyphicon glyphicon-export"></i> 导出</a></li>
-                                <li><a href="javascript:"><i class="glyphicon glyphicon-import"></i> 导入</a></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <!--盒子内容-->
@@ -80,16 +69,9 @@
                     <form class="form-inline search search-form" id="search-form" th:action="@{/notify/page}"
                           method="post">
                         <div class="form-group">
-                            <span>字典名称：</span>
+                            <span>公告标题：</span>
                             <div class="input-group input-sm width-140">
-                                <input id="typeName" name="typeName" type="text"
-                                       class="form-control" autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <span>字典值：</span>
-                            <div class="input-group input-sm width-140">
-                                <input id="typeCode" name="typeCode" type="text"
+                                <input id="title" name="title" type="text"
                                        class="form-control" autocomplete="off">
                             </div>
                         </div>

@@ -39,18 +39,20 @@ $(function () {
         showToggle: true,
         columns: [{checkbox: true},
             {field: 'id', visible: false},
-            {field: 'title', title: '标题', formatter: $.table.view, sortable: true},
-            {field: 'notifyGenre', title: '类型', sortable: true},
-            {field: 'gmtModified', title: '更新时间', sortable: true},
-            {title: '操作',align: 'center', width: 50, visible: true, formatter: function (value, row, index) {
+            {field: 'title', title: '公告标题', formatter: $.table.view, sortable: false},
+            {field: 'notifyGenreName', title: '公告类型', sortable: false, width: 100},
+            {field: 'notifyStatusName', title: '公告状态', sortable: false, width: 50},
+            {field: 'gmtCreate', title: '发布时间', sortable: true, width: 150},
+            {
+                title: '操作', align: 'center', width: 50, visible: true, formatter: function (value, row, index) {
                     var actions = [];
-                    actions.push('<div class="btn-group"><button type="button" class="btn ibtn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog"></i>&nbsp;<span class="fa fa-chevron-down"></span></button>'+
-                                    '<ul class="dropdown-menu" role="menu">'+
-                                        '<li><a href="#" onclick="$.operate.view(\'' + row.id + '\',\'\')"><i class="fa fa-search-plus"></i>查看</a></li>'+
-                                        '<li><a href="#" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>修改</a></li>'+
-                                        '<li><a href="#" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-trash"></i>删除</a></li>'+
-                                    '</ul>'+
-                                '</div>');
+                    actions.push('<div class="btn-group"><button type="button" class="btn ibtn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog"></i>&nbsp;<span class="fa fa-chevron-down"></span></button>' +
+                        '<ul class="dropdown-menu" role="menu">' +
+                        '<li><a href="#" onclick="$.operate.view(\'' + row.id + '\',\'\')"><i class="fa fa-search-plus"></i>查看</a></li>' +
+                        '<li><a href="#" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>修改</a></li>' +
+                        '<li><a href="#" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-trash"></i>删除</a></li>' +
+                        '</ul>' +
+                        '</div>');
                     return actions.join('');
                 }
             }]
