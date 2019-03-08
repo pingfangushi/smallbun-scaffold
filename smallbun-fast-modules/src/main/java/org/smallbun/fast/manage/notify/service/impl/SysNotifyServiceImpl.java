@@ -23,6 +23,7 @@
 
 package org.smallbun.fast.manage.notify.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.google.common.collect.Lists;
 import org.smallbun.fast.common.utils.AutoMapperUtil;
 import org.smallbun.fast.manage.notify.dao.SysNotifyMapper;
@@ -34,11 +35,13 @@ import org.smallbun.fast.manage.role.service.SysNotifyRecordService;
 import org.smallbun.framework.base.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.util.HtmlUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 import static org.smallbun.framework.constant.UrlPrefixConstant.UNIQUE;
@@ -116,6 +119,18 @@ public class SysNotifyServiceImpl extends BaseServiceImpl<SysNotifyMapper, SysNo
         return saveOrUpdate;
     }
 
+    /**
+     * 删除数据
+     *
+     * @param idList
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean removeByIds(Collection<? extends Serializable> idList) {
+        idList.forEach(u -> notifyRecordService.remove(new LambdaQueryWrapper<SysNotifyRecordEntity>().eq(SysNotifyRecordEntity::getNotifyId, u)));
+        return super.removeByIds(idList);
+    }
 
     /**
      * 注入公告和用户关联service

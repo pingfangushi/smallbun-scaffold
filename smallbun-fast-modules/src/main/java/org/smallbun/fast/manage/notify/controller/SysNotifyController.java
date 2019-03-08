@@ -24,10 +24,12 @@
 package org.smallbun.fast.manage.notify.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.smallbun.fast.common.PageFactory;
 import org.smallbun.fast.manage.notify.entity.SysNotifyEntity;
+import org.smallbun.fast.manage.notify.entity.SysNotifyRecordEntity;
 import org.smallbun.fast.manage.notify.service.SysNotifyService;
 import org.smallbun.fast.manage.notify.vo.SysNotifyVO;
 import org.smallbun.fast.manage.role.service.SysNotifyRecordService;
@@ -140,7 +142,8 @@ public class SysNotifyController extends BaseController {
     @PreAuthorize("hasAuthority('manage:notify:del')")
     @LogAnnotation(model = MODEL, action = OperateLogConstant.DEL)
     public AjaxResult removeById(@NotNull(message = ID_NOT_BLANK_MSG) @RequestParam(value = "id") String id) {
-        return AjaxResult.builder().result(sysNotifyService.removeById(id)).build();
+        return AjaxResult.builder().result(sysNotifyService.removeById(id)
+            && notifyRecordService.remove(new LambdaQueryWrapper<SysNotifyRecordEntity>().eq(SysNotifyRecordEntity::getNotifyId, id))).build();
     }
 
     /**

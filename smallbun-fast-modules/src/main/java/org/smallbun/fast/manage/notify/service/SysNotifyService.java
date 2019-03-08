@@ -26,6 +26,7 @@ package org.smallbun.fast.manage.notify.service;
 import org.smallbun.fast.manage.notify.entity.SysNotifyEntity;
 import org.smallbun.fast.manage.notify.vo.SysNotifyVO;
 import org.smallbun.framework.base.BaseService;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
@@ -51,6 +52,7 @@ public interface SysNotifyService extends BaseService<SysNotifyEntity> {
      * @param vo
      * @return
      */
+    @Transactional(rollbackFor = Exception.class)
     boolean saveOrUpdate(SysNotifyVO vo);
 
     /**
@@ -59,6 +61,7 @@ public interface SysNotifyService extends BaseService<SysNotifyEntity> {
      * @param id
      * @return
      */
+    @Transactional(rollbackFor = Exception.class)
     SysNotifyVO getById(Serializable id);
 
 }
