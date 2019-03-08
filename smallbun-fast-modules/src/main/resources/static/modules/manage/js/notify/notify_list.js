@@ -39,7 +39,11 @@ $(function () {
         showToggle: true,
         columns: [{checkbox: true},
             {field: 'id', visible: false},
-            {field: 'title', title: '公告标题', formatter: $.table.view, sortable: false},
+            {field: 'title', title: '公告标题', formatter: function (value, row) {
+                var actions = [];
+                actions.push('<a  href="#" onclick="viewNotify(\''+value+'\',\''+row.id+'\')">' + value + '</a> ');
+                return actions.join('');
+            }, sortable: false},
             {field: 'notifyGenreName', title: '公告类型', sortable: false, width: 100},
             {field: 'notifyStatusName', title: '公告状态', sortable: false, width: 50},
             {field: 'gmtCreate', title: '发布时间', sortable: true, width: 150},
@@ -59,3 +63,11 @@ $(function () {
     $.table.init(options);
     //@formatter:off
 });
+/**
+ * 查看
+ * @param value
+ * @param id
+ */
+function viewNotify(value,id) {
+    $.modal.view(value, contextPath+'notify/content?id='+id);
+}

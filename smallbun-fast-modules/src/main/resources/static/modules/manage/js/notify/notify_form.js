@@ -122,10 +122,12 @@ function doSubmit() {
     // 手动触发校验代码
     if ($('.form-horizontal').valid()) {
         var data = $('.form-horizontal').serializeArray();
-        //接受用户
-        var ids = $('#user_ids').val().split(',');
-        for (var i = 0; i < ids.length; i++) {
-            data.push({name: 'receiverUser[' + i + '].id', value: ids[i]});
+        //接受消息用户
+        if ($.common.isNotEmpty($('#user_ids').val())) {
+            var ids = $('#user_ids').val().split(',');
+            for (var i = 0; i < ids.length; i++) {
+                data.push({name: 'receiverUser[' + i + '].id', value: ids[i]});
+            }
         }
         //富文本内容
         data.push({name: 'content', value: editor.getContent()});

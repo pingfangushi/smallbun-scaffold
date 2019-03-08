@@ -201,6 +201,18 @@ public class SysNotifyController extends BaseController {
     }
 
     /**
+     * 查看内容
+     *
+     * @param notifyVO
+     * @return
+     */
+    @GetMapping(value = "/content")
+    public ModelAndView content(SysNotifyVO notifyVO, Model model) {
+        model.addAttribute("content", notifyVO.getContent());
+        return new ModelAndView(HTML_PREFIX + "notify_content.html");
+    }
+
+    /**
      * 注入sysNotifyService
      */
     private final SysNotifyService sysNotifyService;

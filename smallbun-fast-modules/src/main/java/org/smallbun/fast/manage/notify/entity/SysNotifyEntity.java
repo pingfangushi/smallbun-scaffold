@@ -26,14 +26,16 @@ package org.smallbun.fast.manage.notify.entity;
 import com.baomidou.mybatisplus.annotation.SqlCondition;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.core.enums.SqlLike;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.smallbun.fast.common.entity.DataEntity;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * 通知公告
+ *
  * @author SanLi
  * Created by 2689170096@qq.com on 2019/2/14 19:22
  */
@@ -42,24 +44,28 @@ import org.smallbun.fast.common.entity.DataEntity;
 @Accessors(chain = true)
 @TableName("sys_notify")
 public class SysNotifyEntity extends DataEntity<Long> {
-	/**
-	 * 标题
-	 */
+    /**
+     * 标题
+     */
+    @NotBlank(message = "标题不能为空")
     @TableField(condition = SqlCondition.LIKE)
-	private String title;
+    private String title;
 
-	/**
-	 * 内容
-	 */
-	private String content;
+    /**
+     * 内容
+     */
+    @NotBlank(message = "内容不能为空")
+    private String content;
 
-	/**
-	 * 类型
-	 */
-	private String notifyGenre;
+    /**
+     * 类型
+     */
+    @NotBlank(message = "类型不能为空")
+    private String notifyGenre;
 
-	/**
-	 * 状态
-	 */
-	private String notifyStatus;
+    /**
+     * 状态
+     */
+    @NotBlank(message = "状态不能为空")
+    private String notifyStatus;
 }
