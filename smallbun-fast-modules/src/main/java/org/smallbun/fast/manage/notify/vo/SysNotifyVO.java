@@ -29,7 +29,7 @@ import org.smallbun.fast.manage.notify.entity.SysNotifyEntity;
 import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.framework.annotation.DictValue;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 /**
@@ -42,10 +42,14 @@ import java.util.List;
 @Data
 public class SysNotifyVO extends SysNotifyEntity {
     /**
-     * 接收人集合
+     * 接收人名称
      */
-    @NotEmpty(message = "公告接收人不能为空")
-    private List<SysUserEntity> receiverUser;
+    private String  receiverName;
+    /**
+     * 接收人，接收前台传递值使用
+     */
+    @NotBlank(message = "接收人不能为空")
+    private String receivers;
     /**
      * 类型
      */

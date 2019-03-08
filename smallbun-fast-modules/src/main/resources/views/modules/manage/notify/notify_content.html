@@ -31,12 +31,7 @@
 <body>
 <div class="i-ibox">
     <div class="ibox-content">
-        <form id="form" class="form-horizontal" th:action="@{/notify/saveOrUpdate}"
-              method="post">
-            <th:block th:value="${content}">
-
-            </th:block>
-        </form>
+        <th:block th:utext="${content}"/>
     </div>
 </div>
 </body>

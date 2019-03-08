@@ -979,7 +979,6 @@ function closeCurrentTabPage(obj) {
  * @param id 主页面跳转过来的list页面
  */
 function saveCurrentTabPage(obj) {
-    debugger;
     //获取当前iframe的id，然后截取前缀（iframe_）获取id，在拼接tab_获取对象
     var tab_id = "tab_" + obj.frameElement.getAttribute('id').substring(7, obj.frameElement.getAttribute('id').length);
     var id = obj.frameElement.getAttribute('data-id-list');

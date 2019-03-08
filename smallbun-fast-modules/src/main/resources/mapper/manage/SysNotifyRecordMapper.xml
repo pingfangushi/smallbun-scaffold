@@ -7,6 +7,10 @@
     </delete>
     <!--根据通知公告查询接收人员-->
     <select id="findUserByNotifyId" resultType="org.smallbun.fast.manage.user.entity.SysUserEntity">
-        select * from sys_notify_record where notify_id=#{id} and is_deleted=0
+        select su.* from sys_notify_record  r
+        left join sys_user su  on r.user_id=su.id
+        where r.notify_id=#{id}
+        and r.is_deleted=0
+        and su.is_deleted=0
     </select>
 </mapper>

@@ -40,13 +40,13 @@
                 <div class="col-xs-12">
                     <div class="form-group">
                         <label class="col-xs-2 control-label"><span
-                                style="color: red;">*</span>标题：</label>
+                            style="color: red;">*</span>标题：</label>
                         <div class="col-xs-9">
                             <div class="input-group" style="width: 100%">
                                 <div class="input-group" style="width: 100%">
                                     <input id="typeName" placeholder="请输入公告标题"
                                            class="form-control" th:field="*{title}"
-                                           type="text"  autocomplete="off">
+                                           type="text" autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                 <div class="col-xs-12">
                     <div class="form-group">
                         <label class="col-xs-2 control-label"><span
-                                style="color: red;">*</span>类型：</label>
+                            style="color: red;">*</span>类型：</label>
                         <div class="col-xs-9">
                             <div class="input-group" style="width: 100%">
                                 <select name="notifyGenre" id="notifyGenre" class="form-control select2 required"
@@ -72,7 +72,7 @@
                 <div class="col-xs-12" style="display:none;" id="content_row">
                     <div class="form-group">
                         <label class="col-xs-2 control-label"><span
-                                style="color: red;">*</span>内容：</label>
+                            style="color: red;">*</span>内容：</label>
                         <div class="col-xs-9">
                             <div class="input-group" id="editor" type="text/plain" style="z-index: 1000"></div>
                         </div>
@@ -82,7 +82,7 @@
                 <div class="col-xs-12">
                     <div class="form-group">
                         <label class="col-xs-2 control-label"><span
-                                style="color: red;">*</span>状态：</label>
+                            style="color: red;">*</span>状态：</label>
                         <div class="col-xs-9">
                             <div class="input-group">
                                 <label class="label-radio" required
@@ -98,18 +98,16 @@
                 <div class="col-xs-12">
                     <div class="form-group">
                         <label class="col-xs-2 control-label"><span
-                                style="color: red;">*</span>接收人：</label>
+                            style="color: red;">*</span>接收人：</label>
                         <div class="col-xs-9">
                             <div class="input-group" style="width: 100%">
-                                <div class="input-group" style="width: 100%"> <!--th:field="*{receiverName}"-->
-                                    <input readonly="readonly" idObj="#user_ids" onclick="$.select.selectUser(this)"
-                                           placeholder="请选择接收人"
-                                           class="form-control"/>
-                                    <span class="input-group-addon" onclick="$.select.selectUser(this)">
+                                <input readonly="readonly" idObj="#receivers" onclick="$.select.selectUser(this)"
+                                       placeholder="请选择接收人" th:value="*{receiverName}"
+                                       class="form-control" style="border-right-width: 0px;"/>
+                                <span class="input-group-addon" onclick="$.select.selectUser(this)">
                                         <i class="fa fa-search"></i>
                                     </span>
-                                    <input type="hidden" id="user_ids">
-                                </div>
+                                <input type="hidden" th:field="*{receivers}">
                             </div>
                         </div>
                     </div>

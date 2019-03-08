@@ -32,15 +32,18 @@ import org.smallbun.fast.manage.notify.entity.SysNotifyRecordEntity;
 import org.smallbun.fast.manage.notify.service.SysNotifyService;
 import org.smallbun.fast.manage.notify.vo.SysNotifyVO;
 import org.smallbun.fast.manage.role.service.SysNotifyRecordService;
+import org.smallbun.fast.manage.user.entity.SysUserEntity;
 import org.smallbun.framework.base.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.util.HtmlUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -80,13 +83,23 @@ public class SysNotifyServiceImpl extends BaseServiceImpl<SysNotifyMapper, SysNo
     /**
      * 根据id获取一条记录
      *
-     * @param id
-     * @return
+     * @param id {@link Serializable}
+     * @return {@link SysNotifyVO}
      */
     @Override
     public SysNotifyVO getById(Serializable id) {
         SysNotifyVO vo = AutoMapperUtil.mapping(super.getById(id), new SysNotifyVO());
-        vo.setReceiverUser(notifyRecordService.findUserByNotifyId(vo.getId()));
+        List<SysUserEntity> users = notifyRecordService.findUserByNotifyId(vo.getId());
+        if (!CollectionUtils.isEmpty(users)) {
+            //用户名
+            StringBuilder names = new StringBuilder();
+            users.forEach(u -> names.append(u.getUsername()).append(","));
+            vo.setReceiverName(names.substring(0, names.length() - 1));
+            //id
+            StringBuilder ids = new StringBuilder();
+            users.forEach(u -> ids.append(u.getId()).append(","));
+            vo.setReceivers(ids.substring(0, ids.length() - 1));
+        }
         return vo;
     }
 
@@ -105,12 +118,14 @@ public class SysNotifyServiceImpl extends BaseServiceImpl<SysNotifyMapper, SysNo
         if (saveOrUpdate) {
             //封装 List<SysNotifyRecordEntity>
             List<SysNotifyRecordEntity> recordEntities = Lists.newArrayList();
-            vo.getReceiverUser().forEach(u -> {
-                SysNotifyRecordEntity entity = new SysNotifyRecordEntity();
-                entity.setNotifyId(vo.getId().toString());
-                entity.setUserId(u.getId().toString());
-                recordEntities.add(entity);
-            });
+            if (!StringUtils.isEmpty(vo.getReceivers()) && !StringUtils.isEmpty(vo.getReceivers().split(","))) {
+                Arrays.stream(vo.getReceivers().split(",")).forEach(u -> {
+                    SysNotifyRecordEntity entity = new SysNotifyRecordEntity();
+                    entity.setNotifyId(vo.getId().toString());
+                    entity.setUserId(u);
+                    recordEntities.add(entity);
+                });
+            }
             //根据任务id删除
             notifyRecordService.delByNotifyId(vo.getId().toString());
             //批量保存
