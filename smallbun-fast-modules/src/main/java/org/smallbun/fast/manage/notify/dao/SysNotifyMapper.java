@@ -46,4 +46,10 @@ public interface SysNotifyMapper extends BaseMapper<SysNotifyEntity> {
 	 */
 	boolean batchInsertNotifyUser(@Param("p") List<SysNotifyRecordEntity> recordEntities);
 
+	/**
+	 * 根据用户id获取用户未读的通知公告
+	 * @param userId
+	 * @return
+	 */
+	List<SysNotifyEntity> findNotifyOnUnreadByUserId(Long userId);
 }

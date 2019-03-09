@@ -30,6 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 通知通告 服务类
@@ -38,30 +39,37 @@ import java.io.Serializable;
  * Created by 2689170096@qq.com on 2019/2/14 19:23
  */
 public interface SysNotifyService extends BaseService<SysNotifyEntity> {
-    /**
-     * model
-     *
-     * @param request
-     * @return
-     */
-    SysNotifyVO model(HttpServletRequest request);
+	/**
+	 * model
+	 *
+	 * @param request
+	 * @return
+	 */
+	SysNotifyVO model(HttpServletRequest request);
 
-    /**
-     * 保存或更新
-     *
-     * @param vo
-     * @return
-     */
-    @Transactional(rollbackFor = Exception.class)
-    boolean saveOrUpdate(SysNotifyVO vo);
+	/**
+	 * 保存或更新
+	 *
+	 * @param vo
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	boolean saveOrUpdate(SysNotifyVO vo);
 
-    /**
-     * 根据id获取一条记录
-     *
-     * @param id
-     * @return
-     */
-    @Transactional(rollbackFor = Exception.class)
-    SysNotifyVO getById(Serializable id);
+	/**
+	 * 根据id获取一条记录
+	 *
+	 * @param id
+	 * @return
+	 */
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	SysNotifyVO getById(Serializable id);
 
+	/**
+	 * 根据用户id获取未阅读的通知公告
+	 * @param userId
+	 * @return
+	 */
+	List<SysNotifyEntity> findNotifyOnUnreadByUserId(Long userId);
 }

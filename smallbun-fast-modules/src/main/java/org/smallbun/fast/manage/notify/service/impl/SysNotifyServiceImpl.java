@@ -103,7 +103,17 @@ public class SysNotifyServiceImpl extends BaseServiceImpl<SysNotifyMapper, SysNo
         return vo;
     }
 
-    /**
+	/**
+	 * 根据用户id获取未阅读的通知公告
+	 * @param userId
+	 * @return
+	 */
+	@Override
+	public List<SysNotifyEntity> findNotifyOnUnreadByUserId(Long userId) {
+		return baseMapper.findNotifyOnUnreadByUserId(userId);
+	}
+
+	/**
      * 自定义更新
      *
      * @param vo

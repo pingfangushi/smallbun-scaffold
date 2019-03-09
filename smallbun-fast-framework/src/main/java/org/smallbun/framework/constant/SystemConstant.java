@@ -122,8 +122,6 @@ public class SystemConstant {
      */
     public static final String SERVER_SSL_KEY_STORE = "server.ssl.key-store";
 
-    public static final String TOPIC = "/topic/greetings";
-
     public static final String ENDPOINT = "/gs-guide-websocket";
     /**
      * 前缀

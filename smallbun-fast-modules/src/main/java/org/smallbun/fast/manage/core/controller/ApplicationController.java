@@ -25,6 +25,7 @@ package org.smallbun.fast.manage.core.controller;
 
 import org.smallbun.fast.manage.menu.service.SysMenuService;
 import org.smallbun.fast.manage.monitor.service.SysMonitorService;
+import org.smallbun.fast.manage.notify.service.SysNotifyService;
 import org.smallbun.fast.manage.user.util.UserUtil;
 import org.smallbun.framework.auto.SmallBunProperties;
 import org.smallbun.framework.base.BaseController;
@@ -52,10 +53,11 @@ import static org.smallbun.framework.security.SecurityConstant.LOGIN;
 public class ApplicationController extends BaseController {
 	@Autowired
 	public ApplicationController(SysMenuService sysMenuService, SysMonitorService monitorService,
-			SmallBunProperties smallBunProperties) {
+			SmallBunProperties smallBunProperties, SysNotifyService sysNotifyService) {
 		this.sysMenuService = sysMenuService;
 		this.monitorService = monitorService;
 		this.smallBunProperties = smallBunProperties;
+		this.sysNotifyService = sysNotifyService;
 	}
 
 	/**
@@ -87,6 +89,8 @@ public class ApplicationController extends BaseController {
 		model.addAttribute("menus", sysMenuService.userMenus());
 		//用户信息
 		model.addAttribute("user", Objects.requireNonNull(UserUtil.getLoginUser()).getSysUser());
+		//通知公告
+		model.addAttribute("notice", sysNotifyService.findNotifyOnUnreadByUserId(UserUtil.getUserId()));
 		return new ModelAndView("index");
 	}
 
@@ -121,6 +125,8 @@ public class ApplicationController extends BaseController {
 	 * SmallBunProperties
 	 */
 	private final SmallBunProperties smallBunProperties;
+
+	private final SysNotifyService sysNotifyService;
 
 
 }

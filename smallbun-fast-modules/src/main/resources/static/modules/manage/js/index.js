@@ -46,3 +46,12 @@ try {
     }
 } catch (e) {
 }
+
+/**
+ * 查看通知
+ * @param value
+ * @param id
+ */
+function viewNotify(value, id) {
+    $.modal.view(value, contextPath + 'notify/content?id=' + id);
+}

@@ -5,7 +5,18 @@
     <insert id="batchInsertNotifyUser">
         insert into sys_notify_record values
         <foreach collection="p" open="(" item="item" separator="," close=")">
-          #{item.}
+            #{item.}
         </foreach>
     </insert>
+    <!--查询-->
+    <select id="findNotifyOnUnreadByUserId"
+            resultType="org.smallbun.fast.manage.notify.entity.SysNotifyEntity">
+        select n.*
+            from sys_notify_record s
+            left join sys_notify n on s.notify_id=n.id
+             where s.user_id=#{userId}
+             and s.read_flag=1
+             and s.is_deleted=0
+             and n.is_deleted=0
+    </select>
 </mapper>
