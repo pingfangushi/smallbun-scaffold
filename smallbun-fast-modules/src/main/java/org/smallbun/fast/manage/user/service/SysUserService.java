@@ -38,63 +38,72 @@ import javax.servlet.http.HttpServletRequest;
  */
 public interface SysUserService extends BaseService<SysUserEntity> {
 
-	/**
-	 * model
-	 * @param request
-	 * @return
-	 */
-	SysUserVO model(HttpServletRequest request);
+    /**
+     * model
+     *
+     * @param request
+     * @return
+     */
+    SysUserVO model(HttpServletRequest request);
 
-	/**
-	 * 根据用户名查询用户
-	 * @param username username
-	 * @return SysUserEntity
-	 */
-	SysUserEntity findByUsername(String username);
+    /**
+     * 根据用户名查询用户
+     *
+     * @param username username
+     * @return SysUserEntity
+     */
+    SysUserEntity findByUsername(String username);
 
-	/**
-	 * 保存或更新
-	 * @param vo
-	 * @return
-	 */
-	boolean saveOrUpdate(SysUserVO vo);
+    /**
+     * 保存或更新
+     *
+     * @param vo
+     * @return
+     */
+    boolean saveOrUpdate(SysUserVO vo);
 
-	/**
-	 * 自定义分页查询
-	 * @param page
-	 * @param vo
-	 * @return
-	 */
-	IPage<SysUserEntity> page(Page<SysUserEntity> page, SysUserVO vo);
+    /**
+     * 自定义分页查询
+     *
+     * @param page
+     * @param vo
+     * @return
+     */
+    IPage<SysUserEntity> page(Page<SysUserEntity> page, SysUserVO vo);
 
-	/**
-	 *修改密码
-	 * @param oldPassword 旧密码
-	 * @param newPassword 新密码
-	 * @param confirmPassword 确认密码
-	 * @return
-	 */
-	boolean changePassword(String oldPassword, String newPassword, String confirmPassword);
+    /**
+     * 修改密码
+     *
+     * @param oldPassword     旧密码
+     * @param newPassword     新密码
+     * @param confirmPassword 确认密码
+     * @return
+     */
+    boolean changePassword(String oldPassword, String newPassword, String confirmPassword);
 
-	/**
-	 * 验证原密码
-	 * @param oldPassword
-	 * @return
-	 */
-	boolean verifyOldPassword(String oldPassword);
+    /**
+     * 验证原密码
+     *
+     * @param oldPassword
+     * @return
+     */
+    boolean verifyOldPassword(String oldPassword);
 
-	/**
-	 * 更新头像
-	 * @param id
-	 * @param url
-	 * @return
-	 */
-	boolean updateHeadPortrait(String id, String url);
+    /**
+     * 更新头像
+     *
+     * @param id
+     * @param url
+     * @return
+     */
+    boolean updateHeadPortrait(String id, String url);
 
-	/**
-	 * changPassword
-	 * @param password
-	 * @return
-	 */
-	boolean changPassword(String password);
+    /**
+     * changPassword
+     *
+     * @param password
+     * @param id
+     * @return
+     */
+    boolean changPassword(String password, String id);
 }

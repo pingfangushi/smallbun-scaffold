@@ -25,8 +25,8 @@ $(function () {
     //@formatter:off
     var options = {
         url: contextPath + 'user/page',
-        createUrl: contextPath +"user/form",
-        updateUrl: contextPath +"user/form{id}",
+        createUrl: contextPath + "user/form",
+        updateUrl: contextPath + "user/form{id}",
         removeUrl: contextPath + "user/removeById",
         batRemoveUrl: contextPath + "user/removeByIds",
         exportUrl: contextPath + "user/export",
@@ -38,28 +38,32 @@ $(function () {
         showToggle: true,
         columns: [{checkbox: true},
             {field: 'id', visible: false},
-            {field: 'jobNumber', title: '工号',visible: false},
-            {field: 'username', title: '用户名',formatter:$.table.emptyProcessing},
-            {field: 'fullName', title: '姓名',formatter:$.table.emptyProcessing},
-            {field: 'phone', title: '手机',formatter:$.table.emptyProcessing},
-            {field: 'telephone', title: '电话',formatter:$.table.emptyProcessing},
-            {field: 'email', title: '邮箱', visible: true,formatter:$.table.emptyProcessing},
-            {field: 'org.orgName', title: '部门',formatter:$.table.emptyProcessing},
+            {field: 'jobNumber', title: '工号', visible: false},
+            {field: 'username', title: '用户名', formatter: $.table.emptyProcessing},
+            {field: 'fullName', title: '姓名', formatter: $.table.emptyProcessing},
+            {field: 'phone', title: '手机', formatter: $.table.emptyProcessing},
+            {field: 'telephone', title: '电话', formatter: $.table.emptyProcessing},
+            {field: 'email', title: '邮箱', visible: true, formatter: $.table.emptyProcessing},
+            {field: 'org.orgName', title: '部门', formatter: $.table.emptyProcessing},
             {field: 'userStatusName', title: '状态', align: 'center'},
-            {title: '操作', align: 'center', visible: true, formatter: function (value, row, index) {var actions = [];actions.push('<div class="btn-group"><button type="button" class="btn ibtn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog"></i>&nbsp;<span class="fa fa-chevron-down"></span></button>' +
-               '<ul class="dropdown-menu" role="menu">' +
-               '<li><a href="#" onclick="$.operate.editTab(\'' + row.id + '\')"><i class="fa fa-edit"></i>修改</a></li>' +
-               '<li><a href="#" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-trash"></i>删除</a></li>' +
-               '<li><a href="#" onclick="$.modal.open(\'设置密码\', contextPath+\'user/settingPassword/view\',800,300)"><i class="fa fa-key"></i>设置密码</a></li>' +
-               '</ul>' +
-               '</div>');
-            return actions.join('');
-            }}]
+            {
+                title: '操作', align: 'center', visible: true, formatter: function (value, row, index) {
+                    var actions = [];
+                    actions.push('<div class="btn-group"><button type="button" class="btn ibtn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog"></i>&nbsp;<span class="fa fa-chevron-down"></span></button>' +
+                        '<ul class="dropdown-menu" role="menu">' +
+                        '<li><a href="#" onclick="$.operate.editTab(\'' + row.id + '\')"><i class="fa fa-edit"></i>修改</a></li>' +
+                        '<li><a href="#" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-trash"></i>删除</a></li>' +
+                        '<li><a href="#" onclick="changePassword(\'' + row.id + '\')"><i class="fa fa-key"></i>设置密码</a></li>' +
+                        '</ul>' +
+                        '</div>');
+                    return actions.join('');
+                }
+            }]
     };
     $.table.init(options);
-     //@formatter:off
+    //@formatter:off
     loadOrg();
-     /**
+    /**
      * 日期
      */
     laydate.render({
@@ -69,10 +73,11 @@ $(function () {
         elem: '#birthdayEnd', theme: '#1890ff', max: new Date().toLocaleDateString()
     });
 });
+
 /**
  * 加载部门
  */
-function loadOrg(){
+function loadOrg() {
     var orgSetting = {
         view: {
             selectedMulti: false,
@@ -100,7 +105,7 @@ function loadOrg(){
                 $.each($("#" + currentId).serializeArray(), function (i, field) {
                     search[field.name] = field.value;
                 });
-                search.orgId=treeNode.id;
+                search.orgId = treeNode.id;
                 $('.table').bootstrapTable('refresh', {query: search});
             }
         }
@@ -111,4 +116,11 @@ function loadOrg(){
         orgTree.expandAll(true);
     }, null, null, "正在加载，请稍后...");
 
+}
+
+/**
+ * 更改密码
+ */
+function changePassword(id) {
+    $.modal.open('设置密码', contextPath + 'user/settingPassword/view?id=' + id, 800, 300)
 }

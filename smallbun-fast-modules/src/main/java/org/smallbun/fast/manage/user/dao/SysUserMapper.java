@@ -65,7 +65,7 @@ public interface SysUserMapper extends BaseMapper<SysUserEntity> {
 	 * @param password 密码
 	 * @return 成功条数
 	 */
-	int changePassword(@Param("id") Long id, @Param("password") String password);
+	int changePassword(@Param("id") String id, @Param("password") String password);
 
 	/**
 	 * 自定义分页查询

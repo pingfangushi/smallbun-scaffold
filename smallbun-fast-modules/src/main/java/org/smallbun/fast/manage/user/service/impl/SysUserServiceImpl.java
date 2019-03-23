@@ -169,8 +169,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
             throw new BusinessExecption("两次输入密码不一致");
         }
         //修改密码
-        int i = baseMapper
-                .changePassword(getLoginUser().getSysUser().getId(), new BCryptPasswordEncoder().encode(newPassword));
+        int i = baseMapper.changePassword(String.valueOf(getLoginUser().getSysUser().getId()), new BCryptPasswordEncoder().encode(newPassword));
         return i > 0;
     }
 
@@ -184,7 +183,6 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
     public boolean verifyOldPassword(String oldPassword) {
         return new BCryptPasswordEncoder().matches(oldPassword, Objects.requireNonNull(getLoginUser()).getPassword());
     }
-
     /**
      * 更新头像
      *
@@ -217,10 +215,9 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
      * @return
      */
     @Override
-    public boolean changPassword(String password) {
+    public boolean changPassword(String password, String id) {
         //修改密码
-        int i = baseMapper.changePassword(Objects.requireNonNull(getLoginUser()).getSysUser().getId(),
-                new BCryptPasswordEncoder().encode(password));
+        int i = baseMapper.changePassword(StringUtils.isEmpty(id) ? String.valueOf(Objects.requireNonNull(getLoginUser()).getSysUser().getId()) : id, new BCryptPasswordEncoder().encode(password));
         return i > 0;
     }
 
