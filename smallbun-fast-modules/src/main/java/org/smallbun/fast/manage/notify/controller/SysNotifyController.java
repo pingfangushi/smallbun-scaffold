@@ -34,7 +34,6 @@ import org.smallbun.fast.manage.notify.entity.SysNotifyRecordEntity;
 import org.smallbun.fast.manage.notify.service.SysNotifyService;
 import org.smallbun.fast.manage.notify.vo.SysNotifyVO;
 import org.smallbun.fast.manage.role.service.SysNotifyRecordService;
-import org.smallbun.fast.manage.user.util.UserUtil;
 import org.smallbun.framework.annotation.AutoQueryDictValue;
 import org.smallbun.framework.annotation.DemoEnvironment;
 import org.smallbun.framework.annotation.LogAnnotation;
@@ -45,6 +44,7 @@ import org.smallbun.framework.result.PageableResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -211,8 +211,13 @@ public class SysNotifyController extends BaseController {
 	 * @return
 	 */
 	@GetMapping(value = "/content")
-	public ModelAndView content(SysNotifyVO notifyVO, Model model) {
+	public ModelAndView content(SysNotifyVO notifyVO, Model model, String status) {
 		model.addAttribute("content", notifyVO.getContent());
+		//如果状态不为空,修改状态
+		if (!StringUtils.isEmpty(status)) {
+			notifyVO.setNotifyStatus(status);
+			sysNotifyService.updateById(notifyVO);
+		}
 		return new ModelAndView(HTML_PREFIX + "notify_content.html");
 	}
 

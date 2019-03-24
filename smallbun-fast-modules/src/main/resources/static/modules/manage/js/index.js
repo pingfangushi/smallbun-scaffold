@@ -52,6 +52,7 @@ try {
  * @param value
  * @param id
  */
-function viewNotify(value, id) {
-    $.modal.view(value, contextPath + 'notify/content?id=' + id);
+function viewNotify(obj, value, id) {
+   obj.remote();
+    $.modal.view(value, contextPath + 'notify/content?id=' + id + '&status=0');
 }

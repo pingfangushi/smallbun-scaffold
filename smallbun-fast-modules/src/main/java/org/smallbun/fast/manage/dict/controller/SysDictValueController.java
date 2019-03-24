@@ -72,7 +72,7 @@ public class SysDictValueController extends BaseController {
 	/**
 	 * HTML页面路径前缀
 	 */
-	private static final String HTML_PREFIX = "/modules/manage/dict/";
+	private static final String HTML_PREFIX = "modules/manage/dict/";
 
 	@Autowired
 	public SysDictValueController(SysDictValueService sysDictValueService) {

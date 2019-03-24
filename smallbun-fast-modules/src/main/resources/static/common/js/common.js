@@ -47,7 +47,7 @@
                     queryParams: $.table._params,                       // 传递参数（*）
                     columns: options.columns,                           // 显示列信息（*）
                     responseHandler: $.table.responseHandler            // 回调函数
-                });
+                })
             },
             // 查询条件
             queryParams: function (params) {
@@ -83,8 +83,8 @@
                 var search = {};
                 $.each($("#" + currentId).serializeArray(), function (i, field) {
                     search[field.name] = field.value;
-                });
-                $table.bootstrapTable('refresh', {query: search});
+                })
+                $table.bootstrapTable('refresh', {query: search})
             },
             // 导出
             exportExcel: function (formId) {
@@ -102,7 +102,7 @@
                         window.location.href = contextPath + "fast/download?fileName=" + result.msg + "&delete=" + true;
                     }
                     $.modal.loading();
-                });
+                })
             },
             // 下载导入模板
             importExcelTemplate: function (formId) {
@@ -113,19 +113,19 @@
                 $table.bootstrapTable('refresh', {
                     url: $.table._option.url,
                     silent: true
-                });
+                })
             },
             // 查询选中列值
             selectColumns: function (column) {
                 return $.map($table.bootstrapTable('getSelections'), function (row) {
                     return row[column];
-                });
+                })
             },
             // 查询选中首列值
             selectFirstColumns: function () {
                 return $.map($table.bootstrapTable('getSelections'), function (row) {
                     return row[$.table._option.columns[1].field];
-                });
+                })
             },
             // 回显数据字典
             selectDictLabel: function (_datas, _value) {
@@ -135,7 +135,7 @@
                         actions.push("<span class='badge badge-" + dict.listClass + "'>" + dict.dictLabel + "</span>");
                         return false;
                     }
-                });
+                })
                 return actions.join('');
             },
             //查看
@@ -192,7 +192,7 @@
                             onChange: function () {
                                 $table.bootstrapTable('resetWidth');
                             }
-                        });
+                        })
                     },
                     onPostBody: function () {
                         $table.treegrid({
@@ -204,7 +204,7 @@
                             }
                         })
                     }
-                });
+                })
             },
             // 条件查询
             search: function (formId) {
@@ -212,7 +212,7 @@
                 var params = {};
                 $.each($("#" + currentId).serializeArray(), function (i, field) {
                     params[field.name] = field.value;
-                });
+                })
                 $.treeTable._treeTable.bootstrapTable('refresh', params);
             },
             // 请求获取数据后处理回调函数
@@ -273,7 +273,7 @@
                     } else {
                         checkeds += ("," + $(this).val());
                     }
-                });
+                })
                 checkeds = checkeds.substring(1, checkeds.length);
                 return checkeds;
             },
@@ -286,7 +286,7 @@
                     } else {
                         selects += ("," + $(this).val());
                     }
-                });
+                })
                 return selects;
             }
         },
@@ -311,7 +311,7 @@
             // 消息提示
             msg: function (content, type) {
                 if (type !== undefined) {
-                    layer.msg(content, {icon: $.modal.icon(type), time: 1000, shift: 5});
+                    layer.msg(content, {icon: $.modal.icon(type), time: 1000, shift: 5})
                 } else {
                     layer.msg(content);
                 }
@@ -335,7 +335,7 @@
                     title: "系统提示",
                     btn: ['确认'],
                     btnclass: ['btn btn-primary'],
-                });
+                })
             },
             // 消息提示并刷新父窗体
             msgReload: function (msg, type) {
@@ -346,7 +346,7 @@
                     },
                     function () {
                         $.modal.reload();
-                    });
+                    })
             },
             // 错误提示
             alertError: function (content) {
@@ -375,7 +375,7 @@
                 }, function (index) {
                     layer.close(index);
                     callBack(true);
-                });
+                })
             },
             // 弹出层指定宽度
             open: function (title, url, width, height, callback) {
@@ -419,7 +419,7 @@
                     cancel: function (index) {
 
                     }
-                });
+                })
             },
             // 弹出层指定宽度
             view: function (title, url, width, height) {
@@ -453,7 +453,7 @@
                     cancel: function (index) {
 
                     }
-                });
+                })
             },
             // 弹出层全屏
             openFull: function (title, url, width, height) {
@@ -483,7 +483,7 @@
                     shade: 0.3,
                     title: title,
                     content: url
-                });
+                })
                 layer.full(index);
             },
             // 打开遮罩层
@@ -492,8 +492,8 @@
                     boxed: true,
                     message: message,
                     animate: false
-                });
-                //$.blockUI({message: '<div class="loaderbox"><div class="loading-activity"></div> ' + message + '</div>'});
+                })
+                //$.blockUI({message: '<div class="loaderbox"><div class="loading-activity"></div> ' + message + '</div>'})
             },
             // 关闭遮罩层
             closeLoading: function () {
@@ -571,7 +571,7 @@
                     cancel: function (index) {
 
                     }
-                });
+                })
                 //layer.full(index);
             }
         },
@@ -603,7 +603,7 @@
                     var url = $.table._option.removeUrl;
                     var data = {"id": id};
                     $.operate.submit(url, "post", "json", data);
-                });
+                })
             },
             // 批量删除信息
             batRemove: function () {
@@ -616,7 +616,7 @@
                     var url = $.table._option.batRemoveUrl;
                     var data = {"ids": rows.join()};
                     $.operate.submit(url, "post", "json", data);
-                });
+                })
             },
             // 添加信息
             add: function (id) {
@@ -784,7 +784,7 @@
             },
             //导入
             importExcel: function () {
-                $.import.init($(".glyphicon-import"));
+                $.import_excel.init($('.glyphicon-import'));
             }
         },
         /**
@@ -887,7 +887,7 @@
                         //移除样式
                         $('.input-group.panel-noscroll.has-error').removeClass('has-error');
                     }
-                });
+                })
 
                 //取得分页组件对象
                 var pager = $(options.comboGridId).combogrid('grid').datagrid('getPager');
@@ -918,7 +918,7 @@
                             getData(pageNumber, pageSize); //按分页的设置取数据
                             $(options.comboGridId).combogrid("setValue", $('#easyui-combogrid-id').val());//将隐藏域中存放的查询条件显示在combogrid的文本框中
                         }
-                    });
+                    })
                 }
 
                 /**
@@ -937,7 +937,7 @@
                         success: function (data) {
                             $(options.comboGridId).combogrid("grid").datagrid("loadData", buildData(data));
                         }
-                    });
+                    })
                 };
 
                 /**
@@ -955,7 +955,7 @@
                         success: function (data) {
                             $(options.comboGridId).combogrid("grid").datagrid("loadData", buildData(data));
                         }
-                    });
+                    })
                 };
 
                 /**
@@ -1008,7 +1008,7 @@
                  * @param data
                  */
                 var buildData = function (data) {
-                    var temp = $.extend({});
+                    var temp = $.extend({})
                     temp.rows = data.page.records;
                     temp.total = data.page.total;
                     return temp
@@ -1057,7 +1057,7 @@
                             comboTreeGrid.val(newValue);
                         }
                     }
-                });
+                })
 
                 /**
                  * 加载数据
@@ -1071,7 +1071,7 @@
                         type: options.method, url: options.url, dataType: "json", success: function (data) {
                             success(buildData(data))
                         }
-                    });
+                    })
                 }
 
                 /**
@@ -1232,7 +1232,7 @@
                     error: function () {
                         alert("系统错误，请稍后重试！");
                     }
-                });
+                })
                 /**
                  * 绑定单击事件（input）
                  */
@@ -1281,14 +1281,14 @@
                             } catch (e) {
                             }
                         }
-                    });
+                    })
                 }
             }
         },
         /**
          * 导入
          */
-        import: {
+        import_excel: {
             init: function () {
                 /**
                  * 弹出框
@@ -1314,11 +1314,11 @@
                         '<input type="file" id="file" name="file">' +
                         '<div style="margin-top:10px">' +
                         '<input type="checkbox" id="updateSupport" name="updateSupport" title="如果登录账户已经存在，更新这条数据。">是否更新已经存在的' + $.table._option.modalName + '数据' +
-                        ' &nbsp;<a onclick="$.table.importExcelTemplate()" class="btn btn-default btn-xs"><i class="fa fa-file-excel-o"></i>下载模板</a>' +
+                        '<a onclick="$.table.importExcelTemplate()" class="btn btn-default btn-xs"><i class="fa fa-file-excel-o"></i>下载模板</a>' +
                         '</div>' +
-                        '<font color="red" class="pull-left" style="margin-top:10px">' +
+                        '<span color="red" class="pull-left" style="margin-top:10px">' +
                         '提示：仅允许导入“xls”或“xlsx”格式文件！' +
-                        '</font>' +
+                        '</span>' +
                         '</div>' +
                         '</form>', //弹框内容
                     success: function (layero, index) {
@@ -1328,11 +1328,11 @@
                     btn1: function (index) {
 
                     }
-                });
+                })
             }
         }
 
-    });
+    })
 })(jQuery);
 /** 消息状态码 */
 web_status = {

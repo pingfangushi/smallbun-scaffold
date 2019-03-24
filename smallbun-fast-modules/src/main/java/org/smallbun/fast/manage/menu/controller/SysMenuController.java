@@ -73,7 +73,7 @@ public class SysMenuController extends BaseController {
 	/**
 	 * HTML页面路径前缀
 	 */
-	private static final String HTML_PREFIX = "/modules/manage/menu/";
+	private static final String HTML_PREFIX = "modules/manage/menu/";
 
 
 	@Autowired
