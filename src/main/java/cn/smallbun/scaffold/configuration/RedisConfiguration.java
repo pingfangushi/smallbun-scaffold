@@ -1,11 +1,17 @@
 /*
- * **********************************************************************
- * Copyright (c) 2012-2019. Shandong Shuneng Network Technology Co., Ltd.
- * All rights reserved.
- * 项目名称：顺能-山东省立医院
- * 版权说明：本软件属山东顺能网络科技有限公司所有，在未获得山东顺能网络科技有限公司正式授权情况下，
- * 任何企业和个人，不能获取、阅读、安装、传播本软件涉及的任何受知识产权保护的内容。
- * ***********************************************************************
+ * Copyright (c) 2019.  ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package cn.smallbun.scaffold.configuration;
