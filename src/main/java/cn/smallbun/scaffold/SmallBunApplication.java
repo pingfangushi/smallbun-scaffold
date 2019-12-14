@@ -21,7 +21,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 
 import java.net.InetAddress;
@@ -34,7 +33,6 @@ import static cn.smallbun.scaffold.framework.common.constant.SystemConstants.*;
  * @author SanLi
  * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on  2019/9/24
  */
-@ComponentScan(value = {"cn.smallbun"})
 @SpringBootApplication
 public class SmallBunApplication {
 	private final static Logger logger = LoggerFactory.getLogger(SpringApplication.class);
