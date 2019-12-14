@@ -31,7 +31,7 @@ import cn.smallbun.scaffold.manage.service.ISysLoggerLoginService;
 import cn.smallbun.scaffold.manage.service.ISysUserService;
 import com.google.code.kaptcha.Producer;
 import com.google.common.collect.Lists;
-import cn.smallbun.scaffold.framework.common.redis.RedisClient;
+import cn.smallbun.scaffold.framework.redis.RedisClient;
 import cn.smallbun.scaffold.framework.common.toolkit.IpUtil;
 import cn.smallbun.scaffold.framework.common.toolkit.RsaUtil;
 import cn.smallbun.scaffold.framework.configurer.SmallBunProperties;

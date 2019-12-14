@@ -23,7 +23,7 @@ import cn.smallbun.scaffold.manage.service.ISysDictItemService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.google.common.collect.Lists;
-import cn.smallbun.scaffold.framework.common.redis.RedisClient;
+import cn.smallbun.scaffold.framework.redis.RedisClient;
 import cn.smallbun.scaffold.framework.context.ApplicationContextHelp;
 import cn.smallbun.scaffold.framework.mybatis.service.BaseServiceImpl;
 import org.springframework.stereotype.Service;

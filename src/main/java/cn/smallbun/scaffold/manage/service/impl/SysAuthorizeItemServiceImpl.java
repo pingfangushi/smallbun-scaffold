@@ -16,6 +16,8 @@
 
 package cn.smallbun.scaffold.manage.service.impl;
 
+import cn.smallbun.scaffold.framework.mybatis.service.BaseServiceImpl;
+import cn.smallbun.scaffold.framework.redis.RedisClient;
 import cn.smallbun.scaffold.manage.entity.SysAuthorizeItemEntity;
 import cn.smallbun.scaffold.manage.entity.SysDictItemEntity;
 import cn.smallbun.scaffold.manage.mapper.SysAuthorizeItemMapper;
@@ -23,8 +25,6 @@ import cn.smallbun.scaffold.manage.service.ISysAuthorizeItemService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.google.common.collect.Lists;
-import cn.smallbun.scaffold.framework.common.redis.RedisClient;
-import cn.smallbun.scaffold.framework.mybatis.service.BaseServiceImpl;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,7 +59,7 @@ public class SysAuthorizeItemServiceImpl extends BaseServiceImpl<SysAuthorizeIte
 
 	/**
 	 * 查询list
-	 * @return {@link List<   SysDictItemEntity   >}
+	 * @return {@link List<SysDictItemEntity>}
 	 */
 	@SuppressWarnings("unchecked")
 	@Override

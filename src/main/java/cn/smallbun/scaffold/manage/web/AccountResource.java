@@ -21,7 +21,7 @@ import cn.smallbun.scaffold.manage.pojo.LoginDTO;
 import cn.smallbun.scaffold.manage.pojo.LoginResultDTO;
 import cn.smallbun.scaffold.manage.service.IAccountService;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import cn.smallbun.scaffold.framework.common.redis.RedisClient;
+import cn.smallbun.scaffold.framework.redis.RedisClient;
 import cn.smallbun.scaffold.framework.common.result.ApiRestResult;
 import cn.smallbun.scaffold.framework.common.toolkit.RsaUtil;
 import cn.smallbun.scaffold.framework.logging.annotation.Logging;
