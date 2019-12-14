@@ -7,12 +7,6 @@ spring:
 #服务器配置
 server:
   port: 8080
-  undertow:
-    #100个IO线程
-    io-threads: 100
-    #无限大小
-    max-http-post-size: -1
-    buffer-size: 2048
 #mybats
 mybatis-plus:
   mapper-locations: classpath*:mapper/**/*.xml
@@ -45,10 +39,5 @@ mybatis-plus:
     lazy-loading-enabled: true #设置为true为打开延迟加载 实体类必须加上这个注解@JsonIgnoreProperties(value = {"handler"}) 否则将会报com.fasterxml.jackson.databind.exc.InvalidDefinitionException错误
     aggressive-lazy-loading: false #将积极加载改为消极加载，即延迟加载
     default-fetch-size: 1024 #获取数据默认大小
-#端点
-management:
-  endpoint:
-    mappings:
-      enabled: true
 logging:
   config: classpath:config/logback-spring.xml

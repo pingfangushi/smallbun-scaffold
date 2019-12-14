@@ -18,6 +18,7 @@ package cn.smallbun.scaffold;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
@@ -33,7 +34,7 @@ import static cn.smallbun.scaffold.framework.common.constant.SystemConstants.*;
  * @author SanLi
  * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on  2019/9/24
  */
-@ComponentScan(value = {"cn.smallbun", "com.pingfangushi"})
+@ComponentScan(value = {"cn.smallbun"})
 @SpringBootApplication
 public class SmallBunApplication {
 	private final static Logger logger = LoggerFactory.getLogger(SpringApplication.class);
@@ -42,6 +43,7 @@ public class SmallBunApplication {
 		//获取开始时间
 		long start = System.currentTimeMillis();
 		SpringApplication app = new SpringApplication(SmallBunApplication.class);
+		app.setBannerMode(Banner.Mode.OFF);
 		Environment env = app.run(args).getEnvironment();
 		String protocol = HTTP;
 		if (env.getProperty(SERVER_SSL_KEY_STORE) != null) {
