@@ -16,10 +16,10 @@
 
 package cn.smallbun.scaffold.manage.service;
 
-import cn.smallbun.scaffold.manage.entity.SysDictItemEntity;
-import cn.smallbun.scaffold.manage.enums.DictDefault;
 import cn.smallbun.scaffold.framework.initialize.InitInterface;
 import cn.smallbun.scaffold.framework.mybatis.service.BaseService;
+import cn.smallbun.scaffold.manage.entity.SysDictItemEntity;
+import cn.smallbun.scaffold.manage.enums.DictDefault;
 
 import java.io.Serializable;
 import java.util.Collection;

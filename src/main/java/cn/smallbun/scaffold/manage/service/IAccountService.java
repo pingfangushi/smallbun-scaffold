@@ -43,8 +43,7 @@ public interface IAccountService extends Serializable, UserDetailsService {
 	 * @throws IOException IOException
 	 * @return ImageCaptchaResult
 	 */
-	ImageCaptchaResult imageCaptcha(String key)
-			throws IOException;
+	ImageCaptchaResult imageCaptcha(String key) throws IOException;
 
 	/**
 	 * 登录公钥

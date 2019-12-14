@@ -16,7 +16,7 @@
 
 package cn.smallbun.scaffold.configuration;
 
-import cn.smallbun.scaffold.framework.logging.aspect.LoggingAspect;
+import cn.smallbun.scaffold.framework.logger.aspect.LoggingAspect;
 import cn.smallbun.scaffold.manage.service.ISysLoggerOperateService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

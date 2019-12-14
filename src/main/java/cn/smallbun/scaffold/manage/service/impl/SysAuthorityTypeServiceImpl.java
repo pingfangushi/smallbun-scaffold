@@ -16,15 +16,15 @@
 
 package cn.smallbun.scaffold.manage.service.impl;
 
+import cn.smallbun.scaffold.framework.mybatis.service.BaseServiceImpl;
+import cn.smallbun.scaffold.framework.redis.RedisClient;
 import cn.smallbun.scaffold.manage.entity.SysAuthorityTypeEntity;
 import cn.smallbun.scaffold.manage.entity.SysDictItemEntity;
+import cn.smallbun.scaffold.manage.mapper.SysAuthorityTypeMapper;
 import cn.smallbun.scaffold.manage.service.ISysAuthorityTypeService;
 import cn.smallbun.scaffold.manage.service.ISysAuthorizeItemService;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.google.common.collect.Lists;
-import cn.smallbun.scaffold.framework.redis.RedisClient;
-import cn.smallbun.scaffold.framework.mybatis.service.BaseServiceImpl;
-import cn.smallbun.scaffold.manage.mapper.SysAuthorityTypeMapper;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

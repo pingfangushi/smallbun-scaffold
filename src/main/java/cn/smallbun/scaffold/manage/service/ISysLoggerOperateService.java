@@ -16,7 +16,7 @@
 
 package cn.smallbun.scaffold.manage.service;
 
-import cn.smallbun.scaffold.framework.logging.ILoggingRecord;
+import cn.smallbun.scaffold.framework.logger.ILoggingRecord;
 import cn.smallbun.scaffold.framework.mybatis.service.BaseService;
 import cn.smallbun.scaffold.manage.entity.SysLoggerOperateEntity;
 

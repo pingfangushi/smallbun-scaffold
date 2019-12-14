@@ -16,10 +16,10 @@
 
 package cn.smallbun.scaffold.manage.service.impl;
 
-import cn.smallbun.scaffold.manage.mapper.SysConfigMapper;
-import cn.smallbun.scaffold.manage.service.ISysConfigService;
 import cn.smallbun.scaffold.framework.mybatis.service.BaseServiceImpl;
 import cn.smallbun.scaffold.manage.entity.SysConfigEntity;
+import cn.smallbun.scaffold.manage.mapper.SysConfigMapper;
+import cn.smallbun.scaffold.manage.service.ISysConfigService;
 import org.springframework.stereotype.Service;
 
 /**

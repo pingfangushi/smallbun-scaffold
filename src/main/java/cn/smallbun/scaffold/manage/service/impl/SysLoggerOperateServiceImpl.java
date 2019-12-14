@@ -16,15 +16,14 @@
 
 package cn.smallbun.scaffold.manage.service.impl;
 
-import cn.smallbun.scaffold.manage.mapper.SysLoggerOperateMapper;
-import com.alibaba.fastjson.JSON;
-import cn.smallbun.scaffold.framework.logging.Log;
 import cn.smallbun.scaffold.framework.mybatis.service.BaseServiceImpl;
+import cn.smallbun.scaffold.manage.entity.SysLoggerOperateEntity;
+import cn.smallbun.scaffold.manage.mapper.SysLoggerOperateMapper;
+import cn.smallbun.scaffold.manage.service.ISysLoggerOperateService;
+import com.alibaba.fastjson.JSON;
 import org.aspectj.lang.JoinPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import cn.smallbun.scaffold.manage.entity.SysLoggerOperateEntity;
-import cn.smallbun.scaffold.manage.service.ISysLoggerOperateService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -45,11 +44,11 @@ public class SysLoggerOperateServiceImpl extends BaseServiceImpl<SysLoggerOperat
 
 	/**
 	 * 记录数据
-	 * @param log {@link Log}
+	 * @param log {@link Logger}
 	 * @param joinPoint {@link JoinPoint}
 	 */
 	@Override
-	public void recording(Log log, JoinPoint joinPoint) {
+	public void recording(cn.smallbun.scaffold.framework.logger.domain.Logger log, JoinPoint joinPoint) {
 		logger.debug("save operation record start...");
 		save(getLog(log));
 		logger.debug("end of save operation record.");
@@ -57,10 +56,10 @@ public class SysLoggerOperateServiceImpl extends BaseServiceImpl<SysLoggerOperat
 
 	/**
 	 * 获取Log
-	 * @param log {@link Log} log
+	 * @param log {@link Logger} log
 	 * @return {@link SysLoggerOperateEntity}
 	 */
-	private SysLoggerOperateEntity getLog(Log log) {
+	private SysLoggerOperateEntity getLog(cn.smallbun.scaffold.framework.logger.domain.Logger log) {
 		//记录日志
 		SysLoggerOperateEntity logging = new SysLoggerOperateEntity();
 		//请求地址

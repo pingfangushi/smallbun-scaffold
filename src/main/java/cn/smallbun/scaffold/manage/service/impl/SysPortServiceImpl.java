@@ -16,10 +16,10 @@
 
 package cn.smallbun.scaffold.manage.service.impl;
 
-import cn.smallbun.scaffold.manage.entity.SysPortEntity;
-import cn.smallbun.scaffold.manage.service.ISysPortService;
 import cn.smallbun.scaffold.framework.mybatis.service.BaseServiceImpl;
+import cn.smallbun.scaffold.manage.entity.SysPortEntity;
 import cn.smallbun.scaffold.manage.mapper.SysPortMapper;
+import cn.smallbun.scaffold.manage.service.ISysPortService;
 import org.springframework.stereotype.Service;
 
 /**

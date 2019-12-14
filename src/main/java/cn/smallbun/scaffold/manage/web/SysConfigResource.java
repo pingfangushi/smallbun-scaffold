@@ -17,19 +17,19 @@
 package cn.smallbun.scaffold.manage.web;
 
 
-import cn.smallbun.scaffold.manage.service.ISysConfigService;
-import cn.smallbun.scaffold.manage.pojo.ConfigVO;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.google.common.collect.Lists;
 import cn.smallbun.scaffold.framework.common.result.ApiRestResult;
 import cn.smallbun.scaffold.framework.common.toolkit.StringUtil;
-import cn.smallbun.scaffold.framework.logging.annotation.Logging;
-import cn.smallbun.scaffold.framework.logging.enmus.Platform;
+import cn.smallbun.scaffold.framework.logger.annotation.Logger;
+import cn.smallbun.scaffold.framework.logger.enmus.Platform;
 import cn.smallbun.scaffold.framework.mybatis.page.Page;
 import cn.smallbun.scaffold.framework.mybatis.page.PageModel;
 import cn.smallbun.scaffold.framework.validation.group.AddGroup;
 import cn.smallbun.scaffold.framework.validation.group.UpdateGroup;
 import cn.smallbun.scaffold.framework.web.BaseResource;
+import cn.smallbun.scaffold.manage.pojo.ConfigVO;
+import cn.smallbun.scaffold.manage.service.ISysConfigService;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
@@ -37,10 +37,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import static cn.smallbun.scaffold.manage.constant.ManageConstant.MANAGE_API_PATH;
+import static cn.smallbun.scaffold.framework.logger.enmus.Operate.*;
 import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.mapping;
 import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.pageMapping;
-import static cn.smallbun.scaffold.framework.logging.enmus.Operate.*;
+import static cn.smallbun.scaffold.manage.constant.ManageConstant.MANAGE_API_PATH;
 
 /**
  * <p>
@@ -50,7 +50,7 @@ import static cn.smallbun.scaffold.framework.logging.enmus.Operate.*;
  * @author SanLi Automatic generated
  * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on  2019-05-14
  */
-@Logging(module = SysConfigResource.API)
+@Logger(module = SysConfigResource.API)
 @Validated
 @RestController
 @RequestMapping(MANAGE_API_PATH + "/config")
@@ -63,7 +63,7 @@ public class SysConfigResource extends BaseResource {
 	 * @param port {@link ConfigVO} 添加对象
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "新增参数配置", action = ADD, platform = Platform.MANAGE)
+	@Logger(feature = "新增参数配置", action = ADD, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:config:add')")
 	@ApiOperation(value = "新增参数配置", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -77,7 +77,7 @@ public class SysConfigResource extends BaseResource {
 	 * @param port {@link ConfigVO} 添加对象
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "修改参数配置", action = UPDATE, platform = Platform.MANAGE)
+	@Logger(feature = "修改参数配置", action = UPDATE, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:config:update')")
 	@ApiOperation(value = "修改参数配置", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -91,7 +91,7 @@ public class SysConfigResource extends BaseResource {
 	 * @param ids {@link String} ids
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "根据参数配置ID删除信息", action = REMOVE, platform = Platform.MANAGE)
+	@Logger(feature = "根据参数配置ID删除信息", action = REMOVE, platform = Platform.MANAGE)
 	@ApiOperation(value = "根据参数配置ID删除信息", produces = MediaType.APPLICATION_JSON_VALUE)
 	@DeleteMapping(value = "/{ids}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAuthority('manage:interface:config:remove')")
@@ -106,7 +106,7 @@ public class SysConfigResource extends BaseResource {
 	 * @param pageModel {@link PageModel} 对象
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "分页查询参数配置信息", action = FETCH, platform = Platform.MANAGE)
+	@Logger(feature = "分页查询参数配置信息", action = FETCH, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:config:fetch')")
 	@ApiOperation(value = "分页查询参数配置信息", produces = MediaType.APPLICATION_JSON_VALUE)
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -122,7 +122,7 @@ public class SysConfigResource extends BaseResource {
 	 * @param id {@link String} id
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "通过参数配置ID查询信息", action = FETCH, platform = Platform.MANAGE)
+	@Logger(feature = "通过参数配置ID查询信息", action = FETCH, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:config:fetch')")
 	@ApiOperation(value = "通过参数配置ID查询信息", produces = MediaType.APPLICATION_JSON_VALUE)
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

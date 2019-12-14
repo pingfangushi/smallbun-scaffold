@@ -16,10 +16,10 @@
 
 package cn.smallbun.scaffold.manage.pojo;
 
+import cn.smallbun.scaffold.manage.entity.SysLoggerLoginEntity;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import cn.smallbun.scaffold.manage.entity.SysLoggerLoginEntity;
 
 /**
  * 登录日志

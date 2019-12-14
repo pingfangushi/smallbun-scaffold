@@ -17,27 +17,27 @@
 package cn.smallbun.scaffold.manage.web;
 
 
-import cn.smallbun.scaffold.manage.service.ISysDictItemService;
-import cn.smallbun.scaffold.manage.service.ISysDictTypeService;
+import cn.smallbun.scaffold.framework.common.result.ApiRestResult;
+import cn.smallbun.scaffold.framework.common.toolkit.StringUtil;
+import cn.smallbun.scaffold.framework.demo.annotation.DemoEnvironment;
+import cn.smallbun.scaffold.framework.logger.annotation.Logger;
+import cn.smallbun.scaffold.framework.logger.enmus.Platform;
+import cn.smallbun.scaffold.framework.mybatis.page.Page;
+import cn.smallbun.scaffold.framework.mybatis.page.PageModel;
+import cn.smallbun.scaffold.framework.validation.group.AddGroup;
+import cn.smallbun.scaffold.framework.validation.group.UpdateGroup;
+import cn.smallbun.scaffold.framework.web.BaseResource;
 import cn.smallbun.scaffold.manage.entity.SysDictItemEntity;
 import cn.smallbun.scaffold.manage.entity.SysDictTypeEntity;
 import cn.smallbun.scaffold.manage.enums.DictDefault;
 import cn.smallbun.scaffold.manage.enums.DictStatus;
 import cn.smallbun.scaffold.manage.pojo.DictTypeVO;
 import cn.smallbun.scaffold.manage.pojo.DictValueVO;
+import cn.smallbun.scaffold.manage.service.ISysDictItemService;
+import cn.smallbun.scaffold.manage.service.ISysDictTypeService;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.google.common.collect.Lists;
-import cn.smallbun.scaffold.framework.common.result.ApiRestResult;
-import cn.smallbun.scaffold.framework.common.toolkit.StringUtil;
-import cn.smallbun.scaffold.framework.demo.annotation.DemoEnvironment;
-import cn.smallbun.scaffold.framework.logging.annotation.Logging;
-import cn.smallbun.scaffold.framework.logging.enmus.Platform;
-import cn.smallbun.scaffold.framework.mybatis.page.Page;
-import cn.smallbun.scaffold.framework.mybatis.page.PageModel;
-import cn.smallbun.scaffold.framework.validation.group.AddGroup;
-import cn.smallbun.scaffold.framework.validation.group.UpdateGroup;
-import cn.smallbun.scaffold.framework.web.BaseResource;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
@@ -47,10 +47,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static cn.smallbun.scaffold.manage.constant.ManageConstant.MANAGE_API_PATH;
+import static cn.smallbun.scaffold.framework.logger.enmus.Operate.*;
 import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.mapping;
 import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.pageMapping;
-import static cn.smallbun.scaffold.framework.logging.enmus.Operate.*;
+import static cn.smallbun.scaffold.manage.constant.ManageConstant.MANAGE_API_PATH;
 
 /**
  * <p>
@@ -62,7 +62,7 @@ import static cn.smallbun.scaffold.framework.logging.enmus.Operate.*;
  */
 @Validated
 @RestController
-@Logging(module = "数据字典API")
+@Logger(module = "数据字典API")
 @RequestMapping(MANAGE_API_PATH + "/dict")
 @Api(tags = "数据字典API")
 public class SysDictResource extends BaseResource {
@@ -72,7 +72,7 @@ public class SysDictResource extends BaseResource {
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
 	@DemoEnvironment
-	@Logging(feature = "新增字典类型", action = ADD, platform = Platform.MANAGE)
+	@Logger(feature = "新增字典类型", action = ADD, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:dict:add')")
 	@ApiOperation(value = "新增字典类型", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 1)
@@ -88,7 +88,7 @@ public class SysDictResource extends BaseResource {
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
 	@DemoEnvironment
-	@Logging(feature = "修改字典类型", action = UPDATE, platform = Platform.MANAGE)
+	@Logger(feature = "修改字典类型", action = UPDATE, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:dict:update')")
 	@ApiOperation(value = "修改字典类型", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 2)
@@ -103,7 +103,7 @@ public class SysDictResource extends BaseResource {
 	 * @param status 状态
 	 * @return 结果
 	 */
-	@Logging(feature = "根据ID更新字典类型状态", action = UPDATE, platform = Platform.MANAGE)
+	@Logger(feature = "根据ID更新字典类型状态", action = UPDATE, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:dict:update')")
 	@ApiOperation(value = "根据ID更新字典类型状态", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 3)
@@ -119,7 +119,7 @@ public class SysDictResource extends BaseResource {
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
 	@DemoEnvironment
-	@Logging(feature = "根据ID删除字典类型", action = REMOVE, platform = Platform.MANAGE)
+	@Logger(feature = "根据ID删除字典类型", action = REMOVE, platform = Platform.MANAGE)
 	@ApiOperation(value = "根据ID删除字典类型", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 4)
 	@DeleteMapping(value = "type/{ids}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -135,7 +135,7 @@ public class SysDictResource extends BaseResource {
 	 * @param pageModel {@link PageModel} 对象
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "分页查询字典类型列表", action = FETCH, platform = Platform.MANAGE)
+	@Logger(feature = "分页查询字典类型列表", action = FETCH, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:dict:fetch')")
 	@ApiOperation(value = "分页查询字典类型列表", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 5)
@@ -152,7 +152,7 @@ public class SysDictResource extends BaseResource {
 	 * @param id {@link String} id
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "通过ID查询字典类型", action = FETCH, platform = Platform.MANAGE)
+	@Logger(feature = "通过ID查询字典类型", action = FETCH, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:dict:fetch')")
 	@ApiOperation(value = "通过ID查询字典类型", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 6)
@@ -169,7 +169,7 @@ public class SysDictResource extends BaseResource {
 	 * @param value {@link SysDictItemEntity} value
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "唯一字典类型验证", action = FETCH, platform = Platform.MANAGE)
+	@Logger(feature = "唯一字典类型验证", action = FETCH, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:dict:unique')")
 	@ApiOperation(value = "唯一字典类型验证", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 7)
@@ -184,7 +184,7 @@ public class SysDictResource extends BaseResource {
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
 	@DemoEnvironment
-	@Logging(feature = "新增字典值", action = ADD, platform = Platform.MANAGE)
+	@Logger(feature = "新增字典值", action = ADD, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:dict:add')")
 	@ApiOperation(value = "新增字典值", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 8)
@@ -200,7 +200,7 @@ public class SysDictResource extends BaseResource {
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
 	@DemoEnvironment
-	@Logging(feature = "修改字典值", action = UPDATE, platform = Platform.MANAGE)
+	@Logger(feature = "修改字典值", action = UPDATE, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:dict:update')")
 	@ApiOperation(value = "修改字典值", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 9)
@@ -216,7 +216,7 @@ public class SysDictResource extends BaseResource {
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
 	@DemoEnvironment
-	@Logging(feature = "根据ID删除字典值", action = REMOVE, platform = Platform.MANAGE)
+	@Logger(feature = "根据ID删除字典值", action = REMOVE, platform = Platform.MANAGE)
 	@ApiOperation(value = "根据ID删除字典值", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 10)
 	@DeleteMapping(value = "item/{ids}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -231,7 +231,7 @@ public class SysDictResource extends BaseResource {
 	 *
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "分页查询字典值列表", action = FETCH, platform = Platform.MANAGE)
+	@Logger(feature = "分页查询字典值列表", action = FETCH, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:dict:fetch')")
 	@ApiOperation(value = "分页查询字典值列表", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 11)
@@ -248,7 +248,7 @@ public class SysDictResource extends BaseResource {
 	 * @param id {@link String} id
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "根据ID查询字典值", action = FETCH, platform = Platform.MANAGE)
+	@Logger(feature = "根据ID查询字典值", action = FETCH, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:dict:fetch')")
 	@ApiOperation(value = "根据ID查询字典值", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 12)
@@ -265,7 +265,7 @@ public class SysDictResource extends BaseResource {
 	 * @param value {@link SysDictItemEntity} value
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "唯一字典值验证", action = FETCH, platform = Platform.MANAGE)
+	@Logger(feature = "唯一字典值验证", action = FETCH, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:dict:unique')")
 	@ApiOperation(value = "唯一字典值验证", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 13)
@@ -280,7 +280,7 @@ public class SysDictResource extends BaseResource {
 	 * @param isDefault 是否是默认值
 	 * @return 结果
 	 */
-	@Logging(feature = "根据ID更新字典值是否为默认", action = UPDATE, platform = Platform.MANAGE)
+	@Logger(feature = "根据ID更新字典值是否为默认", action = UPDATE, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:dict:update')")
 	@ApiOperation(value = "根据ID更新字典值是否为默认", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 14)

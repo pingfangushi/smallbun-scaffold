@@ -16,11 +16,11 @@
 
 package cn.smallbun.scaffold.manage.entity;
 
+import cn.smallbun.scaffold.framework.mybatis.domain.BaseAuditEntity;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.SqlCondition;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import cn.smallbun.scaffold.framework.mybatis.domain.BaseAuditEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;

@@ -16,21 +16,20 @@
 
 package cn.smallbun.scaffold.manage.web;
 
+import cn.smallbun.scaffold.framework.common.result.ApiRestResult;
+import cn.smallbun.scaffold.framework.common.toolkit.RsaUtil;
+import cn.smallbun.scaffold.framework.logger.annotation.Logger;
+import cn.smallbun.scaffold.framework.redis.RedisClient;
+import cn.smallbun.scaffold.framework.security.SecurityUtils;
+import cn.smallbun.scaffold.framework.security.jwt.JwtFilter;
+import cn.smallbun.scaffold.framework.web.BaseResource;
 import cn.smallbun.scaffold.manage.pojo.CurrentUserDTO;
 import cn.smallbun.scaffold.manage.pojo.LoginDTO;
 import cn.smallbun.scaffold.manage.pojo.LoginResultDTO;
 import cn.smallbun.scaffold.manage.service.IAccountService;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import cn.smallbun.scaffold.framework.redis.RedisClient;
-import cn.smallbun.scaffold.framework.common.result.ApiRestResult;
-import cn.smallbun.scaffold.framework.common.toolkit.RsaUtil;
-import cn.smallbun.scaffold.framework.logging.annotation.Logging;
-import cn.smallbun.scaffold.framework.security.SecurityUtils;
-import cn.smallbun.scaffold.framework.security.jwt.JwtFilter;
-import cn.smallbun.scaffold.framework.web.BaseResource;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -43,11 +42,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
 
+import static cn.smallbun.scaffold.framework.exception.enums.Exception.EX000102;
+import static cn.smallbun.scaffold.framework.exception.enums.Exception.EX900005;
 import static cn.smallbun.scaffold.manage.constant.ManageConstant.MANAGE_API_PATH;
 import static cn.smallbun.scaffold.manage.service.impl.AccountServiceImpl.CAPTCHA_CACHE_NAME;
 import static cn.smallbun.scaffold.manage.service.impl.AccountServiceImpl.SECRET_CACHE_NAME;
-import static cn.smallbun.scaffold.framework.exception.enums.Exception.EX000102;
-import static cn.smallbun.scaffold.framework.exception.enums.Exception.EX900005;
 
 /**
  * 账户相关
@@ -57,7 +56,7 @@ import static cn.smallbun.scaffold.framework.exception.enums.Exception.EX900005;
  * @author SanLi
  * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2019/10/27 15:23
  */
-@Logging(module = AccountResource.API)
+@Logger(module = AccountResource.API)
 @Validated
 @RestController
 @RequestMapping(MANAGE_API_PATH)

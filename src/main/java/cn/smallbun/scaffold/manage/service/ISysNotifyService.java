@@ -16,8 +16,8 @@
 
 package cn.smallbun.scaffold.manage.service;
 
-import cn.smallbun.scaffold.manage.entity.SysNotifyEntity;
 import cn.smallbun.scaffold.framework.mybatis.service.BaseService;
+import cn.smallbun.scaffold.manage.entity.SysNotifyEntity;
 
 /**
  * <p>

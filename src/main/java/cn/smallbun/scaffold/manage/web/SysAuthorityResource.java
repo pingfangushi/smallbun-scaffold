@@ -20,8 +20,8 @@ package cn.smallbun.scaffold.manage.web;
 import cn.smallbun.scaffold.framework.common.result.ApiRestResult;
 import cn.smallbun.scaffold.framework.common.toolkit.StringUtil;
 import cn.smallbun.scaffold.framework.demo.annotation.DemoEnvironment;
-import cn.smallbun.scaffold.framework.logging.annotation.Logging;
-import cn.smallbun.scaffold.framework.logging.enmus.Platform;
+import cn.smallbun.scaffold.framework.logger.annotation.Logger;
+import cn.smallbun.scaffold.framework.logger.enmus.Platform;
 import cn.smallbun.scaffold.framework.mybatis.page.Page;
 import cn.smallbun.scaffold.framework.mybatis.page.PageModel;
 import cn.smallbun.scaffold.framework.validation.group.AddGroup;
@@ -47,7 +47,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static cn.smallbun.scaffold.framework.logging.enmus.Operate.*;
+import static cn.smallbun.scaffold.framework.logger.enmus.Operate.*;
 import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.*;
 
 /**
@@ -60,7 +60,7 @@ import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.*;
  */
 @Validated
 @Api(tags = SysAuthorityResource.API)
-@Logging(module = SysAuthorityResource.API)
+@Logger(module = SysAuthorityResource.API)
 @RestController
 @RequestMapping(ManageConstant.MANAGE_API_PATH + "/authority")
 public class SysAuthorityResource extends BaseResource {
@@ -74,7 +74,7 @@ public class SysAuthorityResource extends BaseResource {
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
 	@DemoEnvironment
-	@Logging(feature = "新增系统权限", action = ADD, platform = Platform.MANAGE)
+	@Logger(feature = "新增系统权限", action = ADD, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:authority:add')")
 	@ApiOperation(value = "新增系统权限", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 1)
@@ -91,7 +91,7 @@ public class SysAuthorityResource extends BaseResource {
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
 	@DemoEnvironment
-	@Logging(feature = "修改系统权限", action = UPDATE, platform = Platform.MANAGE)
+	@Logger(feature = "修改系统权限", action = UPDATE, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:authority:update')")
 	@ApiOperation(value = "修改系统权限", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 2)
@@ -108,7 +108,7 @@ public class SysAuthorityResource extends BaseResource {
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
 	@DemoEnvironment
-	@Logging(feature = "根据ID删除权限", action = REMOVE, platform = Platform.MANAGE)
+	@Logger(feature = "根据ID删除权限", action = REMOVE, platform = Platform.MANAGE)
 	@ApiOperation(value = "根据ID删除权限", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 3)
 	@DeleteMapping(value = "/{ids}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -125,7 +125,7 @@ public class SysAuthorityResource extends BaseResource {
 	 * @param pageModel {@link PageModel} 对象
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "分页查询权限列表", action = FETCH, platform = Platform.MANAGE)
+	@Logger(feature = "分页查询权限列表", action = FETCH, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:authority:fetch')")
 	@ApiOperation(value = "分页查询权限列表", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 4)
@@ -144,7 +144,7 @@ public class SysAuthorityResource extends BaseResource {
 	 * @param id {@link String} id
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "通过ID查询权限", action = FETCH, platform = Platform.MANAGE)
+	@Logger(feature = "通过ID查询权限", action = FETCH, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:authority:fetch')")
 	@ApiOperation(value = "通过ID查询权限", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 5)
@@ -161,7 +161,7 @@ public class SysAuthorityResource extends BaseResource {
 	 * @param value {@link SysDictItemEntity} value
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "唯一权限验证", action = FETCH, platform = Platform.MANAGE)
+	@Logger(feature = "唯一权限验证", action = FETCH, platform = Platform.MANAGE)
 	@ApiOperation(value = "唯一权限验证", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 6)
 	@PreAuthorize("hasAuthority('manage:interface:authority:unique')")
@@ -176,7 +176,7 @@ public class SysAuthorityResource extends BaseResource {
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
 	@DemoEnvironment
-	@Logging(feature = "新增权限项", action = ADD, platform = Platform.MANAGE)
+	@Logger(feature = "新增权限项", action = ADD, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:authority:add')")
 	@ApiOperation(value = "新增权限项", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 7)
@@ -193,7 +193,7 @@ public class SysAuthorityResource extends BaseResource {
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
 	@DemoEnvironment
-	@Logging(feature = "修改权限项", action = UPDATE, platform = Platform.MANAGE)
+	@Logger(feature = "修改权限项", action = UPDATE, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:authority:update')")
 	@ApiOperation(value = "修改权限项", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 8)
@@ -210,7 +210,7 @@ public class SysAuthorityResource extends BaseResource {
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
 	@DemoEnvironment
-	@Logging(feature = "根据ID删除权限项", action = REMOVE, platform = Platform.MANAGE)
+	@Logger(feature = "根据ID删除权限项", action = REMOVE, platform = Platform.MANAGE)
 	@ApiOperation(value = "根据ID删除权限项", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 9)
 	@DeleteMapping(value = "item/{ids}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -226,7 +226,7 @@ public class SysAuthorityResource extends BaseResource {
 	 *
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "查询权限项列表", action = FETCH, platform = Platform.MANAGE)
+	@Logger(feature = "查询权限项列表", action = FETCH, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:authority:fetch')")
 	@ApiOperation(value = "查询权限项列表", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 10)
@@ -245,7 +245,7 @@ public class SysAuthorityResource extends BaseResource {
 	 * @param id {@link String} id
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "根据ID查询权限项", action = FETCH, platform = Platform.MANAGE)
+	@Logger(feature = "根据ID查询权限项", action = FETCH, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:authority:fetch')")
 	@ApiOperation(value = "根据ID查询权限项", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 11)
@@ -262,7 +262,7 @@ public class SysAuthorityResource extends BaseResource {
 	 * @param value {@link SysDictItemEntity} value
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "唯一权限项验证", action = FETCH, platform = Platform.MANAGE)
+	@Logger(feature = "唯一权限项验证", action = FETCH, platform = Platform.MANAGE)
 	@ApiOperation(value = "唯一权限项验证", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 12)
 	@PreAuthorize("hasAuthority('manage:interface:authority:fetch')")

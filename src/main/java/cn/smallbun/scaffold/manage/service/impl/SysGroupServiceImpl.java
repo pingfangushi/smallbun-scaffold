@@ -16,13 +16,13 @@
 
 package cn.smallbun.scaffold.manage.service.impl;
 
-import cn.smallbun.scaffold.manage.mapper.SysGroupMapper;
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import cn.smallbun.scaffold.framework.mybatis.domain.IdEntity;
 import cn.smallbun.scaffold.framework.mybatis.service.BaseServiceImpl;
 import cn.smallbun.scaffold.manage.entity.SysGroupEntity;
 import cn.smallbun.scaffold.manage.enums.GroupStatus;
+import cn.smallbun.scaffold.manage.mapper.SysGroupMapper;
 import cn.smallbun.scaffold.manage.service.ISysGroupService;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import org.springframework.stereotype.Service;
 
 /**

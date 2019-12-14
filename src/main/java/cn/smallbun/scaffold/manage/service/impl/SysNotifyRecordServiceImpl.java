@@ -16,10 +16,10 @@
 
 package cn.smallbun.scaffold.manage.service.impl;
 
+import cn.smallbun.scaffold.framework.mybatis.service.BaseServiceImpl;
 import cn.smallbun.scaffold.manage.entity.SysNotifyRecordEntity;
 import cn.smallbun.scaffold.manage.mapper.SysNotifyRecordMapper;
 import cn.smallbun.scaffold.manage.service.ISysNotifyRecordService;
-import cn.smallbun.scaffold.framework.mybatis.service.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**

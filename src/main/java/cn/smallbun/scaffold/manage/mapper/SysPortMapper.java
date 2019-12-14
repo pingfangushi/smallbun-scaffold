@@ -16,8 +16,8 @@
 
 package cn.smallbun.scaffold.manage.mapper;
 
-import cn.smallbun.scaffold.manage.entity.SysPortEntity;
 import cn.smallbun.scaffold.framework.mybatis.mapper.BaseMapper;
+import cn.smallbun.scaffold.manage.entity.SysPortEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

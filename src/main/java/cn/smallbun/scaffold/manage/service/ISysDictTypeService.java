@@ -16,11 +16,11 @@
 
 package cn.smallbun.scaffold.manage.service;
 
+import cn.smallbun.scaffold.framework.initialize.InitInterface;
+import cn.smallbun.scaffold.framework.mybatis.service.BaseService;
 import cn.smallbun.scaffold.manage.entity.SysDictTypeEntity;
 import cn.smallbun.scaffold.manage.enums.DictStatus;
 import com.alibaba.fastjson.annotation.JSONField;
-import cn.smallbun.scaffold.framework.initialize.InitInterface;
-import cn.smallbun.scaffold.framework.mybatis.service.BaseService;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;

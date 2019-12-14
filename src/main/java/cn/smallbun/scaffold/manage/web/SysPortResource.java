@@ -19,8 +19,8 @@ package cn.smallbun.scaffold.manage.web;
 
 import cn.smallbun.scaffold.framework.common.result.ApiRestResult;
 import cn.smallbun.scaffold.framework.common.toolkit.StringUtil;
-import cn.smallbun.scaffold.framework.logging.annotation.Logging;
-import cn.smallbun.scaffold.framework.logging.enmus.Platform;
+import cn.smallbun.scaffold.framework.logger.annotation.Logger;
+import cn.smallbun.scaffold.framework.logger.enmus.Platform;
 import cn.smallbun.scaffold.framework.mybatis.page.Page;
 import cn.smallbun.scaffold.framework.mybatis.page.PageModel;
 import cn.smallbun.scaffold.framework.validation.group.AddGroup;
@@ -38,7 +38,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import static cn.smallbun.scaffold.framework.logging.enmus.Operate.*;
+import static cn.smallbun.scaffold.framework.logger.enmus.Operate.*;
 import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.mapping;
 import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.pageMapping;
 import static cn.smallbun.scaffold.manage.web.SysPortResource.API;
@@ -54,7 +54,7 @@ import static cn.smallbun.scaffold.manage.web.SysPortResource.API;
 @Validated
 @RestController
 @Api(tags = API)
-@Logging(module = API)
+@Logger(module = API)
 @RequestMapping(ManageConstant.MANAGE_API_PATH + "/port")
 public class SysPortResource extends BaseResource {
 
@@ -65,7 +65,7 @@ public class SysPortResource extends BaseResource {
 	 * @param port {@link PortVO} 添加对象
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "新增岗位", action = ADD, platform = Platform.MANAGE)
+	@Logger(feature = "新增岗位", action = ADD, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:port:add')")
 	@ApiOperation(value = "新增岗位", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -79,7 +79,7 @@ public class SysPortResource extends BaseResource {
 	 * @param port {@link PortVO} 添加对象
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "修改岗位", action = UPDATE, platform = Platform.MANAGE)
+	@Logger(feature = "修改岗位", action = UPDATE, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:port:update')")
 	@ApiOperation(value = "修改岗位", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -93,7 +93,7 @@ public class SysPortResource extends BaseResource {
 	 * @param ids {@link String} ids
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "根据岗位ID删除信息", action = REMOVE, platform = Platform.MANAGE)
+	@Logger(feature = "根据岗位ID删除信息", action = REMOVE, platform = Platform.MANAGE)
 	@ApiOperation(value = "根据岗位ID删除信息", produces = MediaType.APPLICATION_JSON_VALUE)
 	@DeleteMapping(value = "/{ids}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAuthority('manage:interface:port:remove')")
@@ -108,7 +108,7 @@ public class SysPortResource extends BaseResource {
 	 * @param pageModel {@link PageModel} 对象
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "分页查询岗位信息", action = FETCH, platform = Platform.MANAGE)
+	@Logger(feature = "分页查询岗位信息", action = FETCH, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:port:fetch')")
 	@ApiOperation(value = "分页查询岗位信息", produces = MediaType.APPLICATION_JSON_VALUE)
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -125,7 +125,7 @@ public class SysPortResource extends BaseResource {
 	 * @param id {@link String} id
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "通过岗位ID查询信息", action = FETCH, platform = Platform.MANAGE)
+	@Logger(feature = "通过岗位ID查询信息", action = FETCH, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:port:fetch')")
 	@ApiOperation(value = "通过岗位ID查询信息", produces = MediaType.APPLICATION_JSON_VALUE)
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

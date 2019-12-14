@@ -17,26 +17,26 @@
 package cn.smallbun.scaffold.manage.web;
 
 
-import cn.smallbun.scaffold.manage.entity.SysDictItemEntity;
-import cn.smallbun.scaffold.manage.entity.SysRoleEntity;
-import cn.smallbun.scaffold.manage.pojo.UpdateAuthorizeBO;
-import cn.smallbun.scaffold.manage.enums.RoleStatus;
-import cn.smallbun.scaffold.manage.pojo.RoleAuthVO;
-import cn.smallbun.scaffold.manage.pojo.RoleVO;
-import cn.smallbun.scaffold.manage.service.ISysRoleService;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.google.common.collect.Lists;
 import cn.smallbun.scaffold.framework.common.result.ApiRestResult;
 import cn.smallbun.scaffold.framework.common.toolkit.StringUtil;
 import cn.smallbun.scaffold.framework.demo.annotation.DemoEnvironment;
-import cn.smallbun.scaffold.framework.logging.annotation.Logging;
-import cn.smallbun.scaffold.framework.logging.enmus.Platform;
+import cn.smallbun.scaffold.framework.logger.annotation.Logger;
+import cn.smallbun.scaffold.framework.logger.enmus.Platform;
 import cn.smallbun.scaffold.framework.mybatis.page.Page;
 import cn.smallbun.scaffold.framework.mybatis.page.PageModel;
 import cn.smallbun.scaffold.framework.validation.group.AddGroup;
 import cn.smallbun.scaffold.framework.validation.group.UpdateGroup;
 import cn.smallbun.scaffold.framework.web.BaseResource;
+import cn.smallbun.scaffold.manage.entity.SysDictItemEntity;
+import cn.smallbun.scaffold.manage.entity.SysRoleEntity;
+import cn.smallbun.scaffold.manage.enums.RoleStatus;
+import cn.smallbun.scaffold.manage.pojo.RoleAuthVO;
+import cn.smallbun.scaffold.manage.pojo.RoleVO;
+import cn.smallbun.scaffold.manage.pojo.UpdateAuthorizeBO;
+import cn.smallbun.scaffold.manage.service.ISysRoleService;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
@@ -46,11 +46,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static cn.smallbun.scaffold.manage.constant.ManageConstant.MANAGE_API_PATH;
-import static cn.smallbun.scaffold.manage.web.SysRoleResource.API;
+import static cn.smallbun.scaffold.framework.logger.enmus.Operate.*;
 import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.mapping;
 import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.pageMapping;
-import static cn.smallbun.scaffold.framework.logging.enmus.Operate.*;
+import static cn.smallbun.scaffold.manage.constant.ManageConstant.MANAGE_API_PATH;
+import static cn.smallbun.scaffold.manage.web.SysRoleResource.API;
 
 /**
  * <p>
@@ -64,7 +64,7 @@ import static cn.smallbun.scaffold.framework.logging.enmus.Operate.*;
 @Validated
 @RestController
 @Api(tags = API)
-@Logging(module = API)
+@Logger(module = API)
 @RequestMapping(MANAGE_API_PATH + "/role")
 public class SysRoleResource extends BaseResource {
 
@@ -76,7 +76,7 @@ public class SysRoleResource extends BaseResource {
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
 	@DemoEnvironment
-	@Logging(feature = "新增角色", action = ADD, platform = Platform.MANAGE)
+	@Logger(feature = "新增角色", action = ADD, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:role:add')")
 	@ApiOperation(value = "新增角色", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 1)
@@ -93,7 +93,7 @@ public class SysRoleResource extends BaseResource {
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
 	@DemoEnvironment
-	@Logging(feature = "修改角色", action = UPDATE, platform = Platform.MANAGE)
+	@Logger(feature = "修改角色", action = UPDATE, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:role:update')")
 	@ApiOperation(value = "修改角色", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 2)
@@ -109,7 +109,7 @@ public class SysRoleResource extends BaseResource {
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
 	@DemoEnvironment
-	@Logging(feature = "根据ID删除角色", action = REMOVE, platform = Platform.MANAGE)
+	@Logger(feature = "根据ID删除角色", action = REMOVE, platform = Platform.MANAGE)
 	@ApiOperation(value = "根据ID删除角色", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 3)
 	@DeleteMapping(value = "/{ids}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -125,7 +125,7 @@ public class SysRoleResource extends BaseResource {
 	 * @param pageModel {@link PageModel} 对象
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "分页查询角色列表", action = FETCH, platform = Platform.MANAGE)
+	@Logger(feature = "分页查询角色列表", action = FETCH, platform = Platform.MANAGE)
 	@PreAuthorize("hasAnyAuthority('manage:interface:role:fetch')")
 	@ApiOperation(value = "分页查询角色列表", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 4)
@@ -142,7 +142,7 @@ public class SysRoleResource extends BaseResource {
 	 * @param id {@link String} id
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "根据ID查询角色", action = FETCH, platform = Platform.MANAGE)
+	@Logger(feature = "根据ID查询角色", action = FETCH, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:role:fetch')")
 	@ApiOperation(value = "根据ID查询角色", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 5)
@@ -159,7 +159,7 @@ public class SysRoleResource extends BaseResource {
 	 * @param value {@link SysDictItemEntity} value
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "唯一角色验证", action = FETCH, platform = Platform.MANAGE)
+	@Logger(feature = "唯一角色验证", action = FETCH, platform = Platform.MANAGE)
 	@ApiOperation(value = "唯一角色验证", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 6)
 	@PreAuthorize("hasAuthority('manage:interface:role:unique')")
@@ -175,7 +175,7 @@ public class SysRoleResource extends BaseResource {
 	 * @param id {@link String} 角色ID
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "根据ID查询权限", action = FETCH, platform = Platform.MANAGE)
+	@Logger(feature = "根据ID查询权限", action = FETCH, platform = Platform.MANAGE)
 	@ApiOperation(value = "根据ID查询权限", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 7)
 	@PreAuthorize("hasAuthority('manage:interface:role:authorize')")
@@ -191,7 +191,7 @@ public class SysRoleResource extends BaseResource {
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
 	@DemoEnvironment
-	@Logging(feature = "角色权限设置", action = UPDATE, platform = Platform.MANAGE)
+	@Logger(feature = "角色权限设置", action = UPDATE, platform = Platform.MANAGE)
 	@ApiOperation(value = "角色权限设置", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 8)
 	@PreAuthorize("hasAuthority('manage:interface:role:authorize')")
@@ -206,7 +206,7 @@ public class SysRoleResource extends BaseResource {
 	 * @param status 状态
 	 * @return 结果
 	 */
-	@Logging(feature = "根据ID更新角色类型状态", action = UPDATE, platform = Platform.MANAGE)
+	@Logger(feature = "根据ID更新角色类型状态", action = UPDATE, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:role:update')")
 	@ApiOperation(value = "根据ID更新角色类型状态", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 9)

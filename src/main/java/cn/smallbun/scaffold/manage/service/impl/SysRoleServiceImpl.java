@@ -16,18 +16,18 @@
 
 package cn.smallbun.scaffold.manage.service.impl;
 
+import cn.smallbun.scaffold.framework.mybatis.service.BaseServiceImpl;
 import cn.smallbun.scaffold.manage.entity.SysAuthorityTypeEntity;
 import cn.smallbun.scaffold.manage.entity.SysAuthorizeItemEntity;
 import cn.smallbun.scaffold.manage.entity.SysRoleEntity;
 import cn.smallbun.scaffold.manage.enums.AuthorizeStatus;
 import cn.smallbun.scaffold.manage.enums.AuthorizeType;
+import cn.smallbun.scaffold.manage.enums.RoleStatus;
+import cn.smallbun.scaffold.manage.mapper.SysRoleMapper;
 import cn.smallbun.scaffold.manage.pojo.RoleAuthBO;
 import cn.smallbun.scaffold.manage.pojo.RoleAuthVO;
 import cn.smallbun.scaffold.manage.pojo.UpdateAuthorizeBO;
 import cn.smallbun.scaffold.manage.service.ISysAuthorityTypeService;
-import cn.smallbun.scaffold.framework.mybatis.service.BaseServiceImpl;
-import cn.smallbun.scaffold.manage.enums.RoleStatus;
-import cn.smallbun.scaffold.manage.mapper.SysRoleMapper;
 import cn.smallbun.scaffold.manage.service.ISysRoleService;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.google.common.collect.Lists;

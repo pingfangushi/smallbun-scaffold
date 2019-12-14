@@ -20,8 +20,8 @@ package cn.smallbun.scaffold.manage.web;
 import cn.smallbun.scaffold.framework.common.result.ApiRestResult;
 import cn.smallbun.scaffold.framework.common.toolkit.StringUtil;
 import cn.smallbun.scaffold.framework.demo.annotation.DemoEnvironment;
-import cn.smallbun.scaffold.framework.logging.annotation.Logging;
-import cn.smallbun.scaffold.framework.logging.enmus.Platform;
+import cn.smallbun.scaffold.framework.logger.annotation.Logger;
+import cn.smallbun.scaffold.framework.logger.enmus.Platform;
 import cn.smallbun.scaffold.framework.validation.group.AddGroup;
 import cn.smallbun.scaffold.framework.validation.group.UpdateGroup;
 import cn.smallbun.scaffold.framework.web.BaseResource;
@@ -47,7 +47,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 
-import static cn.smallbun.scaffold.framework.logging.enmus.Operate.*;
+import static cn.smallbun.scaffold.framework.logger.enmus.Operate.*;
 import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.listMapping;
 import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.mapping;
 import static cn.smallbun.scaffold.framework.mybatis.utils.NodeHelp.getNodeList;
@@ -73,7 +73,7 @@ import static cn.smallbun.scaffold.manage.web.SysGroupResource.API;
 @Validated
 @RestController
 @Api(tags = API)
-@Logging(module = API)
+@Logger(module = API)
 @RequestMapping(ManageConstant.MANAGE_API_PATH + "/group")
 public class SysGroupResource extends BaseResource {
 
@@ -85,7 +85,7 @@ public class SysGroupResource extends BaseResource {
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
 	@DemoEnvironment
-	@Logging(feature = "新增组织", action = ADD, platform = Platform.MANAGE)
+	@Logger(feature = "新增组织", action = ADD, platform = Platform.MANAGE)
 	@ApiOperation(value = "新增组织", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 1)
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -101,7 +101,7 @@ public class SysGroupResource extends BaseResource {
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
 	@DemoEnvironment
-	@Logging(feature = "修改组织", action = UPDATE, platform = Platform.MANAGE)
+	@Logger(feature = "修改组织", action = UPDATE, platform = Platform.MANAGE)
 	@ApiOperation(value = "修改组织", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 2)
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -117,7 +117,7 @@ public class SysGroupResource extends BaseResource {
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
 	@DemoEnvironment
-	@Logging(feature = "根据ID删除组织", action = REMOVE, platform = Platform.MANAGE)
+	@Logger(feature = "根据ID删除组织", action = REMOVE, platform = Platform.MANAGE)
 	@ApiOperation(value = "根据ID删除组织", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 3)
 	@DeleteMapping(value = "/{ids}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -133,7 +133,7 @@ public class SysGroupResource extends BaseResource {
 	 *
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "查询组织列表", action = FETCH, platform = Platform.MANAGE)
+	@Logger(feature = "查询组织列表", action = FETCH, platform = Platform.MANAGE)
 	@ApiOperation(value = "查询组织列表", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 4)
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -153,7 +153,7 @@ public class SysGroupResource extends BaseResource {
 	 *
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "查询组织树结构", action = FETCH, platform = Platform.MANAGE)
+	@Logger(feature = "查询组织树结构", action = FETCH, platform = Platform.MANAGE)
 	@ApiOperation(value = "查询组织树结构", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 5)
 	@GetMapping(value = "/tree", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -168,7 +168,7 @@ public class SysGroupResource extends BaseResource {
 	 * @param id {@link String} id
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "根据ID查询组织", action = FETCH, platform = Platform.MANAGE)
+	@Logger(feature = "根据ID查询组织", action = FETCH, platform = Platform.MANAGE)
 	@ApiOperation(value = "根据ID查询组织", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 6)
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -184,7 +184,7 @@ public class SysGroupResource extends BaseResource {
 	 * @param value {@link SysDictItemEntity} value
 	 * @return {@link ApiRestResult} 通用返回对象
 	 */
-	@Logging(feature = "唯一组织验证", action = FETCH, platform = Platform.MANAGE)
+	@Logger(feature = "唯一组织验证", action = FETCH, platform = Platform.MANAGE)
 	@ApiOperation(value = "唯一组织验证", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 7)
 	@GetMapping(value = "unique", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -199,7 +199,7 @@ public class SysGroupResource extends BaseResource {
 	 * @param status 状态
 	 * @return 结果
 	 */
-	@Logging(feature = "根据ID更新组织类型状态", action = UPDATE, platform = Platform.MANAGE)
+	@Logger(feature = "根据ID更新组织类型状态", action = UPDATE, platform = Platform.MANAGE)
 	@PreAuthorize("hasAuthority('manage:interface:group:update')")
 	@ApiOperation(value = "根据ID更新组织类型状态", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 9)

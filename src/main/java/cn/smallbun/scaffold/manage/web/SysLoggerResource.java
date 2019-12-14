@@ -17,6 +17,12 @@
 package cn.smallbun.scaffold.manage.web;
 
 
+import cn.smallbun.scaffold.framework.common.result.ApiRestResult;
+import cn.smallbun.scaffold.framework.demo.annotation.DemoEnvironment;
+import cn.smallbun.scaffold.framework.logger.annotation.Logger;
+import cn.smallbun.scaffold.framework.mybatis.page.Page;
+import cn.smallbun.scaffold.framework.mybatis.page.PageModel;
+import cn.smallbun.scaffold.framework.web.BaseResource;
 import cn.smallbun.scaffold.manage.entity.SysLoggerLoginEntity;
 import cn.smallbun.scaffold.manage.entity.SysLoggerOperateEntity;
 import cn.smallbun.scaffold.manage.pojo.LoggerLoginVO;
@@ -27,12 +33,6 @@ import com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import cn.smallbun.scaffold.framework.common.result.ApiRestResult;
-import cn.smallbun.scaffold.framework.demo.annotation.DemoEnvironment;
-import cn.smallbun.scaffold.framework.logging.annotation.Logging;
-import cn.smallbun.scaffold.framework.mybatis.page.Page;
-import cn.smallbun.scaffold.framework.mybatis.page.PageModel;
-import cn.smallbun.scaffold.framework.web.BaseResource;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
@@ -40,10 +40,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import static cn.smallbun.scaffold.manage.constant.ManageConstant.MANAGE_API_PATH;
-import static cn.smallbun.scaffold.manage.web.SysLoggerResource.API;
 import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.mapping;
 import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.pageMapping;
+import static cn.smallbun.scaffold.manage.constant.ManageConstant.MANAGE_API_PATH;
+import static cn.smallbun.scaffold.manage.web.SysLoggerResource.API;
 
 /**
  * <p>
@@ -53,7 +53,7 @@ import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.pageMappi
  * @author SanLi Automatic generated
  * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on  2019-11-02
  */
-@Logging(module = API)
+@Logger(module = API)
 @Validated
 @RestController
 @RequestMapping(MANAGE_API_PATH + "/logger")

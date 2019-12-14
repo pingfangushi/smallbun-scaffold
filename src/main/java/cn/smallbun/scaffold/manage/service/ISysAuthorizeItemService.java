@@ -16,9 +16,9 @@
 
 package cn.smallbun.scaffold.manage.service;
 
-import cn.smallbun.scaffold.manage.entity.SysAuthorizeItemEntity;
 import cn.smallbun.scaffold.framework.initialize.InitInterface;
 import cn.smallbun.scaffold.framework.mybatis.service.BaseService;
+import cn.smallbun.scaffold.manage.entity.SysAuthorizeItemEntity;
 
 import java.io.Serializable;
 import java.util.Collection;

@@ -17,8 +17,8 @@
 package cn.smallbun.scaffold.manage.mapper;
 
 import cn.smallbun.scaffold.framework.mybatis.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Mapper;
 import cn.smallbun.scaffold.manage.entity.SysLoggerLoginEntity;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>

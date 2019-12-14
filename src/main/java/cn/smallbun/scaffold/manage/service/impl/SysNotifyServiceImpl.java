@@ -16,8 +16,8 @@
 
 package cn.smallbun.scaffold.manage.service.impl;
 
-import cn.smallbun.scaffold.manage.entity.SysNotifyEntity;
 import cn.smallbun.scaffold.framework.mybatis.service.BaseServiceImpl;
+import cn.smallbun.scaffold.manage.entity.SysNotifyEntity;
 import cn.smallbun.scaffold.manage.mapper.SysNotifyMapper;
 import cn.smallbun.scaffold.manage.service.ISysNotifyService;
 import org.springframework.stereotype.Service;

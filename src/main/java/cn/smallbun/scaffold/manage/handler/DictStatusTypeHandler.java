@@ -16,9 +16,9 @@
 
 package cn.smallbun.scaffold.manage.handler;
 
+import cn.smallbun.scaffold.manage.enums.DictStatus;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
-import cn.smallbun.scaffold.manage.enums.DictStatus;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;

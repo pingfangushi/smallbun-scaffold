@@ -16,11 +16,11 @@
 
 package cn.smallbun.scaffold.configuration;
 
+import cn.smallbun.scaffold.framework.mybatis.interceptor.PaginationInterceptor;
+import cn.smallbun.scaffold.framework.security.SecurityUtils;
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
-import cn.smallbun.scaffold.framework.mybatis.interceptor.PaginationInterceptor;
-import cn.smallbun.scaffold.framework.security.SecurityUtils;
 import org.apache.ibatis.reflection.MetaObject;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
@@ -31,7 +31,7 @@ import java.time.Instant;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
-import static cn.smallbun.scaffold.framework.logging.aspect.LoggingAspect.ANONYMOUS_USER;
+import static cn.smallbun.scaffold.framework.logger.aspect.LoggingAspect.ANONYMOUS_USER;
 
 /**
  * 数据源配置

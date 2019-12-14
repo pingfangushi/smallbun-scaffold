@@ -16,19 +16,19 @@
 
 package cn.smallbun.scaffold.manage.entity;
 
-import com.baomidou.mybatisplus.annotation.SqlCondition;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
 import cn.smallbun.scaffold.framework.mybatis.domain.BaseAuditEntity;
 import cn.smallbun.scaffold.framework.validation.group.AddGroup;
 import cn.smallbun.scaffold.framework.validation.group.UpdateGroup;
+import cn.smallbun.scaffold.manage.enums.RoleStatus;
+import com.baomidou.mybatisplus.annotation.SqlCondition;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.experimental.Accessors;
-import cn.smallbun.scaffold.manage.enums.RoleStatus;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

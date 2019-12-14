@@ -16,8 +16,8 @@
 
 package cn.smallbun.scaffold.manage.mapper;
 
-import cn.smallbun.scaffold.manage.entity.SysAuthorizeItemEntity;
 import cn.smallbun.scaffold.framework.mybatis.mapper.BaseMapper;
+import cn.smallbun.scaffold.manage.entity.SysAuthorizeItemEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -40,6 +40,7 @@ public interface SysAuthorizeItemMapper extends BaseMapper<SysAuthorizeItemEntit
 	 * @return {@link List<SysAuthorizeItemEntity>}
 	 */
 	List<SysAuthorizeItemEntity> getByAuthId(@Param(value = "authId") String auth);
+
 	/**
 	 * 根据角色查询权限项
 	 * @param ids ids

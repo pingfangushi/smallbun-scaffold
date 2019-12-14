@@ -16,11 +16,11 @@
 
 package cn.smallbun.scaffold.manage.service;
 
+import cn.smallbun.scaffold.framework.mybatis.service.BaseService;
 import cn.smallbun.scaffold.manage.entity.SysRoleEntity;
 import cn.smallbun.scaffold.manage.enums.RoleStatus;
 import cn.smallbun.scaffold.manage.pojo.RoleAuthVO;
 import cn.smallbun.scaffold.manage.pojo.UpdateAuthorizeBO;
-import cn.smallbun.scaffold.framework.mybatis.service.BaseService;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
