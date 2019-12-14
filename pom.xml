@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.smallbun.scaffold</groupId>
-    <artifactId>smallbun-scaffold-monomer</artifactId>
+    <artifactId>smallbun-scaffold</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <description>smallbun 是大明湖畔最好的企业级开发脚手架</description>
