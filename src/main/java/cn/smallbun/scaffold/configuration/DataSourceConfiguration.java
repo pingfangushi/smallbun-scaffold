@@ -31,7 +31,7 @@ import java.time.Instant;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
-import static cn.smallbun.scaffold.framework.logger.aspect.LoggingAspect.ANONYMOUS_USER;
+import static cn.smallbun.scaffold.framework.security.User.ANONYMOUS_USER;
 
 /**
  * 数据源配置

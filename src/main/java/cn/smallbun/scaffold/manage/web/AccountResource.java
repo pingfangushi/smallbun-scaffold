@@ -42,6 +42,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
 
+import static cn.smallbun.scaffold.framework.common.constant.SystemConstants.COLON;
 import static cn.smallbun.scaffold.framework.exception.enums.Exception.EX000102;
 import static cn.smallbun.scaffold.framework.exception.enums.Exception.EX900005;
 import static cn.smallbun.scaffold.manage.constant.ManageConstant.MANAGE_API_PATH;
@@ -65,7 +66,7 @@ public class AccountResource extends BaseResource {
 
 	final static String API = "系统账户API";
 
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	public AccountResource(IAccountService iAccountService, RedisClient redisClient) {
 		this.iAccountService = iAccountService;
@@ -89,13 +90,13 @@ public class AccountResource extends BaseResource {
 		}
 		// 密码
 		try {
-			if (!redisClient.hasKey(SECRET_CACHE_NAME + "::" + login.getKey())) {
+			if (!redisClient.hasKey(SECRET_CACHE_NAME + COLON + login.getKey())) {
 				logger.error("根据KEY:{}未在缓存中查询到秘钥", login.getKey());
 				return ResponseEntity.ok(new ApiRestResult<LoginResultDTO>().status(EX900005.getCode())
 						.message(EX900005.getMessage()).build());
 			}
 			//拿到秘钥，解密
-			String key = (String) redisClient.get(SECRET_CACHE_NAME + "::" + login.getKey());
+			String key = (String) redisClient.get(SECRET_CACHE_NAME + COLON + login.getKey());
 			String password = RsaUtil.decrypt(RsaUtil.loadPrivateKey(key), RsaUtil.strToBase64(login.getPassword()));
 			login.setPassword(password);
 		} catch (Exception e) {
@@ -121,12 +122,12 @@ public class AccountResource extends BaseResource {
 	 */
 	private boolean validateCaptcha(String key, String captcha) {
 		//如果验证码错误，返回错误
-		if (!redisClient.hasKey(CAPTCHA_CACHE_NAME + "::" + key)) {
+		if (!redisClient.hasKey(CAPTCHA_CACHE_NAME + COLON + key)) {
 			return false;
 		}
-		boolean equals = captcha.equals(redisClient.get(CAPTCHA_CACHE_NAME + "::" + key));
+		boolean equals = captcha.equals(redisClient.get(CAPTCHA_CACHE_NAME + COLON + key));
 		//删除缓存
-		redisClient.del(CAPTCHA_CACHE_NAME + "::" + key);
+		redisClient.del(CAPTCHA_CACHE_NAME + COLON + key);
 		return equals;
 	}
 

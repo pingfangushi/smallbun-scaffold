@@ -273,7 +273,7 @@ public class AccountServiceImpl implements IAccountService {
 			bos.close();
 		}
 		//验证码存入redis，一分钟过期
-		redisClient.set(CAPTCHA_CACHE_NAME + "::" + key, capText, 60);
+		redisClient.set(CAPTCHA_CACHE_NAME + COLON + key, capText, 60);
 		//构建图片验证码返回
 		ImageCaptchaResult result = new ImageCaptchaResult();
 		result.setImage(imageString);
@@ -292,7 +292,7 @@ public class AccountServiceImpl implements IAccountService {
 		String key = UUID.randomUUID().toString();
 
 		//存入redis key 和私钥,公钥没必要 ，五分钟过期
-		redisClient.set(SECRET_CACHE_NAME + "::" + key, map.get(PRIVATE_KEY), 60 * 5);
+		redisClient.set(SECRET_CACHE_NAME + COLON + key, map.get(PRIVATE_KEY), 60 * 5);
 		//返回
 		PublicSecretResult result = new PublicSecretResult();
 		result.setKey(key);
