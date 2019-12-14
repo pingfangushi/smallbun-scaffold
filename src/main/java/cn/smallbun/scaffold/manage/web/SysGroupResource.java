@@ -47,10 +47,10 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 
-import static cn.smallbun.scaffold.framework.common.toolkit.MappingHelp.listMapping;
-import static cn.smallbun.scaffold.framework.common.toolkit.MappingHelp.mapping;
-import static cn.smallbun.scaffold.framework.common.toolkit.NodeHelp.getNodeList;
 import static cn.smallbun.scaffold.framework.logging.enmus.Operate.*;
+import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.listMapping;
+import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.mapping;
+import static cn.smallbun.scaffold.framework.mybatis.utils.NodeHelp.getNodeList;
 import static cn.smallbun.scaffold.manage.web.SysGroupResource.API;
 
 /**

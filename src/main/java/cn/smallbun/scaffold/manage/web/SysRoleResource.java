@@ -48,8 +48,8 @@ import java.util.List;
 
 import static cn.smallbun.scaffold.manage.constant.ManageConstant.MANAGE_API_PATH;
 import static cn.smallbun.scaffold.manage.web.SysRoleResource.API;
-import static cn.smallbun.scaffold.framework.common.toolkit.MappingHelp.mapping;
-import static cn.smallbun.scaffold.framework.common.toolkit.MappingHelp.pageMapping;
+import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.mapping;
+import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.pageMapping;
 import static cn.smallbun.scaffold.framework.logging.enmus.Operate.*;
 
 /**

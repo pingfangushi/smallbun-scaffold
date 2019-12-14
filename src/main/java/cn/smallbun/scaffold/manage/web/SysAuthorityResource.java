@@ -17,6 +17,16 @@
 package cn.smallbun.scaffold.manage.web;
 
 
+import cn.smallbun.scaffold.framework.common.result.ApiRestResult;
+import cn.smallbun.scaffold.framework.common.toolkit.StringUtil;
+import cn.smallbun.scaffold.framework.demo.annotation.DemoEnvironment;
+import cn.smallbun.scaffold.framework.logging.annotation.Logging;
+import cn.smallbun.scaffold.framework.logging.enmus.Platform;
+import cn.smallbun.scaffold.framework.mybatis.page.Page;
+import cn.smallbun.scaffold.framework.mybatis.page.PageModel;
+import cn.smallbun.scaffold.framework.validation.group.AddGroup;
+import cn.smallbun.scaffold.framework.validation.group.UpdateGroup;
+import cn.smallbun.scaffold.framework.web.BaseResource;
 import cn.smallbun.scaffold.manage.constant.ManageConstant;
 import cn.smallbun.scaffold.manage.entity.SysAuthorityTypeEntity;
 import cn.smallbun.scaffold.manage.entity.SysAuthorizeItemEntity;
@@ -28,16 +38,6 @@ import cn.smallbun.scaffold.manage.service.ISysAuthorizeItemService;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.google.common.collect.Lists;
-import cn.smallbun.scaffold.framework.common.result.ApiRestResult;
-import cn.smallbun.scaffold.framework.common.toolkit.StringUtil;
-import cn.smallbun.scaffold.framework.demo.annotation.DemoEnvironment;
-import cn.smallbun.scaffold.framework.logging.annotation.Logging;
-import cn.smallbun.scaffold.framework.logging.enmus.Platform;
-import cn.smallbun.scaffold.framework.mybatis.page.Page;
-import cn.smallbun.scaffold.framework.mybatis.page.PageModel;
-import cn.smallbun.scaffold.framework.validation.group.AddGroup;
-import cn.smallbun.scaffold.framework.validation.group.UpdateGroup;
-import cn.smallbun.scaffold.framework.web.BaseResource;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
@@ -47,8 +47,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static cn.smallbun.scaffold.framework.common.toolkit.MappingHelp.*;
 import static cn.smallbun.scaffold.framework.logging.enmus.Operate.*;
+import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.*;
 
 /**
  * <p>

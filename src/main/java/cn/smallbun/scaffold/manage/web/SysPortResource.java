@@ -17,11 +17,6 @@
 package cn.smallbun.scaffold.manage.web;
 
 
-import cn.smallbun.scaffold.manage.constant.ManageConstant;
-import cn.smallbun.scaffold.manage.pojo.PortVO;
-import cn.smallbun.scaffold.manage.service.ISysPortService;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.google.common.collect.Lists;
 import cn.smallbun.scaffold.framework.common.result.ApiRestResult;
 import cn.smallbun.scaffold.framework.common.toolkit.StringUtil;
 import cn.smallbun.scaffold.framework.logging.annotation.Logging;
@@ -31,6 +26,11 @@ import cn.smallbun.scaffold.framework.mybatis.page.PageModel;
 import cn.smallbun.scaffold.framework.validation.group.AddGroup;
 import cn.smallbun.scaffold.framework.validation.group.UpdateGroup;
 import cn.smallbun.scaffold.framework.web.BaseResource;
+import cn.smallbun.scaffold.manage.constant.ManageConstant;
+import cn.smallbun.scaffold.manage.pojo.PortVO;
+import cn.smallbun.scaffold.manage.service.ISysPortService;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
@@ -38,10 +38,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import static cn.smallbun.scaffold.manage.web.SysPortResource.API;
-import static cn.smallbun.scaffold.framework.common.toolkit.MappingHelp.mapping;
-import static cn.smallbun.scaffold.framework.common.toolkit.MappingHelp.pageMapping;
 import static cn.smallbun.scaffold.framework.logging.enmus.Operate.*;
+import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.mapping;
+import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.pageMapping;
+import static cn.smallbun.scaffold.manage.web.SysPortResource.API;
 
 /**
  * <p>

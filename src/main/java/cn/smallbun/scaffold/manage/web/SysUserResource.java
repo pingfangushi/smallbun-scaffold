@@ -46,8 +46,8 @@ import org.springframework.web.bind.annotation.*;
 
 import static cn.smallbun.scaffold.manage.constant.ManageConstant.MANAGE_API_PATH;
 import static cn.smallbun.scaffold.manage.web.SysUserResource.API;
-import static cn.smallbun.scaffold.framework.common.toolkit.MappingHelp.mapping;
-import static cn.smallbun.scaffold.framework.common.toolkit.MappingHelp.pageMapping;
+import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.mapping;
+import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.pageMapping;
 import static cn.smallbun.scaffold.framework.logging.enmus.Operate.*;
 
 /**

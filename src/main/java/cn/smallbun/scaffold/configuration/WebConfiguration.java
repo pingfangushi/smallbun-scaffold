@@ -19,6 +19,7 @@ package cn.smallbun.scaffold.configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -30,6 +31,7 @@ import java.io.Serializable;
  * @author SanLi
  * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2019/12/14 19:33
  */
+@Configuration
 public class WebConfiguration implements Serializable {
 	private final static Logger LOGGER = LoggerFactory.getLogger(WebConfiguration.class);
 
