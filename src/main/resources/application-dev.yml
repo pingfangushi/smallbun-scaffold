@@ -1,0 +1,56 @@
+# 测试环境配置文件
+spring:
+  #使用H2数据库
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://172.60.20.26:3306/smallbun?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false
+    username: root
+    password: root
+    hikari:
+      auto-commit: true
+      connection-test-query: SELECT 1
+      connection-timeout: 30000
+      idle-timeout: 30000
+      max-lifetime: 1800000
+      maximum-pool-size: 15
+      minimum-idle: 5
+      pool-name: DatebookHikariCP
+
+  #reids
+  redis:
+    host: 172.60.20.26
+    password:
+    port: 6379
+    lettuce:
+      pool:
+        max-idle: 7
+        min-idle: 2
+        max-active: 7
+        max-wait: -1ms
+      shutdown-timeout: 200ms
+    timeout: 5000ms
+
+#smallbun 自定义配置
+cn:
+  smallbun:
+    scaffold:
+      #安全配置
+      security:
+        authentication:
+          jwt:
+            #base64秘钥
+            base64-secret: OWYwZWYzMTk2YTc3Zjg2NmM3ZWE1Nzc2YzI2NDFkZDE2MmQ4MDk1YTAwNzk3ZjNiMTdlY2VhZjcxZmJkOGI0OGRhZDhkYWQ3MWU3ZjdmMzc3NTMwNTJiMGM0OThkZDg3YTA4MzFjMTA4MzAxN2E1NmJlYzQ4MTdjNWFkZmI1ZDU=
+            #token过期时间
+            token-validity-in-seconds: 1800
+        #隐藏用户不存在
+        hide-user-not-found: true
+      #开启演示环境
+      demo:
+        open: false
+      web:
+        #启用手机端访问
+        enable-phone: true
+        #验证码
+      captcha:
+        #启用
+        enable: true

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.smallbun.scaffold.manage.mapper.SysAuthorityTypeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.smallbun.scaffold.manage.entity.SysAuthorityTypeEntity">
+        <id column="id_" property="id"/>
+        <result column="name_" property="name"/>
+        <result column="code_" property="code"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="last_modified_by" property="lastModifiedBy"/>
+        <result column="last_modified_time" property="lastModifiedTime"/>
+        <result column="version_" property="version"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="remarks_" property="remarks"/>
+    </resultMap>
+
+    <!-- 关联查询映射结果 -->
+    <resultMap id="BaseResultAssociationMap" type="cn.smallbun.scaffold.manage.entity.SysAuthorityTypeEntity">
+        <id column="id_" property="id"/>
+        <result column="name_" property="name"/>
+        <result column="code_" property="code"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="last_modified_by" property="lastModifiedBy"/>
+        <result column="last_modified_time" property="lastModifiedTime"/>
+        <result column="version_" property="version"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="remarks_" property="remarks"/>
+        <!--权限-->
+        <collection property="items"
+                    select="cn.smallbun.scaffold.manage.mapper.SysAuthorizeItemMapper.getByAuthId"
+                    column="id_"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+            id_, name_, code_, create_by, create_time, last_modified_by, last_modified_time, version_, is_deleted, remarks_
+    </sql>
+    <!--查询list-->
+    <select id="getAuthoritys" resultMap="BaseResultAssociationMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_authority_type where is_deleted=0
+    </select>
+</mapper>

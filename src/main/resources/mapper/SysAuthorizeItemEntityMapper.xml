@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.smallbun.scaffold.manage.mapper.SysAuthorizeItemMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.smallbun.scaffold.manage.entity.SysAuthorizeItemEntity">
+        <id column="id_" property="id"/>
+        <result column="authorize_" property="authorize"/>
+        <result column="name_" property="name"/>
+        <result column="permission_" property="permission"/>
+        <result column="status_" property="status"/>
+        <result column="type_" property="type"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="last_modified_by" property="lastModifiedBy"/>
+        <result column="last_modified_time" property="lastModifiedTime"/>
+        <result column="version_" property="version"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="remarks_" property="remarks"/>
+    </resultMap>
+    <!--关联查询结果列-->
+    <sql id="Base_Related_Column_List">
+            sai.id_, sai.authorize_, sai.name_, sai.permission_, sai.status_,sai.type_, sai.create_by, sai.create_time,
+        sai.last_modified_by, sai.last_modified_time, sai.version_, sai.is_deleted, sai.remarks_
+    </sql>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+            id_, authorize_, name_, permission_, status_,type_, create_by, create_time,
+        last_modified_by, last_modified_time, version_, is_deleted, remarks_
+    </sql>
+    <!--根据主权限ID查询权限列表-->
+    <select id="getAuthorizeItemsByRole"
+            resultType="cn.smallbun.scaffold.manage.entity.SysAuthorizeItemEntity">
+        select
+        <include refid="Base_Related_Column_List"/>
+        FROM sys_role_authority a
+        left join sys_authorize_item sai on sai.id_ = a.authority_
+        left join sys_authority_type s on sai.authorize_ = s.id_
+        where sai.is_deleted = 0
+        and s.is_deleted = 0
+        <if test="!@org.springframework.util.CollectionUtils@isEmpty(ids)">
+            and role_ in
+            <foreach collection="ids" open="(" separator="," close=")" item="id">
+                #{id}
+            </foreach>
+        </if>
+    </select>
+    <!--查询所有权限-->
+    <select id="getAuthorizeItems" resultType="cn.smallbun.scaffold.manage.entity.SysAuthorizeItemEntity">
+        SELECT
+        <include refid="Base_Related_Column_List"/>
+        FROM sys_authorize_item sai
+        LEFT JOIN sys_authority_type s on sai.authorize_ = s.id_
+        where sai.is_deleted = 0
+        and s.is_deleted = 0
+    </select>
+    <!--根据主权限ID查询权限-->
+    <select id="getByAuthId" resultType="cn.smallbun.scaffold.manage.entity.SysAuthorizeItemEntity">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_authorize_item where is_deleted=0 and authorize_=#{authId}
+    </select>
+
+</mapper>

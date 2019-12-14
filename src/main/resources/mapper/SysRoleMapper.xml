@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.smallbun.scaffold.manage.mapper.SysRoleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.smallbun.scaffold.manage.entity.SysRoleEntity">
+        <id column="id_" property="id"/>
+        <result column="name_" property="name"/>
+        <result column="code_" property="code"/>
+        <result column="data_scope" property="dataScope"/>
+        <result column="status_" property="status"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="last_modified_by" property="lastModifiedBy"/>
+        <result column="last_modified_time" property="lastModifiedTime"/>
+        <result column="version_" property="version"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="remarks_" property="remarks"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id_, name_, code_, data_scope,  status_, create_by, create_time, last_modified_by, last_modified_time,version_, is_deleted, remarks_
+    </sql>
+    <!--添加角色-用户-->
+    <insert id="saveRoleUser">
+        INSERT INTO sys_user_role(user_, role_)
+        VALUES
+        <foreach collection="roleIds" item="item" index="index" separator=",">
+            (#{userId},#{item})
+        </foreach>
+    </insert>
+    <!--添加角色权限关联关系-->
+    <insert id="saveRoleAuthorize">
+       INSERT INTO sys_role_authority values(#{id},#{auth},#{type})
+    </insert>
+    <!--删除用户和角色关联关系根据用户id-->
+    <delete id="removeByUserId">
+        DELETE FROM sys_user_role WHERE user_=#{id}
+    </delete>
+    <!--删除角色权限关联关系-->
+    <delete id="removeRoleAuthorize">
+        DELETE FROM sys_role_authority WHERE role_=#{id} AND authority_=#{auth} AND type_=#{type}
+    </delete>
+    <!--根据用户ID查询具有的角色信息-->
+    <select id="findByUserId" resultType="cn.smallbun.scaffold.manage.entity.SysRoleEntity">
+        SELECT distinct sr.*
+        FROM sys_role sr
+         INNER JOIN sys_user_role sur ON sur.role_ = sr.id_ and sr.is_deleted = 0
+         INNER JOIN sys_user su ON su.id_ = sur.user_ and su.is_deleted = 0
+         WHERE su.id_=#{id}
+    </select>
+    <!--根据角色ID获取权限-->
+    <select id="getRoleAuthById" resultType="cn.smallbun.scaffold.manage.pojo.RoleAuthBO">
+        SELECT role_ as role,authority_ as auth ,type_ as type
+        FROM sys_role_authority where role_=#{id}
+    </select>
+
+</mapper>

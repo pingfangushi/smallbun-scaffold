@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.smallbun.scaffold.manage.mapper.SysUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.smallbun.scaffold.manage.entity.SysUserEntity">
+        <id column="id_" property="id"/>
+        <result column="username_" property="username"/>
+        <result column="password_hash" property="passwordHash"/>
+        <result column="group_" property="groupId"/>
+        <result column="name_" property="name"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="phone_" property="phone"/>
+        <result column="email_" property="email"/>
+        <result column="head_portrait_url" property="headPortraitUrl"/>
+        <result column="id_card" property="idCard"/>
+        <result column="status_" property="status"
+                typeHandler="cn.smallbun.scaffold.manage.handler.UserStatusTypeHandler"
+        />
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="last_modified_by" property="lastModifiedBy"/>
+        <result column="last_modified_time" property="lastModifiedTime"/>
+        <result column="version_" property="version"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="remarks_" property="remarks"/>
+        <!--机构信息-->
+        <result column="group.id_" property="group.id"/>
+        <result column="group.name_" property="group.name"/>
+        <result column="group.code_" property="group.code"/>
+        <result column="group.parent_" property="group.parentId"/>
+        <result column="group.parents_" property="group.parentIds"/>
+        <result column="group.type_" property="group.type"/>
+        <result column="group.status_" property="group.status"/>
+        <result column="group.sort_" property="group.sort"/>
+        <result column="group.create_by" property="group.createBy"/>
+        <result column="group.create_time" property="group.createTime"/>
+        <result column="group.last_modified_by" property="group.lastModifiedBy"/>
+        <result column="group.last_modified_time" property="group.lastModifiedTime"/>
+        <result column="group.version_" property="group.version"/>
+        <result column="group.is_deleted" property="group.isDeleted"/>
+        <result column="group.remarks_" property="group.remarks"/>
+        <!--实现延迟加载角色信息-->
+        <association property="roles" column="id_" fetchType="eager"
+                     select="cn.smallbun.scaffold.manage.mapper.SysRoleMapper.findByUserId"/>
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Associate_Base_Column_List">
+        s.id_, s.username_, s.password_hash, s.group_ ,s.name_, s.nick_name,s.phone_, s.email_, s.head_portrait_url, s.id_card, s.status_, s.create_by, s.create_time, s.last_modified_by , s.last_modified_time, s.version_, s.is_deleted, s.remarks_, o.id_ AS 'group.id_' , o.name_ AS 'group.name_', o.code_ AS 'group.code_', o.parent_ AS 'group.parent_', o.parents_ AS 'group.parents_', o.type_ AS 'group.type_' , o.status_ AS 'group.status_', o.sort_ AS 'group.sort_', o.create_by AS 'group.create_by', o.create_time AS 'group.create_time' , o.last_modified_by AS 'group.last_modified_by', o.last_modified_time AS 'group.last_modified_time', o.version_ AS 'group.version_', o.is_deleted AS 'group.is_deleted', o.remarks_ AS 'group.remarks_'
+    </sql>
+    <!--通用查询结果列-->
+    <sql id="Base_Column_List">
+        id_,username_,password_hash,group_,name_, nick_name,phone_, email_, head_portrait_url, id_card,status_,create_by,create_time,last_modified_by,last_modified_time,version_,is_deleted,remarks_
+    </sql>
+    <!--分页查询-->
+    <select id="page" resultMap="BaseResultMap">
+        select
+        <include refid="Associate_Base_Column_List"/>
+        from sys_user s
+        LEFT JOIN sys_group o
+        ON o.id_ = s.group_
+        <where>
+            <if test="!@org.springframework.util.ObjectUtils@isEmpty(user.groupId)">
+                and (o.id_=#{user.groupId} or o.parent_=#{user.groupId})
+            </if>
+            <if test="!@org.springframework.util.ObjectUtils@isEmpty(user.username)">
+                and s.username_ like CONCAT('%',#{user.username},'%')
+            </if>
+            <if test="!@org.springframework.util.ObjectUtils@isEmpty(user.status)">
+                and s.status_ = #{user.status}
+            </if>
+            and s.is_deleted=0
+            and o.is_deleted=0
+        </where>
+    </select>
+    <!--根据用户名查询用户-->
+    <select id="findByUserName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user t
+        where t.username_ = #{username}
+        and is_deleted = 0
+    </select>
+</mapper>

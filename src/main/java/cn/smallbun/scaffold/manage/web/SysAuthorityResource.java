@@ -1,0 +1,275 @@
+package cn.smallbun.scaffold.manage.web;
+
+
+import cn.smallbun.scaffold.manage.constant.ManageConstant;
+import cn.smallbun.scaffold.manage.entity.SysAuthorityTypeEntity;
+import cn.smallbun.scaffold.manage.entity.SysAuthorizeItemEntity;
+import cn.smallbun.scaffold.manage.entity.SysDictItemEntity;
+import cn.smallbun.scaffold.manage.pojo.AuthorityVO;
+import cn.smallbun.scaffold.manage.pojo.AuthorizeItemVO;
+import cn.smallbun.scaffold.manage.service.ISysAuthorityTypeService;
+import cn.smallbun.scaffold.manage.service.ISysAuthorizeItemService;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.google.common.collect.Lists;
+import cn.smallbun.scaffold.framework.common.result.ApiRestResult;
+import cn.smallbun.scaffold.framework.common.toolkit.StringUtil;
+import cn.smallbun.scaffold.framework.demo.annotation.DemoEnvironment;
+import cn.smallbun.scaffold.framework.logging.annotation.Logging;
+import cn.smallbun.scaffold.framework.logging.enmus.Platform;
+import cn.smallbun.scaffold.framework.mybatis.page.Page;
+import cn.smallbun.scaffold.framework.mybatis.page.PageModel;
+import cn.smallbun.scaffold.framework.validation.group.AddGroup;
+import cn.smallbun.scaffold.framework.validation.group.UpdateGroup;
+import cn.smallbun.scaffold.framework.web.BaseResource;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+import static cn.smallbun.scaffold.framework.common.toolkit.MappingHelp.*;
+import static cn.smallbun.scaffold.framework.logging.enmus.Operate.*;
+
+/**
+ * <p>
+ * 系统业务信息维护表 前端控制器
+ * </p>
+ *
+ * @author SanLi Automatic generated
+ * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on  2019-11-07
+ */
+@Validated
+@Api(tags = SysAuthorityResource.API)
+@Logging(module = SysAuthorityResource.API)
+@RestController
+@RequestMapping(ManageConstant.MANAGE_API_PATH + "/authority")
+public class SysAuthorityResource extends BaseResource {
+
+	final static String API = "权限管理API";
+
+
+	/**
+	 * 添加
+	 * @param authority {@link AuthorityVO} 添加对象
+	 * @return {@link ApiRestResult} 通用返回对象
+	 */
+	@DemoEnvironment
+	@Logging(feature = "新增系统权限", action = ADD, platform = Platform.MANAGE)
+	@PreAuthorize("hasAuthority('manage:interface:authority:add')")
+	@ApiOperation(value = "新增系统权限", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperationSupport(order = 1)
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public ApiRestResult add(@Validated(value = {AddGroup.class}) @RequestBody SysAuthorityTypeEntity authority) {
+		return new ApiRestResult<>().result(iSysAuthorityService.save(authority)).build();
+	}
+
+
+	/**
+	 * 修改系统权限
+	 *
+	 * @param authority {@link AuthorityVO} 添加对象
+	 * @return {@link ApiRestResult} 通用返回对象
+	 */
+	@DemoEnvironment
+	@Logging(feature = "修改系统权限", action = UPDATE, platform = Platform.MANAGE)
+	@PreAuthorize("hasAuthority('manage:interface:authority:update')")
+	@ApiOperation(value = "修改系统权限", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperationSupport(order = 2)
+	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public ApiRestResult updateById(
+			@Validated(value = {UpdateGroup.class}) @RequestBody SysAuthorityTypeEntity authority) {
+		return new ApiRestResult<>().result(iSysAuthorityService.updateById(authority)).build();
+	}
+
+	/**
+	 * 根据系统权限ID删除并清除缓存
+	 *
+	 * @param ids {@link String} ids
+	 * @return {@link ApiRestResult} 通用返回对象
+	 */
+	@DemoEnvironment
+	@Logging(feature = "根据ID删除权限", action = REMOVE, platform = Platform.MANAGE)
+	@ApiOperation(value = "根据ID删除权限", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperationSupport(order = 3)
+	@DeleteMapping(value = "/{ids}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PreAuthorize("hasAuthority('manage:interface:authority:remove')")
+	public ApiRestResult removeByIds(@PathVariable String ids) {
+		return new ApiRestResult<>()
+				.result(iSysAuthorityService.removeByIds(Lists.newArrayList(ids.split(StringUtil.SPLIT_DEFAULT))))
+				.build();
+	}
+
+	/**
+	 * 分页查询系统权限信息
+	 *
+	 * @param pageModel {@link PageModel} 对象
+	 * @return {@link ApiRestResult} 通用返回对象
+	 */
+	@Logging(feature = "分页查询权限列表", action = FETCH, platform = Platform.MANAGE)
+	@PreAuthorize("hasAuthority('manage:interface:authority:fetch')")
+	@ApiOperation(value = "分页查询权限列表", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperationSupport(order = 4)
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public ApiRestResult<Page<AuthorityVO>> getPage(PageModel pageModel, SysAuthorityTypeEntity authority) {
+		// 转换为VO
+		Page<AuthorityVO> page = pageMapping(iSysAuthorityService.page(pageModel, Wrappers.query(authority)),
+				AuthorityVO.class);
+		return new ApiRestResult<Page<AuthorityVO>>().result(page).build();
+	}
+
+
+	/**
+	 * 通过ID查询系统权限信息
+	 *
+	 * @param id {@link String} id
+	 * @return {@link ApiRestResult} 通用返回对象
+	 */
+	@Logging(feature = "通过ID查询权限", action = FETCH, platform = Platform.MANAGE)
+	@PreAuthorize("hasAuthority('manage:interface:authority:fetch')")
+	@ApiOperation(value = "通过ID查询权限", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperationSupport(order = 5)
+	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ApiRestResult<AuthorityVO> getById(@PathVariable String id) {
+		// 转换为VO
+		AuthorityVO authority = mapping(iSysAuthorityService.getById(id), new AuthorityVO());
+		return new ApiRestResult<AuthorityVO>().result(authority).build();
+	}
+
+	/**
+	 * 系统权限唯一验证
+	 *
+	 * @param value {@link SysDictItemEntity} value
+	 * @return {@link ApiRestResult} 通用返回对象
+	 */
+	@Logging(feature = "唯一权限验证", action = FETCH, platform = Platform.MANAGE)
+	@ApiOperation(value = "唯一权限验证", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperationSupport(order = 6)
+	@PreAuthorize("hasAuthority('manage:interface:authority:unique')")
+	@GetMapping(value = "unique", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ApiRestResult<Boolean> unique(SysAuthorityTypeEntity value) {
+		return new ApiRestResult<Boolean>().result(iSysAuthorityService.unique(value)).build();
+	}
+
+	/**
+	 * 添加
+	 * @param authority {@link SysAuthorizeItemEntity} 添加对象
+	 * @return {@link ApiRestResult} 通用返回对象
+	 */
+	@DemoEnvironment
+	@Logging(feature = "新增权限项", action = ADD, platform = Platform.MANAGE)
+	@PreAuthorize("hasAuthority('manage:interface:authority:add')")
+	@ApiOperation(value = "新增权限项", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperationSupport(order = 7)
+	@PostMapping(value = "item", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ApiRestResult addItem(@Validated(value = {AddGroup.class}) @RequestBody SysAuthorizeItemEntity authority) {
+		return new ApiRestResult<>().result(iSysAuthorizeItemService.save(authority)).build();
+	}
+
+
+	/**
+	 * 修改操作权限
+	 *
+	 * @param authority {@link SysAuthorizeItemEntity} 添加对象
+	 * @return {@link ApiRestResult} 通用返回对象
+	 */
+	@DemoEnvironment
+	@Logging(feature = "修改权限项", action = UPDATE, platform = Platform.MANAGE)
+	@PreAuthorize("hasAuthority('manage:interface:authority:update')")
+	@ApiOperation(value = "修改权限项", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperationSupport(order = 8)
+	@PutMapping(value = "item", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ApiRestResult updateItemById(
+			@Validated(value = {UpdateGroup.class}) @RequestBody SysAuthorizeItemEntity authority) {
+		return new ApiRestResult<>().result(iSysAuthorizeItemService.updateById(authority)).build();
+	}
+
+	/**
+	 * 根据操作权限ID删除并清除缓存
+	 *
+	 * @param ids {@link String} ids
+	 * @return {@link ApiRestResult} 通用返回对象
+	 */
+	@DemoEnvironment
+	@Logging(feature = "根据ID删除权限项", action = REMOVE, platform = Platform.MANAGE)
+	@ApiOperation(value = "根据ID删除权限项", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperationSupport(order = 9)
+	@DeleteMapping(value = "item/{ids}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PreAuthorize("hasAuthority('manage:interface:authority:remove')")
+	public ApiRestResult removeItemByIds(@PathVariable String ids) {
+		return new ApiRestResult<>()
+				.result(iSysAuthorizeItemService.removeByIds(Lists.newArrayList(ids.split(StringUtil.SPLIT_DEFAULT))))
+				.build();
+	}
+
+	/**
+	 * 查询操作权限信息
+	 *
+	 * @return {@link ApiRestResult} 通用返回对象
+	 */
+	@Logging(feature = "查询权限项列表", action = FETCH, platform = Platform.MANAGE)
+	@PreAuthorize("hasAuthority('manage:interface:authority:fetch')")
+	@ApiOperation(value = "查询权限项列表", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperationSupport(order = 10)
+	@GetMapping(value = "item", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ApiRestResult<List<AuthorizeItemVO>> getItemList(SysAuthorizeItemEntity authority) {
+		// 转换为VO
+		List<AuthorizeItemVO> list = listMapping(iSysAuthorizeItemService.list(Wrappers.query(authority)),
+				AuthorizeItemVO.class);
+		return new ApiRestResult<List<AuthorizeItemVO>>().result(list).build();
+	}
+
+
+	/**
+	 * 通过ID查询操作权限信息
+	 *
+	 * @param id {@link String} id
+	 * @return {@link ApiRestResult} 通用返回对象
+	 */
+	@Logging(feature = "根据ID查询权限项", action = FETCH, platform = Platform.MANAGE)
+	@PreAuthorize("hasAuthority('manage:interface:authority:fetch')")
+	@ApiOperation(value = "根据ID查询权限项", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperationSupport(order = 11)
+	@GetMapping(value = "item/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ApiRestResult<AuthorizeItemVO> getItemById(@PathVariable String id) {
+		// 转换为VO
+		AuthorizeItemVO authority = mapping(iSysAuthorizeItemService.getById(id), new AuthorizeItemVO());
+		return new ApiRestResult<AuthorizeItemVO>().result(authority).build();
+	}
+
+	/**
+	 * 操作权限唯一验证
+	 *
+	 * @param value {@link SysDictItemEntity} value
+	 * @return {@link ApiRestResult} 通用返回对象
+	 */
+	@Logging(feature = "唯一权限项验证", action = FETCH, platform = Platform.MANAGE)
+	@ApiOperation(value = "唯一权限项验证", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperationSupport(order = 12)
+	@PreAuthorize("hasAuthority('manage:interface:authority:fetch')")
+	@GetMapping(value = "item/unique", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ApiRestResult<Boolean> uniqueItem(SysAuthorizeItemEntity value) {
+		return new ApiRestResult<Boolean>().result(iSysAuthorizeItemService.unique(value)).build();
+	}
+
+
+	/**
+	 *	注入操作权限项业务接口
+	 */
+	private final ISysAuthorizeItemService iSysAuthorizeItemService;
+	/**
+	 *	注入系统权限业务接口
+	 */
+	private final ISysAuthorityTypeService iSysAuthorityService;
+
+
+	public SysAuthorityResource(ISysAuthorizeItemService iSysAuthorizeItemService,
+			ISysAuthorityTypeService iSysModuleService) {
+		this.iSysAuthorizeItemService = iSysAuthorizeItemService;
+		this.iSysAuthorityService = iSysModuleService;
+	}
+}
+

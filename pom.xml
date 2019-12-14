@@ -1,657 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  ~ The MIT License (MIT)
-  ~
-  ~ Copyright (c) 2019 ‭‭‭‭‭‭‭‭‭‭‭‭[smallbun] www.smallbun.org
-  ~
-  ~ Permission is hereby granted, free of charge, to any person obtaining a copy of
-  ~ this software and associated documentation files (the "Software"), to deal in
-  ~ the Software without restriction, including without limitation the rights to
-  ~ use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-  ~ the Software, and to permit persons to whom the Software is furnished to do so,
-  ~ subject to the following conditions:
-  ~
-  ~ The above copyright notice and this permission notice shall be included in all
-  ~ copies or substantial portions of the Software.
-  ~
-  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-  ~ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-  ~ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-  ~ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-  ~ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-  -->
-
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>org.smallbun.fast</groupId>
-    <artifactId>smallbun-fast-parent</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
     <parent>
         <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-dependencies</artifactId>
-        <version>2.1.3.RELEASE</version>
-        <relativePath/>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.1.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <modules>
-        <module>smallbun-fast-modules</module>
-        <module>smallbun-fast-framework</module>
-    </modules>
+    <groupId>org.smallbun.scaffold</groupId>
+    <artifactId>smallbun-scaffold-monomer</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <description>smallbun 是大明湖畔最好的企业级开发脚手架</description>
+
     <properties>
-        <!--编码-->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <!--java 版本-->
         <java.version>1.8</java.version>
-        <!--fast json-->
-        <fastjson.version>1.2.56</fastjson.version>
-        <!--验证码-->
-        <kaptcha.version>0.0.9</kaptcha.version>
-        <!--mybatis plus-->
-        <mybatisplus.version>3.1.0</mybatisplus.version>
-        <!--swagger 文档-->
-        <swagger.version>2.9.2</swagger.version>
-        <!--commons.text-->
-        <commons.text.version>1.6</commons.text.version>
-        <!--guava-->
-        <google.guava.version>27.0.1-jre</google.guava.version>
-        <!--jackson-->
-        <jackson.version>2.9.8</jackson.version>
-        <!--commons-io-->
-        <commons-io.version>2.6</commons-io.version>
-        <!--jackson-mapper-asl-->
-        <jackson-mapper-asl.version>1.9.13</jackson-mapper-asl.version>
-        <!--UserAgentUtils-->
-        <UserAgentUtils.version>1.21</UserAgentUtils.version>
-        <!--json-lib-->
-        <json-lib.version>2.4</json-lib.version>
-        <!--httpclient-->
-        <httpclient.version>4.5.6</httpclient.version>
-        <!--oshi-->
-        <oshi.version>3.9.1</oshi.version>
+        <!--maven plugins-->
+        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+        <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+        <maven-jar-plugin.version>3.1.2</maven-jar-plugin.version>
+        <apache-rat-plugin.version>0.12</apache-rat-plugin.version>
     </properties>
+
     <dependencies>
-        <!--web-->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>cn.smallbun.scaffold</groupId>
+            <artifactId>smallbun-scaffold-framework</artifactId>
+            <version>0.0.1</version>
         </dependency>
-        <!--aop-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
-        <!--redis-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
-        <!--cache-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-cache</artifactId>
-        </dependency>
-        <!-- 引入 websocket 依赖类-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-websocket</artifactId>
-        </dependency>
-        <!--<dependency>
-            <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache</artifactId>
-        </dependency>-->
-        <!--spring security-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-        <!--thymeleaf security-->
-        <dependency>
-            <groupId>org.thymeleaf.extras</groupId>
-            <artifactId>thymeleaf-extras-springsecurity5</artifactId>
-        </dependency>
-        <!--thymeleaf-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        <!-- freemarker -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-freemarker</artifactId>
-        </dependency>
-        <!--actuator-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <!--validation-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
-        </dependency>
-        <!--quartz-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-quartz</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
         </dependency>
-        <!--将被@ConfigurationProperties注解的类的属性注入到元数据-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
-        <!--devtools-->
-        <!--<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
-        </dependency>-->
-        <!--mysql-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-        <!-- 获取系统信息 -->
-        <dependency>
-            <groupId>com.github.oshi</groupId>
-            <artifactId>oshi-core</artifactId>
-            <version>${oshi.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.java.dev.jna</groupId>
-            <artifactId>jna</artifactId>
-        </dependency>
-        <!--mybatis-plus-->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>${mybatisplus.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-generator</artifactId>
-            <version>${mybatisplus.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.freemarker</groupId>
-            <artifactId>freemarker</artifactId>
-        </dependency>
-        <!--<dependency>
-            <groupId>org.mybatis.caches</groupId>
-            <artifactId>mybatis-ehcache</artifactId>
-            <version>1.1.0</version>
-        </dependency>-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${google.guava.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>cn.afterturn</groupId>
-            <artifactId>easypoi-spring-boot-starter</artifactId>
-            <version>4.0.0</version>
-        </dependency>
-        <!-- httpclient -->
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>${httpclient.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${commons-io.version}</version>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>net.sf.json-lib</groupId>
-            <artifactId>json-lib</artifactId>
-            <version>${json-lib.version}</version>
-            <classifier>jdk15</classifier>
-            <exclusions>
-                <exclusion>
-                    <artifactId>commons-lang</artifactId>
-                    <groupId>commons-lang</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
-            <version>${jackson-mapper-asl.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>${fastjson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>eu.bitwalker</groupId>
-            <artifactId>UserAgentUtils</artifactId>
-            <version>${UserAgentUtils.version}</version>
-        </dependency>
-        <!--webjars 依赖-->
-
-        <!--font-awesome-->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>font-awesome</artifactId>
-            <version>4.7.0</version>
-        </dependency>
-        <!--prismJs-->
-        <dependency>
-            <groupId>org.webjars.bowergithub.prismjs</groupId>
-            <artifactId>prism</artifactId>
-            <version>1.15.0</version>
-        </dependency>
-        <!--jquery-treeGrid-->
-        <dependency>
-            <groupId>org.webjars.bower</groupId>
-            <artifactId>jquery-treegrid</artifactId>
-            <version>0.3.0</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jquery</artifactId>
-                    <groupId>org.webjars.bower</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!--editor.md-->
-        <dependency>
-            <groupId>org.webjars.bower</groupId>
-            <artifactId>editor.md</artifactId>
-            <version>1.5.0</version>
-        </dependency>
-        <!--bootstrap validator-->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrapvalidator</artifactId>
-            <version>0.5.3</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>bootstrap</artifactId>
-                    <groupId>org.webjars</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!--jquery-->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery</artifactId>
-            <version>3.3.1</version>
-        </dependency>
-        <!--bootstrap-->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap</artifactId>
-            <version>3.3.7</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jquery</artifactId>
-                    <groupId>org.webjars</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!--animate-->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>animate.css</artifactId>
-            <version>3.5.2</version>
-        </dependency>
-        <!--html5shiv-->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>html5shiv</artifactId>
-            <version>3.7.3</version>
-        </dependency>
-        <!--respond-->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>respond</artifactId>
-            <version>1.4.2</version>
-        </dependency>
-        <!--ztree-->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>zTree</artifactId>
-            <version>3.5.37</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jquery</artifactId>
-                    <groupId>org.webjars</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!--selectPage-->
-        <dependency>
-            <groupId>org.webjars.bowergithub.terryz</groupId>
-            <artifactId>selectpage</artifactId>
-            <version>2.19</version>
-        </dependency>
-        <!--layer-->
-        <dependency>
-            <groupId>org.webjars.bowergithub.sentsin</groupId>
-            <artifactId>layer</artifactId>
-            <version>3.1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars.bowergithub.sentsin</groupId>
-            <artifactId>laydate</artifactId>
-            <version>5.0.9</version>
-        </dependency>
-        <!--bootstrap-date picker-->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap-datepicker</artifactId>
-            <version>1.8.0</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>bootstrap</artifactId>
-                    <groupId>org.webjars</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!--select2-->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>select2</artifactId>
-            <version>4.0.5</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jquery</artifactId>
-                    <groupId>org.webjars</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!--spark line-->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery.sparkline</artifactId>
-            <version>2.1.2</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jquery</artifactId>
-                    <groupId>org.webjars</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!--raphael-->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>raphaeljs</artifactId>
-            <version>2.1.4</version>
-        </dependency>
-        <!--knob-->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery-knob</artifactId>
-            <version>1.2.11</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jquery</artifactId>
-                    <groupId>org.webjars</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!--block ui-->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery-blockui</artifactId>
-            <version>2.70</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jquery</artifactId>
-                    <groupId>org.webjars</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!--moment-->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>momentjs</artifactId>
-            <version>2.22.2</version>
-        </dependency>
-        <!--date range picker-->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap-daterangepicker</artifactId>
-            <version>3.0.3</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>momentjs</artifactId>
-                    <groupId>org.webjars</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>bootstrap</artifactId>
-                    <groupId>org.webjars</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!--slimScroll-->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jQuery-slimScroll</artifactId>
-            <version>1.3.8</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jquery</artifactId>
-                    <groupId>org.webjars</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!--colorpicker-->
-        <dependency>
-            <groupId>org.webjars.bower</groupId>
-            <artifactId>bootstrap-colorpicker</artifactId>
-            <version>2.5.1</version>
-        </dependency>
-        <!--fast click-->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>fastclick</artifactId>
-            <version>1.0.6</version>
-        </dependency>
-        <!--ion icons-->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>ionicons</artifactId>
-            <version>2.0.1</version>
-        </dependency>
-        <!--jquery-ui-->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery-ui</artifactId>
-            <version>1.12.1</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jquery</artifactId>
-                    <groupId>org.webjars</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!--toastr-->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>toastr</artifactId>
-            <version>2.1.2</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jquery</artifactId>
-                    <groupId>org.webjars</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!--iCheck-->
-        <dependency>
-            <groupId>org.webjars.bower</groupId>
-            <artifactId>iCheck</artifactId>
-            <version>1.0.2</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jquery</artifactId>
-                    <groupId>org.webjars.bower</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!--bootstrap-table-->
-        <dependency>
-            <groupId>org.webjars.npm</groupId>
-            <artifactId>bootstrap-table</artifactId>
-            <version>1.14.1</version>
-        </dependency>
-        <!--inputmask-->
-        <dependency>
-            <groupId>org.webjars.npm</groupId>
-            <artifactId>inputmask</artifactId>
-            <version>4.0.6</version>
-        </dependency>
-        <!--tablednd-->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery-tablednd</artifactId>
-            <version>0.9.1</version>
-        </dependency>
-        <!--jquery-resize-->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery-resize-plugin</artifactId>
-            <version>1.1</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jquery</artifactId>
-                    <groupId>org.webjars</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!--jquery-validation-->
-        <dependency>
-            <groupId>org.webjars.bower</groupId>
-            <artifactId>jquery-validation</artifactId>
-            <version>1.19.0</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jquery</artifactId>
-                    <groupId>org.webjars</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>jquery</artifactId>
-                    <groupId>org.webjars.bower</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!--require js-->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>requirejs</artifactId>
-            <version>2.3.6</version>
-        </dependency>
-        <!--pace-->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>pace</artifactId>
-            <version>1.0.2</version>
-        </dependency>
-        <!--weui-->
-        <dependency>
-            <groupId>org.webjars.npm</groupId>
-            <artifactId>weui</artifactId>
-            <version>1.1.2</version>
-        </dependency>
-        <!--sockjs-client-->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>sockjs-client</artifactId>
-            <version>1.1.2</version>
-        </dependency>
-        <!--stomp-websocket-->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>stomp-websocket</artifactId>
-            <version>2.3.3-1</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
     </dependencies>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-annotations</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-text</artifactId>
-                <version>${commons.text.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>8</source>
-                    <target>8</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <!-- YUI Compressor Maven压缩插件 -->
-                <groupId>net.alchim31.maven</groupId>
-                <artifactId>yuicompressor-maven-plugin</artifactId>
-                <version>1.5.1</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compress</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <!-- 读取js,css文件采用UTF-8编码 -->
-                    <encoding>UTF-8</encoding>
-                    <!-- 不显示js可能的错误 -->
-                    <jswarn>false</jswarn>
-                    <!-- 若存在已压缩的文件，会先对比源文件是否有改动  有改动便压缩，无改动就不压缩 -->
-                    <force>false</force>
-                    <!-- 在指定的列号后插入新行 -->
-                    <linebreakpos>-1</linebreakpos>
-                    <!-- 压缩之前先执行聚合文件操作 -->
-                    <preProcessAggregates>true</preProcessAggregates>
-                    <!-- 压缩后保存文件后缀 无后缀 -->
-                    <nosuffix>true</nosuffix>
-                    <!-- 源目录，即需压缩的根目录 -->
-                    <sourceDirectory>src/main/static</sourceDirectory>
-                    <!-- 输出目录，即压缩后的目录-->
-                    <outputDirectory>target/classes</outputDirectory>
-                    <force>true</force>
-                    <!-- 压缩js和css文件 -->
-                    <includes>
-                        <include>**/*.js</include>
-                        <include>**/*.css</include>
-                    </includes>
-                    <!-- 以下目录和文件不会被压缩 -->
-                    <excludes>
-                        <exclude>**/*.min.js</exclude>
-                        <exclude>**/*.min.css</exclude>
-                        <exclude>**/common/plugins/neditor/**/*.js</exclude>
-                        <exclude>**/common/plugins/neditor/**/*.css</exclude>
-                        <exclude>**/common/plugins/neditor/*.js</exclude>
-                        <exclude>**/common/plugins/neditor/*.css</exclude>
-                    </excludes>
-                </configuration>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
+
 </project>

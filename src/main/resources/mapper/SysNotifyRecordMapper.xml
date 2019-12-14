@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.smallbun.scaffold.manage.mapper.SysNotifyRecordMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.smallbun.scaffold.manage.entity.SysNotifyRecordEntity">
+        <id column="id_" property="id"/>
+        <result column="notify_" property="notify"/>
+        <result column="user_" property="user"/>
+        <result column="is_read" property="isRead"/>
+        <result column="read_date" property="readDate"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="last_modified_by" property="lastModifiedBy"/>
+        <result column="last_modified_time" property="lastModifiedTime"/>
+        <result column="version_" property="version"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="remarks_" property="remarks"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id_, notify_, user_, is_read, read_date, create_by, create_time, last_modified_by, last_modified_time, version_, is_deleted, remarks_
+    </sql>
+
+</mapper>

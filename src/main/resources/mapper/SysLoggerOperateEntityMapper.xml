@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.smallbun.scaffold.manage.mapper.SysLoggerOperateMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.smallbun.scaffold.manage.entity.SysLoggerOperateEntity">
+        <result column="id_" property="id"/>
+        <result column="module_" property="module"/>
+        <result column="params_" property="params"/>
+        <result column="feature_" property="feature"/>
+        <result column="action_" property="action"/>
+        <result column="platform_" property="platform"/>
+        <result column="user_" property="user"/>
+        <result column="time_" property="time"/>
+        <result column="uri_" property="uri"/>
+        <result column="location_" property="location"/>
+        <result column="browser_" property="browser"/>
+        <result column="os_" property="os"/>
+        <result column="method_" property="method"/>
+        <result column="ip_" property="ip"/>
+        <result column="status_" property="status"/>
+        <result column="result_" property="result"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="last_modified_by" property="lastModifiedBy"/>
+        <result column="last_modified_time" property="lastModifiedTime"/>
+        <result column="version_" property="version"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="remarks_" property="remarks"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+      id_,last_modified_time,os_,method_,result_,status_, ip_,module_,last_modified_by,params_,uri_,version_,platform_,create_by,feature_,is_deleted,create_time,browser_,action_,location_,time_,user_,remarks_
+    </sql>
+</mapper>
