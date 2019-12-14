@@ -61,41 +61,41 @@ public class SysLoggerOperateServiceImpl extends BaseServiceImpl<SysLoggerOperat
 	 */
 	private SysLoggerOperateEntity getLog(cn.smallbun.scaffold.framework.logger.domain.Logger log) {
 		//记录日志
-		SysLoggerOperateEntity logging = new SysLoggerOperateEntity();
+		SysLoggerOperateEntity logger = new SysLoggerOperateEntity();
 		//请求地址
-		logging.setUri(log.getUri());
+		logger.setUri(log.getUri());
 		//模块
-		logging.setModule(log.getModule());
+		logger.setModule(log.getModule());
 		//功能
-		logging.setFeature(log.getFeature());
+		logger.setFeature(log.getFeature());
 		//请求参数
-		logging.setParams(log.getParams());
+		logger.setParams(log.getParams());
 		//平台类型
-		logging.setPlatform(log.getPlatform().getCode());
+		logger.setPlatform(log.getPlatform().getCode());
 		//操作类型
-		logging.setAction(log.getAction().getCode());
+		logger.setAction(log.getAction().getCode());
 		//方法名称
-		logging.setMethod(log.getMethod());
+		logger.setMethod(log.getMethod());
 		//操作用户
-		logging.setUser(log.getUser());
+		logger.setUser(log.getUser());
 		//操作IP
-		logging.setIp(log.getIp());
+		logger.setIp(log.getIp());
 		//登录地点
-		logging.setLocation(log.getLocation());
+		logger.setLocation(log.getLocation());
 		//浏览器
-		logging.setBrowser(log.getBrowser());
+		logger.setBrowser(log.getBrowser());
 		//操作系统
-		logging.setOs(log.getOs());
+		logger.setOs(log.getOs());
 		//操作时间
-		logging.setTime(log.getTime());
+		logger.setTime(log.getTime());
 		//结果
 		try {
-			logging.setResult(JSON.toJSONString(log.getResult()));
+			logger.setResult(JSON.toJSONString(log.getResult()));
 		} catch (Exception e) {
-			logging.setResult(log.getResult().toString());
+			logger.setResult(log.getResult().toString());
 		}
 		//状态
-		logging.setStatus(log.getStatus().getCode());
-		return logging;
+		logger.setStatus(log.getStatus().getCode());
+		return logger;
 	}
 }
