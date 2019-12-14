@@ -16,9 +16,10 @@
 
 package cn.smallbun.scaffold.configuration;
 
-import com.github.xiaoymin.knife4j.spring.annotations.EnableSwaggerBootstrapUi;
 import cn.smallbun.scaffold.framework.common.result.ApiRestResult;
 import cn.smallbun.scaffold.framework.common.toolkit.AppVersionUtil;
+import cn.smallbun.scaffold.framework.configurer.SmallBunProperties;
+import com.github.xiaoymin.knife4j.spring.annotations.EnableSwaggerBootstrapUi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -48,6 +49,10 @@ import static springfox.documentation.builders.PathSelectors.regex;
 @Import(BeanValidatorPluginsConfiguration.class)
 public class SwaggerConfiguration {
 
+	public SwaggerConfiguration(SmallBunProperties properties) {
+		this.properties = properties;
+	}
+
 	/**
 	 * 管理配置RestAPI
 	 * @return {@link Docket}
@@ -75,7 +80,7 @@ public class SwaggerConfiguration {
 	private ApiInfo info() {
 		return new ApiInfoBuilder()
 				//title
-				.title("SmallBun 企业级开发脚手架")
+				.title(properties.getProject().getName())
 				//描述
 				.description("REST API 文档")
 				//服务条款网址
@@ -86,4 +91,5 @@ public class SwaggerConfiguration {
 				.version(AppVersionUtil.getVersion(SwaggerConfiguration.class)).build();
 	}
 
+	private final SmallBunProperties properties;
 }
