@@ -27,9 +27,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 
 import static cn.smallbun.scaffold.framework.security.domain.User.ANONYMOUS_USER;
 
@@ -75,12 +75,12 @@ public class DataSourceConfiguration {
 				//新增
 				this.strictInsertFill(metaObject, "createBy", String.class, user);
 				//新增
-				this.strictInsertFill(metaObject, "createTime", Instant.class,
-						Instant.now().plusMillis(TimeUnit.HOURS.toMillis(8)));
+				this.strictInsertFill(metaObject, "createTime", LocalDateTime.class,
+						LocalDateTime.now(ZoneId.systemDefault()));
 				//修改
 				this.strictInsertFill(metaObject, "lastModifiedBy", String.class, user);
-				this.strictInsertFill(metaObject, "lastModifiedTime", Instant.class,
-						Instant.now().plusMillis(TimeUnit.HOURS.toMillis(8)));
+				this.strictInsertFill(metaObject, "lastModifiedTime", LocalDateTime.class,
+						LocalDateTime.now(ZoneId.systemDefault()));
 				//是否删除
 				this.strictInsertFill(metaObject, "isDeleted", String.class,
 						mybatisPlusProperties.getGlobalConfig().getDbConfig().getLogicNotDeleteValue());
@@ -95,8 +95,8 @@ public class DataSourceConfiguration {
 					user = optional.get();
 				}
 				this.strictUpdateFill(metaObject, "lastModifiedBy", String.class, user);
-				this.strictUpdateFill(metaObject, "lastModifiedTime", Instant.class,
-						Instant.now().plusMillis(TimeUnit.HOURS.toMillis(8)));
+				this.strictUpdateFill(metaObject, "lastModifiedTime", LocalDateTime.class,
+						LocalDateTime.now(ZoneId.systemDefault()));
 			}
 		};
 	}
