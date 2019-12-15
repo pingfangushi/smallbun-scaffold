@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 172.60.20.26 测试数据库
- Source Server Type    : MariaDB
- Source Server Version : 100314
- Source Host           : 172.60.20.26:3306
+ Source Server         : 个人腾讯云
+ Source Server Type    : MySQL
+ Source Server Version : 50718
+ Source Host           : cdb-2ipogt4w.cd.tencentcdb.com:10008
  Source Schema         : smallbun
 
- Target Server Type    : MariaDB
- Target Server Version : 100314
+ Target Server Type    : MySQL
+ Target Server Version : 50718
  File Encoding         : 65001
 
- Date: 15/12/2019 12:09:58
+ Date: 15/12/2019 14:48:48
 */
 
 SET NAMES utf8mb4;
@@ -26,9 +26,9 @@ CREATE TABLE `sys_authority_type`  (
   `name_` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '业务名称',
   `code_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '业务编码',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建者',
-  `create_time` datetime(0) NOT NULL DEFAULT current_timestamp COMMENT '创建时间',
+  `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `last_modified_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '修改者',
-  `last_modified_time` datetime(0) NOT NULL DEFAULT current_timestamp COMMENT '修改时间',
+  `last_modified_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   `version_` int(11) NULL DEFAULT NULL COMMENT '乐观锁',
   `is_deleted` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '数据状态: 0：正常 1：删除',
   `remarks_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
@@ -59,9 +59,9 @@ CREATE TABLE `sys_authorize_item`  (
   `status_` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '状态  0：正常 1：禁用',
   `type_` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '类型  1：路由 2：操作 3：接口',
   `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '创建者',
-  `create_time` datetime(0) NOT NULL DEFAULT current_timestamp COMMENT '创建时间',
+  `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `last_modified_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '修改者',
-  `last_modified_time` datetime(0) NOT NULL DEFAULT current_timestamp COMMENT '修改时间',
+  `last_modified_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   `version_` int(11) NULL DEFAULT NULL COMMENT '乐观锁',
   `is_deleted` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '数据状态: 0：正常 1：删除',
   `remarks_` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
@@ -143,9 +143,9 @@ CREATE TABLE `sys_config`  (
   `value_` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '参数值',
   `status_` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '状态  0：正常   1：禁用 2：锁定',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建者',
-  `create_time` datetime(0) NOT NULL DEFAULT current_timestamp COMMENT '创建时间',
+  `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `last_modified_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '修改者',
-  `last_modified_time` datetime(0) NOT NULL DEFAULT current_timestamp COMMENT '修改时间',
+  `last_modified_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   `version_` int(11) NULL DEFAULT NULL COMMENT '乐观锁',
   `is_deleted` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '数据状态: 0：正常 1：删除',
   `remarks_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
@@ -165,9 +165,9 @@ CREATE TABLE `sys_dict_item`  (
   `color_` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '颜色值',
   `is_default` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '1' COMMENT '是否为默认选中  0：是   1：不是',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建者',
-  `create_time` datetime(0) NOT NULL DEFAULT current_timestamp COMMENT '创建时间',
+  `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `last_modified_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '修改者',
-  `last_modified_time` datetime(0) NOT NULL DEFAULT current_timestamp COMMENT '修改时间',
+  `last_modified_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   `version_` int(11) NULL DEFAULT NULL COMMENT '乐观锁',
   `is_deleted` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '数据状态: 0：正常 1：删除',
   `remarks_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
@@ -223,9 +223,9 @@ CREATE TABLE `sys_dict_type`  (
   `code_` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '类型编码',
   `status_` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '0' COMMENT '状态  0：正常 1：禁用',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建者',
-  `create_time` datetime(0) NOT NULL DEFAULT current_timestamp COMMENT '创建时间',
+  `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `last_modified_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '修改者',
-  `last_modified_time` datetime(0) NOT NULL DEFAULT current_timestamp COMMENT '修改时间',
+  `last_modified_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   `version_` int(11) NULL DEFAULT NULL COMMENT '乐观锁',
   `is_deleted` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '数据状态: 0：正常 1：删除',
   `remarks_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
@@ -265,9 +265,9 @@ CREATE TABLE `sys_group`  (
   `status_` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '状态  0：正常   1：禁用 2：锁定',
   `sort_` int(11) NULL DEFAULT NULL COMMENT '排序',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建者',
-  `create_time` datetime(0) NOT NULL DEFAULT current_timestamp COMMENT '创建时间',
+  `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `last_modified_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '修改者',
-  `last_modified_time` datetime(0) NOT NULL DEFAULT current_timestamp COMMENT '修改时间',
+  `last_modified_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   `version_` int(11) NULL DEFAULT NULL COMMENT '乐观锁',
   `is_deleted` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '数据状态: 0：正常 1：删除',
   `remarks_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
@@ -293,16 +293,16 @@ DROP TABLE IF EXISTS `sys_logger_login`;
 CREATE TABLE `sys_logger_login`  (
   `id_` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `user_` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '操作用户',
-  `login_time` datetime(0) NULL DEFAULT current_timestamp COMMENT '登录时间',
+  `login_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '登录时间',
   `ip_` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'IP地址',
   `location_` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '登录地点',
   `browser_` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '浏览器',
   `os_` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '操作系统',
   `result_` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '结果',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建者',
-  `create_time` datetime(0) NOT NULL DEFAULT current_timestamp COMMENT '创建时间',
+  `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `last_modified_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '修改者',
-  `last_modified_time` datetime(0) NOT NULL DEFAULT current_timestamp COMMENT '修改时间',
+  `last_modified_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   `version_` int(11) NULL DEFAULT NULL COMMENT '乐观锁',
   `is_deleted` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '数据状态: 0：正常 1：删除',
   `remarks_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
@@ -322,7 +322,7 @@ CREATE TABLE `sys_logger_operate`  (
   `method_` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '请求方法',
   `params_` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '请求参数',
   `user_` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '操作用户',
-  `time_` datetime(0) NULL DEFAULT current_timestamp COMMENT '操作时间',
+  `time_` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '操作时间',
   `ip_` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'IP地址',
   `uri_` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'URI',
   `location_` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '地点',
@@ -331,9 +331,9 @@ CREATE TABLE `sys_logger_operate`  (
   `status_` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '状态',
   `result_` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '结果',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建者',
-  `create_time` datetime(0) NOT NULL DEFAULT current_timestamp COMMENT '创建时间',
+  `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `last_modified_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '修改者',
-  `last_modified_time` datetime(0) NOT NULL DEFAULT current_timestamp COMMENT '修改时间',
+  `last_modified_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   `version_` int(11) NULL DEFAULT NULL COMMENT '乐观锁',
   `is_deleted` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '数据状态: 0：正常 1：删除',
   `remarks_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
@@ -347,12 +347,12 @@ DROP TABLE IF EXISTS `sys_notify`;
 CREATE TABLE `sys_notify`  (
   `id_` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `title_` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '标题',
-  `content_` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '内容',
+  `content_` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '内容',
   `type_` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '类型',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建者',
-  `create_time` datetime(0) NOT NULL DEFAULT current_timestamp COMMENT '创建时间',
+  `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `last_modified_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '修改者',
-  `last_modified_time` datetime(0) NOT NULL DEFAULT current_timestamp COMMENT '修改时间',
+  `last_modified_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   `version_` int(11) NULL DEFAULT NULL COMMENT '乐观锁',
   `is_deleted` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '数据状态: 0：正常 1：删除',
   `remarks_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
@@ -379,9 +379,9 @@ CREATE TABLE `sys_port`  (
   `type_` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '岗位分类（高管、中层、基层）',
   `sort_` decimal(10, 0) NOT NULL COMMENT '岗位排序（升序）',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建者',
-  `create_time` datetime(0) NOT NULL DEFAULT current_timestamp COMMENT '创建时间',
+  `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `last_modified_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '修改者',
-  `last_modified_time` datetime(0) NOT NULL DEFAULT current_timestamp COMMENT '修改时间',
+  `last_modified_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   `version_` int(11) NULL DEFAULT NULL COMMENT '乐观锁',
   `is_deleted` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '数据状态: 0：正常 1：删除',
   `remarks_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
@@ -409,9 +409,9 @@ CREATE TABLE `sys_role`  (
   `status_` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '状态 0：正常  1：禁用 ',
   `data_scope` int(11) NULL DEFAULT NULL COMMENT '数据范围',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建者',
-  `create_time` datetime(0) NOT NULL DEFAULT current_timestamp COMMENT '创建时间',
+  `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `last_modified_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '修改者',
-  `last_modified_time` datetime(0) NOT NULL DEFAULT current_timestamp COMMENT '修改时间',
+  `last_modified_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   `version_` int(11) NULL DEFAULT NULL COMMENT '乐观锁',
   `is_deleted` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '数据状态: 0：正常 1：删除',
   `remarks_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
@@ -576,9 +576,9 @@ CREATE TABLE `sys_user`  (
   `id_card` varchar(18) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '身份证号',
   `status_` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '状态  0：启用   1：禁用 2：锁定',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建者',
-  `create_time` datetime(0) NOT NULL DEFAULT current_timestamp COMMENT '创建时间',
+  `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `last_modified_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '修改者',
-  `last_modified_time` datetime(0) NOT NULL DEFAULT current_timestamp COMMENT '修改时间',
+  `last_modified_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   `version_` int(11) NULL DEFAULT NULL COMMENT '乐观锁',
   `remarks_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   `is_deleted` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '数据状态: 0：正常 1：删除',
@@ -590,7 +590,6 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1204774942839693314', 'shaowen', '$2a$10$SkPLa0RwRFrjyv1YterZtucAtjrPgYXi6zGXbjmEpolt10AcKZBqW', '1186291730882813954', '邵文', '阿文', '1121353141@qq.com', '15269129565', NULL, '371202199804210654', '0', '5', '2019-12-12 06:48:24', '5', '2019-12-12 07:16:07', NULL, NULL, '0');
 INSERT INTO `sys_user` VALUES ('5', 'admin', '$2a$10$SkPLa0RwRFrjyv1YterZtucAtjrPgYXi6zGXbjmEpolt10AcKZBqW', '1186291246453284866', 'admin', '系统管理员', '', '', NULL, '', '0', '5', '2019-07-26 13:51:55', '5', '2019-12-12 23:30:45', NULL, NULL, '0');
 
 -- ----------------------------
