@@ -149,8 +149,8 @@
     <logger name="java.sql.Connection" level="DEBUG"/>
     <logger name="java.sql.Statement" level="DEBUG"/>
     <logger name="java.sql.PreparedStatement" level="DEBUG"/>
-    <logger name="com.pingfangushi.smallbun.core" level="DEBUG"/>
-    <logger name="org.smallbun" level="DEBUG">
+    <logger name="cn.smallbun.scaffold" level="DEBUG"/>
+    <logger name="cn.smallbun" level="DEBUG">
         <appender-ref ref="ERROR-OUT"/>
         <appender-ref ref="WARN-OUT"/>
         <appender-ref ref="INFO-OUT"/>

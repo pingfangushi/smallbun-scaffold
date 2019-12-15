@@ -79,8 +79,9 @@ public class SysAuthorityResource extends BaseResource {
 	@ApiOperation(value = "新增系统权限", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 1)
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ApiRestResult add(@Validated(value = {AddGroup.class}) @RequestBody SysAuthorityTypeEntity authority) {
-		return new ApiRestResult<>().result(iSysAuthorityService.save(authority)).build();
+	public ApiRestResult<Boolean> add(
+			@Validated(value = {AddGroup.class}) @RequestBody SysAuthorityTypeEntity authority) {
+		return ApiRestResult.ok(typeService.save(authority)).build();
 	}
 
 
@@ -96,9 +97,9 @@ public class SysAuthorityResource extends BaseResource {
 	@ApiOperation(value = "修改系统权限", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperationSupport(order = 2)
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ApiRestResult updateById(
+	public ApiRestResult<Boolean> updateById(
 			@Validated(value = {UpdateGroup.class}) @RequestBody SysAuthorityTypeEntity authority) {
-		return new ApiRestResult<>().result(iSysAuthorityService.updateById(authority)).build();
+		return ApiRestResult.ok(typeService.updateById(authority)).build();
 	}
 
 	/**
@@ -114,8 +115,7 @@ public class SysAuthorityResource extends BaseResource {
 	@DeleteMapping(value = "/{ids}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAuthority('manage:interface:authority:remove')")
 	public ApiRestResult removeByIds(@PathVariable String ids) {
-		return new ApiRestResult<>()
-				.result(iSysAuthorityService.removeByIds(Lists.newArrayList(ids.split(StringUtil.SPLIT_DEFAULT))))
+		return ApiRestResult.ok(typeService.removeByIds(Lists.newArrayList(ids.split(StringUtil.SPLIT_DEFAULT))))
 				.build();
 	}
 
@@ -132,9 +132,8 @@ public class SysAuthorityResource extends BaseResource {
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ApiRestResult<Page<AuthorityVO>> getPage(PageModel pageModel, SysAuthorityTypeEntity authority) {
 		// 转换为VO
-		Page<AuthorityVO> page = pageMapping(iSysAuthorityService.page(pageModel, Wrappers.query(authority)),
-				AuthorityVO.class);
-		return new ApiRestResult<Page<AuthorityVO>>().result(page).build();
+		Page<AuthorityVO> page = pageMapping(typeService.page(pageModel, Wrappers.query(authority)), AuthorityVO.class);
+		return ApiRestResult.ok(page).build();
 	}
 
 
@@ -151,8 +150,8 @@ public class SysAuthorityResource extends BaseResource {
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ApiRestResult<AuthorityVO> getById(@PathVariable String id) {
 		// 转换为VO
-		AuthorityVO authority = mapping(iSysAuthorityService.getById(id), new AuthorityVO());
-		return new ApiRestResult<AuthorityVO>().result(authority).build();
+		AuthorityVO authority = mapping(typeService.getById(id), new AuthorityVO());
+		return ApiRestResult.ok(authority).build();
 	}
 
 	/**
@@ -167,7 +166,7 @@ public class SysAuthorityResource extends BaseResource {
 	@PreAuthorize("hasAuthority('manage:interface:authority:unique')")
 	@GetMapping(value = "unique", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ApiRestResult<Boolean> unique(SysAuthorityTypeEntity value) {
-		return new ApiRestResult<Boolean>().result(iSysAuthorityService.unique(value)).build();
+		return ApiRestResult.ok(typeService.unique(value)).build();
 	}
 
 	/**
@@ -182,7 +181,7 @@ public class SysAuthorityResource extends BaseResource {
 	@ApiOperationSupport(order = 7)
 	@PostMapping(value = "item", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ApiRestResult addItem(@Validated(value = {AddGroup.class}) @RequestBody SysAuthorizeItemEntity authority) {
-		return new ApiRestResult<>().result(iSysAuthorizeItemService.save(authority)).build();
+		return ApiRestResult.ok(itemService.save(authority)).build();
 	}
 
 
@@ -200,7 +199,7 @@ public class SysAuthorityResource extends BaseResource {
 	@PutMapping(value = "item", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ApiRestResult updateItemById(
 			@Validated(value = {UpdateGroup.class}) @RequestBody SysAuthorizeItemEntity authority) {
-		return new ApiRestResult<>().result(iSysAuthorizeItemService.updateById(authority)).build();
+		return ApiRestResult.ok(itemService.updateById(authority)).build();
 	}
 
 	/**
@@ -216,8 +215,7 @@ public class SysAuthorityResource extends BaseResource {
 	@DeleteMapping(value = "item/{ids}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAuthority('manage:interface:authority:remove')")
 	public ApiRestResult removeItemByIds(@PathVariable String ids) {
-		return new ApiRestResult<>()
-				.result(iSysAuthorizeItemService.removeByIds(Lists.newArrayList(ids.split(StringUtil.SPLIT_DEFAULT))))
+		return ApiRestResult.ok(itemService.removeByIds(Lists.newArrayList(ids.split(StringUtil.SPLIT_DEFAULT))))
 				.build();
 	}
 
@@ -233,9 +231,8 @@ public class SysAuthorityResource extends BaseResource {
 	@GetMapping(value = "item", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ApiRestResult<List<AuthorizeItemVO>> getItemList(SysAuthorizeItemEntity authority) {
 		// 转换为VO
-		List<AuthorizeItemVO> list = listMapping(iSysAuthorizeItemService.list(Wrappers.query(authority)),
-				AuthorizeItemVO.class);
-		return new ApiRestResult<List<AuthorizeItemVO>>().result(list).build();
+		List<AuthorizeItemVO> list = listMapping(itemService.list(Wrappers.query(authority)), AuthorizeItemVO.class);
+		return ApiRestResult.ok(list).build();
 	}
 
 
@@ -252,8 +249,8 @@ public class SysAuthorityResource extends BaseResource {
 	@GetMapping(value = "item/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ApiRestResult<AuthorizeItemVO> getItemById(@PathVariable String id) {
 		// 转换为VO
-		AuthorizeItemVO authority = mapping(iSysAuthorizeItemService.getById(id), new AuthorizeItemVO());
-		return new ApiRestResult<AuthorizeItemVO>().result(authority).build();
+		AuthorizeItemVO authority = mapping(itemService.getById(id), new AuthorizeItemVO());
+		return ApiRestResult.ok(authority).build();
 	}
 
 	/**
@@ -268,24 +265,23 @@ public class SysAuthorityResource extends BaseResource {
 	@PreAuthorize("hasAuthority('manage:interface:authority:fetch')")
 	@GetMapping(value = "item/unique", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ApiRestResult<Boolean> uniqueItem(SysAuthorizeItemEntity value) {
-		return new ApiRestResult<Boolean>().result(iSysAuthorizeItemService.unique(value)).build();
+		return ApiRestResult.ok(itemService.unique(value)).build();
 	}
 
 
 	/**
 	 *	注入操作权限项业务接口
 	 */
-	private final ISysAuthorizeItemService iSysAuthorizeItemService;
+	private final ISysAuthorizeItemService itemService;
 	/**
 	 *	注入系统权限业务接口
 	 */
-	private final ISysAuthorityTypeService iSysAuthorityService;
+	private final ISysAuthorityTypeService typeService;
 
 
-	public SysAuthorityResource(ISysAuthorizeItemService iSysAuthorizeItemService,
-			ISysAuthorityTypeService iSysModuleService) {
-		this.iSysAuthorizeItemService = iSysAuthorizeItemService;
-		this.iSysAuthorityService = iSysModuleService;
+	public SysAuthorityResource(ISysAuthorizeItemService itemService, ISysAuthorityTypeService iSysModuleService) {
+		this.itemService = itemService;
+		this.typeService = iSysModuleService;
 	}
 }
 

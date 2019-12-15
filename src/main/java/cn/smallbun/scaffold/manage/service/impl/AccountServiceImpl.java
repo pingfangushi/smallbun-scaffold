@@ -20,7 +20,7 @@ import cn.smallbun.scaffold.framework.common.toolkit.IpUtil;
 import cn.smallbun.scaffold.framework.common.toolkit.RsaUtil;
 import cn.smallbun.scaffold.framework.configurer.SmallBunProperties;
 import cn.smallbun.scaffold.framework.redis.RedisClient;
-import cn.smallbun.scaffold.framework.security.User;
+import cn.smallbun.scaffold.framework.security.domain.User;
 import cn.smallbun.scaffold.framework.security.exception.HaveNotAuthorityException;
 import cn.smallbun.scaffold.framework.security.jwt.TokenProvider;
 import cn.smallbun.scaffold.manage.entity.SysAuthorizeItemEntity;
@@ -73,6 +73,7 @@ import java.util.stream.Collectors;
 
 import static cn.smallbun.scaffold.framework.address.Address.getCityInfoByDb;
 import static cn.smallbun.scaffold.framework.common.constant.SystemConstants.*;
+import static cn.smallbun.scaffold.framework.common.result.ApiRestResult.SUCCESS;
 import static cn.smallbun.scaffold.framework.common.toolkit.UserAgentUtil.getUserAgent;
 import static cn.smallbun.scaffold.framework.security.enums.Security.*;
 

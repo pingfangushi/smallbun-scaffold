@@ -17,7 +17,7 @@
 package cn.smallbun.scaffold.configuration;
 
 import cn.smallbun.scaffold.framework.mybatis.interceptor.PaginationInterceptor;
-import cn.smallbun.scaffold.framework.security.SecurityUtils;
+import cn.smallbun.scaffold.framework.security.utils.SecurityUtils;
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
@@ -31,7 +31,7 @@ import java.time.Instant;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
-import static cn.smallbun.scaffold.framework.security.User.ANONYMOUS_USER;
+import static cn.smallbun.scaffold.framework.security.domain.User.ANONYMOUS_USER;
 
 /**
  * 数据源配置

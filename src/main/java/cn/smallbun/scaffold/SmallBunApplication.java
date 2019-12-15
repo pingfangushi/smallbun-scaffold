@@ -33,7 +33,7 @@ import static cn.smallbun.scaffold.framework.common.constant.SystemConstants.*;
  * @author SanLi
  * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on  2019/9/24
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"cn.smallbun"})
 public class SmallBunApplication {
 	private final static Logger logger = LoggerFactory.getLogger(SpringApplication.class);
 
