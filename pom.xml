@@ -42,7 +42,7 @@
     <dependencies>
         <dependency>
             <groupId>cn.smallbun.scaffold</groupId>
-            <artifactId>smallbun-framework</artifactId>
+            <artifactId>smallbun-scaffold-framework</artifactId>
             <version>1.0.0</version>
         </dependency>
         <dependency>
