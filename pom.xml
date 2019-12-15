@@ -27,7 +27,7 @@
     <groupId>org.smallbun.scaffold</groupId>
     <artifactId>smallbun-scaffold</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <description>smallbun 是大明湖畔最好的企业级开发脚手架</description>
 
     <properties>

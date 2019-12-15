@@ -14,7 +14,19 @@ spring:
       maximum-pool-size: 15
       minimum-idle: 5
       pool-name: DatebookHikariCP
-
+  #reids
+  redis:
+    host: 127.0.0.1
+    password:
+    port: 6379
+    lettuce:
+      pool:
+        max-idle: 7
+        min-idle: 2
+        max-active: 7
+        max-wait: -1ms
+      shutdown-timeout: 200ms
+    timeout: 5000ms
 #smallbun 自定义配置
 cn:
   smallbun:
