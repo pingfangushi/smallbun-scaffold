@@ -12,9 +12,11 @@
 ...
 
 # 软件要求
+
 * JDK1.8
 * MySQL5.7+
 * Maven3.0+
+
 # 功能模块
 
 - [x] 用户登录 
@@ -39,9 +41,9 @@
 
 * E-mail：qinggang.zuo@gmail.com / 2689170096@qq.com
 * Gitee：https://gitee.com/leshalv/smallbun
-* GitHub：https://github.com/pingfangushi/smallbun-scaffold
+* GitHub：https://github.com/pingfangushi/smallbun
 
-一个人的个人能力再强，也无法战胜一个团队，恳切的希望有兴趣的同学都参与进来共同完善它(^_^)。
+很喜欢阿里文化中的一句话：一群有情有义之人一起做一件有意义之事,恳请的希望有兴趣的同学能够参与到 smallbun 建设中来，让我们共同完善它，让我们共同成长，帮助更多开发者，解决更多的问题💪。
 
 
 
