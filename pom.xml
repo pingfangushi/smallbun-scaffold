@@ -13,7 +13,7 @@
     <artifactId>smallbun-scaffold</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-    <description>smallbun 是大明湖畔最好的企业级开发脚手架</description>
+    <description>smallbun-大明湖畔最好的企业级开发脚手架</description>
 
     <properties>
         <java.version>1.8</java.version>
