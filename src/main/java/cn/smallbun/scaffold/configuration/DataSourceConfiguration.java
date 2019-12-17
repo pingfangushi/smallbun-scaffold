@@ -31,6 +31,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Optional;
 
+import static cn.smallbun.scaffold.framework.mybatis.domain.BaseAuditNodeEntity.*;
 import static cn.smallbun.scaffold.framework.security.domain.User.ANONYMOUS_USER;
 
 /**
@@ -73,16 +74,16 @@ public class DataSourceConfiguration {
 					user = optional.get();
 				}
 				//新增
-				this.strictInsertFill(metaObject, "createBy", String.class, user);
+				this.strictInsertFill(metaObject, CREATE_BY, String.class, user);
 				//新增
-				this.strictInsertFill(metaObject, "createTime", LocalDateTime.class,
+				this.strictInsertFill(metaObject, CREATE_TIME, LocalDateTime.class,
 						LocalDateTime.now(ZoneId.systemDefault()));
 				//修改
-				this.strictInsertFill(metaObject, "lastModifiedBy", String.class, user);
-				this.strictInsertFill(metaObject, "lastModifiedTime", LocalDateTime.class,
+				this.strictInsertFill(metaObject, LAST_MODIFIED_BY, String.class, user);
+				this.strictInsertFill(metaObject, LAST_MODIFIED_TIME, LocalDateTime.class,
 						LocalDateTime.now(ZoneId.systemDefault()));
 				//是否删除
-				this.strictInsertFill(metaObject, "isDeleted", String.class,
+				this.strictInsertFill(metaObject, IS_DELETED, String.class,
 						mybatisPlusProperties.getGlobalConfig().getDbConfig().getLogicNotDeleteValue());
 			}
 
@@ -94,8 +95,8 @@ public class DataSourceConfiguration {
 				if (optional.isPresent()) {
 					user = optional.get();
 				}
-				this.strictUpdateFill(metaObject, "lastModifiedBy", String.class, user);
-				this.strictUpdateFill(metaObject, "lastModifiedTime", LocalDateTime.class,
+				this.strictUpdateFill(metaObject, LAST_MODIFIED_BY, String.class, user);
+				this.strictUpdateFill(metaObject, LAST_MODIFIED_TIME, LocalDateTime.class,
 						LocalDateTime.now(ZoneId.systemDefault()));
 			}
 		};
