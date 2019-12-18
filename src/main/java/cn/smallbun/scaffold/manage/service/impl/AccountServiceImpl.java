@@ -71,7 +71,7 @@ import java.time.ZoneOffset;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static cn.smallbun.scaffold.framework.address.Address.getCityInfoByDb;
+import static cn.smallbun.scaffold.framework.common.address.Address.getCityInfoByDb;
 import static cn.smallbun.scaffold.framework.common.constant.SystemConstants.*;
 import static cn.smallbun.scaffold.framework.common.result.ApiRestResult.SUCCESS;
 import static cn.smallbun.scaffold.framework.common.toolkit.UserAgentUtil.getUserAgent;
