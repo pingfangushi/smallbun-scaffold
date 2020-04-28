@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018-2019. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
+ * Copyright (c) 2018-2020. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 package cn.smallbun.scaffold.manage.pojo;
 
 import cn.smallbun.scaffold.manage.enums.AuthorizeType;
@@ -30,24 +29,24 @@ import java.io.Serializable;
  */
 @Data
 public class UpdateAuthorizeBO implements Serializable {
-	/**
-	 * 角色ID
-	 */
-	@NotBlank(message = "请选择角色ID")
-	private String id;
-	/**
-	 * 权限ID
-	 */
-	@NotBlank(message = "请选择权限ID")
-	private String auth;
-	/**
-	 * 权限类型
-	 */
-	@NotNull(message = "请选择权限类型")
-	private AuthorizeType type;
-	/**
-	 * 是否设置
-	 */
-	@NotNull(message = "请选择是否设置")
-	private Boolean checked;
+    /**
+     * 角色ID
+     */
+    @NotBlank(message = "请选择角色ID")
+    private String        id;
+    /**
+     * 权限ID
+     */
+    @NotBlank(message = "请选择权限ID")
+    private String        auth;
+    /**
+     * 权限类型
+     */
+    @NotNull(message = "请选择权限类型")
+    private AuthorizeType type;
+    /**
+     * 是否设置
+     */
+    @NotNull(message = "请选择是否设置")
+    private Boolean       checked;
 }

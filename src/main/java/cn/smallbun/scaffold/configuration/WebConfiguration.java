@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018-2019. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
+ * Copyright (c) 2018-2020. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 package cn.smallbun.scaffold.configuration;
 
 import org.slf4j.Logger;
@@ -33,20 +32,20 @@ import java.io.Serializable;
  */
 @Configuration
 public class WebConfiguration implements Serializable {
-	private final static Logger LOGGER = LoggerFactory.getLogger(WebConfiguration.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(WebConfiguration.class);
 
-	/**
-	 * CorsFilter
-	 * @return {@link CorsFilter}
-	 */
-	@Bean
-	public CorsFilter corsFilter() {
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		CorsConfiguration config = new CorsConfiguration();
-		if (config.getAllowedOrigins() != null && !config.getAllowedOrigins().isEmpty()) {
-			LOGGER.debug("Registering CORS filter");
-			source.registerCorsConfiguration("/manage/api/**", config);
-		}
-		return new CorsFilter(source);
-	}
+    /**
+     * CorsFilter
+     * @return {@link CorsFilter}
+     */
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        if (config.getAllowedOrigins() != null && !config.getAllowedOrigins().isEmpty()) {
+            LOGGER.debug("Registering CORS filter");
+            source.registerCorsConfiguration("/manage/api/**", config);
+        }
+        return new CorsFilter(source);
+    }
 }

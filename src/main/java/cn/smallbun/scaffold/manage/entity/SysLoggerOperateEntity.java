@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018-2019. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
+ * Copyright (c) 2018-2020. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 package cn.smallbun.scaffold.manage.entity;
 
 import cn.smallbun.scaffold.framework.mybatis.domain.BaseAuditEntity;
@@ -41,91 +40,91 @@ import java.time.LocalDateTime;
 @TableName("sys_logger_operate")
 public class SysLoggerOperateEntity extends BaseAuditEntity<String> {
 
-	/**
-	 * 模块名称
-	 */
-	@TableField(value = "module_", condition = SqlCondition.LIKE)
-	private String module;
-	/**
-	 * 请求参数
-	 */
-	@TableField("params_")
-	private String params;
+    /**
+     * 模块名称
+     */
+    @TableField(value = "module_", condition = SqlCondition.LIKE)
+    private String        module;
+    /**
+     * 请求参数
+     */
+    @TableField("params_")
+    private String        params;
 
-	/**
-	 * 功能名称
-	 */
-	@TableField(value = "feature_", condition = SqlCondition.LIKE)
-	private String feature;
+    /**
+     * 功能名称
+     */
+    @TableField(value = "feature_", condition = SqlCondition.LIKE)
+    private String        feature;
 
-	/**
-	 * 操作类型
-	 */
-	@TableField("action_")
-	private String action;
+    /**
+     * 操作类型
+     */
+    @TableField("action_")
+    private String        action;
 
-	/**
-	 * 平台类型
-	 */
-	@TableField("platform_")
-	private String platform;
-	/**
-	 * 请求方法
-	 */
-	@TableField("method_")
-	private String method;
+    /**
+     * 平台类型
+     */
+    @TableField("platform_")
+    private String        platform;
+    /**
+     * 请求方法
+     */
+    @TableField("method_")
+    private String        method;
 
-	/**
-	 * 操作用户,用户名(关联用户表)
-	 */
-	@TableField("user_")
-	private String user;
+    /**
+     * 操作用户,用户名(关联用户表)
+     */
+    @TableField("user_")
+    private String        user;
 
-	/**
-	 * 操作时间
-	 */
-	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
-	@TableField("time_")
-	private LocalDateTime time;
+    /**
+     * 操作时间
+     */
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @TableField("time_")
+    private LocalDateTime time;
 
-	/**
-	 * URI
-	 */
-	@TableField("uri_")
-	private String uri;
+    /**
+     * URI
+     */
+    @TableField("uri_")
+    private String        uri;
 
-	/**
-	 * 地点
-	 */
-	@TableField("location_")
-	private String location;
+    /**
+     * 地点
+     */
+    @TableField("location_")
+    private String        location;
 
-	/**
-	 * 浏览器
-	 */
-	@TableField("browser_")
-	private String browser;
+    /**
+     * 浏览器
+     */
+    @TableField("browser_")
+    private String        browser;
 
-	/**
-	 * 操作系统
-	 */
-	@TableField("os_")
-	private String os;
+    /**
+     * 操作系统
+     */
+    @TableField("os_")
+    private String        os;
 
-	/**
-	 * ip
-	 */
-	@TableField("ip_")
-	private String ip;
+    /**
+     * ip
+     */
+    @TableField("ip_")
+    private String        ip;
 
-	/**
-	 * 结果
-	 */
-	@TableField("result_")
-	private String result;
-	/**
-	 * 状态
-	 */
-	@TableField("status_")
-	private String status;
+    /**
+     * 结果
+     */
+    @TableField("result_")
+    private String        result;
+    /**
+     * 状态
+     */
+    @TableField("status_")
+    private String        status;
 }

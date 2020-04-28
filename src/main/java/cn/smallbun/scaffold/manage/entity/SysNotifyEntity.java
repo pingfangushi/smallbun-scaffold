@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018-2019. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
+ * Copyright (c) 2018-2020. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 package cn.smallbun.scaffold.manage.entity;
 
 import cn.smallbun.scaffold.framework.mybatis.domain.BaseAuditEntity;
@@ -39,24 +38,24 @@ import lombok.experimental.Accessors;
 @TableName("sys_notify")
 @ApiModel(value = "通知参数", description = "系统通知公告")
 public class SysNotifyEntity extends BaseAuditEntity<String> {
-	/**
-	 * 标题
-	 */
-	@ApiModelProperty(value = "标题")
-	@TableField("title_")
-	private String title;
+    /**
+     * 标题
+     */
+    @ApiModelProperty(value = "标题")
+    @TableField("title_")
+    private String title;
 
-	/**
-	 * 内容
-	 */
-	@ApiModelProperty(value = "内容")
-	@TableField("content_")
-	private String content;
+    /**
+     * 内容
+     */
+    @ApiModelProperty(value = "内容")
+    @TableField("content_")
+    private String content;
 
-	/**
-	 * 类型
-	 */
-	@ApiModelProperty(value = "类型")
-	@TableField("type_")
-	private String type;
+    /**
+     * 类型
+     */
+    @ApiModelProperty(value = "类型")
+    @TableField("type_")
+    private String type;
 }

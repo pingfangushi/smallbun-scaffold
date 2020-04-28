@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018-2019. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
+ * Copyright (c) 2018-2020. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 package cn.smallbun.scaffold.manage.entity;
 
 import cn.smallbun.scaffold.framework.mybatis.domain.BaseAuditEntity;
@@ -46,26 +45,26 @@ import javax.validation.constraints.NotNull;
 @TableName("sys_dict_type")
 @ApiModel(value = "字典类型", description = "系统字典类型")
 public class SysDictTypeEntity extends BaseAuditEntity<String> {
-	/**
-	 * 类型名称
-	 */
-	@ApiModelProperty(value = "类型名称")
-	@TableField(value = "name_", condition = SqlCondition.LIKE)
-	@NotBlank(message = "请输入类型名称", groups = {AddGroup.class, UpdateGroup.class})
-	private String name;
+    /**
+     * 类型名称
+     */
+    @ApiModelProperty(value = "类型名称")
+    @TableField(value = "name_", condition = SqlCondition.LIKE)
+    @NotBlank(message = "请输入类型名称", groups = { AddGroup.class, UpdateGroup.class })
+    private String     name;
 
-	/**
-	 * 类型编码
-	 */
-	@ApiModelProperty(value = "类型编码")
-	@TableField("code_")
-	@NotBlank(message = "请输入类型编码", groups = {AddGroup.class, UpdateGroup.class})
-	private String code;
-	/**
-	 * 状态
-	 */
-	@ApiModelProperty(value = "类型状态")
-	@TableField("status_")
-	@NotNull(message = "请选择是否为默认值", groups = {AddGroup.class, UpdateGroup.class})
-	private DictStatus status;
+    /**
+     * 类型编码
+     */
+    @ApiModelProperty(value = "类型编码")
+    @TableField("code_")
+    @NotBlank(message = "请输入类型编码", groups = { AddGroup.class, UpdateGroup.class })
+    private String     code;
+    /**
+     * 状态
+     */
+    @ApiModelProperty(value = "类型状态")
+    @TableField("status_")
+    @NotNull(message = "请选择是否为默认值", groups = { AddGroup.class, UpdateGroup.class })
+    private DictStatus status;
 }

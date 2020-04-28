@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018-2019. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
+ * Copyright (c) 2018-2020. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 package cn.smallbun.scaffold.manage.entity;
 
 import cn.smallbun.scaffold.framework.mybatis.domain.BaseAuditEntity;
@@ -39,31 +38,31 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @TableName("sys_notify_record")
 public class SysNotifyRecordEntity extends BaseAuditEntity<String> {
-	/**
-	 * 通知通告ID
-	 */
-	@ApiModelProperty(value = "通知通告ID")
-	@TableField("notify_")
-	private Long notify;
+    /**
+     * 通知通告ID
+     */
+    @ApiModelProperty(value = "通知通告ID")
+    @TableField("notify_")
+    private Long          notify;
 
-	/**
-	 * 接受用户ID
-	 */
-	@ApiModelProperty(value = "接受用户ID")
-	@TableField("user_")
-	private Long user;
+    /**
+     * 接受用户ID
+     */
+    @ApiModelProperty(value = "接受用户ID")
+    @TableField("user_")
+    private Long          user;
 
-	/**
-	 * 是否阅读 0阅读 1未阅读
-	 */
-	@ApiModelProperty(value = "是否阅读 0阅读 1未阅读")
-	@TableField("is_read")
-	private String isRead;
+    /**
+     * 是否阅读 0阅读 1未阅读
+     */
+    @ApiModelProperty(value = "是否阅读 0阅读 1未阅读")
+    @TableField("is_read")
+    private String        isRead;
 
-	/**
-	 * 阅读时间
-	 */
-	@ApiModelProperty(value = "阅读时间")
-	@TableField("read_date")
-	private LocalDateTime readDate;
+    /**
+     * 阅读时间
+     */
+    @ApiModelProperty(value = "阅读时间")
+    @TableField("read_date")
+    private LocalDateTime readDate;
 }

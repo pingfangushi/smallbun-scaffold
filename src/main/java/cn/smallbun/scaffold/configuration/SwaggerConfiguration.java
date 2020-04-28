@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018-2019. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
+ * Copyright (c) 2018-2020. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -13,13 +13,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 package cn.smallbun.scaffold.configuration;
 
 import cn.smallbun.scaffold.framework.common.result.ApiRestResult;
 import cn.smallbun.scaffold.framework.common.toolkit.AppVersionUtil;
-import cn.smallbun.scaffold.framework.configurer.SmallBunProperties;
-import com.github.xiaoymin.knife4j.spring.annotations.EnableSwaggerBootstrapUi;
+import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -40,56 +39,59 @@ import static springfox.documentation.builders.PathSelectors.regex;
 
 /**
  * SwaggerConfiguration
+ *
  * @author SanLi
  * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2019/5/16 20:28
  */
 @Configuration
 @EnableSwagger2
-@EnableSwaggerBootstrapUi
+@EnableKnife4j
 @Import(BeanValidatorPluginsConfiguration.class)
 public class SwaggerConfiguration {
 
-	public SwaggerConfiguration(SmallBunProperties properties) {
-		this.properties = properties;
-	}
+    public SwaggerConfiguration(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }
 
-	/**
-	 * 管理配置RestAPI
-	 * @return {@link Docket}
-	 */
-	@Bean
-	public Docket manageRestApi() {
-		return new Docket(DocumentationType.SWAGGER_2)
-				//group
-				.groupName("管理系统")
-				//INFO
-				.apiInfo(info()).forCodeGeneration(true).directModelSubstitute(ByteBuffer.class, String.class)
-				.genericModelSubstitutes(ApiRestResult.class, ResponseEntity.class)
-				.ignoredParameterTypes(Pageable.class)
-				//查询路径
-				.select()
-				//API路径
-				.paths(regex(MANAGE_API_PATH + "/.*")).build();
-	}
+    /**
+     * 管理配置RestAPI
+     *
+     * @return {@link Docket}
+     */
+    @Bean
+    public Docket manageRestApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+            //group
+            .groupName("管理系统")
+            //INFO
+            .apiInfo(info()).forCodeGeneration(true)
+            .directModelSubstitute(ByteBuffer.class, String.class)
+            .genericModelSubstitutes(ApiRestResult.class, ResponseEntity.class)
+            .ignoredParameterTypes(Pageable.class)
+            //查询路径
+            .select()
+            //API路径
+            .paths(regex(MANAGE_API_PATH + "/.*")).build();
+    }
 
+    /**
+     * API INFO
+     *
+     * @return {@link ApiInfo}
+     */
+    private ApiInfo info() {
+        return new ApiInfoBuilder()
+            //title
+            .title(applicationContext.getApplicationName())
+            //描述
+            .description("REST API 文档")
+            //服务条款网址
+            .termsOfServiceUrl("http://www.smallbun.cn")
+            //内容
+            .contact(new Contact("SanLi", "http://www.pingfangushi.com", "2689170096@qq.com"))
+            //版本
+            .version(AppVersionUtil.getVersion(SwaggerConfiguration.class)).build();
+    }
 
-	/**
-	 * API INFO
-	 * @return  {@link ApiInfo}
-	 */
-	private ApiInfo info() {
-		return new ApiInfoBuilder()
-				//title
-				.title(properties.getProject().getName())
-				//描述
-				.description("REST API 文档")
-				//服务条款网址
-				.termsOfServiceUrl("http://www.smallbun.cn")
-				//内容
-				.contact(new Contact("SanLi", "http://www.pingfangushi.com", "2689170096@qq.com"))
-				//版本
-				.version(AppVersionUtil.getVersion(SwaggerConfiguration.class)).build();
-	}
-
-	private final SmallBunProperties properties;
+    private final ApplicationContext applicationContext;
 }

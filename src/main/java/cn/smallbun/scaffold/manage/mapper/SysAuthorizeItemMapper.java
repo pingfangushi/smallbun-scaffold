@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018-2019. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
+ * Copyright (c) 2018-2020. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 package cn.smallbun.scaffold.manage.mapper;
 
 import cn.smallbun.scaffold.framework.mybatis.mapper.BaseMapper;
@@ -34,23 +33,23 @@ import java.util.List;
 @Mapper
 public interface SysAuthorizeItemMapper extends BaseMapper<SysAuthorizeItemEntity> {
 
-	/**
-	 * 根据权限ID查询具有的权限
-	 * @param auth 主权限ID
-	 * @return {@link List<SysAuthorizeItemEntity>}
-	 */
-	List<SysAuthorizeItemEntity> getByAuthId(@Param(value = "authId") String auth);
+    /**
+     * 根据权限ID查询具有的权限
+     * @param auth 主权限ID
+     * @return {@link List<SysAuthorizeItemEntity>}
+     */
+    List<SysAuthorizeItemEntity> getByAuthId(@Param(value = "authId") String auth);
 
-	/**
-	 * 根据角色查询权限项
-	 * @param ids ids
-	 * @return {@link List<SysAuthorizeItemEntity>}
-	 */
-	List<SysAuthorizeItemEntity> getAuthorizeItemsByRole(@Param("ids") List<String> ids);
+    /**
+     * 根据角色查询权限项
+     * @param ids ids
+     * @return {@link List<SysAuthorizeItemEntity>}
+     */
+    List<SysAuthorizeItemEntity> getAuthorizeItemsByRole(@Param("ids") List<String> ids);
 
-	/**
-	 * 查询所有权限
-	 * @return {@link List<SysAuthorizeItemEntity>}
-	 */
-	List<SysAuthorizeItemEntity> getAuthorizeItems();
+    /**
+     * 查询所有权限
+     * @return {@link List<SysAuthorizeItemEntity>}
+     */
+    List<SysAuthorizeItemEntity> getAuthorizeItems();
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018-2019. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
+ * Copyright (c) 2018-2020. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 package cn.smallbun.scaffold.manage.pojo;
 
 import lombok.Data;
@@ -27,16 +26,16 @@ import java.io.Serializable;
  */
 @Data
 public class RoleAuthBO implements Serializable {
-	/**
-	 * 角色ID
-	 */
-	private String role;
-	/**
-	 * 权限ID
-	 */
-	private String auth;
-	/**
-	 * 权限类型
-	 */
-	private String type;
+    /**
+     * 角色ID
+     */
+    private String role;
+    /**
+     * 权限ID
+     */
+    private String auth;
+    /**
+     * 权限类型
+     */
+    private String type;
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018-2019. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
+ * Copyright (c) 2018-2020. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 package cn.smallbun.scaffold.manage.handler;
 
 import cn.smallbun.scaffold.manage.enums.UserStatus;
@@ -32,24 +31,24 @@ import java.sql.SQLException;
  */
 public class DictDefaultTypeHandler implements TypeHandler<UserStatus> {
 
-	@Override
-	public void setParameter(PreparedStatement preparedStatement, int i, UserStatus status, JdbcType jdbcType)
-			throws SQLException {
-		preparedStatement.setString(i, status.getCode());
-	}
+    @Override
+    public void setParameter(PreparedStatement preparedStatement, int i, UserStatus status,
+                             JdbcType jdbcType) throws SQLException {
+        preparedStatement.setString(i, status.getCode());
+    }
 
-	@Override
-	public UserStatus getResult(ResultSet resultSet, String s) throws SQLException {
-		return UserStatus.getStatus(resultSet.getString(s));
-	}
+    @Override
+    public UserStatus getResult(ResultSet resultSet, String s) throws SQLException {
+        return UserStatus.getStatus(resultSet.getString(s));
+    }
 
-	@Override
-	public UserStatus getResult(ResultSet resultSet, int i) throws SQLException {
-		return UserStatus.getStatus(resultSet.getString(i));
-	}
+    @Override
+    public UserStatus getResult(ResultSet resultSet, int i) throws SQLException {
+        return UserStatus.getStatus(resultSet.getString(i));
+    }
 
-	@Override
-	public UserStatus getResult(CallableStatement callableStatement, int i) throws SQLException {
-		return UserStatus.getStatus(callableStatement.getString(i));
-	}
+    @Override
+    public UserStatus getResult(CallableStatement callableStatement, int i) throws SQLException {
+        return UserStatus.getStatus(callableStatement.getString(i));
+    }
 }

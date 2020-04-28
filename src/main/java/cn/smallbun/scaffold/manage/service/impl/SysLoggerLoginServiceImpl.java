@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018-2019. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
+ * Copyright (c) 2018-2020. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 package cn.smallbun.scaffold.manage.service.impl;
 
 import cn.smallbun.scaffold.framework.mybatis.service.BaseServiceImpl;
@@ -31,6 +30,7 @@ import org.springframework.stereotype.Service;
  * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on  2019-11-02
  */
 @Service
-public class SysLoggerLoginServiceImpl extends BaseServiceImpl<SysLoggerLoginMapper, SysLoggerLoginEntity>
-		implements ISysLoggerLoginService {
+public class SysLoggerLoginServiceImpl extends
+                                       BaseServiceImpl<SysLoggerLoginMapper, SysLoggerLoginEntity>
+                                       implements ISysLoggerLoginService {
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018-2019. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
+ * Copyright (c) 2018-2020. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 package cn.smallbun.scaffold.manage.service;
 
 import cn.smallbun.scaffold.framework.initialize.InitInterface;
@@ -36,49 +35,49 @@ import java.util.List;
  * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on  2019-05-14
  */
 public interface ISysDictTypeService extends BaseService<SysDictTypeEntity>, InitInterface {
-	/**
-	 * 查询全部的字典，主要用于前端字典值展示,通过type获取到值，循环值渲染组件
-	 * @return {@link List}
-	 */
-	List<Dict> dict();
+    /**
+     * 查询全部的字典，主要用于前端字典值展示,通过type获取到值，循环值渲染组件
+     * @return {@link List}
+     */
+    List<Dict> dict();
 
-	/**
-	 * 根据ID更新状态
-	 * @param id id
-	 * @param status 状态
-	 * @return 是否成功
-	 */
-	boolean updateStatusById(String id, DictStatus status);
+    /**
+     * 根据ID更新状态
+     * @param id id
+     * @param status 状态
+     * @return 是否成功
+     */
+    boolean updateStatusById(String id, DictStatus status);
 
-	@Data
-	class Dict {
-		/**
-		 * default : 0
-		 * type : ROLE_STATUS
-		 * items : [{"color":"green","label":"正常","value":"0"},{"color":"red","label":"禁用","value":"1"}]
-		 */
-		@JSONField(name = "default")
-		@ApiModelProperty(value = "默认值")
-		private String defaultValue;
-		@ApiModelProperty(value = "类型编码")
-		private String type;
-		@ApiModelProperty(value = "字典项")
-		private List<Item> items;
-	}
+    @Data
+    class Dict {
+        /**
+         * default : 0
+         * type : ROLE_STATUS
+         * items : [{"color":"green","label":"正常","value":"0"},{"color":"red","label":"禁用","value":"1"}]
+         */
+        @JSONField(name = "default")
+        @ApiModelProperty(value = "默认值")
+        private String     defaultValue;
+        @ApiModelProperty(value = "类型编码")
+        private String     type;
+        @ApiModelProperty(value = "字典项")
+        private List<Item> items;
+    }
 
-	@Data
-	@Accessors(chain = true)
-	class Item {
-		/**
-		 * color : green
-		 * label : 正常
-		 * value : 0
-		 */
-		@ApiModelProperty(value = "颜色")
-		private String color;
-		@ApiModelProperty(value = "标签")
-		private String label;
-		@ApiModelProperty(value = "值")
-		private String value;
-	}
+    @Data
+    @Accessors(chain = true)
+    class Item {
+        /**
+         * color : green
+         * label : 正常
+         * value : 0
+         */
+        @ApiModelProperty(value = "颜色")
+        private String color;
+        @ApiModelProperty(value = "标签")
+        private String label;
+        @ApiModelProperty(value = "值")
+        private String value;
+    }
 }

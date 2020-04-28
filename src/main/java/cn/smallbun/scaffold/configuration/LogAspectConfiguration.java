@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018-2019. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
+ * Copyright (c) 2018-2020. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -13,10 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 package cn.smallbun.scaffold.configuration;
 
-import cn.smallbun.scaffold.framework.logger.aspect.LoggingAspect;
+import cn.smallbun.scaffold.framework.log.aspect.LogAspect;
 import cn.smallbun.scaffold.manage.service.ISysLoggerOperateService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,21 +28,21 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class LogAspectConfiguration {
 
-	public LogAspectConfiguration(ISysLoggerOperateService service) {
-		this.iSysLoggerService = service;
-	}
+    public LogAspectConfiguration(ISysLoggerOperateService service) {
+        this.iSysLoggerService = service;
+    }
 
-	/**
-	 * 配置 loggingAspect
-	 * @return {@link LoggingAspect}
-	 */
-	@Bean
-	public LoggingAspect loggingAspect() {
-		return new LoggingAspect(iSysLoggerService);
-	}
+    /**
+     * 配置 loggingAspect
+     * @return {@link LogAspect}
+     */
+    @Bean
+    public LogAspect loggingAspect() {
+        return new LogAspect(iSysLoggerService);
+    }
 
-	/**
-	 * 注入 LogService
-	 */
-	private final ISysLoggerOperateService iSysLoggerService;
+    /**
+     * 注入 LogService
+     */
+    private final ISysLoggerOperateService iSysLoggerService;
 }

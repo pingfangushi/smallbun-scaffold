@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018-2019. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
+ * Copyright (c) 2018-2020. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 package cn.smallbun.scaffold.manage.mapper;
 
 import cn.smallbun.scaffold.framework.mybatis.mapper.BaseMapper;
@@ -36,19 +35,19 @@ import java.util.List;
  */
 @Mapper
 public interface SysUserMapper extends BaseMapper<SysUserEntity> {
-	/**
-	 * 根据用户名获取用户
-	 *
-	 * @param username 用户名
-	 * @return 用户
-	 */
-	SysUserEntity findByUserName(@Param("username") String username);
+    /**
+     * 根据用户名获取用户
+     *
+     * @param username 用户名
+     * @return 用户
+     */
+    SysUserEntity findByUserName(@Param("username") String username);
 
-	/**
-	 * 分页
-	 * @param page {@link PageModel} pageModel
-	 * @param user {@link SysUserEntity} user
-	 * @return {@link List<SysUserEntity>}
-	 */
-	IPage<SysUserEntity> page(Page<SysUserEntity> page, @Param("user") SysUserEntity user);
+    /**
+     * 分页
+     * @param page {@link PageModel} pageModel
+     * @param user {@link SysUserEntity} user
+     * @return {@link List<SysUserEntity>}
+     */
+    IPage<SysUserEntity> page(Page<SysUserEntity> page, @Param("user") SysUserEntity user);
 }

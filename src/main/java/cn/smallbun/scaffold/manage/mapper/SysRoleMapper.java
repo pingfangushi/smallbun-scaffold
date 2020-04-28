@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018-2019. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
+ * Copyright (c) 2018-2020. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 package cn.smallbun.scaffold.manage.mapper;
 
 import cn.smallbun.scaffold.framework.mybatis.mapper.BaseMapper;
@@ -34,50 +33,52 @@ import java.util.List;
  */
 @Mapper
 public interface SysRoleMapper extends BaseMapper<SysRoleEntity> {
-	/**
-	 * 保存角色-用户关联
-	 * @param userId userId
-	 * @param roleIds roleIds
-	 * @return boolean
-	 */
-	boolean saveRoleUser(@Param("userId") String userId, @Param("roleIds") List<String> roleIds);
+    /**
+     * 保存角色-用户关联
+     * @param userId userId
+     * @param roleIds roleIds
+     * @return boolean
+     */
+    boolean saveRoleUser(@Param("userId") String userId, @Param("roleIds") List<String> roleIds);
 
-	/**
-	 * 删除角色-用户关联根据用户ID
-	 * @param id id
-	 * @return boolean
-	 */
-	boolean removeByUserId(@Param("id") String id);
+    /**
+     * 删除角色-用户关联根据用户ID
+     * @param id id
+     * @return boolean
+     */
+    boolean removeByUserId(@Param("id") String id);
 
-	/**
-	 * 根据用户ID查询角色信息
-	 * @param id id
-	 * @return {@link List<SysRoleEntity>}
-	 */
-	List<SysRoleEntity> findByUserId(String id);
+    /**
+     * 根据用户ID查询角色信息
+     * @param id id
+     * @return {@link List<SysRoleEntity>}
+     */
+    List<SysRoleEntity> findByUserId(String id);
 
-	/**
-	 * 添加角色权限关联关系
-	 * @param id ID
-	 * @param type 类型
-	 * @param auth auth
-	 * @return Long
-	 */
-	Long saveRoleAuthorize(@Param("id") String id, @Param("type") String type, @Param("auth") String auth);
+    /**
+     * 添加角色权限关联关系
+     * @param id ID
+     * @param type 类型
+     * @param auth auth
+     * @return Long
+     */
+    Long saveRoleAuthorize(@Param("id") String id, @Param("type") String type,
+                           @Param("auth") String auth);
 
-	/**
-	 * 删除角色权限关联关系
-	 * @param id ID
-	 * @param type 类型
-	 * @param auth auth
-	 * @return Long
-	 */
-	Long removeRoleAuthorize(@Param("id") String id, @Param("type") String type, @Param("auth") String auth);
+    /**
+     * 删除角色权限关联关系
+     * @param id ID
+     * @param type 类型
+     * @param auth auth
+     * @return Long
+     */
+    Long removeRoleAuthorize(@Param("id") String id, @Param("type") String type,
+                             @Param("auth") String auth);
 
-	/**
-	 * 根据角色ID获取权限关联关系
-	 * @param id 角色ID
-	 * @return {@link List<  RoleAuthBO  >}
-	 */
-	List<RoleAuthBO> getRoleAuthById(@Param("id") String id);
+    /**
+     * 根据角色ID获取权限关联关系
+     * @param id 角色ID
+     * @return {@link List<  RoleAuthBO  >}
+     */
+    List<RoleAuthBO> getRoleAuthById(@Param("id") String id);
 }

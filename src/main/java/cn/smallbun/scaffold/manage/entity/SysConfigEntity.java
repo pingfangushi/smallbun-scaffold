@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018-2019. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
+ * Copyright (c) 2018-2020. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 package cn.smallbun.scaffold.manage.entity;
 
 import cn.smallbun.scaffold.framework.mybatis.domain.BaseAuditEntity;
@@ -43,35 +42,35 @@ import javax.validation.constraints.NotBlank;
 @TableName("sys_config")
 @ApiModel(value = "系统参数", description = "系统配置参数")
 public class SysConfigEntity extends BaseAuditEntity<String> {
-	/**
-	 * 参数名称
-	 */
-	@ApiModelProperty(value = "参数名称")
-	@TableField("name_")
-	@NotBlank(message = "请输入参数名称", groups = {AddGroup.class, UpdateGroup.class})
-	private String name;
+    /**
+     * 参数名称
+     */
+    @ApiModelProperty(value = "参数名称")
+    @TableField("name_")
+    @NotBlank(message = "请输入参数名称", groups = { AddGroup.class, UpdateGroup.class })
+    private String name;
 
-	/**
-	 * 参数键
-	 */
-	@ApiModelProperty(value = "参数键")
-	@NotBlank(message = "请输入参数键", groups = {AddGroup.class, UpdateGroup.class})
-	@TableField("key_")
-	private String key;
+    /**
+     * 参数键
+     */
+    @ApiModelProperty(value = "参数键")
+    @NotBlank(message = "请输入参数键", groups = { AddGroup.class, UpdateGroup.class })
+    @TableField("key_")
+    private String key;
 
-	/**
-	 * 参数值
-	 */
-	@ApiModelProperty(value = "参数值")
-	@NotBlank(message = "请输入参数值", groups = {AddGroup.class, UpdateGroup.class})
-	@TableField("value_")
-	private String value;
+    /**
+     * 参数值
+     */
+    @ApiModelProperty(value = "参数值")
+    @NotBlank(message = "请输入参数值", groups = { AddGroup.class, UpdateGroup.class })
+    @TableField("value_")
+    private String value;
 
-	/**
-	 * 状态
-	 */
-	@ApiModelProperty(value = "状态")
-	@TableField("status_")
-	@NotBlank(message = "请输入状态", groups = {AddGroup.class, UpdateGroup.class})
-	private String status;
+    /**
+     * 状态
+     */
+    @ApiModelProperty(value = "状态")
+    @TableField("status_")
+    @NotBlank(message = "请输入状态", groups = { AddGroup.class, UpdateGroup.class })
+    private String status;
 }

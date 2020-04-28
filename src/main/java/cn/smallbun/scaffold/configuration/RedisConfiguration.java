@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018-2019. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
+ * Copyright (c) 2018-2020. ‭‭‭‭‭‭‭‭‭‭‭‭[zuoqinggang] www.pingfangushi.com
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 package cn.smallbun.scaffold.configuration;
 
 import com.alibaba.fastjson.parser.ParserConfig;
@@ -46,86 +45,89 @@ import java.time.Duration;
 @EnableCaching
 @Configuration
 public class RedisConfiguration {
-	/**
-	 * 配置 CacheManager 过期时间30天
-	 * @param redisConnectionFactory  {@link RedisConnectionFactory}
-	 * @return {@link CacheManager}
-	 */
-	@Primary
-	@Bean(value = "cacheManager")
-	public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
-		ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
-		//获取Redis配置
-		RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig();
-		//设置序列化方式
-		configuration = configuration.serializeValuesWith(
-				//value 序列化方式
-				RedisSerializationContext.SerializationPair.fromSerializer(new GenericFastJsonRedisSerializer()))
-				//设置过期时间30天
-				.entryTtl(Duration.ofDays(30));
-		return RedisCacheManager.builder(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory))
-				.cacheDefaults(configuration).build();
-	}
+    /**
+     * 配置 CacheManager 过期时间30天
+     * @param redisConnectionFactory  {@link RedisConnectionFactory}
+     * @return {@link CacheManager}
+     */
+    @Primary
+    @Bean(value = "cacheManager")
+    public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
+        ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
+        //获取Redis配置
+        RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig();
+        //设置序列化方式
+        configuration = configuration.serializeValuesWith(
+            //value 序列化方式
+            RedisSerializationContext.SerializationPair
+                .fromSerializer(new GenericFastJsonRedisSerializer()))
+            //设置过期时间30天
+            .entryTtl(Duration.ofDays(30));
+        return RedisCacheManager
+            .builder(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory))
+            .cacheDefaults(configuration).build();
+    }
 
-	/**
-	 * 配置 CacheManager 一天
-	 * @param redisConnectionFactory  {@link RedisConnectionFactory}
-	 * @return {@link CacheManager}
-	 */
-	@Bean(value = "cacheManagerOneDay")
-	public CacheManager cacheManagerOneDay(RedisConnectionFactory redisConnectionFactory) {
-		ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
-		//获取Redis配置
-		RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig();
-		//设置序列化方式
-		configuration = configuration.serializeValuesWith(
-				//value 序列化方式
-				RedisSerializationContext.SerializationPair.fromSerializer(new GenericFastJsonRedisSerializer()))
-				//设置过期时间1天
-				.entryTtl(Duration.ofDays(1));
-		return RedisCacheManager.builder(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory))
-				.cacheDefaults(configuration).build();
-	}
+    /**
+     * 配置 CacheManager 一天
+     * @param redisConnectionFactory  {@link RedisConnectionFactory}
+     * @return {@link CacheManager}
+     */
+    @Bean(value = "cacheManagerOneDay")
+    public CacheManager cacheManagerOneDay(RedisConnectionFactory redisConnectionFactory) {
+        ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
+        //获取Redis配置
+        RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig();
+        //设置序列化方式
+        configuration = configuration.serializeValuesWith(
+            //value 序列化方式
+            RedisSerializationContext.SerializationPair
+                .fromSerializer(new GenericFastJsonRedisSerializer()))
+            //设置过期时间1天
+            .entryTtl(Duration.ofDays(1));
+        return RedisCacheManager
+            .builder(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory))
+            .cacheDefaults(configuration).build();
+    }
 
-	/**
-	 * 重写Redis序列化方式
-	 * 在此我们将自己配置RedisTemplate并定义Serializer。
-	 * @param redisConnectionFactory {@link RedisConnectionFactory}
-	 * @return {@link RedisTemplate}
-	 */
-	@Bean
-	public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-		ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
-		RedisTemplate<Object, Object> template = new RedisTemplate<>();
-		template.setConnectionFactory(redisConnectionFactory);
+    /**
+     * 重写Redis序列化方式
+     * 在此我们将自己配置RedisTemplate并定义Serializer。
+     * @param redisConnectionFactory {@link RedisConnectionFactory}
+     * @return {@link RedisTemplate}
+     */
+    @Bean
+    public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
+        RedisTemplate<Object, Object> template = new RedisTemplate<>();
+        template.setConnectionFactory(redisConnectionFactory);
 
-		//设置序列化方式
-		template.setKeySerializer(new StringRedisSerializer());
-		template.setValueSerializer(new GenericFastJsonRedisSerializer());
+        //设置序列化方式
+        template.setKeySerializer(new StringRedisSerializer());
+        template.setValueSerializer(new GenericFastJsonRedisSerializer());
 
-		template.setHashKeySerializer(new StringRedisSerializer());
-		template.setHashValueSerializer(new GenericFastJsonRedisSerializer());
-		return template;
-	}
+        template.setHashKeySerializer(new StringRedisSerializer());
+        template.setHashValueSerializer(new GenericFastJsonRedisSerializer());
+        return template;
+    }
 
-	/**
-	 * 配置 StringRedisTemplate
-	 * @param redisConnectionFactory  {@link RedisConnectionFactory}
-	 * @return {@link StringRedisTemplate}
-	 */
-	@Bean
-	public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
-		ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
-		StringRedisTemplate template = new StringRedisTemplate();
-		template.setConnectionFactory(redisConnectionFactory);
-		//key配置
-		template.setKeySerializer(new StringRedisSerializer());
-		template.setHashKeySerializer(new StringRedisSerializer());
-		//value配置
-		template.setValueSerializer(new GenericFastJsonRedisSerializer());
-		template.setHashValueSerializer(new GenericFastJsonRedisSerializer());
-		return template;
-	}
-
+    /**
+     * 配置 StringRedisTemplate
+     * @param redisConnectionFactory  {@link RedisConnectionFactory}
+     * @return {@link StringRedisTemplate}
+     */
+    @Bean
+    public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
+        StringRedisTemplate template = new StringRedisTemplate();
+        template.setConnectionFactory(redisConnectionFactory);
+        //key配置
+        template.setKeySerializer(new StringRedisSerializer());
+        template.setHashKeySerializer(new StringRedisSerializer());
+        //value配置
+        template.setValueSerializer(new GenericFastJsonRedisSerializer());
+        template.setHashValueSerializer(new GenericFastJsonRedisSerializer());
+        return template;
+    }
 
 }
