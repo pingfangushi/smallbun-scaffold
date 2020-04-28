@@ -48,7 +48,7 @@ import java.util.List;
 import static cn.smallbun.scaffold.framework.log.enmus.Operate.*;
 import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.mapping;
 import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.pageMapping;
-import static cn.smallbun.scaffold.manage.constant.ManageConstant.MANAGE_API_PATH;
+import static cn.smallbun.scaffold.common.constant.ManageConstant.MANAGE_API_PATH;
 
 /**
  * <p>

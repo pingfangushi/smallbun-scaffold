@@ -33,7 +33,7 @@ public class LogAspectConfiguration {
     }
 
     /**
-     * 配置 loggingAspect
+     * 配置 LogAspect
      * @return {@link LogAspect}
      */
     @Bean
