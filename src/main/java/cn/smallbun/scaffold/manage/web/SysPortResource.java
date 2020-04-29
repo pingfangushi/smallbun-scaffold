@@ -24,7 +24,7 @@ import cn.smallbun.scaffold.framework.mybatis.page.PageModel;
 import cn.smallbun.scaffold.framework.validation.group.AddGroup;
 import cn.smallbun.scaffold.framework.validation.group.UpdateGroup;
 import cn.smallbun.scaffold.framework.web.BaseResource;
-import cn.smallbun.scaffold.common.constant.ManageConstant;
+import cn.smallbun.scaffold.common.constant.PathConstant;
 import cn.smallbun.scaffold.manage.pojo.PortVO;
 import cn.smallbun.scaffold.manage.service.ISysPortService;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -53,7 +53,7 @@ import static cn.smallbun.scaffold.manage.web.SysPortResource.API;
 @RestController
 @Api(tags = API)
 @Log(module = API)
-@RequestMapping(ManageConstant.MANAGE_API_PATH + "/port")
+@RequestMapping(PathConstant.MANAGE_API_PATH + "/port")
 public class SysPortResource extends BaseResource {
 
     final static String API = "员工岗位API";

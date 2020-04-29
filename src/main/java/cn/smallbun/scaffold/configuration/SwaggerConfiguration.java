@@ -34,7 +34,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.nio.ByteBuffer;
 
-import static cn.smallbun.scaffold.common.constant.ManageConstant.MANAGE_API_PATH;
+import static cn.smallbun.scaffold.common.constant.PathConstant.MANAGE_API_PATH;
 import static springfox.documentation.builders.PathSelectors.regex;
 
 /**

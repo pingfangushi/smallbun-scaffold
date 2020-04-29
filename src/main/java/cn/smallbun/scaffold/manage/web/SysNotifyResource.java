@@ -24,7 +24,7 @@ import cn.smallbun.scaffold.framework.mybatis.page.PageModel;
 import cn.smallbun.scaffold.framework.validation.group.AddGroup;
 import cn.smallbun.scaffold.framework.validation.group.UpdateGroup;
 import cn.smallbun.scaffold.framework.web.BaseResource;
-import cn.smallbun.scaffold.common.constant.ManageConstant;
+import cn.smallbun.scaffold.common.constant.PathConstant;
 import cn.smallbun.scaffold.manage.pojo.NotifyVO;
 import cn.smallbun.scaffold.manage.service.ISysNotifyService;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -53,7 +53,7 @@ import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.*;
 @Log(module = SysNotifyResource.API)
 @Validated
 @RestController
-@RequestMapping(ManageConstant.MANAGE_API_PATH + "/notify")
+@RequestMapping(PathConstant.MANAGE_API_PATH + "/notify")
 @Api(tags = SysNotifyResource.API)
 public class SysNotifyResource extends BaseResource {
 

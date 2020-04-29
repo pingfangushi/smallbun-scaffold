@@ -16,13 +16,13 @@
 package cn.smallbun.scaffold.common.constant;
 
 /**
- * Manage常量
+ * PathConstant
  * @author SanLi
  * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2019/12/12 22:48
  */
-public class ManageConstant {
+public class PathConstant {
     /**
-     * 路径
+     * 管理系统路径
      */
     public static final String MANAGE_API_PATH = "/manage/api";
 }

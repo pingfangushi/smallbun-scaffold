@@ -25,7 +25,7 @@ import cn.smallbun.scaffold.framework.mybatis.page.PageModel;
 import cn.smallbun.scaffold.framework.validation.group.AddGroup;
 import cn.smallbun.scaffold.framework.validation.group.UpdateGroup;
 import cn.smallbun.scaffold.framework.web.BaseResource;
-import cn.smallbun.scaffold.common.constant.ManageConstant;
+import cn.smallbun.scaffold.common.constant.PathConstant;
 import cn.smallbun.scaffold.manage.entity.SysAuthorityTypeEntity;
 import cn.smallbun.scaffold.manage.entity.SysAuthorizeItemEntity;
 import cn.smallbun.scaffold.manage.entity.SysDictItemEntity;
@@ -60,7 +60,7 @@ import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.*;
 @Api(tags = SysAuthorityResource.API)
 @Log(module = SysAuthorityResource.API)
 @RestController
-@RequestMapping(ManageConstant.MANAGE_API_PATH + "/authority")
+@RequestMapping(PathConstant.MANAGE_API_PATH + "/authority")
 public class SysAuthorityResource extends BaseResource {
 
     final static String API = "权限管理API";

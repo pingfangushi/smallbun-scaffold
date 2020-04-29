@@ -44,7 +44,7 @@ import java.io.IOException;
 import static cn.smallbun.scaffold.framework.common.constant.SystemConstants.COLON;
 import static cn.smallbun.scaffold.framework.exception.enums.ExceptionStatus.EX000102;
 import static cn.smallbun.scaffold.framework.exception.enums.ExceptionStatus.EX900005;
-import static cn.smallbun.scaffold.common.constant.ManageConstant.MANAGE_API_PATH;
+import static cn.smallbun.scaffold.common.constant.PathConstant.MANAGE_API_PATH;
 import static cn.smallbun.scaffold.manage.service.impl.AccountServiceImpl.CAPTCHA_CACHE_NAME;
 import static cn.smallbun.scaffold.manage.service.impl.AccountServiceImpl.SECRET_CACHE_NAME;
 
