@@ -82,7 +82,7 @@ public class SwaggerConfiguration {
     private ApiInfo info() {
         return new ApiInfoBuilder()
             //title
-            .title(applicationContext.getApplicationName())
+            .title(applicationContext.getId())
             //描述
             .description("REST API 文档")
             //服务条款网址
