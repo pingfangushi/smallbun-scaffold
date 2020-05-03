@@ -17,14 +17,13 @@ package cn.smallbun.scaffold.manage.service.impl;
 
 import cn.smallbun.scaffold.framework.common.toolkit.IpUtil;
 import cn.smallbun.scaffold.framework.common.toolkit.RsaUtil;
-import cn.smallbun.scaffold.framework.configurer.SmallBunProperties;
 import cn.smallbun.scaffold.framework.mybatis.domain.IdEntity;
 import cn.smallbun.scaffold.framework.redis.RedisClient;
-import cn.smallbun.scaffold.framework.security.AuthorityInfo;
-import cn.smallbun.scaffold.framework.security.SecurityAuthorizeProvider;
+import cn.smallbun.scaffold.framework.security.authority.AuthorityInfo;
 import cn.smallbun.scaffold.framework.security.domain.User;
 import cn.smallbun.scaffold.framework.security.exception.HaveNotAuthorityException;
 import cn.smallbun.scaffold.framework.security.jwt.TokenProvider;
+import cn.smallbun.scaffold.framework.security.utils.SecurityUtils;
 import cn.smallbun.scaffold.manage.entity.SysAuthorizeItemEntity;
 import cn.smallbun.scaffold.manage.entity.SysLoggerLoginEntity;
 import cn.smallbun.scaffold.manage.entity.SysRoleEntity;
@@ -36,7 +35,6 @@ import cn.smallbun.scaffold.manage.pojo.LoginResultDTO;
 import cn.smallbun.scaffold.manage.service.*;
 import com.alibaba.fastjson.JSON;
 import com.google.code.kaptcha.Producer;
-import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
@@ -48,7 +46,6 @@ import org.springframework.security.authentication.event.AuthenticationSuccessEv
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -70,10 +67,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static cn.smallbun.scaffold.framework.common.address.Address.getCityInfoByDb;
-import static cn.smallbun.scaffold.framework.common.constant.SystemConstants.*;
+import static cn.smallbun.scaffold.framework.common.constant.SystemConstants.COLON;
+import static cn.smallbun.scaffold.framework.common.constant.SystemConstants.PRIVATE_KEY;
 import static cn.smallbun.scaffold.framework.common.result.ApiRestResult.SUCCESS;
 import static cn.smallbun.scaffold.framework.common.toolkit.UserAgentUtil.getUserAgent;
 import static cn.smallbun.scaffold.framework.security.enums.Security.*;
+import static javax.crypto.Cipher.PUBLIC_KEY;
 
 /**
  * 账户业务逻辑实现类
@@ -82,29 +81,7 @@ import static cn.smallbun.scaffold.framework.security.enums.Security.*;
  * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2019/10/27 20:12
  */
 @Service(value = "userDetailsService")
-public class AccountServiceImpl implements IAccountService, SecurityAuthorizeProvider {
-    private final Logger       logger             = LoggerFactory.getLogger(IAccountService.class);
-
-    public static final String SECRET_CACHE_NAME  = "secret";
-    public static final String CAPTCHA_CACHE_NAME = "captcha";
-
-    public AccountServiceImpl(ISysLoggerLoginService iSysLoggerLoginService,
-                              Producer captchaProducer, ISysUserService iSysUserService,
-                              ISysRoleService iSysRoleService, SmallBunProperties properties,
-                              RedisClient redisClient,
-                              AuthenticationManagerBuilder authenticationManagerBuilder,
-                              TokenProvider tokenProvider,
-                              ISysAuthorizeItemService iSysAuthorizeItemService) {
-        this.iSysLoggerLoginService = iSysLoggerLoginService;
-        this.captchaProducer = captchaProducer;
-        this.iSysUserService = iSysUserService;
-        this.iSysRoleService = iSysRoleService;
-        this.properties = properties;
-        this.redisClient = redisClient;
-        this.authenticationManagerBuilder = authenticationManagerBuilder;
-        this.tokenProvider = tokenProvider;
-        this.iSysAuthorizeItemService = iSysAuthorizeItemService;
-    }
+public class AccountServiceImpl implements IAccountService {
 
     /**
      * 登录
@@ -146,13 +123,7 @@ public class AccountServiceImpl implements IAccountService, SecurityAuthorizePro
      */
     @Override
     public UserDetails loadUserByUsername(String username) {
-        // 放入用户名
         logger.info("通过用户名:{} 加载用户", username);
-        //如果是全局用户
-        if (username.equals(properties.getSecurity().getUsername())) {
-            return new User(username, properties.getSecurity().getPassword(),
-                properties.getSecurity().getId(), true, true, true, true);
-        }
         SysUserEntity entity = iSysUserService.getByUserName(username);
         //不存在该用户
         if (ObjectUtils.isEmpty(entity)) {
@@ -251,7 +222,7 @@ public class AccountServiceImpl implements IAccountService, SecurityAuthorizePro
      *
      * @param e {@link AuthenticationSuccessEvent}
      */
-    @EventListener
+    @org.springframework.context.event.EventListener
     public void authenticationSuccessEvent(AuthenticationSuccessEvent e) {
         //用户名
         String username = ((User) e.getAuthentication().getPrincipal()).getUsername();
@@ -306,98 +277,18 @@ public class AccountServiceImpl implements IAccountService, SecurityAuthorizePro
     }
 
     /**
-     * 获取权限
-     *
-     * @param user {@link String} 用户名
-     * @return {@link List<GrantedAuthority>}
+     * Logger
      */
-    @Override
-    public List<GrantedAuthority> getAuthority(String user) {
-        AuthorityInfo authorityInfo = this.getAuthorityInfo(user);
-        //操作权限
-        List<String> auth = authorityInfo.getActions().stream()
-            .map(AuthorityInfo.AuthorityItem::getAuth).collect(Collectors.toList());
-        //接口权限
-        auth.addAll(authorityInfo.getInterfaces().stream().map(AuthorityInfo.AuthorityItem::getAuth)
-            .collect(Collectors.toList()));
-        //路由权限
-        auth.addAll(authorityInfo.getRouters().stream().map(AuthorityInfo.AuthorityItem::getAuth)
-            .collect(Collectors.toList()));
-        //处理数据
-        return authorities(auth);
-    }
-
+    private final Logger                       logger             = LoggerFactory
+        .getLogger(IAccountService.class);
     /**
-     * 获取权限
-     *
-     * @param userId userId
-     * @return {@link AuthorityInfo}
+     * 秘钥
      */
-    @Override
-    public AuthorityInfo getAuthorityInfo(String userId) {
-        AuthorityInfo info = new AuthorityInfo();
-        List<String> roleIds;
-        //全局超级用户
-        if (properties.getSecurity().getId().equals(userId)) {
-            //系统所有角色
-            roleIds = iSysRoleService.list().stream().map(IdEntity::getId)
-                .collect(Collectors.toList());
-        } else {
-            //根据用户获取角色
-            SysUserEntity user = iSysUserService.getById(userId);
-            List<SysRoleEntity> roles = user.getRoles();
-            roleIds = roles.stream().map(IdEntity::getId).collect(Collectors.toList());
-        }
-        // 过滤所有启用的权限
-        List<SysRoleEntity> list = iSysRoleService.listByIds(roleIds);
-        if (CollectionUtils.isEmpty(roleIds)) {
-            throw new HaveNotAuthorityException("没有可用角色，请联系管理员");
-        }
-        //查询权限
-        List<SysAuthorizeItemEntity> authorizeItems = iSysAuthorizeItemService
-            .getAuthorizeItemsByRole(
-                list.stream().map(SysRoleEntity::getId).collect(Collectors.toList()));
-        if (CollectionUtils.isEmpty(authorizeItems)) {
-            throw new HaveNotAuthorityException("用户没有可用权限");
-        }
-        //过滤接口权限
-        info.setInterfaces(getAuthorityItems(authorizeItems, AuthorizeType.INTERFACE));
-        //过滤路由权限
-        info.setRouters(getAuthorityItems(authorizeItems, AuthorizeType.ROUTE));
-        //操作权限
-        info.setActions(getAuthorityItems(authorizeItems, AuthorizeType.OPERATE));
-        logger.info("用户信息：{}", JSON.toJSONString(info));
-        return info;
-    }
-
-    private List<AuthorityInfo.AuthorityItem> getAuthorityItems(List<SysAuthorizeItemEntity> authorizeItems,
-                                                                AuthorizeType type) {
-        List<SysAuthorizeItemEntity> operates = authorizeItems.stream()
-            .filter(i -> i.getType().equals(type)).collect(Collectors.toList());
-        List<AuthorityInfo.AuthorityItem> operatesItems = new ArrayList<>();
-        operates.forEach(entity -> {
-            AuthorityInfo.AuthorityItem item = new AuthorityInfo.AuthorityItem();
-            item.setAuth(entity.getPermission());
-            item.setDescribe(entity.getName());
-            operatesItems.add(item);
-        });
-        return operatesItems;
-    }
-
+    public static final String                 SECRET_CACHE_NAME  = "secret";
     /**
-     * 处理权限
-     *
-     * @param auth {@link List<String>}
-     * @return {@link List<GrantedAuthority>}
+     * 验证码
      */
-    private List<GrantedAuthority> authorities(List<String> auth) {
-        List<GrantedAuthority> authorities = Lists.newArrayList();
-        for (String s : auth) {
-            authorities.addAll(AuthorityUtils.createAuthorityList(s));
-        }
-        return authorities;
-    }
-
+    public static final String                 CAPTCHA_CACHE_NAME = "captcha";
     /**
      * 登录日志
      */
@@ -411,14 +302,7 @@ public class AccountServiceImpl implements IAccountService, SecurityAuthorizePro
      * 系统用户
      */
     private final ISysUserService              iSysUserService;
-    /**
-     * 系统角色
-     */
-    private final ISysRoleService              iSysRoleService;
-    /**
-     * SmallBunProperties
-     */
-    private final SmallBunProperties           properties;
+
     /**
      * RedisClient
      */
@@ -431,9 +315,17 @@ public class AccountServiceImpl implements IAccountService, SecurityAuthorizePro
      * token 提供者
      */
     private final TokenProvider                tokenProvider;
-    /**
-     * ISysAuthorizeItemService
-     */
-    private final ISysAuthorizeItemService     iSysAuthorizeItemService;
 
+    public AccountServiceImpl(ISysLoggerLoginService iSysLoggerLoginService,
+                              Producer captchaProducer, ISysUserService iSysUserService,
+                              RedisClient redisClient,
+                              AuthenticationManagerBuilder authenticationManagerBuilder,
+                              TokenProvider tokenProvider) {
+        this.iSysLoggerLoginService = iSysLoggerLoginService;
+        this.captchaProducer = captchaProducer;
+        this.iSysUserService = iSysUserService;
+        this.redisClient = redisClient;
+        this.authenticationManagerBuilder = authenticationManagerBuilder;
+        this.tokenProvider = tokenProvider;
+    }
 }
