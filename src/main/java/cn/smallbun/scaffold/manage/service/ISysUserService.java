@@ -19,7 +19,7 @@ import cn.smallbun.scaffold.framework.mybatis.page.PageModel;
 import cn.smallbun.scaffold.framework.mybatis.service.BaseService;
 import cn.smallbun.scaffold.manage.entity.SysUserEntity;
 import cn.smallbun.scaffold.manage.enums.UserStatus;
-import cn.smallbun.scaffold.manage.pojo.UserAO;
+import cn.smallbun.scaffold.manage.pojo.user.UserAO;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
 /**

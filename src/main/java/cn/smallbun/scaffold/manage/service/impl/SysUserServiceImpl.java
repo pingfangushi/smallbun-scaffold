@@ -23,7 +23,7 @@ import cn.smallbun.scaffold.manage.entity.SysRoleEntity;
 import cn.smallbun.scaffold.manage.entity.SysUserEntity;
 import cn.smallbun.scaffold.manage.enums.UserStatus;
 import cn.smallbun.scaffold.manage.mapper.SysUserMapper;
-import cn.smallbun.scaffold.manage.pojo.UserAO;
+import cn.smallbun.scaffold.manage.pojo.user.UserAO;
 import cn.smallbun.scaffold.manage.service.ISysGroupService;
 import cn.smallbun.scaffold.manage.service.ISysRoleService;
 import cn.smallbun.scaffold.manage.service.ISysUserService;

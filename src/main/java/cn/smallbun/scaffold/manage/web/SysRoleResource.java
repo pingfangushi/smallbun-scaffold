@@ -28,15 +28,19 @@ import cn.smallbun.scaffold.framework.web.BaseResource;
 import cn.smallbun.scaffold.manage.entity.SysDictItemEntity;
 import cn.smallbun.scaffold.manage.entity.SysRoleEntity;
 import cn.smallbun.scaffold.manage.enums.RoleStatus;
-import cn.smallbun.scaffold.manage.pojo.RoleAuthVO;
-import cn.smallbun.scaffold.manage.pojo.RoleVO;
-import cn.smallbun.scaffold.manage.pojo.UpdateAuthorizeBO;
+import cn.smallbun.scaffold.manage.pojo.authority.UpdateAuthorizeBO;
+import cn.smallbun.scaffold.manage.pojo.role.RoleAddOrUpdateVO;
+import cn.smallbun.scaffold.manage.pojo.role.RoleAuthVO;
+import cn.smallbun.scaffold.manage.pojo.role.RoleQuery;
+import cn.smallbun.scaffold.manage.pojo.role.RoleQueryResultVO;
 import cn.smallbun.scaffold.manage.service.ISysRoleService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -44,10 +48,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static cn.smallbun.scaffold.common.constant.PathConstant.MANAGE_API_PATH;
 import static cn.smallbun.scaffold.framework.log.enmus.Operate.*;
 import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.mapping;
-import static cn.smallbun.scaffold.framework.mybatis.utils.MappingHelp.pageMapping;
-import static cn.smallbun.scaffold.common.constant.PathConstant.MANAGE_API_PATH;
 import static cn.smallbun.scaffold.manage.web.SysRoleResource.API;
 
 /**
@@ -70,7 +73,8 @@ public class SysRoleResource extends BaseResource {
 
     /**
      * 添加
-     * @param role {@link RoleVO} 添加对象
+     *
+     * @param vo {@link RoleAddOrUpdateVO} VO对象
      * @return {@link ApiRestResult} 通用返回对象
      */
     @DemoEnvironment
@@ -79,14 +83,17 @@ public class SysRoleResource extends BaseResource {
     @ApiOperation(value = "新增角色", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperationSupport(order = 1)
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ApiRestResult add(@Validated(value = { AddGroup.class }) @RequestBody SysRoleEntity role) {
-        return new ApiRestResult<>().result(iSysRoleService.save(role)).build();
+    public ApiRestResult<Boolean> add(@Validated(value = { AddGroup.class }) @RequestBody RoleAddOrUpdateVO vo) {
+        // 封装数据
+        SysRoleEntity role = new SysRoleEntity();
+        BeanUtils.copyProperties(vo, role);
+        return new ApiRestResult<Boolean>().result(iSysRoleService.save(role)).build();
     }
 
     /**
      * 修改角色
      *
-     * @param role {@link RoleVO} 添加对象
+     * @param vo {@link RoleAddOrUpdateVO} 添加对象
      * @return {@link ApiRestResult} 通用返回对象
      */
     @DemoEnvironment
@@ -95,8 +102,11 @@ public class SysRoleResource extends BaseResource {
     @ApiOperation(value = "修改角色", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperationSupport(order = 2)
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ApiRestResult updateById(@Validated(value = { UpdateGroup.class }) @RequestBody SysRoleEntity role) {
-        return new ApiRestResult<>().result(iSysRoleService.updateById(role)).build();
+    public ApiRestResult<Boolean> updateById(@Validated(value = { UpdateGroup.class }) @RequestBody RoleAddOrUpdateVO vo) {
+        // 封装数据
+        SysRoleEntity role = new SysRoleEntity();
+        BeanUtils.copyProperties(vo, role);
+        return new ApiRestResult<Boolean>().result(iSysRoleService.updateById(role)).build();
     }
 
     /**
@@ -111,8 +121,8 @@ public class SysRoleResource extends BaseResource {
     @ApiOperationSupport(order = 3)
     @DeleteMapping(value = "/{ids}", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('manage:interface:role:remove')")
-    public ApiRestResult removeByIds(@PathVariable String ids) {
-        return new ApiRestResult<>().result(
+    public ApiRestResult<Boolean> removeByIds(@PathVariable String ids) {
+        return new ApiRestResult<Boolean>().result(
             iSysRoleService.removeByIds(Lists.newArrayList(ids.split(StringUtil.SPLIT_DEFAULT))))
             .build();
     }
@@ -128,11 +138,14 @@ public class SysRoleResource extends BaseResource {
     @ApiOperation(value = "分页查询角色列表", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperationSupport(order = 4)
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ApiRestResult<Page<RoleVO>> getPage(PageModel pageModel, SysRoleEntity role) {
-        // 转换为VO
-        Page<RoleVO> page = pageMapping(iSysRoleService.page(pageModel, Wrappers.query(role)),
-            RoleVO.class);
-        return new ApiRestResult<Page<RoleVO>>().result(page).build();
+    public ApiRestResult<Page<RoleQueryResultVO>> getPage(PageModel pageModel, RoleQuery vo) {
+        // 封装查询数据
+        SysRoleEntity role = new SysRoleEntity();
+        BeanUtils.copyProperties(vo, role);
+        IPage<SysRoleEntity> iPage = iSysRoleService.page(pageModel, Wrappers.query(role));
+        // 封装返回数据
+        Page<RoleQueryResultVO> page = new Page<>();
+        return new ApiRestResult<Page<RoleQueryResultVO>>().result(page).build();
     }
 
     /**
@@ -146,10 +159,10 @@ public class SysRoleResource extends BaseResource {
     @ApiOperation(value = "根据ID查询角色", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperationSupport(order = 5)
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ApiRestResult<RoleVO> getById(@PathVariable String id) {
+    public ApiRestResult<RoleQueryResultVO> getById(@PathVariable String id) {
         // 转换为VO
-        RoleVO role = mapping(iSysRoleService.getById(id), new RoleVO());
-        return new ApiRestResult<RoleVO>().result(role).build();
+        RoleQueryResultVO role = mapping(iSysRoleService.getById(id), new RoleQueryResultVO());
+        return new ApiRestResult<RoleQueryResultVO>().result(role).build();
     }
 
     /**
@@ -201,7 +214,8 @@ public class SysRoleResource extends BaseResource {
 
     /**
      * 根据ID更新角色类型状态
-     * @param id id
+     *
+     * @param id     id
      * @param status 状态
      * @return 结果
      */
@@ -210,13 +224,14 @@ public class SysRoleResource extends BaseResource {
     @ApiOperation(value = "根据ID更新角色类型状态", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperationSupport(order = 9)
     @PutMapping(value = "/{id}/status/{status}")
-    public ApiRestResult updateStatusById(@PathVariable String id,
-                                          @PathVariable RoleStatus status) {
-        return new ApiRestResult<>().result(iSysRoleService.updateStatusById(id, status)).build();
+    public ApiRestResult<Boolean> updateStatusById(@PathVariable String id,
+                                                   @PathVariable RoleStatus status) {
+        return new ApiRestResult<Boolean>().result(iSysRoleService.updateStatusById(id, status))
+            .build();
     }
 
     /**
-     *	注入角色业务接口
+     * 注入角色业务接口
      */
     private final ISysRoleService iSysRoleService;
 

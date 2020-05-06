@@ -52,7 +52,7 @@
          WHERE su.id_=#{id}
     </select>
     <!--根据角色ID获取权限-->
-    <select id="getRoleAuthById" resultType="cn.smallbun.scaffold.manage.pojo.RoleAuthBO">
+    <select id="getRoleAuthById" resultType="cn.smallbun.scaffold.manage.pojo.role.RoleAuthBO">
         SELECT role_ as role,authority_ as auth ,type_ as type
         FROM sys_role_authority where role_=#{id}
     </select>

@@ -25,7 +25,7 @@ import cn.smallbun.scaffold.framework.validation.group.AddGroup;
 import cn.smallbun.scaffold.framework.validation.group.UpdateGroup;
 import cn.smallbun.scaffold.framework.web.BaseResource;
 import cn.smallbun.scaffold.common.constant.PathConstant;
-import cn.smallbun.scaffold.manage.pojo.PortVO;
+import cn.smallbun.scaffold.manage.pojo.port.PortVO;
 import cn.smallbun.scaffold.manage.service.ISysPortService;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.google.common.collect.Lists;

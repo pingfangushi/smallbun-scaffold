@@ -24,7 +24,7 @@ import cn.smallbun.scaffold.framework.mybatis.page.PageModel;
 import cn.smallbun.scaffold.framework.validation.group.AddGroup;
 import cn.smallbun.scaffold.framework.validation.group.UpdateGroup;
 import cn.smallbun.scaffold.framework.web.BaseResource;
-import cn.smallbun.scaffold.manage.pojo.ConfigVO;
+import cn.smallbun.scaffold.manage.pojo.config.ConfigVO;
 import cn.smallbun.scaffold.manage.service.ISysConfigService;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.google.common.collect.Lists;

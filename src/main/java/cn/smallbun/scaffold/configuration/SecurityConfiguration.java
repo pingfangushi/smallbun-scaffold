@@ -31,8 +31,11 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter;
 import org.springframework.web.filter.CorsFilter;
 
+import static cn.smallbun.scaffold.common.constant.PathConstant.MANAGE_API_PATH;
+
 /**
  * SecurityConfiguration
+ *
  * @author SanLi
  * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2019/9/27 14:54
  */
@@ -72,14 +75,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             // 配置路径
             .and().authorizeRequests()
             /*登录认证*/
-            .antMatchers("/api/account/login").permitAll()
+            .antMatchers(MANAGE_API_PATH + "/account/login").permitAll()
             /*特定字典忽略*/
-            .antMatchers("/api/dict").permitAll()
+            .antMatchers(MANAGE_API_PATH + "/dict").permitAll()
             /*图片验证码*/
-            .antMatchers("/api/image_captcha").permitAll()
+            .antMatchers(MANAGE_API_PATH + "/account/image_captcha").permitAll()
             /*加密公钥*/
-            .antMatchers("/api/public_secret").permitAll().antMatchers("/api/**").authenticated()
-            .and().httpBasic().and().apply(jwtConfigurer);
+            .antMatchers(MANAGE_API_PATH + "/account/public_secret").permitAll()
+            /*需授权才可访问*/
+            .antMatchers(MANAGE_API_PATH + "/**").authenticated().and().httpBasic().and()
+            .apply(jwtConfigurer);
         // @formatter:on
     }
 

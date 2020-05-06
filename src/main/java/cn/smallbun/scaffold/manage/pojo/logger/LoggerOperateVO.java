@@ -13,22 +13,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package cn.smallbun.scaffold.manage.pojo;
+package cn.smallbun.scaffold.manage.pojo.logger;
 
-import cn.smallbun.scaffold.manage.entity.SysAuthorityTypeEntity;
+import cn.smallbun.scaffold.manage.entity.SysLoggerOperateEntity;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 /**
- * 系统角色VO
+ * 操作日志
  * @author SanLi
- * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on  2019/5/27
+ * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2019/11/2 14:48
  */
 @Data
-@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "系统权限参数", description = "系统权限VO")
-public class AuthorityVO extends SysAuthorityTypeEntity {
+@ApiModel(value = "操作日志", description = "系统操作日志VO")
+public class LoggerOperateVO extends SysLoggerOperateEntity {
 }

@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package cn.smallbun.scaffold.manage.pojo;
+package cn.smallbun.scaffold.manage.pojo.user;
 
 import cn.smallbun.scaffold.manage.entity.SysUserEntity;
 import io.swagger.annotations.ApiModel;

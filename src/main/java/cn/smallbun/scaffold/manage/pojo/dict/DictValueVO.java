@@ -13,25 +13,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package cn.smallbun.scaffold.manage.pojo;
+package cn.smallbun.scaffold.manage.pojo.dict;
 
+import cn.smallbun.scaffold.manage.entity.SysDictItemEntity;
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
-
-import java.io.Serializable;
-import java.util.List;
+import lombok.EqualsAndHashCode;
 
 /**
- * 展示菜单
+ * 系统字典数据VO
  * @author SanLi
- * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2019/10/30 9:37
+ * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on  2019/5/27 
  */
 @Data
-public class FrontMenusDTO implements Serializable {
-
-    private String[]            authority;
-    private String              icon;
-    private String              locale;
-    private String              name;
-    private String              path;
-    private List<FrontMenusDTO> children;
+@EqualsAndHashCode(callSuper = true)
+@ApiModel(value = "字典数据", description = "系统字典数据VO")
+public class DictValueVO extends SysDictItemEntity {
 }

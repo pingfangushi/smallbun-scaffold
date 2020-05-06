@@ -13,29 +13,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package cn.smallbun.scaffold.manage.pojo;
+package cn.smallbun.scaffold.manage.pojo.authority;
 
+import cn.smallbun.scaffold.manage.entity.SysAuthorizeItemEntity;
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
-
-import java.io.Serializable;
-import java.util.List;
+import lombok.EqualsAndHashCode;
 
 /**
- * @author SanLi
- * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2019/10/27 15:26
+ * <p>
+ * 权限项参数
+ * </p>
+ *
+ * @author SanLi Automatic generated
+ * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on  2019-11-09
  */
 @Data
-public class LoginResultDTO implements Serializable {
-    /**
-     * 状态
-     */
-    private String       status;
-    /**
-     * 权限
-     */
-    private List<String> currentAuthority;
-    /**
-     * token
-     */
-    private String       token;
+@EqualsAndHashCode(callSuper = false)
+@ApiModel(value = "权限项参数", description = "系统权限项VO")
+public class AuthorizeItemVO extends SysAuthorizeItemEntity {
+
 }

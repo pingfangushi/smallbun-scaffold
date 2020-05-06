@@ -13,20 +13,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package cn.smallbun.scaffold.manage.pojo;
+package cn.smallbun.scaffold.manage.pojo.dict;
 
-import cn.smallbun.scaffold.manage.entity.SysLoggerLoginEntity;
+import cn.smallbun.scaffold.manage.entity.SysDictTypeEntity;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 登录日志
+ * 系统字典类型VO
  * @author SanLi
- * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2019/11/2 14:50
+ * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on  2019/5/27 
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "登录日志", description = "系统登录日志VO")
-public class LoggerLoginVO extends SysLoggerLoginEntity {
+@ApiModel(value = "字典类型", description = "系统字典类型VO")
+public class DictTypeVO extends SysDictTypeEntity {
 }

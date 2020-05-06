@@ -18,8 +18,8 @@ package cn.smallbun.scaffold.manage.service;
 import cn.smallbun.scaffold.framework.mybatis.service.BaseService;
 import cn.smallbun.scaffold.manage.entity.SysRoleEntity;
 import cn.smallbun.scaffold.manage.enums.RoleStatus;
-import cn.smallbun.scaffold.manage.pojo.RoleAuthVO;
-import cn.smallbun.scaffold.manage.pojo.UpdateAuthorizeBO;
+import cn.smallbun.scaffold.manage.pojo.role.RoleAuthVO;
+import cn.smallbun.scaffold.manage.pojo.authority.UpdateAuthorizeBO;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -33,6 +33,7 @@ import java.util.List;
  * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on  2019-05-14
  */
 public interface ISysRoleService extends BaseService<SysRoleEntity> {
+
     /**
      * 保存角色和用户
      *

@@ -15,8 +15,8 @@
  */
 package cn.smallbun.scaffold.manage.service;
 
-import cn.smallbun.scaffold.manage.pojo.LoginDTO;
-import cn.smallbun.scaffold.manage.pojo.LoginResultDTO;
+import cn.smallbun.scaffold.manage.pojo.logger.LoginDTO;
+import cn.smallbun.scaffold.manage.pojo.logger.LoginResultDTO;
 import lombok.Data;
 import org.springframework.security.core.userdetails.UserDetailsService;
 

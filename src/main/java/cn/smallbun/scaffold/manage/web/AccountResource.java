@@ -22,9 +22,9 @@ import cn.smallbun.scaffold.framework.redis.RedisClient;
 import cn.smallbun.scaffold.framework.security.jwt.JwtFilter;
 import cn.smallbun.scaffold.framework.security.utils.SecurityUtils;
 import cn.smallbun.scaffold.framework.web.BaseResource;
-import cn.smallbun.scaffold.manage.pojo.CurrentUserDTO;
-import cn.smallbun.scaffold.manage.pojo.LoginDTO;
-import cn.smallbun.scaffold.manage.pojo.LoginResultDTO;
+import cn.smallbun.scaffold.manage.pojo.account.AccountInfoVO;
+import cn.smallbun.scaffold.manage.pojo.logger.LoginDTO;
+import cn.smallbun.scaffold.manage.pojo.logger.LoginResultDTO;
 import cn.smallbun.scaffold.manage.service.IAccountService;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.Api;
@@ -41,10 +41,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
 
+import static cn.smallbun.scaffold.common.constant.PathConstant.MANAGE_API_PATH;
 import static cn.smallbun.scaffold.framework.common.constant.SystemConstants.COLON;
 import static cn.smallbun.scaffold.framework.exception.enums.ExceptionStatus.EX000102;
 import static cn.smallbun.scaffold.framework.exception.enums.ExceptionStatus.EX900005;
-import static cn.smallbun.scaffold.common.constant.PathConstant.MANAGE_API_PATH;
 import static cn.smallbun.scaffold.manage.service.impl.AccountServiceImpl.CAPTCHA_CACHE_NAME;
 import static cn.smallbun.scaffold.manage.service.impl.AccountServiceImpl.SECRET_CACHE_NAME;
 
@@ -60,7 +60,7 @@ import static cn.smallbun.scaffold.manage.service.impl.AccountServiceImpl.SECRET
 @Log(module = AccountResource.API)
 @Validated
 @RestController
-@RequestMapping(MANAGE_API_PATH)
+@RequestMapping(MANAGE_API_PATH + "/account")
 @Api(tags = AccountResource.API)
 public class AccountResource extends BaseResource {
 
@@ -81,7 +81,7 @@ public class AccountResource extends BaseResource {
      */
     @ApiOperation(value = "账户认证", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperationSupport(order = 1)
-    @PostMapping(value = "account/login", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "login", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ApiRestResult<LoginResultDTO>> login(@RequestBody LoginDTO login) {
         // 验证码
         if (!validateCaptcha(login.getKey(), login.getCaptcha())) {
@@ -153,16 +153,24 @@ public class AccountResource extends BaseResource {
      */
     @ApiOperation(value = "账户信息", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperationSupport(order = 3)
-    @GetMapping("/account")
-    public ApiRestResult<CurrentUserDTO> getAccount() {
-        CurrentUserDTO user = new CurrentUserDTO();
-        if (SecurityUtils.getCurrentUserLogin().isPresent()) {
-            user.setName(SecurityUtils.getCurrentUserLogin().get());
+    @GetMapping
+    public ApiRestResult<AccountInfoVO> getAccount() {
+        AccountInfoVO user = new AccountInfoVO();
+        //当前用户
+        if (SecurityUtils.getCurrentUserLogin().isPresent()
+            && SecurityUtils.getCurrentUserId().isPresent()) {
+            //用户名
+            user.setUsername(SecurityUtils.getCurrentUserLogin().get());
+            //用户ID
+            user.setId(SecurityUtils.getCurrentUserId().get());
+            //默认头像
+            user.setAvatar(
+                "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png");
+            //权限
+            user.setAuthorize(SecurityUtils.getAuthorityInfo());
+            return new ApiRestResult<AccountInfoVO>().result(user).build();
         }
-        //默认头像
-        user.setAvatar(
-            "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png");
-        return new ApiRestResult<CurrentUserDTO>().result(user).build();
+        return new ApiRestResult<AccountInfoVO>().build();
     }
 
     /**

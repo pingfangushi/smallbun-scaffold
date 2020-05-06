@@ -17,7 +17,7 @@ package cn.smallbun.scaffold.manage.mapper;
 
 import cn.smallbun.scaffold.framework.mybatis.mapper.BaseMapper;
 import cn.smallbun.scaffold.manage.entity.SysRoleEntity;
-import cn.smallbun.scaffold.manage.pojo.RoleAuthBO;
+import cn.smallbun.scaffold.manage.pojo.role.RoleAuthBO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

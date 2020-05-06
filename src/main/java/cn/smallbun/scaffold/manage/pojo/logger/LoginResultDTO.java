@@ -13,20 +13,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package cn.smallbun.scaffold.manage.pojo;
+package cn.smallbun.scaffold.manage.pojo.logger;
 
-import cn.smallbun.scaffold.manage.entity.SysConfigEntity;
-import io.swagger.annotations.ApiModel;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
- * 系统配置VO
  * @author SanLi
- * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on  2019/5/27 
+ * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2019/10/27 15:26
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "系统参数", description = "系统配置VO")
-public class ConfigVO extends SysConfigEntity {
+public class LoginResultDTO implements Serializable {
+    /**
+     * 状态
+     */
+    private String       status;
+    /**
+     * 权限
+     */
+    private List<String> currentAuthority;
+    /**
+     * token
+     */
+    private String       token;
 }

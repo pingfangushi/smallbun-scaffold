@@ -27,7 +27,7 @@ import cn.smallbun.scaffold.common.constant.PathConstant;
 import cn.smallbun.scaffold.manage.entity.SysDictItemEntity;
 import cn.smallbun.scaffold.manage.entity.SysGroupEntity;
 import cn.smallbun.scaffold.manage.enums.GroupStatus;
-import cn.smallbun.scaffold.manage.pojo.GroupVO;
+import cn.smallbun.scaffold.manage.pojo.group.GroupVO;
 import cn.smallbun.scaffold.manage.service.ISysGroupService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;

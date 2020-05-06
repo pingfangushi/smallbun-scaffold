@@ -13,24 +13,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package cn.smallbun.scaffold.manage.pojo;
+package cn.smallbun.scaffold.manage.pojo.authority;
 
-import cn.smallbun.scaffold.manage.entity.SysAuthorizeItemEntity;
+import cn.smallbun.scaffold.manage.entity.SysAuthorityTypeEntity;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
- * <p>
- * 权限项参数
- * </p>
- *
- * @author SanLi Automatic generated
- * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on  2019-11-09
+ * 系统角色VO
+ * @author SanLi
+ * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on  2019/5/27
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@ApiModel(value = "权限项参数", description = "系统权限项VO")
-public class AuthorizeItemVO extends SysAuthorizeItemEntity {
-
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+@ApiModel(value = "系统权限参数", description = "系统权限VO")
+public class AuthorityVO extends SysAuthorityTypeEntity {
 }

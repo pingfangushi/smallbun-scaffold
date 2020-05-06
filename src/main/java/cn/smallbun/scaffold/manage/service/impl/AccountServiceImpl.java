@@ -17,23 +17,15 @@ package cn.smallbun.scaffold.manage.service.impl;
 
 import cn.smallbun.scaffold.framework.common.toolkit.IpUtil;
 import cn.smallbun.scaffold.framework.common.toolkit.RsaUtil;
-import cn.smallbun.scaffold.framework.mybatis.domain.IdEntity;
 import cn.smallbun.scaffold.framework.redis.RedisClient;
-import cn.smallbun.scaffold.framework.security.authority.AuthorityInfo;
 import cn.smallbun.scaffold.framework.security.domain.User;
-import cn.smallbun.scaffold.framework.security.exception.HaveNotAuthorityException;
 import cn.smallbun.scaffold.framework.security.jwt.TokenProvider;
-import cn.smallbun.scaffold.framework.security.utils.SecurityUtils;
-import cn.smallbun.scaffold.manage.entity.SysAuthorizeItemEntity;
 import cn.smallbun.scaffold.manage.entity.SysLoggerLoginEntity;
-import cn.smallbun.scaffold.manage.entity.SysRoleEntity;
 import cn.smallbun.scaffold.manage.entity.SysUserEntity;
-import cn.smallbun.scaffold.manage.enums.AuthorizeType;
 import cn.smallbun.scaffold.manage.enums.UserStatus;
-import cn.smallbun.scaffold.manage.pojo.LoginDTO;
-import cn.smallbun.scaffold.manage.pojo.LoginResultDTO;
+import cn.smallbun.scaffold.manage.pojo.logger.LoginDTO;
+import cn.smallbun.scaffold.manage.pojo.logger.LoginResultDTO;
 import cn.smallbun.scaffold.manage.service.*;
-import com.alibaba.fastjson.JSON;
 import com.google.code.kaptcha.Producer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,12 +37,10 @@ import org.springframework.security.authentication.event.AbstractAuthenticationF
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -64,15 +54,12 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static cn.smallbun.scaffold.framework.common.address.Address.getCityInfoByDb;
-import static cn.smallbun.scaffold.framework.common.constant.SystemConstants.COLON;
-import static cn.smallbun.scaffold.framework.common.constant.SystemConstants.PRIVATE_KEY;
+import static cn.smallbun.scaffold.framework.common.constant.SystemConstants.*;
 import static cn.smallbun.scaffold.framework.common.result.ApiRestResult.SUCCESS;
 import static cn.smallbun.scaffold.framework.common.toolkit.UserAgentUtil.getUserAgent;
 import static cn.smallbun.scaffold.framework.security.enums.Security.*;
-import static javax.crypto.Cipher.PUBLIC_KEY;
 
 /**
  * 账户业务逻辑实现类

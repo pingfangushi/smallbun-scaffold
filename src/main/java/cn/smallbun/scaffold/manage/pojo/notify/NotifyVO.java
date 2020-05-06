@@ -13,20 +13,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package cn.smallbun.scaffold.manage.pojo;
+package cn.smallbun.scaffold.manage.pojo.notify;
 
-import cn.smallbun.scaffold.manage.entity.SysDictItemEntity;
+import cn.smallbun.scaffold.manage.entity.SysNotifyEntity;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 系统字典数据VO
+ *系统通知通告VO
  * @author SanLi
- * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on  2019/5/27 
+ * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on  2019/5/27
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "字典数据", description = "系统字典数据VO")
-public class DictValueVO extends SysDictItemEntity {
+@ApiModel(value = "通知通告", description = "系统通知通告VO")
+public class NotifyVO extends SysNotifyEntity {
 }

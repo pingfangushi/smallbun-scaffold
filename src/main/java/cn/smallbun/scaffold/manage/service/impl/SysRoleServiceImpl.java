@@ -23,9 +23,9 @@ import cn.smallbun.scaffold.manage.enums.AuthorizeStatus;
 import cn.smallbun.scaffold.manage.enums.AuthorizeType;
 import cn.smallbun.scaffold.manage.enums.RoleStatus;
 import cn.smallbun.scaffold.manage.mapper.SysRoleMapper;
-import cn.smallbun.scaffold.manage.pojo.RoleAuthBO;
-import cn.smallbun.scaffold.manage.pojo.RoleAuthVO;
-import cn.smallbun.scaffold.manage.pojo.UpdateAuthorizeBO;
+import cn.smallbun.scaffold.manage.pojo.role.RoleAuthBO;
+import cn.smallbun.scaffold.manage.pojo.role.RoleAuthVO;
+import cn.smallbun.scaffold.manage.pojo.authority.UpdateAuthorizeBO;
 import cn.smallbun.scaffold.manage.service.ISysAuthorityTypeService;
 import cn.smallbun.scaffold.manage.service.ISysRoleService;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
@@ -115,7 +115,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRoleEn
 
     /**
      * getItems
-     * @param routes {@link List<  SysAuthorizeItemEntity  >}
+     * @param routes {@link List<SysAuthorizeItemEntity>}
      * @param bos {@link List<RoleAuthBO>}
      * @return {@link List<RoleAuthVO.RoleAuthItem>}
      */
